@@ -20,6 +20,7 @@ const relationshipRoutes = require('./routes/relationshipRoutes');
 const memoryRoutes = require('./routes/memoryRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const aiRoutes = require('./routes/aiRoutes');
+const gedcomRoutes = require('./routes/gedcomRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
 // Mount Routes
@@ -30,6 +31,7 @@ app.use('/api/relationships', relationshipRoutes);
 app.use('/api/memories', memoryRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/gedcom', gedcomRoutes);
 
 // Health check route
 app.get('/', (req, res) => {

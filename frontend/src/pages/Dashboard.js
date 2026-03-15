@@ -12,6 +12,7 @@ import FamilyTree from '../components/FamilyTree';
 import SearchBar from '../components/SearchBar';
 import FamilyInvite from '../components/FamilyInvite';
 import FamilyTimeline from '../components/FamilyTimeline';
+import GedcomImport from '../components/GedcomImport';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -192,10 +193,12 @@ const Dashboard = () => {
       </div>
 
       {selectedFamily && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          
-          {/* --- Add Family Member Section --- */}
-          <section className="bg-white p-5 rounded-xl shadow border border-gray-100">
+        <>
+          <GedcomImport familyId={selectedFamily} onImportSuccess={() => fetchTree(selectedFamily)} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            
+            {/* --- Add Family Member Section --- */}
+            <section className="bg-white p-5 rounded-xl shadow border border-gray-100">
             <h3 className="text-lg font-semibold mb-3 border-b pb-2">Add Family Member</h3>
             <form onSubmit={handleCreatePerson} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <input placeholder="First Name" value={personData.first_name} onChange={e => setPersonData({...personData, first_name: e.target.value})} className="px-3 py-2 border rounded" required />
@@ -223,7 +226,8 @@ const Dashboard = () => {
             </form>
           </section>
 
-        </div>
+          </div>
+        </>
       )}
 
       {/* --- Visualizations (Tree & Timeline) --- */}
