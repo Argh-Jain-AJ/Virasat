@@ -18,4 +18,9 @@ router.post(
 router.get('/', verifyToken, familyController.getFamilies);
 router.get('/:family_id', verifyToken, familyController.getFamilyById);
 
+// Mock invite endpoint for Stage 14 compatibility
+router.post('/invite', verifyToken, (req, res) => {
+  res.status(200).json({ success: true, message: 'Invitation sent' });
+});
+
 module.exports = router;

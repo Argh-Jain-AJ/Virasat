@@ -21,6 +21,7 @@ const memoryRoutes = require('./routes/memoryRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const aiRoutes = require('./routes/aiRoutes');
 const gedcomRoutes = require('./routes/gedcomRoutes');
+const familyTreeRoutes = require('./routes/familyTreeRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
 // Mount Routes
@@ -32,6 +33,7 @@ app.use('/api/memories', memoryRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/gedcom', gedcomRoutes);
+app.use('/api/family-tree', familyTreeRoutes);
 
 // Health check route
 app.get('/', (req, res) => {

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { parseGedcom } = require('../utils/gedcomParser');
+const { buildFamilyTreeData } = require('../utils/treeBuilder');
 const pool = require('../config/db');
 
 // We use direct pool queries here to handle bulk inserts, checking duplicates, and mappings efficiently.
@@ -90,7 +91,10 @@ const importGedcom = async (req, res, next) => {
     // Cleanup file
     fs.unlinkSync(req.file.path);
 
-    res.status(200).json({ success: true, message: 'GEDCOM file imported successfully', processed: persons.length });
+    // Return exact nodes and edges required by frontend
+    const treeData = await buildFamilyTreeData(family_id);
+
+    res.status(200).json(treeData);
   } catch (error) {
     await client.query('ROLLBACK');
     if (req.file) {

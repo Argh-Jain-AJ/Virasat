@@ -15,7 +15,7 @@ const createFamily = async (req, res) => {
     }
 
     const newFamily = await familyService.createFamily(family_name, created_by);
-    res.status(201).json(newFamily);
+    res.status(201).json({ success: true, data: newFamily });
   } catch (error) {
     console.error('Error creating family:', error);
     res.status(500).json({ message: 'Failed to create family' });
@@ -30,7 +30,7 @@ const getFamilies = async (req, res) => {
   try {
     const user_id = req.user.id;
     const families = await familyService.getFamiliesByUser(user_id);
-    res.status(200).json(families);
+    res.status(200).json({ success: true, data: families });
   } catch (error) {
     console.error('Error getting families:', error);
     res.status(500).json({ message: 'Failed to retrieve families' });
@@ -50,7 +50,7 @@ const getFamilyById = async (req, res) => {
       return res.status(404).json({ message: 'Family not found' });
     }
     
-    res.status(200).json(family);
+    res.status(200).json({ success: true, data: family });
   } catch (error) {
     console.error('Error getting family by ID:', error);
     res.status(500).json({ message: 'Failed to retrieve family' });
