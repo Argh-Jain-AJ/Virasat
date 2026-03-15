@@ -3,16 +3,18 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import './App.css'; // Optional: keep or remove depending on your styles
+import PersonProfile from './pages/PersonProfile';
+import './App.css'; 
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className="App bg-gray-100 min-h-screen">
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/person/:id" element={<PersonProfile />} />
           
           {/* Default fallback route redirecting to login */}
           <Route path="*" element={<Navigate to="/login" replace />} />

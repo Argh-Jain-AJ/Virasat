@@ -2,9 +2,20 @@ const express = require('express');
 const router = express.Router();
 const personController = require('../controllers/personController');
 const { verifyToken } = require('../middleware/authMiddleware');
+const { body } = require('express-validator');
+const { validateRequest } = require('../middleware/validationMiddleware');
 
 // Define person routes (protected)
-router.post('/', verifyToken, personController.addPerson);
+router.post(
+  '/', 
+  verifyToken, 
+  [
+    body('first_name').notEmpty().withMessage('First name is required'),
+    body('family_id').notEmpty().withMessage('Family ID is required')
+  ],
+  validateRequest,
+  personController.addPerson
+);
 router.get('/family/:family_id', verifyToken, personController.getPersonsByFamily);
 router.get('/:person_id', verifyToken, personController.getPersonById);
 router.put('/:person_id', verifyToken, personController.updatePerson);

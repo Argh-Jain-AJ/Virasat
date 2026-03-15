@@ -18,6 +18,9 @@ const familyRoutes = require('./routes/familyRoutes');
 const personRoutes = require('./routes/personRoutes');
 const relationshipRoutes = require('./routes/relationshipRoutes');
 const memoryRoutes = require('./routes/memoryRoutes');
+const eventRoutes = require('./routes/eventRoutes');
+const aiRoutes = require('./routes/aiRoutes');
+const errorHandler = require('./middleware/errorHandler');
 
 // Mount Routes
 app.use('/api/auth', authRoutes);
@@ -25,11 +28,16 @@ app.use('/api/families', familyRoutes);
 app.use('/api/persons', personRoutes);
 app.use('/api/relationships', relationshipRoutes);
 app.use('/api/memories', memoryRoutes);
+app.use('/api/events', eventRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Health check route
 app.get('/', (req, res) => {
   res.send('Family Tree API running');
 });
+
+// Error Handling Middleware (must be registered after all routes)
+app.use(errorHandler);
 
 // Port configuration
 const PORT = process.env.PORT || 5001;

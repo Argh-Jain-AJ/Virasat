@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: family_user
+      POSTGRES_PASSWORD: family_password
+      POSTGRES_DB: family_tree_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - family_net
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5001:5001"
+    environment:
+      PORT: 5001
+      DB_HOST: database
+      DB_USER: family_user
+      DB_PASSWORD: family_password
+      DB_NAME: family_tree_db
+      JWT_SECRET: your_super_secret_jwt_key
+    depends_on:
+      - database
+    networks:
+      - family_net
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - family_net
+
+volumes:
+  pgdata:
+
+networks:
+  family_net:
+    driver: bridge
