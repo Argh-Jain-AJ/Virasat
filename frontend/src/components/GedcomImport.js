@@ -39,12 +39,12 @@ const GedcomImport = ({ familyId, onImportSuccess }) => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setMessage(`GEDCOM file imported successfully. Processed ${response.data.processed} records.`);
+      setMessage(`GEDCOM file imported successfully.`);
       setFile(null);
       // reset file input
       document.getElementById('gedcom-upload').value = null;
       if (onImportSuccess) {
-        onImportSuccess();
+        onImportSuccess(response.data);
       }
     } catch (err) {
       console.error(err);

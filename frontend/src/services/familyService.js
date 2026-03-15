@@ -6,7 +6,7 @@ import api from '../api/api';
  */
 export const createFamily = async (data) => {
   const response = await api.post('/families', data);
-  return response.data;
+  return response.data.success !== undefined ? response.data.data : response.data;
 };
 
 /**
@@ -14,7 +14,7 @@ export const createFamily = async (data) => {
  */
 export const getFamilies = async () => {
   const response = await api.get('/families');
-  return response.data;
+  return response.data.success !== undefined ? response.data.data : response.data;
 };
 
 /**
