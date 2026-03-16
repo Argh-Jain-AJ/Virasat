@@ -146,8 +146,22 @@ const FamilyTreePage = () => {
         <section className="bg-white p-5 rounded-xl shadow border border-gray-100">
           <h3 className="text-lg font-semibold mb-3 border-b pb-2">Add Relationship</h3>
           <form onSubmit={handleCreateRelationship} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <input placeholder="Person 1 ID" value={relationshipData.person1_id} onChange={e => setRelationshipData({...relationshipData, person1_id: e.target.value})} className="px-3 py-2 border rounded" required />
-            <input placeholder="Person 2 ID" value={relationshipData.person2_id} onChange={e => setRelationshipData({...relationshipData, person2_id: e.target.value})} className="px-3 py-2 border rounded" required />
+            <select value={relationshipData.person1_id} onChange={e => setRelationshipData({...relationshipData, person1_id: e.target.value})} className="px-3 py-2 border rounded bg-white" required>
+              <option value="">-- Select Person 1 --</option>
+              {treeData.nodes.filter(n => n.data?.person).map(n => (
+                <option key={n.data.person.id} value={n.data.person.id}>
+                  {n.data.person.first_name} {n.data.person.last_name || ''}
+                </option>
+              ))}
+            </select>
+            <select value={relationshipData.person2_id} onChange={e => setRelationshipData({...relationshipData, person2_id: e.target.value})} className="px-3 py-2 border rounded bg-white" required>
+              <option value="">-- Select Person 2 --</option>
+              {treeData.nodes.filter(n => n.data?.person).map(n => (
+                <option key={n.data.person.id} value={n.data.person.id}>
+                  {n.data.person.first_name} {n.data.person.last_name || ''}
+                </option>
+              ))}
+            </select>
             <select value={relationshipData.relationship_type} onChange={e => setRelationshipData({...relationshipData, relationship_type: e.target.value})} className="col-span-1 sm:col-span-2 px-3 py-2 border rounded bg-white" required>
                 <option value="">-- Relationship Type --</option>
                 <option value="parent">Parent</option>

@@ -1,6 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const yaml = require('yamljs');
+const swaggerUi = require('swagger-ui-express');
+const path = require('path');
 
 
 // Import database pool
@@ -11,6 +14,10 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Swagger Setup
+const swaggerDocument = yaml.load(path.join(__dirname, 'swagger.yaml'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Import Routes
 const authRoutes = require('./routes/authRoutes');
