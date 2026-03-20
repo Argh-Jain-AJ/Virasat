@@ -44,3 +44,35 @@ export const getFamilyTree = async (familyId) => {
   const response = await api.get(`/family-tree/${familyId}`);
   return response.data;
 };
+
+// --- Update & Delete Commands ---
+
+export const updateFamily = async (familyId, data) => {
+  const response = await api.put(`/families/${familyId}`, data);
+  return response.data;
+};
+
+export const deleteFamily = async (familyId) => {
+  const response = await api.delete(`/families/${familyId}`);
+  return response.data;
+};
+
+export const updatePerson = async (personId, data) => {
+  const response = await api.put(`/persons/${personId}`, data);
+  return response.data;
+};
+
+export const deletePerson = async (personId) => {
+  const response = await api.delete(`/persons/${personId}`);
+  return response.data;
+};
+
+export const updateRelationship = async (relationshipId, data) => {
+  const response = await api.put(`/relationships/${relationshipId}`, data);
+  return response.data;
+};
+
+export const deleteRelationship = async (relationshipId) => {
+  const response = await api.delete(`/relationships/${relationshipId}`);
+  return response.data;
+};

@@ -2,53 +2,59 @@ import React from 'react';
 import { Handle, Position } from 'reactflow';
 
 const PersonNode = ({ data }) => {
-  // data contains the person info passed from FamilyTree
-  const { first_name, last_name, gender, birth_date, photo_url } = data.person || {};
+  const { first_name, last_name, gender, birth_date, death_date, photo_url } = data.person || {};
   
-  // Parse birth year
   const birthYear = birth_date ? new Date(birth_date).getFullYear() : 'Unknown';
+  const deathYear = death_date ? new Date(death_date).getFullYear() : '';
+  const lifespan = deathYear ? `${birthYear} - ${deathYear}` : `b. ${birthYear}`;
   
-  // Fallback avatar based on gender
-  const avatarBg = gender?.toLowerCase() === 'female' ? '#fbcfe8' : '#bfdbfe';
+  // Dynamic gradients based on gender semantics for a premium aesthetic
+  const gradient = gender?.toLowerCase() === 'female' 
+    ? 'bg-gradient-to-br from-pink-400 to-rose-500'
+    : gender?.toLowerCase() === 'male'
+      ? 'bg-gradient-to-br from-blue-400 to-indigo-500'
+      : 'bg-gradient-to-br from-emerald-400 to-teal-500';
+
+  const avatarShadow = 'shadow-[0_4px_10px_rgba(0,0,0,0.5)]';
+  const isHighlighted = data.highlighted;
+  
+  const highlightClass = isHighlighted 
+    ? 'border-4 border-rose-500 shadow-[0_0_40px_rgba(225,29,72,1)] scale-110 z-50 ring-4 ring-rose-500/50' 
+    : 'border border-white/20 hover:border-white/50 hover:shadow-2xl';
 
   return (
     <div 
-      className="person-node shadow-md bg-white border border-gray-200 rounded-lg p-3 w-48 text-center"
-      style={{
-        padding: '10px',
-        border: '1px solid #ddd',
-        borderRadius: '8px',
-        background: '#fff',
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-        width: '180px'
-      }}
+      className={`group relative flex flex-col items-center bg-black/80 backdrop-blur-xl rounded-2xl p-5 w-56 text-center transition-all duration-300 hover:scale-[1.03] overflow-hidden ${highlightClass}`}
     >
-      <Handle type="target" position={Position.Top} style={{ background: '#555' }} />
+      {/* Decorative top bar */}
+      <div className={`absolute top-0 left-0 w-full h-2 ${gradient} opacity-90`} />
+
+      <Handle type="target" position={Position.Top} className="!w-3 !h-3 !border-2 !border-white !bg-gray-400 !-mt-1" />
       
       <div 
-        style={{ 
-          width: '50px', 
-          height: '50px', 
-          borderRadius: '50%', 
-          margin: '0 auto 10px',
-          background: photo_url ? `url(${photo_url}) center/cover` : avatarBg,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '20px',
-          fontWeight: 'bold',
-          color: '#555'
-        }}
+        className={`w-16 h-16 rounded-full mb-3 flex items-center justify-center text-xl font-bold text-white tracking-widest ${!photo_url ? gradient : ''} ${avatarShadow} border-2 border-white`}
+        style={photo_url ? { background: `url(${photo_url}) center/cover` } : {}}
       >
         {!photo_url && (first_name ? first_name[0].toUpperCase() : '?')}
       </div>
       
-      <div style={{ fontWeight: 'bold' }}>{first_name} {last_name}</div>
-      <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
-        {birthYear} • {gender || 'Unspecified'}
+      <div className="font-extrabold text-white text-lg tracking-tight leading-tight">
+        {first_name} <span className="text-gray-300 font-semibold">{last_name}</span>
       </div>
       
-      <Handle type="source" position={Position.Bottom} style={{ background: '#555' }} />
+      <div className="text-xs font-semibold text-gray-400 uppercase tracking-widest mt-1.5 flex items-center justify-center gap-1.5">
+        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(225,29,72,0.8)]"></span>
+        {lifespan}
+        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(225,29,72,0.8)]"></span>
+      </div>
+      
+      {gender && (
+        <div className="mt-3 px-3 py-1 rounded-full bg-white/10 text-[10px] font-bold text-gray-300 uppercase tracking-wider border border-white/10">
+          {gender}
+        </div>
+      )}
+
+      <Handle type="source" position={Position.Bottom} className="!w-3 !h-3 !border-2 !border-white !bg-gray-400 !-mb-1" />
     </div>
   );
 };
