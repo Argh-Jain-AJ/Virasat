@@ -1,30 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import api from '../api/api';
 
 const GedcomImport = ({ familyId, onImportSuccess }) => {
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [dragging, setDragging] = useState(false);
+  const inputRef = useRef();
 
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-      setMessage('');
-      setError('');
+  const processFile = (f) => {
+    if (!f) return;
+    if (!f.name.endsWith('.ged')) {
+      setError('Please upload a valid .ged GEDCOM file.');
+      return;
     }
+    setFile(f);
+    setMessage('');
+    setError('');
   };
+
+  const handleDrop = useCallback((e) => {
+    e.preventDefault();
+    setDragging(false);
+    const dropped = e.dataTransfer.files[0];
+    processFile(dropped);
+  }, []);
+
+  const handleDragOver = (e) => { e.preventDefault(); setDragging(true); };
+  const handleDragLeave = () => setDragging(false);
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (!file) {
-      setError('Please select a GEDCOM file.');
-      return;
-    }
-    if (!familyId) {
-       setError('Please select a family context first.');
-       return;
-    }
+    if (!file) { setError('Please select or drop a GEDCOM file.'); return; }
+    if (!familyId) { setError('No family context selected.'); return; }
 
     const formData = new FormData();
     formData.append('file', file);
@@ -34,55 +44,113 @@ const GedcomImport = ({ familyId, onImportSuccess }) => {
       setUploading(true);
       setError('');
       setMessage('');
+      setProgress(10);
+
       const response = await api.post('/gedcom/import', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+        headers: { 'Content-Type': 'multipart/form-data' },
+        onUploadProgress: (evt) => {
+          if (evt.total) setProgress(Math.round((evt.loaded / evt.total) * 80));
         },
       });
-      setMessage(`GEDCOM file imported successfully.`);
+
+      setProgress(100);
+      setMessage('GEDCOM imported successfully! Tree has been updated.');
       setFile(null);
-      // reset file input
-      document.getElementById('gedcom-upload').value = null;
-      if (onImportSuccess) {
-        onImportSuccess(response.data);
-      }
+      if (inputRef.current) inputRef.current.value = '';
+      if (onImportSuccess) onImportSuccess(response.data);
     } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || 'Failed to upload GEDCOM file.');
+      setError(err.response?.data?.message || 'Import failed. Please check your GEDCOM file.');
+      setProgress(0);
     } finally {
       setUploading(false);
     }
   };
 
   return (
-    <div className="bg-white p-4 border rounded shadow-sm mb-4">
-      <h3 className="text-md font-semibold text-gray-800 border-b pb-2 mb-3">Import GEDCOM File</h3>
+    <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl">
+      <h3 className="text-lg font-bold text-white mb-5 flex items-center gap-2">
+        📂 Import GEDCOM
+        <span className="flex-1 h-px bg-gradient-to-r from-rose-500/40 to-transparent ml-3" />
+      </h3>
+
       <form onSubmit={handleUpload}>
-        <div className="flex flex-col space-y-3">
+        {/* Drop zone */}
+        <div
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onClick={() => !file && inputRef.current?.click()}
+          className={`relative flex flex-col items-center justify-center gap-3 border-2 border-dashed rounded-2xl 
+            py-10 px-6 cursor-pointer transition-all duration-300 text-center
+            ${dragging
+              ? 'border-rose-500 bg-rose-500/10 scale-[1.01] shadow-[0_0_30px_rgba(225,29,72,0.2)]'
+              : file
+                ? 'border-emerald-500/50 bg-emerald-500/5'
+                : 'border-white/15 bg-white/[0.02] hover:border-rose-500/40 hover:bg-white/5'
+            }`}
+        >
           <input
+            ref={inputRef}
             id="gedcom-upload"
             type="file"
             accept=".ged"
-            onChange={handleFileChange}
-            className="text-sm text-gray-700
-              file:mr-4 file:py-2 file:px-4
-              file:rounded file:border-0
-              file:text-sm file:font-semibold
-              file:bg-indigo-50 file:text-indigo-700
-              hover:file:bg-indigo-100"
+            className="hidden"
+            onChange={(e) => processFile(e.target.files?.[0])}
           />
-          <button
-            type="submit"
-            disabled={uploading || !file || !familyId}
-            className={`self-start px-4 py-2 text-white font-medium rounded shadow transition ${
-              uploading || !file || !familyId ? 'bg-indigo-300 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
-            }`}
-          >
-            {uploading ? 'Importing...' : 'Upload & Import'}
-          </button>
+
+          {file ? (
+            <>
+              <div className="text-4xl">📄</div>
+              <p className="text-emerald-400 font-bold text-sm">{file.name}</p>
+              <p className="text-gray-500 text-xs">{(file.size / 1024).toFixed(1)} KB — Ready to import</p>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); setFile(null); setProgress(0); setMessage(''); }}
+                className="text-xs text-gray-500 hover:text-rose-400 transition-colors mt-1"
+              >✕ Remove</button>
+            </>
+          ) : (
+            <>
+              <div className="text-4xl opacity-40">⬆️</div>
+              <p className="text-white font-semibold text-sm">
+                {dragging ? 'Drop it here!' : 'Drag & drop GEDCOM file or click to upload'}
+              </p>
+              <p className="text-gray-600 text-xs">Accepts .ged files</p>
+            </>
+          )}
         </div>
-        {message && <div className="mt-3 p-2 bg-green-50 text-green-700 text-sm rounded">{message}</div>}
-        {error && <div className="mt-3 p-2 bg-red-50 text-red-700 text-sm rounded">{error}</div>}
+
+        {/* Progress bar */}
+        {uploading && (
+          <div className="mt-4 w-full h-2 bg-white/5 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-rose-500 to-rose-400 rounded-full transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        )}
+
+        {/* Messages */}
+        {message && (
+          <div className="mt-3 p-3 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm rounded-xl flex items-center gap-2">
+            ✅ {message}
+          </div>
+        )}
+        {error && (
+          <div className="mt-3 p-3 bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-xl flex items-center gap-2">
+            ⚠️ {error}
+          </div>
+        )}
+
+        <button
+          type="submit"
+          disabled={uploading || !file || !familyId}
+          className="mt-4 w-full py-3 bg-white/5 border border-white/15 text-white font-bold uppercase tracking-widest text-xs rounded-xl
+            hover:bg-rose-500/20 hover:border-rose-500/40 hover:text-rose-300 transition-all duration-300
+            disabled:opacity-30 disabled:cursor-not-allowed"
+        >
+          {uploading ? `Importing… ${progress}%` : '⬆️ Import GEDCOM'}
+        </button>
       </form>
     </div>
   );

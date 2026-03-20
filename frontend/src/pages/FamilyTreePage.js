@@ -1,253 +1,441 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  createPerson, 
-  createRelationship, 
-  getFamilyTree 
+import {
+  createPerson,
+  createRelationship,
+  getFamilyTree
 } from '../services/familyService';
 import FamilyTree from '../components/FamilyTree';
 import GlobalSearchBar from '../components/SearchBar';
-import FamilyInvite from '../components/FamilyInvite';
-import FamilyTimeline from '../components/FamilyTimeline';
+import CollaborationPanel from '../components/CollaborationPanel';
+import ActivityFeed from '../components/ActivityFeed';
+import SmartSuggestions from '../components/SmartSuggestions';
 import GedcomImport from '../components/GedcomImport';
 import UpcomingReminders from '../components/UpcomingReminders';
 import bgImage from '../assets/hero-bg.png';
 
+// ─────────────────────────────────────────────
+// DESIGN HELPERS
+// ─────────────────────────────────────────────
+const Card = ({ children, className = '', accent = false }) => (
+  <div className={`bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl relative overflow-hidden hover:border-white/15 transition-all duration-300 ${className}`}>
+    {accent && <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-rose-500/50 to-transparent" />}
+    {children}
+  </div>
+);
+
+const CardHeader = ({ icon, title, sub }) => (
+  <div className="flex items-center gap-3 mb-5 pb-4 border-b border-white/10">
+    <span className="text-xl">{icon}</span>
+    <div>
+      <h3 className="text-base font-bold text-white tracking-tight">{title}</h3>
+      {sub && <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-0.5">{sub}</p>}
+    </div>
+  </div>
+);
+
+// ─────────────────────────────────────────────
+// WORKSPACE SUMMARY
+// ─────────────────────────────────────────────
+const WorkspaceSummary = ({ nodes, edges }) => {
+  const totalMembers = nodes.filter(n => n.data?.person).length;
+  const totalRelationships = edges.length;
+
+  const depth = useMemo(() => {
+    if (!nodes.length) return 0;
+    const parentMap = {};
+    edges.forEach(e => {
+      const t = e.data?.relationship_type;
+      if (t === 'parent' || t === 'child') parentMap[e.target] = e.source;
+    });
+    let maxDepth = 1;
+    nodes.forEach(n => {
+      let d = 1, cur = n.id;
+      while (parentMap[cur]) { d++; cur = parentMap[cur]; if (d > 20) break; }
+      if (d > maxDepth) maxDepth = d;
+    });
+    return maxDepth;
+  }, [nodes, edges]);
+
+  const stats = [
+    { icon: '👤', label: 'Members', value: totalMembers, color: 'text-blue-400', tip: 'Total people in this tree' },
+    { icon: '🔗', label: 'Relationships', value: totalRelationships, color: 'text-rose-400', tip: 'Total linked connections' },
+    { icon: '🌳', label: 'Generations', value: depth, color: 'text-emerald-400', tip: 'Estimated tree depth' },
+    { icon: '⏱️', label: 'Session', value: 'Live', color: 'text-amber-400', tip: 'Workspace is active' },
+  ];
+
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+      {stats.map(s => (
+        <div key={s.label} className="group relative bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-5 text-center hover:border-rose-500/20 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.5)] transition-all duration-300 cursor-default">
+          <div className="text-2xl mb-1 group-hover:scale-110 transition-transform duration-300">{s.icon}</div>
+          <div className={`text-3xl font-black ${s.color}`}>{s.value}</div>
+          <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">{s.label}</div>
+          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-black border border-white/10 text-gray-300 text-[10px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-20">{s.tip}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────
+// NODE MINI-PREVIEW SIDE PANEL
+// ─────────────────────────────────────────────
+const NodePreviewPanel = ({ person, onViewProfile, onClose }) => {
+  if (!person) return null;
+  const name = `${person.first_name} ${person.last_name || ''}`.trim();
+  const initial = name[0]?.toUpperCase() || '?';
+
+  return (
+    <div
+      className="absolute top-4 left-4 z-30 w-64 bg-[#0f0f0f]/95 backdrop-blur-2xl border border-white/15 rounded-2xl shadow-2xl overflow-hidden"
+      style={{ animation: 'slideInLeft 0.25s ease' }}
+    >
+      <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-rose-500/60 to-transparent" />
+      <div className="p-5">
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-rose-500/20 border-2 border-rose-500/40 flex items-center justify-center text-rose-400 text-xl font-black shadow-[0_0_16px_rgba(225,29,72,0.2)]">
+              {initial}
+            </div>
+            <div>
+              <p className="text-white font-bold text-sm">{name}</p>
+              {person.gender && <p className="text-gray-500 text-xs">{person.gender}</p>}
+            </div>
+          </div>
+          <button onClick={onClose} className="text-gray-600 hover:text-white transition-colors text-sm">✕</button>
+        </div>
+
+        {(person.birth_place || person.birth_date || person.occupation) && (
+          <div className="space-y-1.5 mb-4">
+            {person.birth_date && <p className="text-gray-500 text-xs">🎂 {new Date(person.birth_date).getFullYear()}</p>}
+            {person.birth_place && <p className="text-gray-500 text-xs">📍 {person.birth_place}</p>}
+            {person.occupation && <p className="text-gray-500 text-xs">💼 {person.occupation}</p>}
+          </div>
+        )}
+
+        <button
+          onClick={() => onViewProfile(person.id)}
+          className="w-full py-2.5 bg-rose-500/10 border border-rose-500/30 text-rose-400 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-rose-500 hover:text-white transition-all duration-200"
+        >
+          View Full Profile →
+        </button>
+      </div>
+      <style>{`@keyframes slideInLeft { from { opacity:0; transform:translateX(-16px); } to { opacity:1; transform:none; } }`}</style>
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────
+// SMART MEMBER FORM
+// ─────────────────────────────────────────────
+const SmartMemberForm = ({ onSubmit, existingNodes }) => {
+  const [form, setForm] = useState({ first_name: '', last_name: '', gender: '', birth_place: '' });
+  const [submitting, setSubmitting] = useState(false);
+
+  const duplicate = useMemo(() => {
+    if (!form.first_name) return null;
+    return existingNodes.find(n => {
+      const p = n.data?.person;
+      if (!p) return false;
+      return `${p.first_name}`.toLowerCase().includes(form.first_name.toLowerCase());
+    });
+  }, [form.first_name, existingNodes]);
+
+  const initial = (f, l) => `${f?.[0] || ''}${l?.[0] || ''}`.toUpperCase() || '?';
+  const genderIcon = g => g?.toLowerCase() === 'male' ? '👨' : g?.toLowerCase() === 'female' ? '👩' : '👤';
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    await onSubmit(form);
+    setForm({ first_name: '', last_name: '', gender: '', birth_place: '' });
+    setSubmitting(false);
+  };
+
+  const inputCls = "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-rose-500 focus:bg-white/8 transition-all text-sm";
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-5 gap-6 items-start">
+      <div className="md:col-span-3 space-y-4">
+        <div className="grid grid-cols-2 gap-3">
+          <input placeholder="First Name *" value={form.first_name} onChange={e => setForm({ ...form, first_name: e.target.value })} className={inputCls} required />
+          <input placeholder="Last Name" value={form.last_name} onChange={e => setForm({ ...form, last_name: e.target.value })} className={inputCls} />
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <select value={form.gender} onChange={e => setForm({ ...form, gender: e.target.value })} className={`${inputCls} cursor-pointer`}>
+            <option value="">Gender</option>
+            <option value="Male">👨 Male</option>
+            <option value="Female">👩 Female</option>
+            <option value="Other">⚧ Other</option>
+          </select>
+          <input placeholder="Birth Place" value={form.birth_place} onChange={e => setForm({ ...form, birth_place: e.target.value })} className={inputCls} />
+        </div>
+        {duplicate && (
+          <div className="flex items-center gap-2 p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl text-amber-400 text-xs font-medium">
+            ⚠️ Possible duplicate: <span className="font-bold">{duplicate.data.person.first_name} {duplicate.data.person.last_name}</span> already exists
+          </div>
+        )}
+        <button type="button" onClick={handleSubmit} disabled={submitting || !form.first_name}
+          className="w-full py-3.5 bg-white text-black font-bold uppercase tracking-widest text-sm rounded-xl hover:bg-rose-500 hover:text-white transition-all duration-300 disabled:opacity-40 hover:shadow-[0_0_25px_rgba(225,29,72,0.4)]">
+          {submitting ? 'Adding…' : '+ Add to Tree'}
+        </button>
+      </div>
+
+      <div className="md:col-span-2">
+        <p className="text-[10px] uppercase tracking-widest text-gray-600 mb-2 font-bold">Live Preview</p>
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col items-center gap-3 text-center transition-all duration-300 hover:border-rose-500/20">
+          <div className="w-16 h-16 rounded-2xl bg-rose-500/20 border-2 border-rose-500/40 flex items-center justify-center text-2xl font-black text-rose-400 shadow-[0_0_20px_rgba(225,29,72,0.15)]">
+            {form.first_name ? initial(form.first_name, form.last_name) : genderIcon(form.gender)}
+          </div>
+          <div>
+            <p className="text-white font-bold text-base">{form.first_name || 'First'} <span className="text-gray-400">{form.last_name || 'Last'}</span></p>
+            {form.gender && <p className="text-xs text-gray-500 mt-0.5">{genderIcon(form.gender)} {form.gender}</p>}
+            {form.birth_place && <p className="text-xs text-gray-500 mt-0.5">📍 {form.birth_place}</p>}
+          </div>
+          {!form.first_name && <p className="text-gray-600 text-xs italic">Start typing to preview this member</p>}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────
+// RELATIONSHIP BUILDER
+// ─────────────────────────────────────────────
+const REL_LABELS = {
+  parent: { label: 'Parent', icon: '👴', desc: 'is the parent of' },
+  child:  { label: 'Child',  icon: '👶', desc: 'is the child of' },
+  spouse: { label: 'Spouse', icon: '💍', desc: 'is married to' },
+  sibling:{ label: 'Sibling',icon: '🤝', desc: 'is the sibling of' },
+};
+
+const RelationshipBuilder = ({ nodes, onSubmit }) => {
+  const [rel, setRel] = useState({ person1_id: '', person2_id: '', relationship_type: '' });
+  const [submitting, setSubmitting] = useState(false);
+
+  const persons = nodes.filter(n => n.data?.person).map(n => n.data.person);
+  const p1 = persons.find(p => p.id === rel.person1_id);
+  const p2 = persons.find(p => p.id === rel.person2_id);
+  const relMeta = REL_LABELS[rel.relationship_type];
+  const ready = rel.person1_id && rel.person2_id && rel.relationship_type && rel.person1_id !== rel.person2_id;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    await onSubmit(rel);
+    setRel({ person1_id: '', person2_id: '', relationship_type: '' });
+    setSubmitting(false);
+  };
+
+  const selectCls = "bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-rose-500 text-sm transition-all cursor-pointer w-full";
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="bg-white/[0.03] border border-white/8 rounded-2xl p-5 space-y-4">
+        <div className="flex flex-wrap items-center gap-2 text-sm font-medium min-h-[36px]">
+          <span className={`px-3 py-1.5 rounded-xl border font-bold transition-all ${p1 ? 'bg-blue-500/10 border-blue-500/30 text-blue-300' : 'bg-white/5 border-white/10 text-gray-600'}`}>{p1 ? `${p1.first_name} ${p1.last_name || ''}`.trim() : 'Person A'}</span>
+          <span className="text-gray-600 text-xs">{relMeta ? relMeta.desc : '— relationship →'}</span>
+          <span className={`px-3 py-1.5 rounded-xl border font-bold transition-all ${p2 ? 'bg-rose-500/10 border-rose-500/30 text-rose-300' : 'bg-white/5 border-white/10 text-gray-600'}`}>{p2 ? `${p2.first_name} ${p2.last_name || ''}`.trim() : 'Person B'}</span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <select value={rel.person1_id} onChange={e => setRel({ ...rel, person1_id: e.target.value })} className={selectCls} required>
+            <option value="">👤 Person A</option>
+            {persons.map(p => <option key={p.id} value={p.id}>{p.first_name} {p.last_name || ''}</option>)}
+          </select>
+          <select value={rel.relationship_type} onChange={e => setRel({ ...rel, relationship_type: e.target.value })} className={`${selectCls} text-center font-bold`} required>
+            <option value="">— Role —</option>
+            {Object.entries(REL_LABELS).map(([v, m]) => <option key={v} value={v}>{m.icon} {m.label}</option>)}
+          </select>
+          <select value={rel.person2_id} onChange={e => setRel({ ...rel, person2_id: e.target.value })} className={selectCls} required>
+            <option value="">👤 Person B</option>
+            {persons.filter(p => p.id !== rel.person1_id).map(p => <option key={p.id} value={p.id}>{p.first_name} {p.last_name || ''}</option>)}
+          </select>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {Object.entries(REL_LABELS).map(([val, meta]) => (
+            <button key={val} type="button" onClick={() => setRel({ ...rel, relationship_type: val })}
+              className={`px-3 py-1.5 rounded-xl border text-xs font-bold uppercase tracking-wider transition-all ${rel.relationship_type === val ? 'bg-rose-500 border-rose-500 text-white shadow-[0_0_15px_rgba(225,29,72,0.4)]' : 'bg-white/5 border-white/10 text-gray-400 hover:border-rose-500/40'}`}>
+              {meta.icon} {meta.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <button type="submit" disabled={!ready || submitting}
+        className="w-full py-4 bg-gradient-to-r from-rose-600 to-rose-500 text-white font-bold uppercase tracking-widest text-sm rounded-xl hover:shadow-[0_0_35px_rgba(225,29,72,0.5)] transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed active:scale-[0.99]">
+        {submitting ? 'Forging link…' : '⚡ Establish Connection'}
+      </button>
+    </form>
+  );
+};
+
+// ─────────────────────────────────────────────
+// MAIN PAGE
+// ─────────────────────────────────────────────
 const FamilyTreePage = () => {
   const navigate = useNavigate();
   const [selectedFamily, setSelectedFamily] = useState('');
   const [treeData, setTreeData] = useState({ nodes: [], edges: [] });
   const [error, setError] = useState('');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [previewPerson, setPreviewPerson] = useState(null);
+  const [activities, setActivities] = useState([]);
+  const activityIdRef = useRef(0);
 
-  // Form states
-  const [personData, setPersonData] = useState({
-    first_name: '',
-    last_name: '',
-    gender: '',
-    birth_place: ''
-  });
-  const [relationshipData, setRelationshipData] = useState({
-    person1_id: '',
-    person2_id: '',
-    relationship_type: ''
-  });
+  const pushActivity = useCallback((type, message) => {
+    const id = ++activityIdRef.current;
+    setActivities(prev => [...prev, { id, type, message, timestamp: Date.now() }]);
+  }, []);
 
   useEffect(() => {
     const familyId = localStorage.getItem('selectedFamily');
-    if (!familyId) {
-      navigate('/dashboard');
-      return;
-    }
+    if (!familyId) { navigate('/dashboard'); return; }
     setSelectedFamily(familyId);
     fetchTree(familyId);
 
-    const handleMouseMove = (e) => {
-      setMousePos({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-      });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    const mm = (e) => setMousePos({ x: (e.clientX / window.innerWidth) * 100, y: (e.clientY / window.innerHeight) * 100 });
+    window.addEventListener('mousemove', mm);
+    return () => window.removeEventListener('mousemove', mm);
   }, [navigate]);
 
   const fetchTree = async (familyId) => {
     try {
       const data = await getFamilyTree(familyId);
-      setTreeData({
-        nodes: data.nodes || [],
-        edges: data.edges || []
-      });
-    } catch (err) {
-      console.error(err);
-      setError('Failed to fetch family tree.');
-    }
+      setTreeData({ nodes: data.nodes || [], edges: data.edges || [] });
+    } catch { setError('Failed to fetch family tree.'); }
   };
 
-  const handleCreatePerson = async (e) => {
-    e.preventDefault();
+  const handleCreatePerson = async (formData) => {
     if (!selectedFamily) return;
     try {
-      await createPerson({ ...personData, family_id: selectedFamily });
-      setPersonData({ first_name: '', last_name: '', gender: '', birth_place: '' });
+      await createPerson({ ...formData, family_id: selectedFamily });
+      pushActivity('added_person', `Added ${formData.first_name} ${formData.last_name || ''}`.trim());
       fetchTree(selectedFamily);
-    } catch (err) {
-      setError('Failed to create person.');
-    }
+    } catch { setError('Failed to create person.'); }
   };
 
-  const handleCreateRelationship = async (e) => {
-    e.preventDefault();
+  const handleCreateRelationship = async (relData) => {
     if (!selectedFamily) return;
     try {
-      await createRelationship(relationshipData);
-      setRelationshipData({ person1_id: '', person2_id: '', relationship_type: '' });
+      await createRelationship(relData);
+      const p1 = treeData.nodes.find(n => n.data?.person?.id === relData.person1_id)?.data?.person;
+      const p2 = treeData.nodes.find(n => n.data?.person?.id === relData.person2_id)?.data?.person;
+      pushActivity('added_relationship', `Linked ${p1?.first_name || '?'} as ${relData.relationship_type} of ${p2?.first_name || '?'}`);
       fetchTree(selectedFamily);
-    } catch (err) {
-      setError('Failed to link family members.');
+    } catch { setError('Failed to link family members.'); }
+  };
+
+  // Node click → show preview panel (not navigate immediately)
+  const handleNodeClick = useCallback((personId) => {
+    const node = treeData.nodes.find(n => n.data?.person?.id === personId);
+    if (node?.data?.person) {
+      setPreviewPerson(node.data.person);
+      pushActivity('viewed_profile', `Previewed ${node.data.person.first_name}'s profile`);
     }
-  };
-
-  const handleNodeClick = (personId) => {
-    navigate(`/person/${personId}`);
-  };
-
-
+  }, [treeData.nodes, pushActivity]);
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-x-hidden font-sans selection:bg-rose-500/30">
-      
-      {/* Dynamic Global Spotlight Effect */}
-      <div 
-        className="pointer-events-none fixed inset-0 z-0 opacity-40 transition-opacity duration-500"
-        style={{ background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(225, 29, 72, 0.15), transparent 45%)` }}
-      />
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-40" style={{ background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(225,29,72,0.12), transparent 45%)` }} />
+      <div className="fixed inset-0 z-[-1] bg-cover bg-center opacity-20 brightness-50" style={{ backgroundImage: `url(${bgImage})` }} />
+      <div className="fixed inset-0 z-[-1] bg-gradient-to-b from-black/70 via-transparent to-black/90" />
 
-      {/* Background Image Overlay */}
-      <div 
-        className="fixed inset-0 z-[-1] bg-cover bg-center opacity-30 brightness-50"
-        style={{ backgroundImage: `url(${bgImage})` }}
-      />
-      <div className="fixed inset-0 z-[-1] bg-gradient-to-b from-black/60 via-transparent to-black/90" />
+      <div className="relative z-10 p-6 md:p-10 max-w-[1600px] mx-auto">
 
-      {/* Main Container */}
-      <div className="relative z-10 p-6 md:p-10 max-w-[1600px] mx-auto animate-fade-in">
-        
-        {/* Header */}
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 pb-6 border-b border-white/10 gap-6">
+        {/* HEADER */}
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-6 border-b border-white/10 gap-6">
           <div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500">
-              LINEAGE WORKSPACE
-            </h1>
-            <p className="text-sm font-medium text-rose-500 tracking-[0.3em] uppercase mt-2">
-              Kinsphere Origin Node: {selectedFamily.substring(0,8)}
-            </p>
+            <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">LINEAGE WORKSPACE</h1>
+            <p className="text-sm font-medium text-rose-500 tracking-[0.3em] uppercase mt-2">Kinsphere Node · {selectedFamily.substring(0, 8)}</p>
           </div>
-          <div className="flex gap-4 items-center">
-            <div className="bg-white/5 backdrop-blur-md rounded-xl p-1 border border-white/10 shadow-lg">
-              <GlobalSearchBar />
-            </div>
-            <button 
-              onClick={() => navigate('/dashboard')}
-              className="px-6 py-3 border border-white/20 bg-white/5 backdrop-blur-md rounded-xl text-white font-bold tracking-widest uppercase text-xs hover:bg-white hover:text-black transition-all duration-300 shadow-xl"
-            >
-              Exit Workspace
-            </button>
+          <div className="flex gap-3 items-center flex-wrap">
+            <div className="bg-white/5 backdrop-blur-md rounded-xl p-1 border border-white/10"><GlobalSearchBar /></div>
+            <button onClick={() => navigate('/dashboard')} className="px-5 py-2.5 border border-white/20 bg-white/5 backdrop-blur-md rounded-xl text-white font-bold tracking-widest uppercase text-xs hover:bg-white hover:text-black transition-all duration-300">Exit Workspace</button>
           </div>
         </header>
 
+        {/* WORKSPACE SUMMARY */}
+        <WorkspaceSummary nodes={treeData.nodes} edges={treeData.edges} />
+
         {error && (
-          <div className="mb-8 p-4 bg-red-900/40 border border-red-500/50 rounded-xl text-red-200 text-sm font-medium flex items-center gap-3 backdrop-blur-md">
-            <span className="text-xl">⚠️</span> {error}
-          </div>
+          <div className="mb-6 p-4 bg-red-900/40 border border-red-500/50 rounded-xl text-red-200 text-sm font-medium flex items-center gap-3">⚠️ {error}</div>
         )}
 
-        {/* Top Tools Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          <div className="bg-black/40 p-6 rounded-3xl shadow-2xl border border-white/10 backdrop-blur-xl">
-            <h3 className="text-lg font-bold text-white mb-4 tracking-tight flex items-center gap-2">
-              Collaborate <span className="text-rose-500 flex-1 h-px bg-gradient-to-r from-rose-500 to-transparent ml-4 opacity-50"></span>
-            </h3>
-            <FamilyInvite familyId={selectedFamily} />
-          </div>
-          
-          <div className="bg-black/40 p-6 rounded-3xl shadow-2xl border border-white/10 backdrop-blur-xl">
-            <h3 className="text-lg font-bold text-white mb-4 tracking-tight flex items-center gap-2">
-              Upcoming Ancestral Events <span className="text-rose-500 flex-1 h-px bg-gradient-to-r from-rose-500 to-transparent ml-4 opacity-50"></span>
-            </h3>
-            <UpcomingReminders familyId={selectedFamily} />
-          </div>
+        {/* TOP TOOLS ROW: Collaborate + GEDCOM */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <Card className="p-6">
+            <CardHeader icon="🤝" title="Collaborate" sub="Manage team access" />
+            <CollaborationPanel familyId={selectedFamily} onActivity={(msg) => pushActivity('default', msg)} />
+          </Card>
+          <Card className="p-6">
+            <GedcomImport
+              familyId={selectedFamily}
+              onImportSuccess={(data) => {
+                setTreeData(data);
+                pushActivity('imported_gedcom', 'Imported a GEDCOM file');
+              }}
+            />
+          </Card>
         </div>
 
-        <div className="mb-8">
-          <GedcomImport familyId={selectedFamily} onImportSuccess={(importedTreeData) => setTreeData(importedTreeData)} />
+        {/* MEMBER + RELATIONSHIP */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
+          <Card className="p-8" accent>
+            <CardHeader icon="👤" title="Add Member" sub="Spawn a new node" />
+            <SmartMemberForm onSubmit={handleCreatePerson} existingNodes={treeData.nodes} />
+          </Card>
+          <Card className="p-8" accent>
+            <CardHeader icon="⚡" title="Build Relationship" sub="Forge a family link" />
+            <RelationshipBuilder nodes={treeData.nodes} onSubmit={handleCreateRelationship} />
+          </Card>
         </div>
-        
-        {/* Addition Tools Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-10">
-          
-          {/* Add Family Member Section */}
-          <section className="bg-black/40 p-8 rounded-3xl shadow-2xl border border-white/10 backdrop-blur-xl relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-white/20 to-white/5"></div>
-            <h3 className="text-xl font-bold text-white mb-6 tracking-tight flex items-center gap-2">
-              Spawn Node <span className="text-gray-500 font-normal text-sm tracking-widest uppercase ml-2">(Add Member)</span>
-            </h3>
-            <form onSubmit={handleCreatePerson} className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <input placeholder="First Name" value={personData.first_name} onChange={e => setPersonData({...personData, first_name: e.target.value})} className="w-full bg-white/5 border-b-2 border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-rose-500 focus:bg-white/10 transition-all rounded-t-md" required />
-              <input placeholder="Last Name" value={personData.last_name} onChange={e => setPersonData({...personData, last_name: e.target.value})} className="w-full bg-white/5 border-b-2 border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-rose-500 focus:bg-white/10 transition-all rounded-t-md" />
-              <input placeholder="Gender (Male/Female)" value={personData.gender} onChange={e => setPersonData({...personData, gender: e.target.value})} className="w-full bg-white/5 border-b-2 border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-rose-500 focus:bg-white/10 transition-all rounded-t-md" />
-              <input placeholder="Birth Place / Origin" value={personData.birth_place} onChange={e => setPersonData({...personData, birth_place: e.target.value})} className="w-full bg-white/5 border-b-2 border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-rose-500 focus:bg-white/10 transition-all rounded-t-md" />
-              <button type="submit" className="col-span-1 md:col-span-2 py-4 bg-white text-black font-bold tracking-widest uppercase text-sm hover:bg-rose-500 hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(225,29,72,0.4)]">
-                Inject into Tree
-              </button>
-            </form>
-          </section>
 
-          {/* Add Relationship Section */}
-          <section className="bg-black/40 p-8 rounded-3xl shadow-2xl border border-white/10 backdrop-blur-xl relative overflow-hidden flex flex-col justify-center">
-            <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-l from-rose-500/50 to-transparent"></div>
-            <h3 className="text-xl font-bold text-white mb-6 tracking-tight flex items-center gap-2">
-              Forge Link <span className="text-gray-500 font-normal text-sm tracking-widest uppercase ml-2">(Build Relationship)</span>
-            </h3>
-            <form onSubmit={handleCreateRelationship} className="flex flex-col gap-6">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl border border-white/10 bg-white/5">
-                <select value={relationshipData.person1_id} onChange={e => setRelationshipData({...relationshipData, person1_id: e.target.value})} className="w-full sm:flex-1 px-4 py-3 border-b-2 border-white/10 bg-black/50 text-white font-medium focus:border-rose-500 focus:outline-none rounded-t-md" required>
-                  <option value="" disabled>-- Subject --</option>
-                  {treeData.nodes.filter(n => n.data?.person).map(n => (
-                    <option key={n.data.person.id} value={n.data.person.id}>
-                      {n.data.person.first_name} {n.data.person.last_name || ''}
-                    </option>
-                  ))}
-                </select>
+        {/* SMART SUGGESTIONS */}
+        <Card className="p-6 mb-6">
+          <CardHeader icon="🧠" title="Smart Suggestions" sub="AI-powered tree insights" />
+          <SmartSuggestions nodes={treeData.nodes} edges={treeData.edges} />
+        </Card>
 
-                <span className="text-rose-400 font-bold italic text-sm px-2 tracking-widest uppercase">Is The</span>
-
-                <select value={relationshipData.relationship_type} onChange={e => setRelationshipData({...relationshipData, relationship_type: e.target.value})} className="w-full sm:w-auto px-4 py-3 border-b-2 border-white/10 bg-black/50 text-rose-400 font-black focus:border-rose-500 focus:outline-none rounded-t-md text-center" required>
-                    <option value="" disabled>-- Role --</option>
-                    <option value="parent">Parent</option>
-                    <option value="child">Child</option>
-                    <option value="spouse">Spouse</option>
-                    <option value="sibling">Sibling</option>
-                </select>
-
-                <span className="text-rose-400 font-bold italic text-sm px-2 tracking-widest uppercase">Of</span>
-
-                <select value={relationshipData.person2_id} onChange={e => setRelationshipData({...relationshipData, person2_id: e.target.value})} className="w-full sm:flex-1 px-4 py-3 border-b-2 border-white/10 bg-black/50 text-white font-medium focus:border-rose-500 focus:outline-none rounded-t-md" required>
-                  <option value="" disabled>-- Target --</option>
-                  {treeData.nodes.filter(n => n.data?.person).map(n => (
-                    <option key={n.data.person.id} value={n.data.person.id}>
-                      {n.data.person.first_name} {n.data.person.last_name || ''}
-                    </option>
-                  ))}
-                </select>
+        {/* LINEAGE MAP + SIDE PANELS */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+          {/* Map (2/3 width) */}
+          <section className="xl:col-span-2 bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+            <div className="px-6 py-4 border-b border-white/10 flex justify-between items-center">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">🌳 Lineage Map</h3>
+              <div className="flex items-center gap-3">
+                {previewPerson && (
+                  <button onClick={() => setPreviewPerson(null)} className="text-xs text-gray-500 hover:text-white transition-colors">✕ Close Preview</button>
+                )}
+                <span className="text-xs text-gray-600">{treeData.nodes.filter(n => n.data?.person).length} members</span>
               </div>
-              
-              <button type="submit" className="w-full py-4 bg-gradient-to-r from-rose-600 to-rose-500 text-white font-bold tracking-widest uppercase text-sm hover:shadow-[0_0_30px_rgba(225,29,72,0.6)] transition-all duration-300">
-                Establish Connection
-              </button>
-            </form>
-          </section>
-
-        </div>
-
-        {/* Visualizations (Tree & Timeline) */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-          <section className="xl:col-span-2 bg-black/40 p-2 rounded-3xl shadow-2xl border border-white/10 backdrop-blur-xl overflow-hidden flex flex-col">
-            <div className="p-5 border-b border-white/10 flex justify-between items-center bg-transparent">
-              <h3 className="text-xl font-bold text-white tracking-tight">Lineage Map</h3>
             </div>
-            <div className="relative flex-1 min-h-[700px] w-full">
+            <div className="relative flex-1 min-h-[680px] w-full">
               <FamilyTree nodes={treeData.nodes} edges={treeData.edges} onNodeClick={handleNodeClick} />
+              {/* Node preview panel floated inside map */}
+              {previewPerson && (
+                <NodePreviewPanel
+                  person={previewPerson}
+                  onViewProfile={(id) => { navigate(`/person/${id}`); }}
+                  onClose={() => setPreviewPerson(null)}
+                />
+              )}
             </div>
           </section>
 
-          <section className="bg-black/40 p-6 rounded-3xl shadow-2xl border border-white/10 backdrop-blur-xl h-[700px] overflow-y-auto custom-scrollbar">
-            <h3 className="text-xl font-bold text-white border-b border-white/10 pb-4 mb-6 sticky top-0 bg-black/80 backdrop-blur-xl z-20 pt-2">
-              Chronicles
-            </h3>
-            <FamilyTimeline familyId={selectedFamily} />
-          </section>
+          {/* Right column: Activity feed + Upcoming events */}
+          <div className="space-y-6">
+            <Card className="p-6 h-[400px] flex flex-col">
+              <CardHeader icon="📡" title="Activity Feed" sub="Real-time workspace log" />
+              <div className="flex-1 overflow-hidden">
+                <ActivityFeed activities={activities} onClear={() => setActivities([])} />
+              </div>
+            </Card>
+
+            <Card className="p-6">
+              <CardHeader icon="📅" title="Upcoming Events" sub="Ancestral reminders" />
+              <UpcomingReminders familyId={selectedFamily} />
+            </Card>
+          </div>
         </div>
 
       </div>
