@@ -48,8 +48,42 @@ const getFamilyById = async (family_id) => {
   return rows[0] || null;
 };
 
+/**
+ * Updates a family name by its ID
+ * @param {string} family_id - The ID of the family
+ * @param {string} family_name - The new family name
+ * @returns {Object|null} The updated family object
+ */
+const updateFamily = async (family_id, family_name) => {
+  const query = `
+    UPDATE families 
+    SET family_name = $1 
+    WHERE id = $2 
+    RETURNING id, family_name, created_by, created_at;
+  `;
+  const { rows } = await pool.query(query, [family_name, family_id]);
+  return rows[0] || null;
+};
+
+/**
+ * Deletes a family by its ID
+ * @param {string} family_id - The ID of the family
+ * @returns {boolean} True if deleted, false if not found
+ */
+const deleteFamily = async (family_id) => {
+  const query = `
+    DELETE FROM families 
+    WHERE id = $1 
+    RETURNING id;
+  `;
+  const { rows } = await pool.query(query, [family_id]);
+  return rows.length > 0;
+};
+
 module.exports = {
   createFamily,
   getFamiliesByUser,
   getFamilyById,
+  updateFamily,
+  deleteFamily,
 };

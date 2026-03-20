@@ -48,8 +48,26 @@ const deleteRelationship = async (relationship_id) => {
   return rows.length > 0;
 };
 
+/**
+ * Updates a relationship type
+ * @param {string} relationship_id - The ID of the relationship
+ * @param {string} relationship_type - The new relationship type
+ * @returns {Object|null} The updated relationship object
+ */
+const updateRelationship = async (relationship_id, relationship_type) => {
+  const query = `
+    UPDATE relationships
+    SET relationship_type = $1
+    WHERE id = $2
+    RETURNING *;
+  `;
+  const { rows } = await pool.query(query, [relationship_type, relationship_id]);
+  return rows[0] || null;
+};
+
 module.exports = {
   createRelationship,
   getRelationshipsByPerson,
   deleteRelationship,
+  updateRelationship,
 };

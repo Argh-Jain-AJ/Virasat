@@ -114,10 +114,32 @@ const deletePerson = async (person_id) => {
   return rows.length > 0;
 };
 
+/**
+ * Searches persons by name across all families
+ * @param {string} query - Search string
+ * @returns {Array} Matching persons (max 20)
+ */
+const searchPersons = async (query) => {
+  const term = `%${query}%`;
+  const sql = `
+    SELECT id, first_name, last_name, birth_place, gender, photo_url, family_id
+    FROM persons
+    WHERE
+      first_name ILIKE $1
+      OR last_name ILIKE $1
+      OR CONCAT(first_name, ' ', last_name) ILIKE $1
+    ORDER BY first_name, last_name
+    LIMIT 20;
+  `;
+  const { rows } = await pool.query(sql, [term]);
+  return rows;
+};
+
 module.exports = {
   createPerson,
   getPersonsByFamily,
   getPersonById,
   updatePerson,
   deletePerson,
+  searchPersons,
 };

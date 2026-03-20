@@ -43,8 +43,22 @@ const deleteRelationship = async (relationship_id) => {
   return await relationshipModel.deleteRelationship(relationship_id);
 };
 
+/**
+ * Updates a relationship type
+ * @param {string} relationship_id 
+ * @param {string} relationship_type 
+ * @returns {Object|null}
+ */
+const updateRelationship = async (relationship_id, relationship_type) => {
+  if (!relationship_id || !relationship_type) {
+    throw new Error('Relationship ID and new type are required');
+  }
+  return await relationshipModel.updateRelationship(relationship_id, relationship_type);
+};
+
 module.exports = {
   createRelationship,
   getRelationshipsByPerson,
-  deleteRelationship
+  deleteRelationship,
+  updateRelationship,
 };

@@ -25,13 +25,28 @@ const buildFamilyTreeData = async (family_id) => {
     }
   }));
 
-  const edges = relationships.map(r => ({
-    id: r.id,
-    source: r.person1_id,
-    target: r.person2_id,
-    label: r.relationship_type,
-    data: { relationship_type: r.relationship_type }
-  }));
+  const edges = relationships.map(r => {
+    let source = r.person1_id;
+    let target = r.person2_id;
+    let label = r.relationship_type;
+
+    // Enforce strictly Top-Down DAG hierarchy for generational layouts
+    if (r.relationship_type.toLowerCase() === 'child') {
+      source = r.person2_id; // Parent
+      target = r.person1_id; // Child
+      label = 'Parent'; // Rename topological label to match visual flow
+    } else if (r.relationship_type.toLowerCase() === 'parent') {
+      label = 'Parent';
+    }
+
+    return {
+      id: r.id,
+      source,
+      target,
+      label,
+      data: { relationship_type: r.relationship_type }
+    };
+  });
 
   return { nodes, edges };
 };

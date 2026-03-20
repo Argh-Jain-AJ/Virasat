@@ -29,6 +29,10 @@ const eventRoutes = require('./routes/eventRoutes');
 const aiRoutes = require('./routes/aiRoutes');
 const gedcomRoutes = require('./routes/gedcomRoutes');
 const familyTreeRoutes = require('./routes/familyTreeRoutes');
+const reminderRoutes = require('./routes/reminderRoutes');
+
+// Initialize Cron Jobs
+require('./cron/reminderCron');
 const errorHandler = require('./middleware/errorHandler');
 
 // Mount Routes
@@ -41,6 +45,7 @@ app.use('/api/events', eventRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/gedcom', gedcomRoutes);
 app.use('/api/family-tree', familyTreeRoutes);
+app.use('/api/reminders', reminderRoutes);
 
 // Health check route
 app.get('/', (req, res) => {

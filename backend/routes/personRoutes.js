@@ -16,6 +16,8 @@ router.post(
   validateRequest,
   personController.addPerson
 );
+// Search persons (must come before /:person_id to avoid conflict)
+router.get('/search', verifyToken, personController.searchPersons);
 router.get('/family/:family_id', verifyToken, personController.getPersonsByFamily);
 router.get('/:person_id', verifyToken, personController.getPersonById);
 router.put('/:person_id', verifyToken, personController.updatePerson);

@@ -63,10 +63,16 @@ const deletePerson = async (person_id) => {
   return await personModel.deletePerson(person_id);
 };
 
+const searchPersons = async (query) => {
+  if (!query || query.trim().length < 2) throw new Error('Search query too short');
+  return await personModel.searchPersons(query.trim());
+};
+
 module.exports = {
   addPerson,
   getPersonsByFamily,
   getPersonById,
   updatePerson,
-  deletePerson
+  deletePerson,
+  searchPersons,
 };

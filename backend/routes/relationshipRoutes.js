@@ -7,5 +7,6 @@ const { verifyToken } = require('../middleware/authMiddleware');
 router.post('/', verifyToken, relationshipController.createRelationship);
 router.get('/:person_id', verifyToken, relationshipController.getRelationshipsByPerson);
 router.delete('/:relationship_id', verifyToken, relationshipController.deleteRelationship);
+router.put('/:relationship_id', verifyToken, relationshipController.updateRelationship);
 
 module.exports = router;

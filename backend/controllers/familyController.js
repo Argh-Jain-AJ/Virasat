@@ -57,8 +57,56 @@ const getFamilyById = async (req, res) => {
   }
 };
 
+/**
+ * Update a family name
+ * @route PUT /api/families/:family_id
+ */
+const updateFamily = async (req, res) => {
+  try {
+    const { family_id } = req.params;
+    const { family_name } = req.body;
+
+    if (!family_name) {
+      return res.status(400).json({ message: 'Family name is required' });
+    }
+
+    const updatedFamily = await familyService.updateFamily(family_id, family_name);
+    
+    if (!updatedFamily) {
+      return res.status(404).json({ message: 'Family not found' });
+    }
+    
+    res.status(200).json({ success: true, data: updatedFamily });
+  } catch (error) {
+    console.error('Error updating family:', error);
+    res.status(500).json({ message: 'Failed to update family' });
+  }
+};
+
+/**
+ * Delete a family
+ * @route DELETE /api/families/:family_id
+ */
+const deleteFamily = async (req, res) => {
+  try {
+    const { family_id } = req.params;
+    const success = await familyService.deleteFamily(family_id);
+    
+    if (!success) {
+      return res.status(404).json({ message: 'Family not found' });
+    }
+    
+    res.status(200).json({ success: true, message: 'Family deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting family:', error);
+    res.status(500).json({ message: 'Failed to delete family' });
+  }
+};
+
 module.exports = {
   createFamily,
   getFamilies,
-  getFamilyById
+  getFamilyById,
+  updateFamily,
+  deleteFamily,
 };

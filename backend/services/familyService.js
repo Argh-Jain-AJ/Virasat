@@ -37,8 +37,35 @@ const getFamilyById = async (family_id) => {
   return await familyModel.getFamilyById(family_id);
 };
 
+/**
+ * Updates a family name
+ * @param {string} family_id 
+ * @param {string} family_name 
+ * @returns {Object|null}
+ */
+const updateFamily = async (family_id, family_name) => {
+  if (!family_id || !family_name) {
+    throw new Error('Family ID and new name are required');
+  }
+  return await familyModel.updateFamily(family_id, family_name);
+};
+
+/**
+ * Deletes a family
+ * @param {string} family_id 
+ * @returns {boolean}
+ */
+const deleteFamily = async (family_id) => {
+  if (!family_id) {
+    throw new Error('Family ID is required');
+  }
+  return await familyModel.deleteFamily(family_id);
+};
+
 module.exports = {
   createFamily,
   getFamiliesByUser,
-  getFamilyById
+  getFamilyById,
+  updateFamily,
+  deleteFamily,
 };

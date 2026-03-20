@@ -54,8 +54,35 @@ const deleteRelationship = async (req, res) => {
   }
 };
 
+/**
+ * Update a relationship
+ * @route PUT /api/relationships/:relationship_id
+ */
+const updateRelationship = async (req, res) => {
+  try {
+    const { relationship_id } = req.params;
+    const { relationship_type } = req.body;
+    
+    if (!relationship_type) {
+      return res.status(400).json({ message: 'Relationship type is required' });
+    }
+
+    const updated = await relationshipService.updateRelationship(relationship_id, relationship_type);
+    
+    if (!updated) {
+      return res.status(404).json({ message: 'Relationship not found' });
+    }
+    
+    res.status(200).json(updated);
+  } catch (error) {
+    console.error('Error updating relationship:', error);
+    res.status(500).json({ message: 'Failed to update relationship' });
+  }
+};
+
 module.exports = {
   createRelationship,
   getRelationshipsByPerson,
-  deleteRelationship
+  deleteRelationship,
+  updateRelationship,
 };

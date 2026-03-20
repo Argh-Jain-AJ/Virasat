@@ -17,6 +17,8 @@ router.post(
 );
 router.get('/', verifyToken, familyController.getFamilies);
 router.get('/:family_id', verifyToken, familyController.getFamilyById);
+router.put('/:family_id', verifyToken, familyController.updateFamily);
+router.delete('/:family_id', verifyToken, familyController.deleteFamily);
 
 // Mock invite endpoint for Stage 14 compatibility
 router.post('/invite', verifyToken, (req, res) => {

@@ -95,10 +95,29 @@ const deletePerson = async (req, res) => {
   }
 };
 
+/**
+ * Search persons by name across all families
+ * @route GET /api/persons/search?q=...
+ */
+const searchPersons = async (req, res) => {
+  try {
+    const { q } = req.query;
+    if (!q || q.trim().length < 2) {
+      return res.status(400).json({ message: 'Search query must be at least 2 characters' });
+    }
+    const results = await personService.searchPersons(q);
+    res.status(200).json(results);
+  } catch (error) {
+    console.error('Search error:', error);
+    res.status(500).json({ message: 'Search failed' });
+  }
+};
+
 module.exports = {
   addPerson,
   getPersonsByFamily,
   getPersonById,
   updatePerson,
-  deletePerson
+  deletePerson,
+  searchPersons,
 };
