@@ -14,6 +14,8 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
+// Serve uploaded files (photos etc.) publicly
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Swagger Setup
 const swaggerDocument = yaml.load(path.join(__dirname, 'swagger.yaml'));
