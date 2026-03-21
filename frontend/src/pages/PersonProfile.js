@@ -44,6 +44,78 @@ const Avatar = ({ photoUrl, name, size = 'md', glow = false, onClick }) => {
   );
 };
 
+// Uploadable version — shows camera overlay on hover
+const UploadableAvatar = ({ photoUrl, name, size = 'lg', glow = false, personId, onUploaded, editable = false }) => {
+  const [uploading, setUploading] = useState(false);
+  const [preview, setPreview]     = useState(null);
+  const fileRef = useRef();
+
+  const handleFile = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    // Local preview immediately
+    const objUrl = URL.createObjectURL(file);
+    setPreview(objUrl);
+    setUploading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const fd = new FormData();
+      fd.append('photo', file);
+      const res = await fetch(`http://localhost:5001/api/persons/${personId}/photo`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: fd,
+      });
+      const data = await res.json();
+      if (data.photo_url) onUploaded?.(data.photo_url);
+      else throw new Error(data.error || 'Upload failed');
+    } catch (err) {
+      console.error('Upload error:', err);
+      setPreview(null); // revert on error
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const displayUrl = preview || photoUrl;
+  const sizes = {
+    md: 'w-14 h-14 text-lg rounded-2xl',
+    lg: 'w-36 h-36 text-5xl rounded-3xl',
+  };
+
+  return (
+    <div className={`relative flex-shrink-0 group ${editable ? 'cursor-pointer' : ''}`}
+      onClick={() => editable && fileRef.current?.click()}>
+      <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />
+      <div
+        className={`${sizes[size] || sizes.lg} flex items-center justify-center font-black select-none
+          bg-white/5 border border-white/10 bg-cover bg-center transition-all duration-300
+          ${glow ? 'shadow-[0_0_40px_rgba(225,29,72,0.3)]' : ''}
+          ${editable ? 'group-hover:border-rose-500/50' : ''}`}
+        style={{ backgroundImage: displayUrl ? `url(${displayUrl})` : 'none' }}
+      >
+        {!displayUrl && <span className="text-rose-400">{name?.[0]?.toUpperCase() || '?'}</span>}
+      </div>
+      {/* Camera overlay */}
+      {editable && (
+        <div className={`absolute inset-0 ${sizes[size] || sizes.lg} flex flex-col items-center justify-center
+          bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-200
+          ${uploading ? 'opacity-100' : ''}`}>
+          {uploading ? (
+            <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+          ) : (
+            <>
+              <span className="text-2xl">📸</span>
+              <span className="text-white text-[9px] font-bold mt-1 uppercase tracking-wider">Change Photo</span>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+
 // ─────────────────────────────────────────────────────
 // CHIP
 // ─────────────────────────────────────────────────────
@@ -834,7 +906,15 @@ const PersonProfile = () => {
         <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-3xl p-7 flex flex-col sm:flex-row gap-7 items-center sm:items-start relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-rose-500/40 to-transparent" />
 
-          <Avatar photoUrl={person.photo_url} name={person.first_name} size="lg" glow />
+          <UploadableAvatar
+            photoUrl={person.photo_url}
+            name={person.first_name}
+            size="lg"
+            glow
+            editable
+            personId={person.id}
+            onUploaded={(url) => setPerson(prev => ({ ...prev, photo_url: url }))}
+          />
 
           {editing ? (
             <div className="flex-1 space-y-4 w-full">

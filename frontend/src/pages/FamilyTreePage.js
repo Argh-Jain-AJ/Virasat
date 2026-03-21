@@ -78,53 +78,6 @@ const WorkspaceSummary = ({ nodes, edges }) => {
   );
 };
 
-// ─────────────────────────────────────────────
-// NODE MINI-PREVIEW SIDE PANEL
-// ─────────────────────────────────────────────
-const NodePreviewPanel = ({ person, onViewProfile, onClose }) => {
-  if (!person) return null;
-  const name = `${person.first_name} ${person.last_name || ''}`.trim();
-  const initial = name[0]?.toUpperCase() || '?';
-
-  return (
-    <div
-      className="absolute top-4 left-4 z-30 w-64 bg-[#0f0f0f]/95 backdrop-blur-2xl border border-white/15 rounded-2xl shadow-2xl overflow-hidden"
-      style={{ animation: 'slideInLeft 0.25s ease' }}
-    >
-      <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-rose-500/60 to-transparent" />
-      <div className="p-5">
-        <div className="flex justify-between items-start mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-rose-500/20 border-2 border-rose-500/40 flex items-center justify-center text-rose-400 text-xl font-black shadow-[0_0_16px_rgba(225,29,72,0.2)]">
-              {initial}
-            </div>
-            <div>
-              <p className="text-white font-bold text-sm">{name}</p>
-              {person.gender && <p className="text-gray-500 text-xs">{person.gender}</p>}
-            </div>
-          </div>
-          <button onClick={onClose} className="text-gray-600 hover:text-white transition-colors text-sm">✕</button>
-        </div>
-
-        {(person.birth_place || person.birth_date || person.occupation) && (
-          <div className="space-y-1.5 mb-4">
-            {person.birth_date && <p className="text-gray-500 text-xs">🎂 {new Date(person.birth_date).getFullYear()}</p>}
-            {person.birth_place && <p className="text-gray-500 text-xs">📍 {person.birth_place}</p>}
-            {person.occupation && <p className="text-gray-500 text-xs">💼 {person.occupation}</p>}
-          </div>
-        )}
-
-        <button
-          onClick={() => onViewProfile(person.id)}
-          className="w-full py-2.5 bg-rose-500/10 border border-rose-500/30 text-rose-400 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-rose-500 hover:text-white transition-all duration-200"
-        >
-          View Full Profile →
-        </button>
-      </div>
-      <style>{`@keyframes slideInLeft { from { opacity:0; transform:translateX(-16px); } to { opacity:1; transform:none; } }`}</style>
-    </div>
-  );
-};
 
 // ─────────────────────────────────────────────
 // SMART MEMBER FORM
@@ -278,7 +231,8 @@ const FamilyTreePage = () => {
   const [treeData, setTreeData] = useState({ nodes: [], edges: [] });
   const [error, setError] = useState('');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [previewPerson, setPreviewPerson] = useState(null);
+
+
   const [activities, setActivities] = useState([]);
   const activityIdRef = useRef(0);
 
@@ -314,6 +268,16 @@ const FamilyTreePage = () => {
     } catch { setError('Failed to create person.'); }
   };
 
+  // Used by QuickAddForm inside graph — must return the new person object
+  const handleAddPersonFromGraph = useCallback(async (formData) => {
+    if (!selectedFamily) return null;
+    try {
+      const res = await createPerson({ ...formData, family_id: selectedFamily });
+      pushActivity('added_person', `Added ${formData.first_name} from graph`);
+      return res;
+    } catch { setError('Failed to create person.'); return null; }
+  }, [selectedFamily, pushActivity]);
+
   const handleCreateRelationship = async (relData) => {
     if (!selectedFamily) return;
     try {
@@ -325,14 +289,10 @@ const FamilyTreePage = () => {
     } catch { setError('Failed to link family members.'); }
   };
 
-  // Node click → show preview panel (not navigate immediately)
   const handleNodeClick = useCallback((personId) => {
-    const node = treeData.nodes.find(n => n.data?.person?.id === personId);
-    if (node?.data?.person) {
-      setPreviewPerson(node.data.person);
-      pushActivity('viewed_profile', `Previewed ${node.data.person.first_name}'s profile`);
-    }
-  }, [treeData.nodes, pushActivity]);
+    navigate(`/person/${personId}`);
+  }, [navigate]);
+
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-x-hidden font-sans selection:bg-rose-500/30">
@@ -399,26 +359,25 @@ const FamilyTreePage = () => {
         {/* LINEAGE MAP + SIDE PANELS */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           {/* Map (2/3 width) */}
-          <section className="xl:col-span-2 bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+          <section className="xl:col-span-2 bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl flex flex-col">
             <div className="px-6 py-4 border-b border-white/10 flex justify-between items-center">
               <h3 className="text-base font-bold text-white flex items-center gap-2">🌳 Lineage Map</h3>
-              <div className="flex items-center gap-3">
-                {previewPerson && (
-                  <button onClick={() => setPreviewPerson(null)} className="text-xs text-gray-500 hover:text-white transition-colors">✕ Close Preview</button>
-                )}
-                <span className="text-xs text-gray-600">{treeData.nodes.filter(n => n.data?.person).length} members</span>
-              </div>
+              <span className="text-xs text-gray-600">{treeData.nodes.filter(n => n.data?.person).length} members</span>
             </div>
-            <div className="relative flex-1 min-h-[680px] w-full">
-              <FamilyTree nodes={treeData.nodes} edges={treeData.edges} onNodeClick={handleNodeClick} />
-              {/* Node preview panel floated inside map */}
-              {previewPerson && (
-                <NodePreviewPanel
-                  person={previewPerson}
-                  onViewProfile={(id) => { navigate(`/person/${id}`); }}
-                  onClose={() => setPreviewPerson(null)}
-                />
-              )}
+            <div className="relative w-full" style={{ height: '720px' }}>
+              <FamilyTree
+                nodes={treeData.nodes}
+                edges={treeData.edges}
+                onNodeClick={handleNodeClick}
+                onAddPerson={async (data) => {
+                  const person = await handleAddPersonFromGraph(data);
+                  if (person) fetchTree(selectedFamily);
+                  return person;
+                }}
+                onAddRelationship={async (relData) => {
+                  await handleCreateRelationship(relData);
+                }}
+              />
             </div>
           </section>
 
