@@ -43,15 +43,38 @@ const WorkspaceSummary = ({ nodes, edges }) => {
 
   const depth = useMemo(() => {
     if (!nodes.length) return 0;
-    const parentMap = {};
+    
+    // Map child -> array of parents
+    const parentsOf = {};
+    nodes.forEach(n => { parentsOf[n.id] = []; });
+    
     edges.forEach(e => {
-      const t = e.data?.relationship_type;
-      if (t === 'parent' || t === 'child') parentMap[e.target] = e.source;
+      const t = e.data?.relationship_type?.toLowerCase();
+      if ((t === 'parent' || t === 'child') && parentsOf[e.target]) {
+        parentsOf[e.target].push(e.source);
+      }
     });
+
+    const depths = {};
+    const getDepth = (id, visited = new Set()) => {
+      if (depths[id]) return depths[id];
+      if (visited.has(id)) return 1; // cycle breaker
+      visited.add(id);
+      
+      const parents = parentsOf[id] || [];
+      if (parents.length === 0) {
+        depths[id] = 1;
+        return 1;
+      }
+      
+      const maxP = Math.max(...parents.map(pid => getDepth(pid, new Set(visited))));
+      depths[id] = maxP + 1;
+      return depths[id];
+    };
+
     let maxDepth = 1;
     nodes.forEach(n => {
-      let d = 1, cur = n.id;
-      while (parentMap[cur]) { d++; cur = parentMap[cur]; if (d > 20) break; }
+      const d = getDepth(n.id);
       if (d > maxDepth) maxDepth = d;
     });
     return maxDepth;
@@ -308,8 +331,8 @@ const FamilyTreePage = () => {
             <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">LINEAGE WORKSPACE</h1>
             <p className="text-sm font-medium text-rose-500 tracking-[0.3em] uppercase mt-2">Kinsphere Node · {selectedFamily.substring(0, 8)}</p>
           </div>
-          <div className="flex gap-3 items-center flex-wrap">
-            <div className="bg-white/5 backdrop-blur-md rounded-xl p-1 border border-white/10"><GlobalSearchBar /></div>
+          <div className="flex gap-3 items-center flex-wrap relative z-50">
+            <div className="bg-white/5 backdrop-blur-md rounded-xl p-1 border border-white/10 relative z-50 shadow-xl"><GlobalSearchBar /></div>
             <button onClick={() => navigate('/dashboard')} className="px-5 py-2.5 border border-white/20 bg-white/5 backdrop-blur-md rounded-xl text-white font-bold tracking-widest uppercase text-xs hover:bg-white hover:text-black transition-all duration-300">Exit Workspace</button>
           </div>
         </header>
