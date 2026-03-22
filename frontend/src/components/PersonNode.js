@@ -57,10 +57,16 @@ const PersonNode = memo(({ data }) => {
     containerCls = 'border border-white/15 hover:border-white/40';
   }
 
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => {
+    const t = setTimeout(() => setMounted(true), 450);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <div
       className={`group relative flex flex-col items-center bg-black/85 backdrop-blur-xl rounded-2xl p-5 w-56 text-center transition-all duration-300 overflow-visible cursor-pointer ${containerCls}`}
-      style={{ ...glowStyle, animation: 'nodeIn 0.4s ease both' }}
+      style={{ ...glowStyle, animation: mounted ? 'none' : 'nodeIn 0.4s ease both' }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={() => onSelect?.(person)}

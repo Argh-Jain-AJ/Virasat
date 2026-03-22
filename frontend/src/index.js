@@ -4,6 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Suppress benign ResizeObserver runtime errors that throw false-positive red screens
+window.addEventListener('error', e => {
+  if (e.message?.includes('ResizeObserver loop')) {
+    e.stopImmediatePropagation();
+  }
+});
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

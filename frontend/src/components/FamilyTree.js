@@ -10,7 +10,9 @@ import ReactFlow, {
   EdgeLabelRenderer,
   BaseEdge,
   getStraightPath,
-  getSmoothStepPath,
+  getBezierPath,
+  getNodesBounds,
+  getViewportForBounds,
 } from 'reactflow';
 import { toPng } from 'html-to-image';
 import 'reactflow/dist/style.css';
@@ -145,26 +147,26 @@ function initialXPositions(levels) {
 function resolveCollisions(ids, xPos, minGap) {
   if (ids.length <= 1) return;
 
-  // Sort by x
-  const sorted = [...ids].sort((a, b) => xPos[a] - xPos[b]);
+  // Symmetric relaxation: push overlapping nodes apart equally from their shared midpoint
+  for (let pass = 0; pass < 15; pass++) {
+    const sorted = [...ids].sort((a, b) => xPos[a] - xPos[b]);
+    let moved = false;
 
-  // Forward pass — push right if too close
-  for (let i = 1; i < sorted.length; i++) {
-    const minX = xPos[sorted[i - 1]] + minGap;
-    if (xPos[sorted[i]] < minX) xPos[sorted[i]] = minX;
+    for (let i = 0; i < sorted.length - 1; i++) {
+      const left = sorted[i];
+      const right = sorted[i + 1];
+      const dist = xPos[right] - xPos[left];
+      
+      if (dist < minGap) {
+        const overlap = minGap - dist;
+        xPos[left] -= overlap / 2;
+        xPos[right] += overlap / 2;
+        moved = true;
+      }
+    }
+    
+    if (!moved) break;
   }
-
-  // Backward pass — pull left to avoid one-sided drift
-  for (let i = sorted.length - 2; i >= 0; i--) {
-    const maxX = xPos[sorted[i + 1]] - minGap;
-    if (xPos[sorted[i]] > maxX) xPos[sorted[i]] = maxX;
-  }
-
-  // Re-centre the row around 0
-  const minX = xPos[sorted[0]];
-  const maxX = xPos[sorted[sorted.length - 1]];
-  const mid  = (minX + maxX) / 2;
-  sorted.forEach(id => { xPos[id] -= mid; });
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -173,28 +175,33 @@ function resolveCollisions(ids, xPos, minGap) {
 function iterativeLayout(levels, xPos, genMap, parentOf, childOf) {
   const maxLevel = Math.max(...Object.keys(levels).map(Number));
 
-  for (let pass = 0; pass < 5; pass++) {
-    // ── Top-down: centre each child under the midpoint of its parents
+  // Run physics relaxation to find equilibrium (spring forces vs collision forces)
+  for (let pass = 0; pass < 10; pass++) {
+    // ── Top-down: gently pull each child towards the midpoint of its parents
     for (let g = 1; g <= maxLevel; g++) {
       if (!levels[g]) continue;
       levels[g].forEach(id => {
         const parents = [...childOf[id]].filter(pid => xPos[pid] !== undefined);
         if (parents.length > 0) {
           const xs  = parents.map(p => xPos[p]);
-          xPos[id] = (Math.min(...xs) + Math.max(...xs)) / 2;
+          const targetX = (Math.min(...xs) + Math.max(...xs)) / 2;
+          // Apply 50% spring force so siblings retain their initial spread
+          xPos[id] += (targetX - xPos[id]) * 0.5;
         }
       });
       resolveCollisions(levels[g], xPos, H_SPACING);
     }
 
-    // ── Bottom-up: shift parents to sit above their children's midpoint
+    // ── Bottom-up: gently pull parents towards their children's midpoint
     for (let g = maxLevel - 1; g >= 0; g--) {
       if (!levels[g]) continue;
       levels[g].forEach(id => {
         const children = [...parentOf[id]].filter(cid => xPos[cid] !== undefined);
         if (children.length > 0) {
           const xs  = children.map(c => xPos[c]);
-          xPos[id] = (Math.min(...xs) + Math.max(...xs)) / 2;
+          const targetX = (Math.min(...xs) + Math.max(...xs)) / 2;
+          // Apply 50% spring force so spouses retain their initial spacing
+          xPos[id] += (targetX - xPos[id]) * 0.5;
         }
       });
       resolveCollisions(levels[g], xPos, H_SPACING);
@@ -212,6 +219,24 @@ function computeLayout(nodes, edges) {
   const genMap  = assignGenerations(nodes, childOf, sameGen, parentOf);
   const levels  = groupByGeneration(nodes, genMap);
   const xPos    = initialXPositions(levels);
+
+  const maxLevel = Math.max(...Object.keys(levels).map(Number));
+
+  // Pre-sort every generation horizontally so children align beautifully with their parents
+  // This physically untangles the database-insertion-order spaghetti before physics kicks in!
+  for (let g = 1; g <= maxLevel; g++) {
+    if (!levels[g]) continue;
+    levels[g].sort((a, b) => {
+      const pA = [...childOf[a]].map(p => xPos[p] || 0);
+      const pB = [...childOf[b]].map(p => xPos[p] || 0);
+      const avgA = pA.length ? pA.reduce((s, x) => s + x, 0) / pA.length : 0;
+      const avgB = pB.length ? pB.reduce((s, x) => s + x, 0) / pB.length : 0;
+      return avgA - avgB;
+    });
+    // Re-pack cleanly left-to-right using the untangled family order
+    const half = ((levels[g].length - 1) * H_SPACING) / 2;
+    levels[g].forEach((id, i) => { xPos[id] = i * H_SPACING - half; });
+  }
 
   iterativeLayout(levels, xPos, genMap, parentOf, childOf);
 
@@ -243,7 +268,7 @@ const CustomEdge = memo(({ id, sourceX, sourceY, targetX, targetY, data, style, 
   const isHoriz = type === 'spouse' || type === 'sibling';
   const [edgePath, labelX, labelY] = isHoriz
     ? getStraightPath({ sourceX, sourceY, targetX, targetY })
-    : getSmoothStepPath({ sourceX, sourceY, targetX, targetY, borderRadius: 14 });
+    : getBezierPath({ sourceX, sourceY, targetX, targetY });
   const relLabel = REL_LABELS[type] || '';
 
   return (
@@ -437,7 +462,7 @@ const QuickAddForm = ({ source, relType, onConfirm, onClose }) => {
 //  MAIN INNER GRAPH
 // ══════════════════════════════════════════════════════════════
 const FamilyTreeInner = ({ nodes: incomingNodes = [], edges: incomingEdges = [], onNodeClick, onAddPerson, onAddRelationship }) => {
-  const { fitView, zoomIn, zoomOut, setCenter } = useReactFlow();
+  const { fitView, zoomIn, zoomOut, setCenter, getNodes } = useReactFlow();
   const [rfNodes, setRfNodes, onNodesChange] = useNodesState([]);
   const [rfEdges, setRfEdges, onEdgesChange] = useEdgesState([]);
 
@@ -554,11 +579,38 @@ const FamilyTreeInner = ({ nodes: incomingNodes = [], edges: incomingEdges = [],
   }, [incomingNodes, incomingEdges, setCenter]);
 
   const handleExport = useCallback(() => {
-    if (!wrapperRef.current) return;
-    toPng(wrapperRef.current, { backgroundColor: '#000', width: wrapperRef.current.offsetWidth, height: wrapperRef.current.offsetHeight })
-      .then(url => { const a = document.createElement('a'); a.download = 'KINSphere-Lineage.png'; a.href = url; a.click(); })
+    const nodesBounds = getNodesBounds(getNodes());
+    const imageWidth = nodesBounds.width + 200;
+    const imageHeight = nodesBounds.height + 200;
+    const viewport = getViewportForBounds(nodesBounds, imageWidth, imageHeight, 0.1, 2);
+
+    const viewportEl = document.querySelector('.react-flow__viewport');
+    if (!viewportEl) return;
+
+    // Apply the computed perfect-fit viewport before capturing
+    toPng(viewportEl, {
+      backgroundColor: '#050505',
+      width: imageWidth,
+      height: imageHeight,
+      style: {
+        width: imageWidth,
+        height: imageHeight,
+        transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
+      },
+      filter: (node) => {
+        // Exclude UI controls from the image
+        if (node?.classList?.contains('react-flow__panel') || node?.classList?.contains('react-flow__controls')) return false;
+        return true;
+      }
+    })
+      .then(url => {
+        const a = document.createElement('a');
+        a.download = 'KINSphere-Lineage.png';
+        a.href = url;
+        a.click();
+      })
       .catch(console.error);
-  }, []);
+  }, [getNodes]);
 
   const handleQuickAddConfirm = useCallback(async (firstName) => {
     if (!quickAdd) return;
