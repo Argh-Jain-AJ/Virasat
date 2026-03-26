@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import api from '../api/api';
 import MemoryTimeline from '../components/MemoryTimeline';
+import LegacySection from '../components/LegacySection';
 import {
   deletePerson,
   updatePerson,
@@ -741,6 +742,7 @@ const PersonProfile = () => {
 
   const [person, setPerson] = useState(null);
   const [memories, setMemories] = useState([]);
+  const [legacyMessages, setLegacyMessages] = useState([]);
   const [relationships, setRelationships] = useState([]);
   const [relPersons, setRelPersons] = useState({});
   const [loading, setLoading] = useState(true);
@@ -755,14 +757,16 @@ const PersonProfile = () => {
   const fetchProfileData = useCallback(async () => {
     try {
       setLoading(true);
-      const [personRes, memoriesRes, relsRes] = await Promise.all([
+      const [personRes, memoriesRes, relsRes, legacyRes] = await Promise.all([
         api.get(`/persons/${id}`),
         api.get(`/memories/person/${id}`),
         api.get(`/relationships/${id}`),
+        api.get(`/legacy/${id}`).catch(() => ({ data: [] }))
       ]);
       setPerson(personRes.data);
       setEditForm(personRes.data);
       setMemories(memoriesRes.data || []);
+      setLegacyMessages(legacyRes.data || []);
       const rels = relsRes.data || [];
       setRelationships(rels);
 
@@ -790,6 +794,10 @@ const PersonProfile = () => {
       setMemories(prev => [...prev, res.data]);
     } catch { setError('Failed to add memory.'); setTimeout(() => setError(''), 3000); }
     finally { setSavingMemory(false); }
+  };
+
+  const handleLegacyAdded = (msg) => {
+    setLegacyMessages(prev => [msg, ...prev]);
   };
 
   const handleInlineSave = async (field, value) => {
@@ -1028,6 +1036,13 @@ const PersonProfile = () => {
 
           {/* RIGHT COL */}
           <div className="lg:col-span-2 space-y-7">
+
+            {/* Legacy Mode Section */}
+            <LegacySection 
+              personId={id} 
+              messages={legacyMessages} 
+              onMessageAdded={handleLegacyAdded} 
+            />
 
             {/* Life Story / Timeline */}
             <section className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-xl">
