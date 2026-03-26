@@ -12,6 +12,7 @@ import ActivityFeed from '../components/ActivityFeed';
 import SmartSuggestions from '../components/SmartSuggestions';
 import GedcomImport from '../components/GedcomImport';
 import UpcomingReminders from '../components/UpcomingReminders';
+import FamilyInsightsPanel from '../components/FamilyInsightsPanel';
 import bgImage from '../assets/hero-bg.png';
 
 // ─────────────────────────────────────────────
@@ -160,7 +161,7 @@ const SmartMemberForm = ({ onSubmit, existingNodes }) => {
 
       <div className="md:col-span-2">
         <p className="text-[10px] uppercase tracking-widest text-gray-600 mb-2 font-bold">Live Preview</p>
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col items-center gap-3 text-center transition-all duration-300 hover:border-rose-500/20">
+        <div className={`bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col items-center gap-3 text-center transition-all duration-500 ${form.first_name ? 'scale-105 border-rose-500/30 bg-rose-900/10 shadow-[0_0_30px_rgba(225,29,72,0.15)]' : 'hover:border-white/20'}`}>
           <div className="w-16 h-16 rounded-2xl bg-rose-500/20 border-2 border-rose-500/40 flex items-center justify-center text-2xl font-black text-rose-400 shadow-[0_0_20px_rgba(225,29,72,0.15)]">
             {form.first_name ? initial(form.first_name, form.last_name) : genderIcon(form.gender)}
           </div>
@@ -329,7 +330,8 @@ const FamilyTreePage = () => {
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-6 border-b border-white/10 gap-6">
           <div>
             <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">LINEAGE WORKSPACE</h1>
-            <p className="text-sm font-medium text-rose-500 tracking-[0.3em] uppercase mt-2">Kinsphere Node · {selectedFamily.substring(0, 8)}</p>
+            <p className="text-gray-400 text-sm mt-1 mb-1 font-medium">Build and manage your family lineage intelligently.</p>
+            <p className="text-xs font-medium text-rose-500 tracking-[0.3em] uppercase mt-2">Kinsphere Node · {selectedFamily.substring(0, 8)}</p>
           </div>
           <div className="flex gap-3 items-center flex-wrap relative z-50">
             <div className="bg-white/5 backdrop-blur-md rounded-xl p-1 border border-white/10 relative z-50 shadow-xl"><GlobalSearchBar /></div>
@@ -337,8 +339,18 @@ const FamilyTreePage = () => {
           </div>
         </header>
 
-        {/* WORKSPACE SUMMARY */}
-        <WorkspaceSummary nodes={treeData.nodes} edges={treeData.edges} />
+        {/* WORKSPACE SUMMARY & INSIGHTS */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
+          <div className="xl:col-span-1">
+            <WorkspaceSummary nodes={treeData.nodes} edges={treeData.edges} />
+          </div>
+          <div className="xl:col-span-2">
+            <Card className="h-full">
+              <CardHeader icon="🧠" title="Smart Insights" sub="AI-powered tree analytics" />
+              <FamilyInsightsPanel nodes={treeData.nodes} edges={treeData.edges} />
+            </Card>
+          </div>
+        </div>
 
         {error && (
           <div className="mb-6 p-4 bg-red-900/40 border border-red-500/50 rounded-xl text-red-200 text-sm font-medium flex items-center gap-3">⚠️ {error}</div>
