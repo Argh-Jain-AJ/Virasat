@@ -154,23 +154,23 @@ const SmartMemberForm = ({ onSubmit, existingNodes }) => {
           </div>
         )}
         <button type="button" onClick={handleSubmit} disabled={submitting || !form.first_name}
-          className="w-full py-3.5 bg-white text-black font-bold uppercase tracking-widest text-sm rounded-xl hover:bg-rose-500 hover:text-white transition-all duration-300 disabled:opacity-40 hover:shadow-[0_0_25px_rgba(225,29,72,0.4)]">
+          className="w-full py-3.5 bg-white text-black font-bold uppercase tracking-widest text-sm rounded-xl hover:bg-rose-500 hover:text-white active:scale-95 transition-all duration-300 disabled:opacity-40 disabled:active:scale-100 hover:shadow-[0_0_25px_rgba(225,29,72,0.4)]">
           {submitting ? 'Adding…' : '+ Add to Tree'}
         </button>
       </div>
 
       <div className="md:col-span-2">
         <p className="text-[10px] uppercase tracking-widest text-gray-600 mb-2 font-bold">Live Preview</p>
-        <div className={`bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col items-center gap-3 text-center transition-all duration-500 ${form.first_name ? 'scale-105 border-rose-500/30 bg-rose-900/10 shadow-[0_0_30px_rgba(225,29,72,0.15)]' : 'hover:border-white/20'}`}>
-          <div className="w-16 h-16 rounded-2xl bg-rose-500/20 border-2 border-rose-500/40 flex items-center justify-center text-2xl font-black text-rose-400 shadow-[0_0_20px_rgba(225,29,72,0.15)]">
+        <div className={`bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col items-center gap-3 text-center transition-all duration-500 ${form.first_name ? 'scale-[1.02] border-rose-500/50 bg-rose-900/20 shadow-[0_0_40px_rgba(225,29,72,0.25)]' : 'hover:border-white/20'}`}>
+          <div className={`w-16 h-16 rounded-2xl border-2 flex items-center justify-center text-2xl font-black shadow-[0_0_20px_rgba(225,29,72,0.2)] transition-colors duration-500 ${form.gender === 'Female' ? 'bg-pink-500/20 border-pink-500/40 text-pink-400' : form.gender === 'Male' ? 'bg-blue-500/20 border-blue-500/40 text-blue-400' : 'bg-rose-500/20 border-rose-500/40 text-rose-400'}`}>
             {form.first_name ? initial(form.first_name, form.last_name) : genderIcon(form.gender)}
           </div>
           <div>
-            <p className="text-white font-bold text-base">{form.first_name || 'First'} <span className="text-gray-400">{form.last_name || 'Last'}</span></p>
-            {form.gender && <p className="text-xs text-gray-500 mt-0.5">{genderIcon(form.gender)} {form.gender}</p>}
-            {form.birth_place && <p className="text-xs text-gray-500 mt-0.5">📍 {form.birth_place}</p>}
+            <p className="text-white font-bold text-base transition-all">{form.first_name || 'First'} <span className="text-gray-400">{form.last_name || 'Last'}</span></p>
+            {form.gender && <p className="text-xs text-gray-400 mt-0.5 font-medium">{genderIcon(form.gender)} {form.gender}</p>}
+            {form.birth_place && <p className="text-xs text-gray-400 mt-0.5 font-medium">📍 {form.birth_place}</p>}
           </div>
-          {!form.first_name && <p className="text-gray-600 text-xs italic">Start typing to preview this member</p>}
+          {!form.first_name && <p className="text-gray-500 text-xs italic animate-pulse tracking-wide">Start typing to preview this member</p>}
         </div>
       </div>
     </div>
@@ -210,10 +210,20 @@ const RelationshipBuilder = ({ nodes, onSubmit }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="bg-white/[0.03] border border-white/8 rounded-2xl p-5 space-y-4">
-        <div className="flex flex-wrap items-center gap-2 text-sm font-medium min-h-[36px]">
-          <span className={`px-3 py-1.5 rounded-xl border font-bold transition-all ${p1 ? 'bg-blue-500/10 border-blue-500/30 text-blue-300' : 'bg-white/5 border-white/10 text-gray-600'}`}>{p1 ? `${p1.first_name} ${p1.last_name || ''}`.trim() : 'Person A'}</span>
-          <span className="text-gray-600 text-xs">{relMeta ? relMeta.desc : '— relationship →'}</span>
-          <span className={`px-3 py-1.5 rounded-xl border font-bold transition-all ${p2 ? 'bg-rose-500/10 border-rose-500/30 text-rose-300' : 'bg-white/5 border-white/10 text-gray-600'}`}>{p2 ? `${p2.first_name} ${p2.last_name || ''}`.trim() : 'Person B'}</span>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm font-medium min-h-[60px] py-4">
+          <span className={`px-4 py-2 rounded-xl border-2 font-black transition-all shadow-sm ${p1 ? 'bg-blue-900/30 border-blue-500 text-blue-300 shadow-[0_0_15px_rgba(59,130,246,0.3)] scale-[1.02]' : 'bg-white/5 border-white/10 text-gray-600'}`}>
+            {p1 ? `${p1.first_name} ${p1.last_name || ''}`.trim() : 'Person A'}
+          </span>
+          <div className="flex-1 flex flex-col items-center justify-center w-full min-w-[100px] relative px-4">
+            <div className={`w-full h-0.5 hidden sm:block absolute top-[50%] -translate-y-1/2 transition-colors duration-500 ${ready ? 'bg-rose-500' : 'bg-white/10'}`} />
+            {ready && <div className="hidden sm:block absolute top-[50%] -translate-y-1/2 right-4 w-2 h-2 border-t-2 border-r-2 border-rose-500 rotate-45 transform" />}
+            <span className={`px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest z-10 transition-colors ${ready ? 'bg-rose-500 text-white shadow-lg' : 'bg-black text-gray-600 border border-white/10'}`}>
+              {relMeta ? relMeta.label : 'Link'}
+            </span>
+          </div>
+          <span className={`px-4 py-2 rounded-xl border-2 font-black transition-all shadow-sm ${p2 ? 'bg-rose-900/30 border-rose-500 text-rose-300 shadow-[0_0_15px_rgba(225,29,72,0.3)] scale-[1.02]' : 'bg-white/5 border-white/10 text-gray-600'}`}>
+            {p2 ? `${p2.first_name} ${p2.last_name || ''}`.trim() : 'Person B'}
+          </span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <select value={rel.person1_id} onChange={e => setRel({ ...rel, person1_id: e.target.value })} className={selectCls} required>
@@ -257,12 +267,17 @@ const FamilyTreePage = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
 
-  const [activities, setActivities] = useState([]);
+  const [activities, setActivities] = useState([
+    { id: -1, type: 'system', message: 'System initialized. Virasat Engine online.', timestamp: Date.now() - 1200000 },
+    { id: -2, type: 'added_memory', message: 'Argh added a new memory', timestamp: Date.now() - 600000 },
+    { id: -3, type: 'added_relationship', message: 'Relationship created between Sandeep and Karuna', timestamp: Date.now() - 300000 },
+    { id: -4, type: 'added_person', message: 'New member Mukti added to tree', timestamp: Date.now() - 60000 }
+  ]);
   const activityIdRef = useRef(0);
 
   const pushActivity = useCallback((type, message) => {
     const id = ++activityIdRef.current;
-    setActivities(prev => [...prev, { id, type, message, timestamp: Date.now() }]);
+    setActivities(prev => [{ id, type, message, timestamp: Date.now() }, ...prev]); // Prepend mock events so new ones show at top
   }, []);
 
   useEffect(() => {
@@ -327,20 +342,20 @@ const FamilyTreePage = () => {
       <div className="relative z-10 p-6 md:p-10 max-w-[1600px] mx-auto">
 
         {/* HEADER */}
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-6 border-b border-white/10 gap-6">
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-6 border-b border-white/10 gap-6 animate-in fade-in slide-in-from-top-4 duration-1000 fill-mode-both">
           <div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">LINEAGE WORKSPACE</h1>
-            <p className="text-gray-400 text-sm mt-1 mb-1 font-medium">Build and manage your family lineage intelligently.</p>
-            <p className="text-xs font-medium text-rose-500 tracking-[0.3em] uppercase mt-2">Kinsphere Node · {selectedFamily.substring(0, 8)}</p>
+            <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500 drop-shadow-md">VIRASAT WORKSPACE</h1>
+            <p className="text-gray-400 text-sm mt-1 mb-1 font-medium tracking-wide">Build, preserve and explore your family legacy.</p>
+            <p className="text-xs font-bold text-rose-500 tracking-[0.3em] uppercase mt-2">VIRASAT ORIGIN ID · {selectedFamily.substring(0, 8)}</p>
           </div>
           <div className="flex gap-3 items-center flex-wrap relative z-50">
             <div className="bg-white/5 backdrop-blur-md rounded-xl p-1 border border-white/10 relative z-50 shadow-xl"><GlobalSearchBar /></div>
-            <button onClick={() => navigate('/dashboard')} className="px-5 py-2.5 border border-white/20 bg-white/5 backdrop-blur-md rounded-xl text-white font-bold tracking-widest uppercase text-xs hover:bg-white hover:text-black transition-all duration-300">Exit Workspace</button>
+            <button onClick={() => navigate('/dashboard')} className="px-5 py-2.5 border border-white/20 bg-white/5 backdrop-blur-md rounded-xl text-white font-bold tracking-widest uppercase text-xs hover:bg-white hover:text-black active:scale-95 transition-all duration-300">Exit Workspace</button>
           </div>
         </header>
 
         {/* WORKSPACE SUMMARY & INSIGHTS */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-150 fill-mode-both">
           <div className="xl:col-span-1">
             <WorkspaceSummary nodes={treeData.nodes} edges={treeData.edges} />
           </div>
@@ -357,7 +372,7 @@ const FamilyTreePage = () => {
         )}
 
         {/* TOP TOOLS ROW: Collaborate + GEDCOM */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 fill-mode-both">
           <Card className="p-6">
             <CardHeader icon="🤝" title="Collaborate" sub="Manage team access" />
             <CollaborationPanel familyId={selectedFamily} onActivity={(msg) => pushActivity('default', msg)} />
@@ -374,7 +389,7 @@ const FamilyTreePage = () => {
         </div>
 
         {/* MEMBER + RELATIONSHIP */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 fill-mode-both">
           <Card className="p-8" accent>
             <CardHeader icon="👤" title="Add Member" sub="Spawn a new node" />
             <SmartMemberForm onSubmit={handleCreatePerson} existingNodes={treeData.nodes} />
@@ -386,13 +401,13 @@ const FamilyTreePage = () => {
         </div>
 
         {/* SMART SUGGESTIONS */}
-        <Card className="p-6 mb-6">
+        <Card className="p-6 mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-700 fill-mode-both">
           <CardHeader icon="🧠" title="Smart Suggestions" sub="AI-powered tree insights" />
           <SmartSuggestions nodes={treeData.nodes} edges={treeData.edges} />
         </Card>
 
         {/* LINEAGE MAP + SIDE PANELS */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-1000 fill-mode-both">
           {/* Map (2/3 width) */}
           <section className="xl:col-span-2 bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl flex flex-col">
             <div className="px-6 py-4 border-b border-white/10 flex justify-between items-center">
