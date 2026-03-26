@@ -52,3 +52,13 @@ CREATE TABLE memories (
     event_date DATE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE legacy_messages (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    person_id UUID NOT NULL REFERENCES persons(id) ON DELETE CASCADE,
+    title VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    emotion_tag VARCHAR(50),
+    memory_ids UUID[] DEFAULT '{}',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
