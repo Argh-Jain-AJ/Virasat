@@ -35,14 +35,15 @@ const AnimatedCounter = ({ value, duration = 1000 }) => {
 
 const InsightCard = ({ icon, label, value, tooltip, highlight }) => (
   <div 
-    className={`bg-black/40 backdrop-blur-xl border ${highlight ? 'border-rose-500/30 inset-shadow-sm' : 'border-white/10'} rounded-2xl p-4 relative group hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] transition-all duration-300`}
+    className={`bg-black/40 backdrop-blur-xl border ${highlight ? 'border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.15)]' : 'border-white/10'} rounded-2xl p-5 relative group hover:-translate-y-1.5 hover:shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:border-white/20 transition-all duration-500`}
     title={tooltip}
   >
+    <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
     <div className="flex items-center gap-3 mb-2">
-      <span className="text-2xl group-hover:scale-110 transition-transform duration-300">{icon}</span>
-      <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-gray-400 transition-colors">{label}</span>
+      <span className="text-2xl group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500">{icon}</span>
+      <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 group-hover:text-gray-300 transition-colors duration-300">{label}</span>
     </div>
-    <div className={`text-2xl font-black ${highlight ? 'text-rose-400' : 'text-white'}`}>
+    <div className={`text-3xl font-black ${highlight ? 'text-rose-400' : 'text-white'} tracking-tight`}>
       <AnimatedCounter value={value} />
     </div>
   </div>
@@ -65,6 +66,15 @@ const FamilyInsightsPanel = ({ nodes, edges }) => {
     let missingBio = 0;
     let missingParents = 0;
 
+    let maxConns = 0;
+    let mostConnected = 'No data';
+    const allConns = {};
+    nodes.forEach(n => allConns[n.id] = 0);
+    edges.forEach(e => {
+       if (allConns[e.source] !== undefined) allConns[e.source]++;
+       if (allConns[e.target] !== undefined) allConns[e.target]++;
+    });
+
     const parentCounts = {};
     nodes.forEach(n => parentCounts[n.id] = 0);
     edges.forEach(e => {
@@ -86,9 +96,14 @@ const FamilyInsightsPanel = ({ nodes, edges }) => {
           topPlace = p.birth_place;
         }
       }
+
+      if (allConns[n.id] > maxConns) {
+        maxConns = allConns[n.id];
+        mostConnected = `${p.first_name || 'Unknown'} ${p.last_name || ''}`.trim();
+      }
     });
 
-    return { totalMembers, totalRelationships, topPlace: maxCount > 0 ? topPlace : 'Not Recorded', missingDob, missingBio, missingParents };
+    return { totalMembers, totalRelationships, topPlace: maxCount > 0 ? topPlace : 'Not Recorded', missingDob, missingBio, missingParents, mostConnected };
   }, [nodes, edges]);
 
   // Prevent render before calculation
@@ -101,7 +116,7 @@ const FamilyInsightsPanel = ({ nodes, edges }) => {
     <div className="space-y-5 animate-in fade-in duration-700">
       
       {/* 1. Animated Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <InsightCard 
           icon="👥" label="Total Members" value={insights.totalMembers} tooltip="Total individuals in this tree" 
         />
@@ -110,6 +125,9 @@ const FamilyInsightsPanel = ({ nodes, edges }) => {
         />
         <InsightCard 
           icon="🌍" label="Deep Roots" value={insights.topPlace} tooltip="Most common origin city/place" 
+        />
+        <InsightCard 
+          icon="🌟" label="Most Connected" value={insights.mostConnected} tooltip="Member with the most direct links" highlight
         />
       </div>
 
@@ -125,44 +143,46 @@ const FamilyInsightsPanel = ({ nodes, edges }) => {
             {/* Fix 5: Auto Fix WOW Feature */}
             <button 
               onClick={() => setShowAutoFix(!showAutoFix)}
-              className="px-3 py-1.5 bg-amber-500 text-black text-[10px] font-black uppercase tracking-widest rounded-lg hover:bg-amber-400 hover:scale-105 hover:shadow-[0_0_15px_rgba(245,158,11,0.4)] transition-all active:scale-95"
+              className="relative group px-4 py-2 rounded-xl border border-amber-500/50 bg-gradient-to-r from-amber-600/20 to-amber-500/10 text-amber-400 text-[10px] font-black uppercase tracking-[0.15em] hover:from-amber-500 hover:to-amber-400 hover:text-black hover:scale-105 hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] active:scale-95 transition-all duration-500 overflow-hidden"
             >
-              {showAutoFix ? '✕ Close Panel' : '✨ Fix All Issues'}
+              <div className="absolute inset-0 bg-amber-400/20 blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-1000 animate-pulse" />
+              <span className="relative z-10 flex items-center gap-1.5">{showAutoFix ? '✕ Close Auto-Fix' : '✨ Fix All Issues'}</span>
             </button>
           </div>
 
           <div className="space-y-3">
             {insights.missingDob > 0 && (
-              <div className="flex items-center justify-between text-xs bg-black/40 border border-white/5 rounded-xl px-4 py-3 group hover:border-white/10 transition-colors">
+              <div className="flex items-center justify-between text-xs bg-amber-500/5 border-l-2 border-l-amber-500 border-y border-r border-white/5 rounded-xl rounded-l-none px-4 py-3 group hover:border-r-white/10 hover:border-y-white/10 hover:bg-amber-500/10 transition-all duration-300 shadow-[0_4px_15px_rgba(245,158,11,0.05)]">
                 <div>
-                  <span className="text-gray-400 block group-hover:text-gray-300">Missing Birthdates</span>
-                  <span className="text-white font-bold"><AnimatedCounter value={insights.missingDob} /> members</span>
+                  <span className="text-amber-500/80 block font-bold text-[10px] uppercase tracking-wider mb-0.5">Primary Issue</span>
+                  <span className="text-gray-200 block group-hover:text-white transition-colors">Missing Birthdates</span>
+                  <span className="text-white font-black text-sm"><AnimatedCounter value={insights.missingDob} /> members</span>
                 </div>
-                <button className="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-gray-300 hover:text-white hover:border-white/20 hover:bg-white/10 active:scale-95 transition-all text-[10px] font-bold uppercase tracking-wider">
+                <button className="px-4 py-2 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-400 hover:bg-amber-500 hover:text-black hover:shadow-[0_0_15px_rgba(245,158,11,0.4)] active:scale-95 transition-all duration-300 text-[10px] font-black uppercase tracking-widest">
                   Fix Now
                 </button>
               </div>
             )}
             
             {insights.missingBio > 0 && (
-              <div className="flex items-center justify-between text-xs bg-black/40 border border-white/5 rounded-xl px-4 py-3 group hover:border-white/10 transition-colors">
+              <div className="flex items-center justify-between text-xs bg-black/40 border border-white/5 rounded-xl px-4 py-3 group hover:border-white/15 hover:bg-white/[0.02] hover:-translate-y-0.5 shadow-sm transition-all duration-300">
                 <div>
-                  <span className="text-gray-400 block group-hover:text-gray-300">Missing Biographies</span>
+                  <span className="text-gray-400 block group-hover:text-gray-300 transition-colors">Missing Biographies</span>
                   <span className="text-white font-bold"><AnimatedCounter value={insights.missingBio} /> members</span>
                 </div>
-                <button className="px-3 py-1.5 rounded-lg border border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500 hover:text-white hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] active:scale-95 transition-all text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5">
+                <button className="px-3 py-1.5 rounded-lg border border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500 hover:text-white hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] active:scale-95 transition-all duration-300 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5">
                   <span>✨</span> Generate
                 </button>
               </div>
             )}
             
             {insights.missingParents > 0 && (
-              <div className="flex items-center justify-between text-xs bg-black/40 border border-white/5 rounded-xl px-4 py-3 group hover:border-white/10 transition-colors">
+              <div className="flex items-center justify-between text-xs bg-black/40 border border-white/5 rounded-xl px-4 py-3 group hover:border-white/15 hover:bg-white/[0.02] hover:-translate-y-0.5 shadow-sm transition-all duration-300">
                 <div>
-                  <span className="text-gray-400 block group-hover:text-gray-300">Incomplete Parent Links</span>
+                  <span className="text-gray-400 block group-hover:text-gray-300 transition-colors">Incomplete Parent Links</span>
                   <span className="text-white font-bold"><AnimatedCounter value={insights.missingParents} /> members</span>
                 </div>
-                <button className="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-gray-300 hover:text-white hover:border-white/20 hover:bg-white/10 active:scale-95 transition-all text-[10px] font-bold uppercase tracking-wider">
+                <button className="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-gray-300 hover:text-white hover:border-white/20 hover:bg-white/10 active:scale-95 transition-all duration-300 text-[10px] font-bold uppercase tracking-wider">
                   Resolve
                 </button>
               </div>

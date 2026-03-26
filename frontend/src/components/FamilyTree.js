@@ -682,7 +682,7 @@ const FamilyTreeInner = ({ nodes: incomingNodes = [], edges: incomingEdges = [],
           className="!bg-black/80 !border !border-white/10 !rounded-xl"
           style={{ right: 16, bottom: 60 }}
         />
-        <Background color="#1a1a1a" gap={24} size={1} />
+        <Background color="#f43f5e" gap={24} size={1} className="opacity-[0.05]" />
       </ReactFlow>
 
       <GraphSearch rawNodes={incomingNodes} onHighlight={handleSearchHL} />

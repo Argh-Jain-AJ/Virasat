@@ -52,9 +52,10 @@ const PersonNode = memo(({ data }) => {
     containerCls = 'border border-white/5 opacity-25 scale-95';
   } else if (hovered) {
     containerCls = 'border border-white/40 scale-[1.02]';
-    glowStyle    = { boxShadow: `0 0 16px ${genColor.ring}30` };
+    glowStyle    = { boxShadow: `0 0 25px ${genColor.ring}40, 0 10px 30px rgba(0,0,0,0.5)` };
   } else {
-    containerCls = 'border border-white/15 hover:border-white/40';
+    containerCls = 'border border-white/10 hover:border-white/30';
+    glowStyle    = { boxShadow: `0 0 40px ${genColor.ring}15` };
   }
 
   const [mounted, setMounted] = React.useState(false);
