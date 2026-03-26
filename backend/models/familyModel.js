@@ -24,10 +24,12 @@ const createFamily = async (family_name, created_by) => {
  */
 const getFamiliesByUser = async (user_id) => {
   const query = `
-    SELECT id, family_name, created_by, created_at
-    FROM families
-    WHERE created_by = $1
-    ORDER BY created_at DESC;
+    SELECT f.id, f.family_name, f.created_by, f.created_at, COUNT(p.id)::int AS member_count
+    FROM families f
+    LEFT JOIN persons p ON f.id = p.family_id
+    WHERE f.created_by = $1
+    GROUP BY f.id
+    ORDER BY f.created_at DESC;
   `;
   const { rows } = await pool.query(query, [user_id]);
   return rows;
@@ -40,9 +42,11 @@ const getFamiliesByUser = async (user_id) => {
  */
 const getFamilyById = async (family_id) => {
   const query = `
-    SELECT id, family_name, created_by, created_at
-    FROM families
-    WHERE id = $1;
+    SELECT f.id, f.family_name, f.created_by, f.created_at, COUNT(p.id)::int AS member_count
+    FROM families f
+    LEFT JOIN persons p ON f.id = p.family_id
+    WHERE f.id = $1
+    GROUP BY f.id;
   `;
   const { rows } = await pool.query(query, [family_id]);
   return rows[0] || null;
