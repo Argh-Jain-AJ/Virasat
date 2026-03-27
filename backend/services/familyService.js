@@ -30,11 +30,11 @@ const getFamiliesByUser = async (user_id) => {
  * @param {string} family_id 
  * @returns {Object|null} The family object
  */
-const getFamilyById = async (family_id) => {
-  if (!family_id) {
-    throw new Error('Family ID is required');
+const getFamilyById = async (family_id, user_id) => {
+  if (!family_id || !user_id) {
+    throw new Error('Family ID and User ID are required');
   }
-  return await familyModel.getFamilyById(family_id);
+  return await familyModel.getFamilyById(family_id, user_id);
 };
 
 /**
@@ -43,11 +43,11 @@ const getFamilyById = async (family_id) => {
  * @param {string} family_name 
  * @returns {Object|null}
  */
-const updateFamily = async (family_id, family_name) => {
-  if (!family_id || !family_name) {
-    throw new Error('Family ID and new name are required');
+const updateFamily = async (family_id, family_name, user_id) => {
+  if (!family_id || !family_name || !user_id) {
+    throw new Error('Family ID, new name, and User ID are required');
   }
-  return await familyModel.updateFamily(family_id, family_name);
+  return await familyModel.updateFamily(family_id, family_name, user_id);
 };
 
 /**
@@ -55,11 +55,11 @@ const updateFamily = async (family_id, family_name) => {
  * @param {string} family_id 
  * @returns {boolean}
  */
-const deleteFamily = async (family_id) => {
-  if (!family_id) {
-    throw new Error('Family ID is required');
+const deleteFamily = async (family_id, user_id) => {
+  if (!family_id || !user_id) {
+    throw new Error('Family ID and User ID are required');
   }
-  return await familyModel.deleteFamily(family_id);
+  return await familyModel.deleteFamily(family_id, user_id);
 };
 
 module.exports = {

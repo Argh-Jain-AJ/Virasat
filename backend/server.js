@@ -11,6 +11,26 @@ const pool = require('./config/db');
 
 const app = express();
 
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const rateLimit = require('express-rate-limit');
+
+// Security Middlewares
+app.use(helmet({ crossOriginResourcePolicy: false })); // Allow cross-origin images
+app.use(mongoSanitize()); // Prevent NoSQL injection patterns if applicable
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 300, // limit each IP to 300 requests per window
+  message: { message: 'Too many requests from this IP, please try again after 15 minutes' }
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 25, // limit each IP to 25 auth requests per window
+  message: { message: 'Too many authentication attempts, please try again later' }
+});
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -40,7 +60,8 @@ require('./cron/reminderCron');
 const errorHandler = require('./middleware/errorHandler');
 
 // Mount Routes
-app.use('/api/auth', authRoutes);
+app.use('/api/', apiLimiter);
+app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/families', familyRoutes);
 app.use('/api/persons', personRoutes);
 app.use('/api/relationships', relationshipRoutes);

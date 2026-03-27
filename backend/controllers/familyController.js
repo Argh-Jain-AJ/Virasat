@@ -44,7 +44,7 @@ const getFamilies = async (req, res) => {
 const getFamilyById = async (req, res) => {
   try {
     const { family_id } = req.params;
-    const family = await familyService.getFamilyById(family_id);
+    const family = await familyService.getFamilyById(family_id, req.user.id);
     
     if (!family) {
       return res.status(404).json({ message: 'Family not found' });
@@ -70,7 +70,7 @@ const updateFamily = async (req, res) => {
       return res.status(400).json({ message: 'Family name is required' });
     }
 
-    const updatedFamily = await familyService.updateFamily(family_id, family_name);
+    const updatedFamily = await familyService.updateFamily(family_id, family_name, req.user.id);
     
     if (!updatedFamily) {
       return res.status(404).json({ message: 'Family not found' });
@@ -90,7 +90,7 @@ const updateFamily = async (req, res) => {
 const deleteFamily = async (req, res) => {
   try {
     const { family_id } = req.params;
-    const success = await familyService.deleteFamily(family_id);
+    const success = await familyService.deleteFamily(family_id, req.user.id);
     
     if (!success) {
       return res.status(404).json({ message: 'Family not found' });
