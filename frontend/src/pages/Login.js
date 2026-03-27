@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import bgImage from '../assets/hero-bg.png';
+import api from '../api/api';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('demo@demo.com');
+  const [password, setPassword] = useState('password123');
   const [message, setMessage] = useState('');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -21,10 +22,15 @@ const Login = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    localStorage.setItem("token", "demo-token");
-    navigate("/dashboard");
+    try {
+      const res = await api.post('/auth/login', { email, password });
+      localStorage.setItem("token", res.data.token);
+      navigate("/dashboard");
+    } catch (err) {
+      setMessage(err.response?.data?.message || 'Login failed');
+    }
   };
 
   return (
