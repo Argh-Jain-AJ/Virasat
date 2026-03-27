@@ -40,15 +40,15 @@ const getFamiliesByUser = async (user_id) => {
  * @param {string} family_id - The ID of the family
  * @returns {Object|null} The family object or null if not found
  */
-const getFamilyById = async (family_id) => {
+const getFamilyById = async (family_id, user_id) => {
   const query = `
     SELECT f.id, f.family_name, f.created_by, f.created_at, COUNT(p.id)::int AS member_count
     FROM families f
     LEFT JOIN persons p ON f.id = p.family_id
-    WHERE f.id = $1
+    WHERE f.id = $1 AND f.created_by = $2
     GROUP BY f.id;
   `;
-  const { rows } = await pool.query(query, [family_id]);
+  const { rows } = await pool.query(query, [family_id, user_id]);
   return rows[0] || null;
 };
 
@@ -58,14 +58,14 @@ const getFamilyById = async (family_id) => {
  * @param {string} family_name - The new family name
  * @returns {Object|null} The updated family object
  */
-const updateFamily = async (family_id, family_name) => {
+const updateFamily = async (family_id, family_name, user_id) => {
   const query = `
     UPDATE families 
     SET family_name = $1 
-    WHERE id = $2 
+    WHERE id = $2 AND created_by = $3
     RETURNING id, family_name, created_by, created_at;
   `;
-  const { rows } = await pool.query(query, [family_name, family_id]);
+  const { rows } = await pool.query(query, [family_name, family_id, user_id]);
   return rows[0] || null;
 };
 
@@ -74,13 +74,13 @@ const updateFamily = async (family_id, family_name) => {
  * @param {string} family_id - The ID of the family
  * @returns {boolean} True if deleted, false if not found
  */
-const deleteFamily = async (family_id) => {
+const deleteFamily = async (family_id, user_id) => {
   const query = `
     DELETE FROM families 
-    WHERE id = $1 
+    WHERE id = $1 AND created_by = $2
     RETURNING id;
   `;
-  const { rows } = await pool.query(query, [family_id]);
+  const { rows } = await pool.query(query, [family_id, user_id]);
   return rows.length > 0;
 };
 
