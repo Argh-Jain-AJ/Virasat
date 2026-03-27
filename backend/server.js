@@ -84,7 +84,11 @@ app.use(errorHandler);
 // Port configuration
 const PORT = process.env.PORT || 5001;
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Start server defaults to local, exported for serverless
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
