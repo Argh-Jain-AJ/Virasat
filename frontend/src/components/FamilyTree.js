@@ -496,15 +496,25 @@ const FamilyTreeInner = ({ nodes: incomingNodes = [], edges: incomingEdges = [],
     return s;
   }, [incomingEdges]);
 
-  // ── Layout + state effect ──────────────────────────────────
+  // ── 1. Layout Memoization ──────────────────────────────────
+  // ONLY runs when underlying data (nodes/edges) changes, NOT on hover!
+  const layout = useMemo(() => {
+    if (!incomingNodes || incomingNodes.length === 0) {
+      return { positions: {}, genMap: {} };
+    }
+    const result = computeLayout(incomingNodes, incomingEdges);
+    genMapRef.current = result.genMap;
+    return result;
+  }, [incomingNodes, incomingEdges]);
+
+  // ── 2. Node/Edge Formatting Effect ─────────────────────────
+  // Runs fast, only updates visual styling without recalculating layout
   useEffect(() => {
     if (!incomingNodes || incomingNodes.length === 0) {
       setRfNodes([]); setRfEdges([]); return;
     }
 
-    // Run the custom hierarchical layout
-    const { positions, genMap } = computeLayout(incomingNodes, incomingEdges);
-    genMapRef.current = genMap;
+    const { positions, genMap } = layout;
 
     const focusConn = focusMode && selectedPerson ? getConnected(selectedPerson.id) : null;
     const pathIds   = selectedPerson ? getPathIds(selectedPerson.id) : null;
@@ -564,7 +574,7 @@ const FamilyTreeInner = ({ nodes: incomingNodes = [], edges: incomingEdges = [],
     setRfEdges(formattedEdges);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [incomingNodes, incomingEdges, selectedPerson, hoveredId, focusMode, searchHL, showPhotos]);
+  }, [incomingNodes, incomingEdges, layout, selectedPerson, hoveredId, focusMode, searchHL, showPhotos]);
 
   // ── Search + centre-on-match ──
   const handleSearchHL = useCallback((personId) => {
@@ -572,11 +582,11 @@ const FamilyTreeInner = ({ nodes: incomingNodes = [], edges: incomingEdges = [],
     if (!personId) return;
     const node = incomingNodes.find(n => n.data?.person?.id === personId);
     if (node) {
-      const { positions } = computeLayout(incomingNodes, incomingEdges);
-      const pos = positions[node.id];
+      // Use the memoized positions
+      const pos = layout.positions[node.id];
       if (pos) setCenter(pos.x + NODE_W / 2, pos.y + NODE_H / 2, { zoom: 1.2, duration: 700 });
     }
-  }, [incomingNodes, incomingEdges, setCenter]);
+  }, [incomingNodes, layout, setCenter]);
 
   const handleExport = useCallback(() => {
     const nodesBounds = getNodesBounds(getNodes());

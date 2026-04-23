@@ -35,12 +35,15 @@ const Avatar = ({ photoUrl, name, size = 'md', glow = false, onClick }) => {
     <div
       onClick={onClick}
       className={`${sizes[size]} flex-shrink-0 flex items-center justify-center font-black select-none
-        bg-white/5 border border-white/10 bg-cover bg-center transition-all duration-300
+        bg-white/5 border border-white/10 overflow-hidden transition-all duration-300
         ${glow ? 'shadow-[0_0_40px_rgba(225,29,72,0.3)]' : ''}
         ${onClick ? 'cursor-pointer hover:border-rose-500/50 hover:scale-105' : ''}`}
-      style={{ backgroundImage: photoUrl ? `url(${photoUrl})` : 'none' }}
     >
-      {!photoUrl && <span className="text-rose-400">{name?.[0]?.toUpperCase() || '?'}</span>}
+      {photoUrl ? (
+        <img src={photoUrl} alt={`${name} avatar`} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+      ) : (
+        <span className="text-rose-400">{name?.[0]?.toUpperCase() || '?'}</span>
+      )}
     </div>
   );
 };
@@ -90,12 +93,15 @@ const UploadableAvatar = ({ photoUrl, name, size = 'lg', glow = false, personId,
       <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />
       <div
         className={`${sizes[size] || sizes.lg} flex items-center justify-center font-black select-none
-          bg-white/5 border border-white/10 bg-cover bg-center transition-all duration-300
+          bg-white/5 border border-white/10 overflow-hidden transition-all duration-300
           ${glow ? 'shadow-[0_0_40px_rgba(225,29,72,0.3)]' : ''}
           ${editable ? 'group-hover:border-rose-500/50' : ''}`}
-        style={{ backgroundImage: displayUrl ? `url(${displayUrl})` : 'none' }}
       >
-        {!displayUrl && <span className="text-rose-400">{name?.[0]?.toUpperCase() || '?'}</span>}
+        {displayUrl ? (
+          <img src={displayUrl} alt={`${name} avatar`} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+        ) : (
+          <span className="text-rose-400">{name?.[0]?.toUpperCase() || '?'}</span>
+        )}
       </div>
       {/* Camera overlay */}
       {editable && (

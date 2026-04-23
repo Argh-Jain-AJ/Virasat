@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   createPerson,
@@ -257,6 +257,34 @@ const RelationshipBuilder = ({ nodes, onSubmit }) => {
 };
 
 // ─────────────────────────────────────────────
+// ISOLATED BACKGROUND
+// ─────────────────────────────────────────────
+// Prevents global re-renders on mouse movement
+const InteractiveBackground = memo(() => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  
+  useEffect(() => {
+    let ticking = false;
+    const mm = (e) => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setMousePos({ x: (e.clientX / window.innerWidth) * 100, y: (e.clientY / window.innerHeight) * 100 });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('mousemove', mm, { passive: true });
+    return () => window.removeEventListener('mousemove', mm);
+  }, []);
+
+  return (
+    <div className="pointer-events-none fixed inset-0 z-0 opacity-40" style={{ background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(225,29,72,0.12), transparent 45%)` }} />
+  );
+});
+InteractiveBackground.displayName = 'InteractiveBackground';
+
+// ─────────────────────────────────────────────
 // MAIN PAGE
 // ─────────────────────────────────────────────
 const FamilyTreePage = () => {
@@ -264,7 +292,6 @@ const FamilyTreePage = () => {
   const [selectedFamily, setSelectedFamily] = useState('');
   const [treeData, setTreeData] = useState({ nodes: [], edges: [] });
   const [error, setError] = useState('');
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
 
   const [activities, setActivities] = useState([
@@ -304,10 +331,6 @@ const FamilyTreePage = () => {
     } else {
       fetchTree(familyId);
     }
-
-    const mm = (e) => setMousePos({ x: (e.clientX / window.innerWidth) * 100, y: (e.clientY / window.innerHeight) * 100 });
-    window.addEventListener('mousemove', mm);
-    return () => window.removeEventListener('mousemove', mm);
   }, [navigate]);
 
   const fetchTree = async (familyId) => {
@@ -354,7 +377,7 @@ const FamilyTreePage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-x-hidden font-sans selection:bg-rose-500/30">
-      <div className="pointer-events-none fixed inset-0 z-0 opacity-40" style={{ background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(225,29,72,0.12), transparent 45%)` }} />
+      <InteractiveBackground />
       <div className="fixed inset-0 z-[-1] bg-cover bg-center opacity-20 brightness-50" style={{ backgroundImage: `url(${bgImage})` }} />
       <div className="fixed inset-0 z-[-1] bg-gradient-to-b from-black/70 via-transparent to-black/90" />
 
