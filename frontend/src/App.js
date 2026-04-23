@@ -1,7 +1,7 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Footer from './components/Footer';
-import { ToastProvider } from './context/ToastContext';
+import { ToastProvider, useToast } from './context/ToastContext';
 import './App.css';
 
 // Lazy loaded pages
@@ -11,6 +11,26 @@ const Dashboard = lazy(() => import('./pages/Dashboard'));
 const FamilyTreePage = lazy(() => import('./pages/FamilyTreePage'));
 const PersonProfile = lazy(() => import('./pages/PersonProfile'));
 const StoryTransition = lazy(() => import('./pages/StoryTransition'));
+
+// Network offline resilience
+const NetworkListener = () => {
+  const { addToast } = useToast();
+
+  useEffect(() => {
+    const handleOffline = () => addToast('You are offline. Some features may be unavailable.', 'error');
+    const handleOnline = () => addToast('You are back online.', 'success');
+
+    window.addEventListener('offline', handleOffline);
+    window.addEventListener('online', handleOnline);
+
+    return () => {
+      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener('online', handleOnline);
+    };
+  }, [addToast]);
+
+  return null;
+};
 
 // Global fallback loader
 const PageLoader = () => (
@@ -22,6 +42,7 @@ const PageLoader = () => (
 function App() {
   return (
     <ToastProvider>
+      <NetworkListener />
       <BrowserRouter>
         <div className="App bg-black min-h-screen flex flex-col">
           <Suspense fallback={<PageLoader />}>

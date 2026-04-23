@@ -65,7 +65,8 @@ const UploadableAvatar = ({ photoUrl, name, size = 'lg', glow = false, personId,
       const token = localStorage.getItem('token');
       const fd = new FormData();
       fd.append('photo', file);
-      const res = await fetch(`http://localhost:5001/api/persons/${personId}/photo`, {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+      const res = await fetch(`${apiUrl}/persons/${personId}/photo`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
         body: fd,
