@@ -1,45 +1,93 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const yaml = require('yamljs');
-const swaggerUi = require('swagger-ui-express');
 const path = require('path');
-
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const rateLimit = require('express-rate-limit');
+const xssClean = require('xss-clean');
 
 // Import database pool
 const pool = require('./config/db');
 
 const app = express();
 
-const helmet = require('helmet');
-const mongoSanitize = require('express-mongo-sanitize');
-const rateLimit = require('express-rate-limit');
+// ── 1. Security headers via Helmet ────────────────────────────
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc:  ["'self'"],
+      styleSrc:   ["'self'", "'unsafe-inline'"],
+      imgSrc:     ["'self'", 'data:', 'blob:', '*'],
+      connectSrc: ["'self'"],
+      frameSrc:   ["'none'"],
+      objectSrc:  ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
+  hsts: {
+    maxAge: 31536000,           // 1 year
+    includeSubDomains: true,
+    preload: true,
+  },
+  xFrameOptions: { action: 'deny' },
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+  hidePoweredBy: true,
+}));
 
-// Security Middlewares
-app.use(helmet({ crossOriginResourcePolicy: false })); // Allow cross-origin images
-app.use(mongoSanitize()); // Prevent NoSQL injection patterns if applicable
+// Trust proxy (Vercel, Railway, nginx) so rate-limiter sees real IPs
+app.set('trust proxy', 1);
 
+// ── 2. CORS — whitelist only the frontend origin ──────────────
+const allowedOrigins = (
+  process.env.ALLOWED_ORIGINS || 'http://localhost:3000'
+).split(',').map(o => o.trim());
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g. curl, Postman in dev)
+    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS policy: origin '${origin}' is not allowed`));
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
+
+// ── 3. Body size limit + input sanitization ───────────────────
+app.use(express.json({ limit: '10kb' }));
+app.use(mongoSanitize());   // Strip $ and . from keys (NoSQL-injection pattern)
+app.use(xssClean());        // Strip HTML/script tags from req.body/query/params
+
+// ── 4. Serve uploaded files ───────────────────────────────────
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// ── 5. Rate limiters ─────────────────────────────────────────
 const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 300, // limit each IP to 300 requests per window
-  message: { message: 'Too many requests from this IP, please try again after 15 minutes' }
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Too many requests from this IP, please try again in 15 minutes' }
 });
 
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 25, // limit each IP to 25 auth requests per window
+  windowMs: 15 * 60 * 1000,
+  max: 15,  // ← tightened from 25
+  standardHeaders: true,
+  legacyHeaders: false,
   message: { message: 'Too many authentication attempts, please try again later' }
 });
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-// Serve uploaded files (photos etc.) publicly
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// Swagger Setup
-const swaggerDocument = yaml.load(path.join(__dirname, 'swagger.yaml'));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// ── 6. Swagger UI (dev only) ──────────────────────────────────
+if (process.env.NODE_ENV !== 'production') {
+  const yaml = require('yamljs');
+  const swaggerUi = require('swagger-ui-express');
+  const swaggerDocument = yaml.load(path.join(__dirname, 'swagger.yaml'));
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+}
 
 // Import Routes
 const authRoutes = require('./routes/authRoutes');
