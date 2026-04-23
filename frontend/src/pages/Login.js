@@ -6,8 +6,8 @@ import { useToast } from '../context/ToastContext';
 import CanvasNetwork from '../components/CanvasNetwork';
 
 const Login = () => {
-  const [email, setEmail] = useState('demo@demo.com');
-  const [password, setPassword] = useState('password123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
