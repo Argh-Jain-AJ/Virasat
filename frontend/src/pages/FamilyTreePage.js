@@ -281,10 +281,29 @@ const FamilyTreePage = () => {
   }, []);
 
   useEffect(() => {
-    const familyId = localStorage.getItem('selectedFamily');
+    const isDemo = new URLSearchParams(window.location.search).get('demo') === 'true';
+    const familyId = localStorage.getItem('selectedFamily') || (isDemo ? 'demo-family-123' : null);
     if (!familyId) { navigate('/dashboard'); return; }
     setSelectedFamily(familyId);
-    fetchTree(familyId);
+    
+    if (isDemo) {
+      setTreeData({
+        nodes: [
+          { id: 'n1', position: { x: 0, y: 0 }, data: { person: { id: 'n1', first_name: 'Arthur', last_name: 'Pendragon', gender: 'Male', birth_place: 'Camelot' } } },
+          { id: 'n2', position: { x: 250, y: 0 }, data: { person: { id: 'n2', first_name: 'Guinevere', last_name: 'Leodegrance', gender: 'Female' } } },
+          { id: 'n3', position: { x: 125, y: 150 }, data: { person: { id: 'n3', first_name: 'Gawain', last_name: 'Pendragon', gender: 'Male' } } },
+          { id: 'n4', position: { x: 375, y: 150 }, data: { person: { id: 'n4', first_name: 'Lancelot', last_name: 'du Lac', gender: 'Male' } } },
+        ],
+        edges: [
+          { id: 'e1', source: 'n1', target: 'n2', data: { relationship_type: 'spouse' } },
+          { id: 'e2', source: 'n1', target: 'n3', data: { relationship_type: 'parent' } },
+          { id: 'e3', source: 'n2', target: 'n3', data: { relationship_type: 'parent' } },
+          { id: 'e4', source: 'n4', target: 'n2', data: { relationship_type: 'sibling' } },
+        ]
+      });
+    } else {
+      fetchTree(familyId);
+    }
 
     const mm = (e) => setMousePos({ x: (e.clientX / window.innerWidth) * 100, y: (e.clientY / window.innerHeight) * 100 });
     window.addEventListener('mousemove', mm);
@@ -344,7 +363,12 @@ const FamilyTreePage = () => {
         {/* HEADER */}
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-6 border-b border-white/10 gap-6 animate-in fade-in slide-in-from-top-4 duration-1000 fill-mode-both">
           <div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500 drop-shadow-md">VIRASAT WORKSPACE</h1>
+            <div className="flex items-center gap-4">
+              <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500 drop-shadow-md">VIRASAT WORKSPACE</h1>
+              {new URLSearchParams(window.location.search).get('demo') === 'true' && (
+                <span className="px-3 py-1 bg-amber-500/10 border border-amber-500/40 text-amber-500 text-[10px] font-black uppercase tracking-widest rounded-lg shadow-[0_0_15px_rgba(245,158,11,0.2)]">Demo Lineage</span>
+              )}
+            </div>
             <p className="text-gray-400 text-sm mt-1 mb-1 font-medium tracking-wide">Build, preserve and explore your family legacy.</p>
             <p className="text-xs font-bold text-rose-500 tracking-[0.3em] uppercase mt-2">VIRASAT ORIGIN ID · {selectedFamily.substring(0, 8)}</p>
           </div>

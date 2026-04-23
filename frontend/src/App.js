@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import FamilyTreePage from './pages/FamilyTreePage';
 import PersonProfile from './pages/PersonProfile';
+import StoryTransition from './pages/StoryTransition';
 import './App.css'; 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/story-transition" element={<StoryTransition />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/family-tree" element={<FamilyTreePage />} />
           <Route path="/person/:id" element={<PersonProfile />} />
