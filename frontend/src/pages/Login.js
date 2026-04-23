@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import bgImage from '../assets/hero-bg.png';
 import api from '../api/api';
+import { useToast } from '../context/ToastContext';
 import CanvasNetwork from '../components/CanvasNetwork';
 
 const Login = () => {
   const [email, setEmail] = useState('demo@demo.com');
   const [password, setPassword] = useState('password123');
-  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const navigate = useNavigate();
+  const { addToast } = useToast();
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -25,12 +27,18 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await api.post('/auth/login', { email, password });
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch (err) {
-      setMessage(err.response?.data?.message || 'Login failed');
+      if (err.response?.status === 401) {
+        addToast('Invalid credentials. Please verify your identity.', 'error');
+      } else {
+        addToast(err.response?.data?.message || 'Failed to access the lineage archive. Please try again.', 'error');
+      }
+      setLoading(false);
     }
   };
 
@@ -124,12 +132,6 @@ const Login = () => {
               <p className="text-sm text-gray-400 font-medium">Continue your family's story where you left off.</p>
             </div>
 
-            {message && (
-             <div className="p-3 bg-red-900/40 border border-red-500/50 rounded-xl text-red-100 text-sm font-medium text-center shadow-lg">
-               {message}
-             </div>
-            )}
-
             <form onSubmit={handleLogin} className="space-y-6 mt-8">
               <div className="space-y-1.5 group relative">
                 <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest group-focus-within:text-rose-400 transition-colors duration-300 block">Email Address</label>
@@ -170,10 +172,13 @@ const Login = () => {
 
               <button 
                 type="submit" 
-                className="w-full py-4 mt-8 bg-gradient-to-r from-rose-600 to-rose-500 border border-rose-400/30 text-white font-black tracking-[0.2em] uppercase text-xs rounded-xl shadow-[0_5px_15px_rgba(225,29,72,0.3)] hover:shadow-[0_15px_40px_rgba(225,29,72,0.6)] hover:from-rose-500 hover:to-orange-500 hover:scale-[1.03] active:scale-[0.97] transition-all duration-500 ease-out relative overflow-hidden group"
+                disabled={loading}
+                className="w-full py-4 mt-8 bg-gradient-to-r from-rose-600 to-rose-500 border border-rose-400/30 text-white font-black tracking-[0.2em] uppercase text-xs rounded-xl shadow-[0_5px_15px_rgba(225,29,72,0.3)] hover:shadow-[0_15px_40px_rgba(225,29,72,0.6)] hover:from-rose-500 hover:to-orange-500 hover:scale-[1.03] active:scale-[0.97] transition-all duration-500 ease-out relative overflow-hidden group disabled:opacity-50"
               >
                 <div className="absolute inset-0 bg-white/20 blur-md opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300" />
-                <span className="relative z-10 flex items-center justify-center gap-2 drop-shadow-md">Continue Your Story <span className="text-rose-200 transition-transform duration-500 group-hover:translate-x-1.5">→</span></span>
+                <span className="relative z-10 flex items-center justify-center gap-2 drop-shadow-md">
+                  {loading ? <span className="animate-pulse">Authenticating...</span> : <>Continue Your Story <span className="text-rose-200 transition-transform duration-500 group-hover:translate-x-1.5">→</span></>}
+                </span>
               </button>
 
               <button 
