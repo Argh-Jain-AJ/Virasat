@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../api/api';
+import { useToast } from '../context/ToastContext';
 import bgImage from '../assets/hero-bg.png';
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const navigate = useNavigate();
+  const { addToast } = useToast();
 
   // Track mouse for the interactive spotlight effect
   useEffect(() => {
@@ -26,16 +28,18 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const response = await api.post('/auth/register', { name, email, password });
-      setMessage(response.data.message || 'Legacy initiated. You may now login.');
-      setTimeout(() => navigate('/login'), 2500);
+      await api.post('/auth/register', { name, email, password });
+      addToast('Legacy initiated. You may now login.', 'success');
+      setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
-      if (error.response && error.response.data) {
-        setMessage(error.response.data.message || 'Registration failed');
+      if (error.response?.status === 400 && error.response?.data?.message?.includes('already exists')) {
+        addToast('This email is already preserving a legacy.', 'error');
       } else {
-        setMessage('Network error');
+        addToast(error.response?.data?.message || 'Registration failed. Please try again.', 'error');
       }
+      setLoading(false);
     }
   };
 
@@ -85,12 +89,6 @@ const Register = () => {
             <p className="text-sm text-gray-400">Register to anchor your family tree.</p>
           </div>
 
-          {message && (
-            <div className={`p-3 border rounded-lg text-sm text-center ${message.includes('initiated') ? 'bg-green-900/30 border-green-500/50 text-green-200' : 'bg-red-900/30 border-red-500/50 text-red-200'}`}>
-              {message}
-            </div>
-          )}
-
           <form onSubmit={handleRegister} className="space-y-6 mt-8">
             <div className="space-y-1 group">
               <label className="text-xs font-bold text-gray-500 uppercase tracking-widest group-focus-within:text-rose-500 transition-colors">Full Name</label>
@@ -130,9 +128,10 @@ const Register = () => {
 
             <button 
               type="submit" 
-              className="w-full py-4 mt-4 bg-white text-black font-bold tracking-widest uppercase text-sm rounded-none hover:bg-rose-500 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(225,29,72,0.4)]"
+              disabled={loading}
+              className="w-full py-4 mt-4 bg-white text-black font-bold tracking-widest uppercase text-sm rounded-none hover:bg-rose-500 hover:text-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(225,29,72,0.4)] disabled:opacity-50 flex justify-center items-center gap-2"
             >
-              Establish Anchor
+              {loading ? <span className="animate-pulse">Forging...</span> : 'Establish Anchor'}
             </button>
           </form>
 

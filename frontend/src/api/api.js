@@ -16,10 +16,27 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Handle expired / invalid tokens globally
+// Handle expired / invalid tokens and network errors globally
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Standardize error structure for the frontend
+    const standardizedError = {
+      ...error,
+      response: {
+        ...error.response,
+        data: {
+          message: 'An unexpected error occurred. Please try again.',
+          ...(error.response?.data || {})
+        }
+      }
+    };
+
+    if (!error.response) {
+      // Network errors or CORS
+      standardizedError.response.data.message = 'Unable to connect to the lineage archive. Please check your network connection.';
+    }
+
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('selectedFamily');
@@ -28,7 +45,9 @@ api.interceptors.response.use(
         window.location.href = '/login';
       }
     }
-    return Promise.reject(error);
+    
+    // Pass the standardized error down to the catch blocks
+    return Promise.reject(standardizedError);
   }
 );
 

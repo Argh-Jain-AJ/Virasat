@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getFamilies, createFamily, deleteFamily, updateFamily } from "../services/familyService";
 import bgImage from "../assets/hero-bg.png";
 import CanvasNetwork from "../components/CanvasNetwork";
+import { useToast } from "../context/ToastContext";
 
 // ─────────────────────────────────────────────
 // MINI LINEAGE CANVAS — renders inside each card on hover
@@ -170,13 +171,17 @@ const LineageCard = ({ fam, isLastOpened, onSelect, onUpdate, onDelete, formatDa
 // ─────────────────────────────────────────────
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { addToast } = useToast();
 
   const [families, setFamilies]       = useState([]);
-  const [error, setError]             = useState("");
   const [newFamilyName, setNewFamilyName] = useState("");
   const [loading, setLoading]         = useState(false);
   const [mousePos, setMousePos]       = useState({ x: 0, y: 0 });
   const [transitioningId, setTransitioningId] = useState(null);
+
+  // Modal States
+  const [deleteModalState, setDeleteModalState] = useState({ isOpen: false, familyId: null, isDeleting: false });
+  const [renameModalState, setRenameModalState] = useState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false });
 
   useEffect(() => {
     fetchFamilies();
@@ -193,7 +198,7 @@ const Dashboard = () => {
       familyList.sort((a, b) => new Date(b.updated_at || 0) - new Date(a.updated_at || 0));
       setFamilies(familyList);
     } catch (err) {
-      setError("Failed to fetch lineages.");
+      addToast("Failed to fetch lineages.", "error");
     }
   };
 
@@ -205,41 +210,68 @@ const Dashboard = () => {
     setTimeout(() => navigate("/family-tree"), 450);
   }, [navigate]);
 
-  const handleDeleteFamily = async (e, familyId) => {
+  const handleDeleteFamily = (e, familyId) => {
     e.stopPropagation();
-    if (window.confirm("Are you sure you want to permanently obliterate this lineage?")) {
-      try {
-        await deleteFamily(familyId);
-        if (localStorage.getItem("selectedFamily") === familyId) localStorage.removeItem("selectedFamily");
-        fetchFamilies();
-      } catch { setError("Failed to delete lineage."); }
+    setDeleteModalState({ isOpen: true, familyId, isDeleting: false });
+  };
+
+  const confirmDeleteFamily = async () => {
+    const { familyId } = deleteModalState;
+    if (!familyId) return;
+    
+    setDeleteModalState(prev => ({ ...prev, isDeleting: true }));
+    try {
+      await deleteFamily(familyId);
+      if (localStorage.getItem("selectedFamily") === familyId) localStorage.removeItem("selectedFamily");
+      addToast("Lineage successfully eradicated.", "success");
+      fetchFamilies();
+    } catch { 
+      addToast("Failed to delete lineage.", "error"); 
+    } finally {
+      setDeleteModalState({ isOpen: false, familyId: null, isDeleting: false });
     }
   };
 
-  const handleUpdateFamily = async (e, familyId, currentName) => {
+  const handleUpdateFamily = (e, familyId, currentName) => {
     e.stopPropagation();
-    const newName = window.prompt("Enter new lineage name:", currentName);
-    if (newName && newName.trim() !== currentName) {
-      try {
-        await updateFamily(familyId, { family_name: newName.trim() });
-        fetchFamilies();
-      } catch { setError("Failed to rename lineage."); }
+    setRenameModalState({ isOpen: true, familyId, currentName, newName: currentName, isSaving: false });
+  };
+
+  const confirmUpdateFamily = async () => {
+    const { familyId, currentName, newName } = renameModalState;
+    if (!newName || newName.trim() === currentName) {
+      setRenameModalState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false });
+      return;
+    }
+    
+    setRenameModalState(prev => ({ ...prev, isSaving: true }));
+    try {
+      await updateFamily(familyId, { family_name: newName.trim() });
+      addToast("Lineage renamed successfully.", "success");
+      fetchFamilies();
+    } catch { 
+      addToast("Failed to rename lineage.", "error"); 
+    } finally {
+      setRenameModalState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false });
     }
   };
 
   const handleCreateFamily = async (e) => {
     e.preventDefault();
-    if (!newFamilyName.trim()) { setError("Lineage name cannot be empty."); return; }
+    if (!newFamilyName.trim()) { addToast("Lineage name cannot be empty.", "error"); return; }
     setLoading(true);
-    setError("");
     try {
       const response = await createFamily({ family_name: newFamilyName.trim() });
       const created = response?.data || response;
       if (!created?.id) throw new Error("Invalid family response");
       localStorage.setItem("selectedFamily", created.id);
+      addToast("Lineage forged successfully.", "success");
       navigate("/family-tree");
-    } catch { setError("Failed to forge new lineage."); }
-    finally { setLoading(false); }
+    } catch { 
+      addToast("Failed to forge new lineage.", "error"); 
+    } finally { 
+      setLoading(false); 
+    }
   };
 
   const formatDate = (dateString) => {
@@ -313,12 +345,6 @@ const Dashboard = () => {
               </div>
             </div>
           </header>
-
-          {error && (
-            <div className="mb-8 p-4 bg-red-900/40 border border-red-500/50 rounded-xl text-red-100 text-sm font-medium flex items-center gap-3 backdrop-blur-md animate-in fade-in zoom-in-95 duration-300">
-              <span className="text-xl">⚠️</span> {error}
-            </div>
-          )}
 
           {/* ── GRID ── */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -432,6 +458,78 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      {/* ── CUSTOM DELETE MODAL ── */}
+      {deleteModalState.isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 animate-in fade-in zoom-in-95 duration-200">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => !deleteModalState.isDeleting && setDeleteModalState({ isOpen: false, familyId: null, isDeleting: false })} />
+          <div className="relative bg-[#0f0f0f] border border-red-500/30 rounded-3xl p-8 max-w-md w-full shadow-2xl z-10 text-center">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500/80 to-transparent rounded-t-3xl" />
+            <div className="text-5xl mb-4">⚠️</div>
+            <h2 className="text-2xl font-black text-white mb-2">Obliterate Lineage?</h2>
+            <p className="text-gray-400 text-sm mb-8">This action is permanent and irreversible. All descendants, memories, and connections will be lost forever.</p>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => setDeleteModalState({ isOpen: false, familyId: null, isDeleting: false })}
+                disabled={deleteModalState.isDeleting}
+                className="flex-1 py-3 px-5 bg-white/5 border border-white/10 text-gray-300 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-white/10 transition-all disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmDeleteFamily}
+                disabled={deleteModalState.isDeleting}
+                className="flex-1 py-3 px-5 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all disabled:opacity-50 flex justify-center items-center gap-2"
+              >
+                {deleteModalState.isDeleting ? <span className="animate-pulse">Deleting...</span> : 'Yes, Delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── CUSTOM RENAME MODAL ── */}
+      {renameModalState.isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 animate-in fade-in zoom-in-95 duration-200">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => !renameModalState.isSaving && setRenameModalState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false })} />
+          <div className="relative bg-[#0f0f0f] border border-white/10 rounded-3xl p-8 max-w-md w-full shadow-2xl z-10">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-rose-500/60 to-transparent rounded-t-3xl" />
+            <h2 className="text-2xl font-black text-white mb-2">Rename Lineage</h2>
+            <p className="text-gray-400 text-sm mb-6">Enter a new name for your family tree.</p>
+            
+            <input
+              autoFocus
+              type="text"
+              value={renameModalState.newName}
+              onChange={(e) => setRenameModalState(prev => ({ ...prev, newName: e.target.value }))}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') confirmUpdateFamily();
+                if (e.key === 'Escape') setRenameModalState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false });
+              }}
+              className="w-full bg-white/5 border border-white/10 hover:border-white/20 px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-rose-500/80 focus:bg-white/10 transition-all duration-300 rounded-xl mb-8"
+              placeholder="Lineage Name"
+            />
+            
+            <div className="flex gap-3">
+              <button 
+                onClick={() => setRenameModalState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false })}
+                disabled={renameModalState.isSaving}
+                className="flex-1 py-3 px-5 bg-white/5 border border-white/10 text-gray-300 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-white/10 transition-all disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmUpdateFamily}
+                disabled={renameModalState.isSaving || !renameModalState.newName.trim() || renameModalState.newName === renameModalState.currentName}
+                className="flex-1 py-3 px-5 bg-rose-500/10 border border-rose-500/30 text-rose-400 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-rose-500 hover:text-white transition-all disabled:opacity-50 flex justify-center items-center gap-2"
+              >
+                {renameModalState.isSaving ? <span className="animate-pulse">Saving...</span> : 'Save Name'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </>
   );
 };

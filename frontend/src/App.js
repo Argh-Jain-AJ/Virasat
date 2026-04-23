@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Footer from './components/Footer';
+import { ToastProvider } from './context/ToastContext';
 import './App.css';
 
 // Lazy loaded pages
@@ -20,24 +21,26 @@ const PageLoader = () => (
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App bg-black min-h-screen flex flex-col">
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/story-transition" element={<StoryTransition />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/family-tree" element={<FamilyTreePage />} />
-            <Route path="/person/:id" element={<PersonProfile />} />
+    <ToastProvider>
+      <BrowserRouter>
+        <div className="App bg-black min-h-screen flex flex-col">
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/story-transition" element={<StoryTransition />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/family-tree" element={<FamilyTreePage />} />
+              <Route path="/person/:id" element={<PersonProfile />} />
 
-            {/* Default fallback route redirecting to login */}
-            <Route path="*" element={<Navigate to="/login" replace />} />
-          </Routes>
-        </Suspense>
-        <Footer />
-      </div>
-    </BrowserRouter>
+              {/* Default fallback route redirecting to login */}
+              <Route path="*" element={<Navigate to="/login" replace />} />
+            </Routes>
+          </Suspense>
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </ToastProvider>
   );
 }
 
