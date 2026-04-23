@@ -14,14 +14,14 @@ const register = async (req, res) => {
 
     const newUser = await authService.registerUser(name, email, password);
     res.status(201).json({ message: 'User registered successfully', user: newUser });
-  } catch (error) {
-    console.error("REGISTER ERROR:", error);
+  } catch (err) {
+    console.error("REGISTER ERROR:", err.message);
 
-    if (error.message === 'User already exists') {
-      return res.status(400).json({ message: error.message });
+    if (err.message === 'User already exists') {
+      return res.status(400).json({ message: err.message });
     }
 
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: 'Registration failed. Please try again.' });
   }
 };
 

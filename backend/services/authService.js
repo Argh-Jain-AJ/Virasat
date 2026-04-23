@@ -50,9 +50,13 @@ const loginUser = async (email, password) => {
     email: user.email
   };
   
+  if (!process.env.JWT_SECRET) {
+    throw new Error('FATAL: JWT_SECRET environment variable is not set.');
+  }
+
   const token = jwt.sign(
-    payload, 
-    process.env.JWT_SECRET || 'fallback_secret', 
+    payload,
+    process.env.JWT_SECRET,
     { expiresIn: '24h' }
   );
 

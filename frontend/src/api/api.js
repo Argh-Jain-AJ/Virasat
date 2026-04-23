@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-// Configure axios instance with the backend base URL
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5001/api',
 });
 
-// Add a request interceptor to attach the JWT token to outgoing requests
+// Attach JWT to every outgoing request
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -14,7 +13,21 @@ api.interceptors.request.use(
     }
     return config;
   },
+  (error) => Promise.reject(error)
+);
+
+// Handle expired / invalid tokens globally
+api.interceptors.response.use(
+  (response) => response,
   (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('selectedFamily');
+      // Redirect to login only if not already there
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
+      }
+    }
     return Promise.reject(error);
   }
 );
