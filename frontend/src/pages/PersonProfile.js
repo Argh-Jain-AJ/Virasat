@@ -757,6 +757,60 @@ const PersonProfile = () => {
   const fetchProfileData = useCallback(async () => {
     try {
       setLoading(true);
+
+      const MOCK_DEMO_DATA = {
+        n1: {
+          person: { id: 'n1', first_name: 'Arthur', last_name: 'Pendragon', gender: 'Male', birth_place: 'Camelot', bio: 'The legendary king of Britain, wielder of Excalibur.' },
+          memories: [{ id: 'm1', title: 'Drawing the Sword', description: 'Pulled Excalibur from the stone, fulfilling the ancient prophecy.', event_date: '0500-01-01', tags: ['Career'] }],
+          relationships: [
+            { id: 'r1', person1_id: 'n1', person2_id: 'n2', relationship_type: 'spouse' },
+            { id: 'r2', person1_id: 'n1', person2_id: 'n3', relationship_type: 'parent' }
+          ]
+        },
+        n2: {
+          person: { id: 'n2', first_name: 'Guinevere', last_name: 'Leodegrance', gender: 'Female', bio: 'The noble Queen of Camelot.' },
+          memories: [],
+          relationships: [
+            { id: 'r1', person1_id: 'n1', person2_id: 'n2', relationship_type: 'spouse' },
+            { id: 'r3', person1_id: 'n2', person2_id: 'n3', relationship_type: 'parent' },
+            { id: 'r4', person1_id: 'n4', person2_id: 'n2', relationship_type: 'sibling' }
+          ]
+        },
+        n3: {
+          person: { id: 'n3', first_name: 'Gawain', last_name: 'Pendragon', gender: 'Male', bio: 'A brave and loyal knight of the Round Table.' },
+          memories: [],
+          relationships: [
+            { id: 'r2', person1_id: 'n1', person2_id: 'n3', relationship_type: 'parent' },
+            { id: 'r3', person1_id: 'n2', person2_id: 'n3', relationship_type: 'parent' }
+          ]
+        },
+        n4: {
+          person: { id: 'n4', first_name: 'Lancelot', last_name: 'du Lac', gender: 'Male', bio: 'The greatest swordsman of Camelot.' },
+          memories: [],
+          relationships: [
+            { id: 'r4', person1_id: 'n4', person2_id: 'n2', relationship_type: 'sibling' }
+          ]
+        }
+      };
+
+      if (MOCK_DEMO_DATA[id]) {
+        const data = MOCK_DEMO_DATA[id];
+        setPerson(data.person);
+        setEditForm(data.person);
+        setMemories(data.memories);
+        setLegacyMessages([]);
+        setRelationships(data.relationships);
+        
+        const otherIds = [...new Set(data.relationships.map(r => r.person1_id === id ? r.person2_id : r.person1_id))];
+        const pm = {};
+        otherIds.forEach(oid => {
+           if (MOCK_DEMO_DATA[oid]) pm[oid] = MOCK_DEMO_DATA[oid].person;
+        });
+        setRelPersons(pm);
+        setLoading(false);
+        return;
+      }
+
       const [personRes, memoriesRes, relsRes, legacyRes] = await Promise.all([
         api.get(`/persons/${id}`),
         api.get(`/memories/person/${id}`),
