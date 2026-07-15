@@ -1,0 +1,490 @@
+{
+  "projectRoot": "/Users/arghjain/Desktop/Projects/Family Tree",
+  "files": [
+    {
+      "path": ".DS_Store",
+      "language": "unknown",
+      "fileCategory": "code"
+    },
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/.env",
+      "language": "config",
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/.env.example",
+      "language": "config",
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/config/db.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/aiController.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/authController.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/eventController.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/familyController.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/gedcomController.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/legacyController.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/memoryController.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/personController.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/relationshipController.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/reminderController.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/cron/reminderCron.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/Dockerfile",
+      "language": "dockerfile",
+      "fileCategory": "infra"
+    },
+    {
+      "path": "backend/init_cloud_db.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/init_db.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/middleware/authMiddleware.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/middleware/errorHandler.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/middleware/validationMiddleware.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/migrate_demo.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/familyModel.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/memoryModel.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/personModel.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/relationshipModel.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/userModel.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/package.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/routes/aiRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/authRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/eventRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/familyRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/familyTreeRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/gedcomRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/legacyRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/memoryRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/personRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/relationshipRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/reminderRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/schema.sql",
+      "language": "sql",
+      "fileCategory": "data"
+    },
+    {
+      "path": "backend/server.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/authService.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/familyService.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/memoryService.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/personService.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/relationshipService.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/setup_demo_user.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/swagger.yaml",
+      "language": "yaml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/tests/integration.test.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/utils/gedcomParser.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/utils/treeBuilder.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/vercel.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "fileCategory": "infra"
+    },
+    {
+      "path": "frontend/.env.example",
+      "language": "config",
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/Dockerfile",
+      "language": "dockerfile",
+      "fileCategory": "infra"
+    },
+    {
+      "path": "frontend/package.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/postcss.config.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/public/index.html",
+      "language": "html",
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/public/manifest.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/public/robots.txt",
+      "language": "txt",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend/README.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend/src/api/api.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/App.css",
+      "language": "css",
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/App.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/App.test.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/ActivityFeed.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/CanvasNetwork.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/CollaborationPanel.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/FamilyInsightsPanel.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/FamilyInvite.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/FamilyTimeline.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/FamilyTree.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/Footer.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/GedcomImport.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/LegacySection.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/MemoryTimeline.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/PersonNode.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/SearchBar.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/SmartSuggestions.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/UpcomingReminders.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/context/ToastContext.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/index.css",
+      "language": "css",
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/index.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/Dashboard.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/FamilyTreePage.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/Login.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/PersonProfile.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/Register.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/StoryTransition.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/reportWebVitals.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/services/familyService.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/setupTests.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/tests/components.test.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/tailwind.config.js",
+      "language": "javascript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "security_audit.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    }
+  ]
+}

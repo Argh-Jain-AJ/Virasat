@@ -1,0 +1,55 @@
+{
+  "nodes": [
+    {
+      "id": "service:frontend/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Multi-stage Docker build for the React frontend: compiles the app with Node.js and serves the resulting static assets through a lightweight Nginx image.",
+      "tags": ["containerization", "infrastructure", "deployment", "multi-stage-build", "frontend"],
+      "complexity": "simple",
+      "languageNotes": "Uses Docker multi-stage builds: a `node:18-alpine` stage installs dependencies and runs `npm run build`, then only the compiled output is copied into a minimal `nginx:alpine` runtime stage, keeping the final image small and free of build tooling."
+    },
+    {
+      "id": "service:frontend/Dockerfile:build",
+      "type": "service",
+      "name": "build",
+      "filePath": "frontend/Dockerfile",
+      "summary": "First Docker stage (node:18-alpine) that installs npm dependencies and runs `npm run build` to produce the production static assets for the frontend.",
+      "tags": ["build-stage", "npm", "containerization", "node"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:frontend/Dockerfile:nginx",
+      "type": "service",
+      "name": "nginx",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Second Docker stage (nginx:alpine) that copies the compiled frontend assets from the build stage and serves them on port 80.",
+      "tags": ["serve-stage", "nginx", "containerization", "deployment"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:build",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:nginx",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:frontend/Dockerfile:nginx",
+      "target": "service:frontend/Dockerfile:build",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

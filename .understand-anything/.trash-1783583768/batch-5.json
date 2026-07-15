@@ -1,0 +1,155 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/controllers/gedcomController.js",
+      "type": "file",
+      "name": "gedcomController.js",
+      "filePath": "backend/controllers/gedcomController.js",
+      "summary": "Express controller handling GEDCOM file import: parses the uploaded .ged file, deduplicates and inserts persons/relationships into Postgres inside a single transaction, then returns the rebuilt family tree data for the frontend.",
+      "tags": ["api-handler", "gedcom-import", "transaction", "controller", "postgresql"],
+      "complexity": "moderate",
+      "languageNotes": "Uses a single Postgres client transaction (BEGIN/COMMIT/ROLLBACK) to atomically insert parsed GEDCOM persons and relationships, with per-row duplicate checks against name/birth_date."
+    },
+    {
+      "id": "function:backend/controllers/gedcomController.js:importGedcom",
+      "type": "function",
+      "name": "importGedcom",
+      "filePath": "backend/controllers/gedcomController.js",
+      "lineRange": [12, 108],
+      "summary": "Async Express handler that reads an uploaded GEDCOM file, parses it, deduplicates and inserts persons/relationships into Postgres inside a transaction, and returns the rebuilt tree data required by the frontend.",
+      "tags": ["api-handler", "gedcom-import", "transaction", "async"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/controllers/reminderController.js",
+      "type": "file",
+      "name": "reminderController.js",
+      "filePath": "backend/controllers/reminderController.js",
+      "summary": "Express controller that fetches upcoming birthdays, death anniversaries, and memory events for a family via a UNION SQL query, computes each event's next yearly occurrence, and returns those within 45 days sorted by proximity.",
+      "tags": ["api-handler", "reminders", "postgresql", "date-calculation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/controllers/reminderController.js:getUpcomingReminders",
+      "type": "function",
+      "name": "getUpcomingReminders",
+      "filePath": "backend/controllers/reminderController.js",
+      "lineRange": [7, 65],
+      "summary": "Queries persons and memories tables via UNION ALL to gather birthday, death-anniversary, and memory events for a family, computes each event's next yearly occurrence in JS, and filters to events within 45 days.",
+      "tags": ["api-handler", "reminders", "date-calculation", "sql"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/middleware/authMiddleware.js",
+      "type": "file",
+      "name": "authMiddleware.js",
+      "filePath": "backend/middleware/authMiddleware.js",
+      "summary": "Express middleware that verifies the JWT bearer token from the Authorization header, attaches the decoded user payload to the request, and rejects unauthenticated or invalid requests.",
+      "tags": ["middleware", "authentication", "jwt", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/middleware/authMiddleware.js:verifyToken",
+      "type": "function",
+      "name": "verifyToken",
+      "filePath": "backend/middleware/authMiddleware.js",
+      "lineRange": [6, 27],
+      "summary": "Validates the Bearer JWT from the Authorization header using JWT_SECRET, attaches the decoded payload to req.user, and calls next() on success or returns 401 on failure or missing token.",
+      "tags": ["middleware", "authentication", "jwt"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/routes/familyTreeRoutes.js",
+      "type": "file",
+      "name": "familyTreeRoutes.js",
+      "filePath": "backend/routes/familyTreeRoutes.js",
+      "summary": "Express router exposing a protected GET endpoint that returns ReactFlow-formatted nodes/edges for a family's tree by delegating to treeBuilder.",
+      "tags": ["router", "api-routes", "family-tree", "protected-route"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/routes/gedcomRoutes.js",
+      "type": "file",
+      "name": "gedcomRoutes.js",
+      "filePath": "backend/routes/gedcomRoutes.js",
+      "summary": "Express router configuring Multer disk storage and a .ged file filter (5MB limit) for a protected GEDCOM import endpoint that delegates to gedcomController.importGedcom, with manual Multer error handling.",
+      "tags": ["router", "file-upload", "gedcom-import", "multer", "protected-route"],
+      "complexity": "moderate",
+      "languageNotes": "Uses Multer diskStorage with a custom fileFilter restricting uploads to .ged files under 5MB, and wraps the upload middleware call to catch MulterError before invoking the controller."
+    },
+    {
+      "id": "file:backend/routes/reminderRoutes.js",
+      "type": "file",
+      "name": "reminderRoutes.js",
+      "filePath": "backend/routes/reminderRoutes.js",
+      "summary": "Minimal Express router exposing a single protected GET endpoint that returns upcoming reminders for a family via reminderController.",
+      "tags": ["router", "api-routes", "reminders", "protected-route"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/utils/gedcomParser.js",
+      "type": "file",
+      "name": "gedcomParser.js",
+      "filePath": "backend/utils/gedcomParser.js",
+      "summary": "Utility that parses raw GEDCOM file content into structured person records and spouse/parent-child relationships by walking INDI and FAM node trees.",
+      "tags": ["utility", "gedcom-parsing", "data-transformation"],
+      "complexity": "moderate",
+      "languageNotes": "Parses the GEDCOM hierarchical tag tree (INDI/FAM/NAME/BIRT/etc.) using the third-party `gedcom` package, manually splitting the GEDCOM NAME field on '/' to separate first and last names."
+    },
+    {
+      "id": "function:backend/utils/gedcomParser.js:parseGedcom",
+      "type": "function",
+      "name": "parseGedcom",
+      "filePath": "backend/utils/gedcomParser.js",
+      "lineRange": [8, 96],
+      "summary": "Parses a raw GEDCOM string into arrays of person objects (name, gender, birth date/place) and relationship objects (spouse, parent-child) by iterating INDI and FAM tag trees.",
+      "tags": ["gedcom-parsing", "data-transformation", "utility"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:backend/utils/treeBuilder.js",
+      "type": "file",
+      "name": "treeBuilder.js",
+      "filePath": "backend/utils/treeBuilder.js",
+      "summary": "Utility that queries persons and relationships for a family from Postgres and transforms them into ReactFlow-compatible nodes and edges, normalizing relationship direction into a top-down parent-to-child DAG.",
+      "tags": ["utility", "family-tree", "react-flow", "data-transformation", "postgresql"],
+      "complexity": "moderate",
+      "languageNotes": "Normalizes both 'parent' and 'child' relationship rows into a consistent top-down 'Parent' edge direction so the frontend Dagre layout renders a proper generational hierarchy."
+    },
+    {
+      "id": "function:backend/utils/treeBuilder.js:buildFamilyTreeData",
+      "type": "function",
+      "name": "buildFamilyTreeData",
+      "filePath": "backend/utils/treeBuilder.js",
+      "lineRange": [8, 52],
+      "summary": "Fetches persons and relationships for a family_id from Postgres and maps them into ReactFlow node/edge objects, flipping 'child' relationships to a consistent top-down 'Parent' edge label.",
+      "tags": ["family-tree", "react-flow", "data-transformation"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    { "source": "file:backend/controllers/gedcomController.js", "target": "file:backend/config/db.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/controllers/gedcomController.js", "target": "file:backend/utils/gedcomParser.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/controllers/gedcomController.js", "target": "file:backend/utils/treeBuilder.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/controllers/reminderController.js", "target": "file:backend/config/db.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/routes/familyTreeRoutes.js", "target": "file:backend/middleware/authMiddleware.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/routes/familyTreeRoutes.js", "target": "file:backend/utils/treeBuilder.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/routes/gedcomRoutes.js", "target": "file:backend/controllers/gedcomController.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/routes/gedcomRoutes.js", "target": "file:backend/middleware/authMiddleware.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/routes/reminderRoutes.js", "target": "file:backend/controllers/reminderController.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/routes/reminderRoutes.js", "target": "file:backend/middleware/authMiddleware.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/utils/treeBuilder.js", "target": "file:backend/config/db.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/controllers/gedcomController.js", "target": "function:backend/controllers/gedcomController.js:importGedcom", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/controllers/reminderController.js", "target": "function:backend/controllers/reminderController.js:getUpcomingReminders", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/middleware/authMiddleware.js", "target": "function:backend/middleware/authMiddleware.js:verifyToken", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/utils/gedcomParser.js", "target": "function:backend/utils/gedcomParser.js:parseGedcom", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/utils/treeBuilder.js", "target": "function:backend/utils/treeBuilder.js:buildFamilyTreeData", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/controllers/gedcomController.js", "target": "function:backend/controllers/gedcomController.js:importGedcom", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/controllers/reminderController.js", "target": "function:backend/controllers/reminderController.js:getUpcomingReminders", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/middleware/authMiddleware.js", "target": "function:backend/middleware/authMiddleware.js:verifyToken", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/utils/gedcomParser.js", "target": "function:backend/utils/gedcomParser.js:parseGedcom", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/utils/treeBuilder.js", "target": "function:backend/utils/treeBuilder.js:buildFamilyTreeData", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "function:backend/controllers/gedcomController.js:importGedcom", "target": "function:backend/utils/gedcomParser.js:parseGedcom", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:backend/controllers/gedcomController.js:importGedcom", "target": "function:backend/utils/treeBuilder.js:buildFamilyTreeData", "type": "calls", "direction": "forward", "weight": 0.8 }
+  ]
+}

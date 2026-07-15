@@ -1,0 +1,159 @@
+{
+  "projectRoot": "/Users/arghjain/Desktop/Projects/Family Tree",
+  "batchFiles": [
+    {
+      "path": "frontend/src/api/api.js",
+      "language": "javascript",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/ActivityFeed.js",
+      "language": "javascript",
+      "sizeLines": 99,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/CollaborationPanel.js",
+      "language": "javascript",
+      "sizeLines": 142,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/FamilyInsightsPanel.js",
+      "language": "javascript",
+      "sizeLines": 224,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/FamilyInvite.js",
+      "language": "javascript",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/FamilyTimeline.js",
+      "language": "javascript",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/FamilyTree.js",
+      "language": "javascript",
+      "sizeLines": 718,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/GedcomImport.js",
+      "language": "javascript",
+      "sizeLines": 159,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/LegacySection.js",
+      "language": "javascript",
+      "sizeLines": 153,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/MemoryTimeline.js",
+      "language": "javascript",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/PersonNode.js",
+      "language": "javascript",
+      "sizeLines": 161,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/SearchBar.js",
+      "language": "javascript",
+      "sizeLines": 149,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/SmartSuggestions.js",
+      "language": "javascript",
+      "sizeLines": 144,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/UpcomingReminders.js",
+      "language": "javascript",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/FamilyTreePage.js",
+      "language": "javascript",
+      "sizeLines": 502,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/PersonProfile.js",
+      "language": "javascript",
+      "sizeLines": 1147,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/services/familyService.js",
+      "language": "javascript",
+      "sizeLines": 78,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "frontend/src/api/api.js": [],
+    "frontend/src/components/ActivityFeed.js": [],
+    "frontend/src/components/CollaborationPanel.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/FamilyInsightsPanel.js": [],
+    "frontend/src/components/FamilyInvite.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/FamilyTimeline.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/FamilyTree.js": [
+      "frontend/src/components/PersonNode.js"
+    ],
+    "frontend/src/components/GedcomImport.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/LegacySection.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/MemoryTimeline.js": [],
+    "frontend/src/components/PersonNode.js": [],
+    "frontend/src/components/SearchBar.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/SmartSuggestions.js": [],
+    "frontend/src/components/UpcomingReminders.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/pages/FamilyTreePage.js": [
+      "frontend/src/components/ActivityFeed.js",
+      "frontend/src/components/CollaborationPanel.js",
+      "frontend/src/components/FamilyInsightsPanel.js",
+      "frontend/src/components/FamilyTree.js",
+      "frontend/src/components/GedcomImport.js",
+      "frontend/src/components/SearchBar.js",
+      "frontend/src/components/SmartSuggestions.js",
+      "frontend/src/components/UpcomingReminders.js",
+      "frontend/src/services/familyService.js"
+    ],
+    "frontend/src/pages/PersonProfile.js": [
+      "frontend/src/api/api.js",
+      "frontend/src/components/LegacySection.js",
+      "frontend/src/components/MemoryTimeline.js",
+      "frontend/src/services/familyService.js"
+    ],
+    "frontend/src/services/familyService.js": [
+      "frontend/src/api/api.js"
+    ]
+  }
+}

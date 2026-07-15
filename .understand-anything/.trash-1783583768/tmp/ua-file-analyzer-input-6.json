@@ -1,0 +1,34 @@
+{
+  "projectRoot": "/Users/arghjain/Desktop/Projects/Family Tree",
+  "batchFiles": [
+    {"path": "backend/controllers/eventController.js", "language": "javascript", "sizeLines": 77, "fileCategory": "code"},
+    {"path": "backend/controllers/memoryController.js", "language": "javascript", "sizeLines": 76, "fileCategory": "code"},
+    {"path": "backend/models/memoryModel.js", "language": "javascript", "sizeLines": 87, "fileCategory": "code"},
+    {"path": "backend/routes/eventRoutes.js", "language": "javascript", "sizeLines": 9, "fileCategory": "code"},
+    {"path": "backend/routes/memoryRoutes.js", "language": "javascript", "sizeLines": 12, "fileCategory": "code"},
+    {"path": "backend/services/memoryService.js", "language": "javascript", "sizeLines": 56, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "backend/controllers/eventController.js": [
+      "backend/services/memoryService.js",
+      "backend/services/personService.js"
+    ],
+    "backend/controllers/memoryController.js": [
+      "backend/services/memoryService.js"
+    ],
+    "backend/models/memoryModel.js": [
+      "backend/config/db.js"
+    ],
+    "backend/routes/eventRoutes.js": [
+      "backend/controllers/eventController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/routes/memoryRoutes.js": [
+      "backend/controllers/memoryController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/services/memoryService.js": [
+      "backend/models/memoryModel.js"
+    ]
+  }
+}

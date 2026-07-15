@@ -1,0 +1,25 @@
+{
+  "projectRoot": "/Users/arghjain/Desktop/Projects/Family Tree",
+  "batchFiles": [
+    {"path": "backend/controllers/aiController.js", "language": "javascript", "sizeLines": 47, "fileCategory": "code"},
+    {"path": "backend/controllers/personController.js", "language": "javascript", "sizeLines": 123, "fileCategory": "code"},
+    {"path": "backend/controllers/relationshipController.js", "language": "javascript", "sizeLines": 88, "fileCategory": "code"},
+    {"path": "backend/models/personModel.js", "language": "javascript", "sizeLines": 145, "fileCategory": "code"},
+    {"path": "backend/models/relationshipModel.js", "language": "javascript", "sizeLines": 73, "fileCategory": "code"},
+    {"path": "backend/routes/aiRoutes.js", "language": "javascript", "sizeLines": 9, "fileCategory": "code"},
+    {"path": "backend/routes/relationshipRoutes.js", "language": "javascript", "sizeLines": 12, "fileCategory": "code"},
+    {"path": "backend/services/personService.js", "language": "javascript", "sizeLines": 78, "fileCategory": "code"},
+    {"path": "backend/services/relationshipService.js", "language": "javascript", "sizeLines": 64, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "backend/controllers/aiController.js": ["backend/services/personService.js", "backend/services/relationshipService.js"],
+    "backend/controllers/personController.js": ["backend/services/personService.js"],
+    "backend/controllers/relationshipController.js": ["backend/services/relationshipService.js"],
+    "backend/models/personModel.js": ["backend/config/db.js"],
+    "backend/models/relationshipModel.js": ["backend/config/db.js"],
+    "backend/routes/aiRoutes.js": ["backend/controllers/aiController.js", "backend/middleware/authMiddleware.js"],
+    "backend/routes/relationshipRoutes.js": ["backend/controllers/relationshipController.js", "backend/middleware/authMiddleware.js"],
+    "backend/services/personService.js": ["backend/models/personModel.js"],
+    "backend/services/relationshipService.js": ["backend/models/relationshipModel.js"]
+  }
+}

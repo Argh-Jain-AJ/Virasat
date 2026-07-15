@@ -1,0 +1,130 @@
+[
+  {
+    "order": 1,
+    "title": "Project Overview",
+    "description": "Start with the README to learn what Family Tree is: a full-stack platform for building and visualizing interactive family trees with React Flow and Dagre, backed by a normalized PostgreSQL database. It lays out the monorepo split (backend/ for the Express API, frontend/ for the React 18 CRA app), the tech stack, and the full REST API surface that the rest of this tour will walk through in code.",
+    "nodeIds": ["document:README.md"]
+  },
+  {
+    "order": 2,
+    "title": "Backend Entry Point",
+    "description": "backend/server.js is where the Express API boots up. It configures security middleware (helmet, CORS, rate limiting, sanitization), mounts every route module described in the README's API reference, starts the reminder cron job, and starts the HTTP server. With the highest fan-out of any backend file, it is the single place that wires the entire API together.",
+    "nodeIds": ["file:backend/server.js"],
+    "languageLesson": "Express apps are typically composed by attaching a chain of middleware functions and routers to a single `app` instance in one bootstrap file — the order middleware is registered in determines the order requests pass through it."
+  },
+  {
+    "order": 3,
+    "title": "Database Connection Pool",
+    "description": "backend/config/db.js configures a shared PostgreSQL connection pool from either a DATABASE_URL or discrete DB_* environment variables. It has the highest fan-in of any file in the codebase (14 dependents) — nearly every model in the data layer imports this single pool rather than opening its own connection, which is what lets the app scale its query load efficiently.",
+    "nodeIds": ["file:backend/config/db.js"],
+    "languageLesson": "Connection pooling (via node-postgres's `Pool`) reuses a fixed set of open database connections across concurrent requests instead of opening a new TCP connection per query, which is critical for Node.js server throughput."
+  },
+  {
+    "order": 4,
+    "title": "Middleware and Routing",
+    "description": "Every request server.js dispatches first passes through the middleware layer: authMiddleware verifies JWT bearer tokens, validationMiddleware rejects malformed input via express-validator, and errorHandler centralizes error formatting as the final middleware in the chain. Route files like personRoutes.js and familyRoutes.js then map specific URLs (matching the README's `/api/persons`, `/api/families` endpoints) to controller functions, attaching these middleware guards along the way.",
+    "nodeIds": [
+      "file:backend/middleware/authMiddleware.js",
+      "file:backend/middleware/validationMiddleware.js",
+      "file:backend/middleware/errorHandler.js",
+      "file:backend/routes/personRoutes.js",
+      "file:backend/routes/familyRoutes.js"
+    ],
+    "languageLesson": "Express Router instances let each feature area define its own scoped set of routes and middleware, which the entry point then mounts onto a URL prefix (e.g. `app.use('/api/persons', personRoutes)`), keeping routing modular."
+  },
+  {
+    "order": 5,
+    "title": "Controllers",
+    "description": "Controllers are the next stop for a request: personController.js, familyController.js, and authController.js receive the validated, authenticated HTTP request and translate it into calls against the service layer, then map the results (or errors) back to HTTP status codes and JSON responses. They contain no SQL and no business rules themselves — that logic lives one layer deeper, in the services these controllers call.",
+    "nodeIds": [
+      "file:backend/controllers/personController.js",
+      "file:backend/controllers/familyController.js",
+      "file:backend/controllers/authController.js"
+    ]
+  },
+  {
+    "order": 6,
+    "title": "Service Layer",
+    "description": "Building on the controllers from Step 5, personService.js, familyService.js, and authService.js hold the actual business logic: authService.js hashes passwords with bcrypt and issues signed JWTs, while personService.js and familyService.js wrap their respective models with validation and orchestration rules. This is the layer the README's RBAC-via-email collaboration model and authentication flow are actually implemented in.",
+    "nodeIds": [
+      "file:backend/services/personService.js",
+      "file:backend/services/familyService.js",
+      "file:backend/services/authService.js"
+    ]
+  },
+  {
+    "order": 7,
+    "title": "GEDCOM Import & AI Biography",
+    "description": "Two of the README's headline features live here as dedicated domain logic. gedcomController.js and gedcomParser.js implement GEDCOM genealogy file import: the parser walks INDI/FAM records into structured persons and relationships, which the controller deduplicates and inserts inside a single database transaction. treeBuilder.js separately transforms stored persons/relationships into the ReactFlow-shaped nodes/edges the frontend renders, and aiController.js orchestrates AI-assisted biography generation by calling back into the person and relationship services from Step 6.",
+    "nodeIds": [
+      "file:backend/controllers/gedcomController.js",
+      "file:backend/utils/gedcomParser.js",
+      "file:backend/utils/treeBuilder.js",
+      "file:backend/controllers/aiController.js"
+    ],
+    "languageLesson": "GEDCOM is a decades-old genealogy text format organized into tagged INDI (individual) and FAM (family) record blocks; parsing it means walking a flat, indentation-based tree structure rather than JSON or XML."
+  },
+  {
+    "order": 8,
+    "title": "Data Access Models",
+    "description": "At the bottom of the backend's layered request lifecycle sit the models: personModel.js, familyModel.js, and userModel.js each expose parameterized SQL queries against a single table, using the connection pool from Step 3. Every service in Step 6 ultimately bottoms out in one of these files, keeping raw SQL confined to a single, testable layer rather than scattered through controllers.",
+    "nodeIds": [
+      "file:backend/models/personModel.js",
+      "file:backend/models/familyModel.js",
+      "file:backend/models/userModel.js"
+    ]
+  },
+  {
+    "order": 9,
+    "title": "Database Schema",
+    "description": "schema.sql defines the normalized relational structure the models from Step 8 query against. The persons table (scoped to a family) is the core entity; the relationships table is a junction table linking two persons with a typed relationship such as parent or spouse; and families and users establish ownership and multi-tenancy. This is the concrete shape of the 'normalized PostgreSQL structure' the README promises.",
+    "nodeIds": [
+      "table:backend/schema.sql:persons",
+      "table:backend/schema.sql:families",
+      "table:backend/schema.sql:relationships",
+      "table:backend/schema.sql:users"
+    ],
+    "languageLesson": "The relationships table's self-referencing foreign keys (person_id, related_person_id) with a check constraint preventing a person from relating to themselves is a classic pattern for modeling graph-like data in a relational database."
+  },
+  {
+    "order": 10,
+    "title": "Frontend Entry Point",
+    "description": "Switching to the client side of the monorepo: frontend/src/index.js mounts the root App component into the DOM using React 18's root API, and App.js sets up the router with lazily-loaded pages, a global toast provider, and network status detection. Together these mirror server.js's role on the backend — this is where the entire React application is assembled and started.",
+    "nodeIds": ["file:frontend/src/index.js", "file:frontend/src/App.js"],
+    "languageLesson": "React 18 introduced `createRoot` for concurrent rendering, replacing the older `ReactDOM.render` API; combined with `React.lazy`, route components can be code-split so each page's bundle only loads when the user navigates to it."
+  },
+  {
+    "order": 11,
+    "title": "Frontend Client Services",
+    "description": "api.js configures the shared Axios client with a base URL, a JWT bearer-token request interceptor, and a global response interceptor that redirects to login on 401s — it has the highest fan-in of any frontend file, since nearly every page and component in this tour funnels its HTTP calls through it. frontend/src/services/familyService.js then wraps that client with typed calls for families, persons, and relationships, mirroring the backend's family/person/relationship routes from Steps 4-5 on the client side.",
+    "nodeIds": ["file:frontend/src/api/api.js", "file:frontend/src/services/familyService.js"],
+    "languageLesson": "Axios interceptors let you inject cross-cutting concerns — auth headers, centralized error handling — into every request/response without repeating that logic in each API call site."
+  },
+  {
+    "order": 12,
+    "title": "Interactive Tree Visualization",
+    "description": "FamilyTree.js is the centerpiece of the README's 'Interactive Graphing' feature: it computes a generation-based hierarchical layout (adjacency building, generation assignment, collision resolution, iterative barycenter positioning) on top of React Flow, then renders the pannable, zoomable canvas with search highlighting and PNG export. PersonNode.js is the custom React Flow node component it renders for each family member, using generation-based color coding and connection handles to draw the tree's edges.",
+    "nodeIds": ["file:frontend/src/components/FamilyTree.js", "file:frontend/src/components/PersonNode.js"],
+    "languageLesson": "React Flow lets you register custom `nodeTypes` components (like PersonNode) that receive position and data props from a layout algorithm — here a hand-rolled generation/barycenter layout instead of the more common Dagre auto-layout, giving finer control over how generations stack vertically."
+  },
+  {
+    "order": 13,
+    "title": "Feature Pages",
+    "description": "FamilyTreePage.js is the main workspace: it fetches tree data via the client services from Step 11, and assembles the FamilyTree canvas from Step 12 alongside search, GEDCOM import, activity feed, and collaboration panels into one page. PersonProfile.js is the largest page in the app, combining editable profile fields, a mini tree preview, memory and legacy-message CRUD, and the AI biography generation feature introduced back in Step 7.",
+    "nodeIds": ["file:frontend/src/pages/FamilyTreePage.js", "file:frontend/src/pages/PersonProfile.js"]
+  },
+  {
+    "order": 14,
+    "title": "Containerization & Deployment",
+    "description": "docker-compose.yml orchestrates the three services the README's 'Docker-based production deployment' feature refers to: a PostgreSQL 15 database, the Express backend from Step 2, and the React frontend from Step 10, wired together with port mappings and a startup dependency chain. backend/Dockerfile builds a single-stage node:18-alpine image for the API, while frontend/Dockerfile uses a multi-stage build to compile the React app and then serve only the static output through a minimal Nginx image.",
+    "nodeIds": ["service:docker-compose.yml", "service:backend/Dockerfile", "service:frontend/Dockerfile"],
+    "languageLesson": "Multi-stage Docker builds (as in frontend/Dockerfile) use one stage with full build tooling to compile the app and a second, minimal runtime stage that only copies the compiled output — this keeps the final production image small since dev dependencies and build tools never ship."
+  },
+  {
+    "order": 15,
+    "title": "API Contract & Security Hardening",
+    "description": "swagger.yaml is the OpenAPI 3.0 contract documenting every endpoint this tour has walked through in code, from POST /api/auth/register through POST /api/gedcom/import — the same list the README summarizes as its API surface. security_audit.md closes the tour with the project's own accounting of hardening work applied before production: removing a hardcoded JWT fallback secret, tightening wildcard CORS, adding XSS sanitization, and locking down rate limiting and Helmet configuration across the middleware and entry point covered in Steps 2-4.",
+    "nodeIds": ["config:backend/swagger.yaml", "document:security_audit.md"],
+    "languageLesson": "An OpenAPI/Swagger spec is a machine-readable contract for a REST API — tools like swagger-ui-express can render it as interactive documentation directly from the YAML, keeping docs and the implemented routes from drifting apart."
+  }
+]

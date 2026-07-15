@@ -1,0 +1,246 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/controllers/eventController.js",
+      "type": "file",
+      "name": "eventController.js",
+      "filePath": "backend/controllers/eventController.js",
+      "summary": "Controller that builds a unified, chronologically sorted family timeline by combining birth/death events derived from person records with linked memory entries.",
+      "tags": ["api-handler", "controller", "timeline", "family-events"],
+      "complexity": "moderate",
+      "languageNotes": "Silently swallows per-person memory fetch errors inside the aggregation loop to keep building the timeline even if one lookup fails."
+    },
+    {
+      "id": "function:backend/controllers/eventController.js:getFamilyEvents",
+      "type": "function",
+      "name": "getFamilyEvents",
+      "filePath": "backend/controllers/eventController.js",
+      "lineRange": [8, 73],
+      "summary": "Fetches all persons for a family, derives birth/death events, appends each person's memories that have an event date, then returns the combined list sorted chronologically ascending.",
+      "tags": ["api-handler", "aggregation", "timeline"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/memoryController.js",
+      "type": "file",
+      "name": "memoryController.js",
+      "filePath": "backend/controllers/memoryController.js",
+      "summary": "Express controller exposing HTTP handlers for family memories — create, list by family, list by person, and delete — delegating all business logic to memoryService.",
+      "tags": ["api-handler", "controller", "memory", "crud"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/controllers/memoryController.js:createMemory",
+      "type": "function",
+      "name": "createMemory",
+      "filePath": "backend/controllers/memoryController.js",
+      "lineRange": [7, 19],
+      "summary": "Handles POST requests to create a new memory, forwarding the request body to memoryService and returning a 400 for validation errors or 500 for unexpected failures.",
+      "tags": ["api-handler", "validation", "memory"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/memoryController.js:getMemoriesByFamily",
+      "type": "function",
+      "name": "getMemoriesByFamily",
+      "filePath": "backend/controllers/memoryController.js",
+      "lineRange": [25, 34],
+      "summary": "Handles GET requests returning all memories associated with a given family_id route parameter.",
+      "tags": ["api-handler", "memory", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/memoryController.js:getMemoriesByPerson",
+      "type": "function",
+      "name": "getMemoriesByPerson",
+      "filePath": "backend/controllers/memoryController.js",
+      "lineRange": [40, 49],
+      "summary": "Handles GET requests returning all memories associated with a given person_id route parameter.",
+      "tags": ["api-handler", "memory", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/memoryController.js:deleteMemory",
+      "type": "function",
+      "name": "deleteMemory",
+      "filePath": "backend/controllers/memoryController.js",
+      "lineRange": [55, 69],
+      "summary": "Handles DELETE requests removing a memory by id, responding with 404 if the memory was not found and 200 on success.",
+      "tags": ["api-handler", "memory", "deletion"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/models/memoryModel.js",
+      "type": "file",
+      "name": "memoryModel.js",
+      "filePath": "backend/models/memoryModel.js",
+      "summary": "Data access layer executing parameterized SQL queries against the memories table for create, list-by-family, list-by-person, and delete operations.",
+      "tags": ["data-model", "database", "memory", "sql"],
+      "complexity": "moderate",
+      "languageNotes": "Uses parameterized queries ($1, $2, ...) with node-postgres to prevent SQL injection."
+    },
+    {
+      "id": "function:backend/models/memoryModel.js:createMemory",
+      "type": "function",
+      "name": "createMemory",
+      "filePath": "backend/models/memoryModel.js",
+      "lineRange": [8, 35],
+      "summary": "Inserts a new memory row (family_id, person_id, title, description, media, event_date) and returns the created record.",
+      "tags": ["data-model", "sql", "insert"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/models/memoryModel.js:getMemoriesByFamily",
+      "type": "function",
+      "name": "getMemoriesByFamily",
+      "filePath": "backend/models/memoryModel.js",
+      "lineRange": [42, 50],
+      "summary": "Selects all memories for a family, ordered by event date descending (nulls last) then creation time.",
+      "tags": ["data-model", "sql", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/models/memoryModel.js:getMemoriesByPerson",
+      "type": "function",
+      "name": "getMemoriesByPerson",
+      "filePath": "backend/models/memoryModel.js",
+      "lineRange": [57, 65],
+      "summary": "Selects all memories linked to a specific person, ordered by event date descending (nulls last) then creation time.",
+      "tags": ["data-model", "sql", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/models/memoryModel.js:deleteMemory",
+      "type": "function",
+      "name": "deleteMemory",
+      "filePath": "backend/models/memoryModel.js",
+      "lineRange": [72, 80],
+      "summary": "Deletes a memory row by id and returns whether a row was actually removed.",
+      "tags": ["data-model", "sql", "delete"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/routes/eventRoutes.js",
+      "type": "file",
+      "name": "eventRoutes.js",
+      "filePath": "backend/routes/eventRoutes.js",
+      "summary": "Express router wiring the protected GET /api/events endpoint to the eventController's family timeline handler.",
+      "tags": ["routing", "api-handler", "middleware"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/routes/memoryRoutes.js",
+      "type": "file",
+      "name": "memoryRoutes.js",
+      "filePath": "backend/routes/memoryRoutes.js",
+      "summary": "Express router defining protected CRUD endpoints (create, list by family, list by person, delete) for family memories, delegating to memoryController.",
+      "tags": ["routing", "api-handler", "crud", "middleware"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/services/memoryService.js",
+      "type": "file",
+      "name": "memoryService.js",
+      "filePath": "backend/services/memoryService.js",
+      "summary": "Business logic layer validating memory input (required family_id/title/person_id/memory_id) before delegating persistence operations to memoryModel.",
+      "tags": ["service", "validation", "memory"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/services/memoryService.js:createMemory",
+      "type": "function",
+      "name": "createMemory",
+      "filePath": "backend/services/memoryService.js",
+      "lineRange": [8, 13],
+      "summary": "Validates that family_id and title are present before delegating memory creation to memoryModel.",
+      "tags": ["service", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/services/memoryService.js:getMemoriesByFamily",
+      "type": "function",
+      "name": "getMemoriesByFamily",
+      "filePath": "backend/services/memoryService.js",
+      "lineRange": [20, 25],
+      "summary": "Validates family_id and delegates to memoryModel to fetch memories for a family.",
+      "tags": ["service", "validation", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/services/memoryService.js:getMemoriesByPerson",
+      "type": "function",
+      "name": "getMemoriesByPerson",
+      "filePath": "backend/services/memoryService.js",
+      "lineRange": [32, 37],
+      "summary": "Validates person_id and delegates to memoryModel to fetch memories for a person.",
+      "tags": ["service", "validation", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/services/memoryService.js:deleteMemory",
+      "type": "function",
+      "name": "deleteMemory",
+      "filePath": "backend/services/memoryService.js",
+      "lineRange": [44, 49],
+      "summary": "Validates memory_id and delegates deletion to memoryModel.",
+      "tags": ["service", "validation", "deletion"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    { "source": "file:backend/controllers/eventController.js", "target": "file:backend/services/memoryService.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/controllers/eventController.js", "target": "file:backend/services/personService.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/controllers/memoryController.js", "target": "file:backend/services/memoryService.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/models/memoryModel.js", "target": "file:backend/config/db.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/routes/eventRoutes.js", "target": "file:backend/controllers/eventController.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/routes/eventRoutes.js", "target": "file:backend/middleware/authMiddleware.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/routes/memoryRoutes.js", "target": "file:backend/controllers/memoryController.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/routes/memoryRoutes.js", "target": "file:backend/middleware/authMiddleware.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:backend/services/memoryService.js", "target": "file:backend/models/memoryModel.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+
+    { "source": "file:backend/controllers/eventController.js", "target": "function:backend/controllers/eventController.js:getFamilyEvents", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/controllers/memoryController.js", "target": "function:backend/controllers/memoryController.js:createMemory", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/controllers/memoryController.js", "target": "function:backend/controllers/memoryController.js:getMemoriesByFamily", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/controllers/memoryController.js", "target": "function:backend/controllers/memoryController.js:getMemoriesByPerson", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/controllers/memoryController.js", "target": "function:backend/controllers/memoryController.js:deleteMemory", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/models/memoryModel.js", "target": "function:backend/models/memoryModel.js:createMemory", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/models/memoryModel.js", "target": "function:backend/models/memoryModel.js:getMemoriesByFamily", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/models/memoryModel.js", "target": "function:backend/models/memoryModel.js:getMemoriesByPerson", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/models/memoryModel.js", "target": "function:backend/models/memoryModel.js:deleteMemory", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/services/memoryService.js", "target": "function:backend/services/memoryService.js:createMemory", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/services/memoryService.js", "target": "function:backend/services/memoryService.js:getMemoriesByFamily", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/services/memoryService.js", "target": "function:backend/services/memoryService.js:getMemoriesByPerson", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:backend/services/memoryService.js", "target": "function:backend/services/memoryService.js:deleteMemory", "type": "contains", "direction": "forward", "weight": 1.0 },
+
+    { "source": "file:backend/controllers/eventController.js", "target": "function:backend/controllers/eventController.js:getFamilyEvents", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/controllers/memoryController.js", "target": "function:backend/controllers/memoryController.js:createMemory", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/controllers/memoryController.js", "target": "function:backend/controllers/memoryController.js:getMemoriesByFamily", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/controllers/memoryController.js", "target": "function:backend/controllers/memoryController.js:getMemoriesByPerson", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/controllers/memoryController.js", "target": "function:backend/controllers/memoryController.js:deleteMemory", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/models/memoryModel.js", "target": "function:backend/models/memoryModel.js:createMemory", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/models/memoryModel.js", "target": "function:backend/models/memoryModel.js:getMemoriesByFamily", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/models/memoryModel.js", "target": "function:backend/models/memoryModel.js:getMemoriesByPerson", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/models/memoryModel.js", "target": "function:backend/models/memoryModel.js:deleteMemory", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/services/memoryService.js", "target": "function:backend/services/memoryService.js:createMemory", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/services/memoryService.js", "target": "function:backend/services/memoryService.js:getMemoriesByFamily", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/services/memoryService.js", "target": "function:backend/services/memoryService.js:getMemoriesByPerson", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/services/memoryService.js", "target": "function:backend/services/memoryService.js:deleteMemory", "type": "exports", "direction": "forward", "weight": 0.8 },
+
+    { "source": "function:backend/controllers/eventController.js:getFamilyEvents", "target": "function:backend/services/memoryService.js:getMemoriesByPerson", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:backend/controllers/eventController.js:getFamilyEvents", "target": "function:backend/services/personService.js:getPersonsByFamily", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:backend/controllers/memoryController.js:createMemory", "target": "function:backend/services/memoryService.js:createMemory", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:backend/controllers/memoryController.js:getMemoriesByFamily", "target": "function:backend/services/memoryService.js:getMemoriesByFamily", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:backend/controllers/memoryController.js:getMemoriesByPerson", "target": "function:backend/services/memoryService.js:getMemoriesByPerson", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:backend/controllers/memoryController.js:deleteMemory", "target": "function:backend/services/memoryService.js:deleteMemory", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:backend/services/memoryService.js:createMemory", "target": "function:backend/models/memoryModel.js:createMemory", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:backend/services/memoryService.js:getMemoriesByFamily", "target": "function:backend/models/memoryModel.js:getMemoriesByFamily", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:backend/services/memoryService.js:getMemoriesByPerson", "target": "function:backend/models/memoryModel.js:getMemoriesByPerson", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:backend/services/memoryService.js:deleteMemory", "target": "function:backend/models/memoryModel.js:deleteMemory", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:backend/routes/eventRoutes.js", "target": "function:backend/controllers/eventController.js:getFamilyEvents", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/routes/memoryRoutes.js", "target": "function:backend/controllers/memoryController.js:createMemory", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/routes/memoryRoutes.js", "target": "function:backend/controllers/memoryController.js:getMemoriesByFamily", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/routes/memoryRoutes.js", "target": "function:backend/controllers/memoryController.js:getMemoriesByPerson", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "file:backend/routes/memoryRoutes.js", "target": "function:backend/controllers/memoryController.js:deleteMemory", "type": "calls", "direction": "forward", "weight": 0.8 }
+  ]
+}

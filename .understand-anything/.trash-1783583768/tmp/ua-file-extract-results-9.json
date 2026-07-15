@@ -1,0 +1,230 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 178,
+      "nonEmptyLines": 147,
+      "sections": [
+        {
+          "heading": "Family Tree / Family Legacy Platform",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "🚀 Project Overview",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "🏗 Architecture Diagram",
+          "level": 2,
+          "line": 16
+        },
+        {
+          "heading": "🛠 Tech Stack",
+          "level": 2,
+          "line": 55
+        },
+        {
+          "heading": "🏃 Installation Instructions",
+          "level": 2,
+          "line": 75
+        },
+        {
+          "heading": "⚙️ Running the Applications locally",
+          "level": 2,
+          "line": 98
+        },
+        {
+          "heading": "🔒 Environment Variables",
+          "level": 2,
+          "line": 120
+        },
+        {
+          "heading": "🌍 API Endpoints",
+          "level": 2,
+          "line": 137
+        },
+        {
+          "heading": "Authentication",
+          "level": 3,
+          "line": 139
+        },
+        {
+          "heading": "Families",
+          "level": 3,
+          "line": 143
+        },
+        {
+          "heading": "Persons (Nodes)",
+          "level": 3,
+          "line": 148
+        },
+        {
+          "heading": "Architecture & Integrations",
+          "level": 3,
+          "line": 152
+        },
+        {
+          "heading": "Example Request (`POST /api/persons`)",
+          "level": 3,
+          "line": 158
+        },
+        {
+          "heading": "☁️ Deployment Guide",
+          "level": 2,
+          "line": 169
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "fileCategory": "infra",
+      "totalLines": 50,
+      "nonEmptyLines": 44,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "services",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "volumes",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "networks",
+          "level": 1,
+          "line": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "security_audit.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 134,
+      "nonEmptyLines": 107,
+      "sections": [
+        {
+          "heading": "Virasat.ai Security Audit Report",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "🔴 Critical Findings (Fixed)",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "1. JWT Fallback Secret Hardcoded in Source Code",
+          "level": 3,
+          "line": 9
+        },
+        {
+          "heading": "2. Wildcard CORS (`app.use(cors())`)",
+          "level": 3,
+          "line": 16
+        },
+        {
+          "heading": "3. Internal Error Messages Leaked to Client",
+          "level": 3,
+          "line": 23
+        },
+        {
+          "heading": "🟠 High Severity Findings (Fixed)",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "4. No XSS Input Sanitization",
+          "level": 3,
+          "line": 34
+        },
+        {
+          "heading": "5. No JSON Body Size Limit",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "6. Swagger UI Exposed in Production",
+          "level": 3,
+          "line": 48
+        },
+        {
+          "heading": "7. Auth Rate Limit Too Permissive",
+          "level": 3,
+          "line": 55
+        },
+        {
+          "heading": "8. No 401 Auto-Logout on Frontend",
+          "level": 3,
+          "line": 62
+        },
+        {
+          "heading": "🟡 Medium Severity Findings (Fixed)",
+          "level": 2,
+          "line": 71
+        },
+        {
+          "heading": "9. Permissive Helmet Configuration",
+          "level": 3,
+          "line": 73
+        },
+        {
+          "heading": "10. Missing `NODE_ENV` & `ALLOWED_ORIGINS` in Environment",
+          "level": 3,
+          "line": 80
+        },
+        {
+          "heading": "✅ Already Good — No Changes Needed",
+          "level": 2,
+          "line": 89
+        },
+        {
+          "heading": "🔵 Recommended (Before Production Deployment)",
+          "level": 2,
+          "line": 107
+        },
+        {
+          "heading": "Summary",
+          "level": 2,
+          "line": 127
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 17
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 0,
+  "edgesRestored": 0,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 1,
+  "complexityRemapped": 0,
+  "notes": [
+    "Merge script report showed no 'Fixed' or 'Could not fix' sections at all — Input (268 nodes, 485 edges) exactly equals Output, confirming no ID collisions, no dangling edges dropped, no unknown types, no unknown complexity, and no missing-id nodes across all 13 batches (14 files incl. batch-2 split).",
+    "Verified independently: sum of raw node/edge counts across all batch-*.json files (268/485) matches assembled-graph.json exactly.",
+    "Verified all 268 node IDs are unique, all 485 edges reference existing nodes, and all node type values (function, file, service, config, endpoint, table, document) are valid per the script's TYPE_TO_PREFIX schema — 'table' and 'endpoint' are legitimate types, not unknown ones.",
+    "All complexity values (simple/moderate/complex) are already valid; no defaulting occurred.",
+    "Found and fixed one latent inconsistency the merge script's normalizer does not check: node 'class:frontend/src/context/ToastContext.js:ToastProvider' had type='function' but an id prefixed 'class:' (a valid prefix on its own, so the script's unknown-type check did not flag it). Renamed to 'function:frontend/src/context/ToastContext.js:ToastProvider' and updated the 2 referencing edges (contains, exports) from file:frontend/src/context/ToastContext.js. This was a source-batch (batch-3.json) LLM labeling slip, not a merge-script bug.",
+    "Cross-batch imports check: loaded the full importMap (97 entries, 106 target relationships) from scan-result.json and compared against all 'imports' edges in the assembled graph. All 106 import relationships already have corresponding edges (0 missing) — confirms the merge script's own importMap-recovery pass (which reported 0 recovered) was correct, not silently failing. The 16 importMap source keys with no matching file: node are all non-source config/infra files (.env, Dockerfile, package.json, schema.sql, swagger.yaml, vercel.json, docker-compose.yml) with empty import target lists, so no edges are missing for them.",
+    "No batches produced nodes without an id field, so no recovery from raw batch data was needed.",
+    "Overall data quality is high — this was a clean assembly requiring only one small ID/type consistency fix."
+  ]
+}

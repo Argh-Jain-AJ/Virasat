@@ -1,0 +1,13 @@
+{
+  "projectRoot": "/Users/arghjain/Desktop/Projects/Family Tree",
+  "batchFiles": [
+    {"path": "frontend/.env.example", "language": "config", "sizeLines": 1, "fileCategory": "config"},
+    {"path": "frontend/README.md", "language": "markdown", "sizeLines": 70, "fileCategory": "docs"},
+    {"path": "frontend/package.json", "language": "json", "sizeLines": 51, "fileCategory": "config"}
+  ],
+  "batchImportData": {
+    "frontend/.env.example": [],
+    "frontend/README.md": [],
+    "frontend/package.json": []
+  }
+}

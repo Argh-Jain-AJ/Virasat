@@ -1,0 +1,987 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 18,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "backend/config/db.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 23,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/authController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 45,
+      "functions": [
+        {
+          "name": "register",
+          "startLine": 7,
+          "endLine": 26,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "login",
+          "startLine": 32,
+          "endLine": 49,
+          "params": [
+            "req",
+            "res"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "register",
+          "callee": "res.status(400).json",
+          "lineNumber": 12
+        },
+        {
+          "caller": "register",
+          "callee": "res.status",
+          "lineNumber": 12
+        },
+        {
+          "caller": "register",
+          "callee": "authService.registerUser",
+          "lineNumber": 15
+        },
+        {
+          "caller": "register",
+          "callee": "res.status(201).json",
+          "lineNumber": 16
+        },
+        {
+          "caller": "register",
+          "callee": "res.status",
+          "lineNumber": 16
+        },
+        {
+          "caller": "register",
+          "callee": "console.error",
+          "lineNumber": 18
+        },
+        {
+          "caller": "register",
+          "callee": "res.status(400).json",
+          "lineNumber": 21
+        },
+        {
+          "caller": "register",
+          "callee": "res.status",
+          "lineNumber": 21
+        },
+        {
+          "caller": "register",
+          "callee": "res.status(500).json",
+          "lineNumber": 24
+        },
+        {
+          "caller": "register",
+          "callee": "res.status",
+          "lineNumber": 24
+        },
+        {
+          "caller": "login",
+          "callee": "res.status(400).json",
+          "lineNumber": 37
+        },
+        {
+          "caller": "login",
+          "callee": "res.status",
+          "lineNumber": 37
+        },
+        {
+          "caller": "login",
+          "callee": "authService.loginUser",
+          "lineNumber": 40
+        },
+        {
+          "caller": "login",
+          "callee": "res.status(200).json",
+          "lineNumber": 41
+        },
+        {
+          "caller": "login",
+          "callee": "res.status",
+          "lineNumber": 41
+        },
+        {
+          "caller": "login",
+          "callee": "res.status(401).json",
+          "lineNumber": 44
+        },
+        {
+          "caller": "login",
+          "callee": "res.status",
+          "lineNumber": 44
+        },
+        {
+          "caller": "login",
+          "callee": "console.error",
+          "lineNumber": 46
+        },
+        {
+          "caller": "login",
+          "callee": "res.status(500).json",
+          "lineNumber": 47
+        },
+        {
+          "caller": "login",
+          "callee": "res.status",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/familyController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 112,
+      "nonEmptyLines": 96,
+      "functions": [
+        {
+          "name": "createFamily",
+          "startLine": 7,
+          "endLine": 23,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "getFamilies",
+          "startLine": 29,
+          "endLine": 38,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "getFamilyById",
+          "startLine": 44,
+          "endLine": 58,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "updateFamily",
+          "startLine": 64,
+          "endLine": 84,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "deleteFamily",
+          "startLine": 90,
+          "endLine": 104,
+          "params": [
+            "req",
+            "res"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createFamily",
+          "callee": "res.status(400).json",
+          "lineNumber": 14
+        },
+        {
+          "caller": "createFamily",
+          "callee": "res.status",
+          "lineNumber": 14
+        },
+        {
+          "caller": "createFamily",
+          "callee": "familyService.createFamily",
+          "lineNumber": 17
+        },
+        {
+          "caller": "createFamily",
+          "callee": "res.status(201).json",
+          "lineNumber": 18
+        },
+        {
+          "caller": "createFamily",
+          "callee": "res.status",
+          "lineNumber": 18
+        },
+        {
+          "caller": "createFamily",
+          "callee": "console.error",
+          "lineNumber": 20
+        },
+        {
+          "caller": "createFamily",
+          "callee": "res.status(500).json",
+          "lineNumber": 21
+        },
+        {
+          "caller": "createFamily",
+          "callee": "res.status",
+          "lineNumber": 21
+        },
+        {
+          "caller": "getFamilies",
+          "callee": "familyService.getFamiliesByUser",
+          "lineNumber": 32
+        },
+        {
+          "caller": "getFamilies",
+          "callee": "res.status(200).json",
+          "lineNumber": 33
+        },
+        {
+          "caller": "getFamilies",
+          "callee": "res.status",
+          "lineNumber": 33
+        },
+        {
+          "caller": "getFamilies",
+          "callee": "console.error",
+          "lineNumber": 35
+        },
+        {
+          "caller": "getFamilies",
+          "callee": "res.status(500).json",
+          "lineNumber": 36
+        },
+        {
+          "caller": "getFamilies",
+          "callee": "res.status",
+          "lineNumber": 36
+        },
+        {
+          "caller": "getFamilyById",
+          "callee": "familyService.getFamilyById",
+          "lineNumber": 47
+        },
+        {
+          "caller": "getFamilyById",
+          "callee": "res.status(404).json",
+          "lineNumber": 50
+        },
+        {
+          "caller": "getFamilyById",
+          "callee": "res.status",
+          "lineNumber": 50
+        },
+        {
+          "caller": "getFamilyById",
+          "callee": "res.status(200).json",
+          "lineNumber": 53
+        },
+        {
+          "caller": "getFamilyById",
+          "callee": "res.status",
+          "lineNumber": 53
+        },
+        {
+          "caller": "getFamilyById",
+          "callee": "console.error",
+          "lineNumber": 55
+        },
+        {
+          "caller": "getFamilyById",
+          "callee": "res.status(500).json",
+          "lineNumber": 56
+        },
+        {
+          "caller": "getFamilyById",
+          "callee": "res.status",
+          "lineNumber": 56
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "res.status(400).json",
+          "lineNumber": 70
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "res.status",
+          "lineNumber": 70
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "familyService.updateFamily",
+          "lineNumber": 73
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "res.status(404).json",
+          "lineNumber": 76
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "res.status",
+          "lineNumber": 76
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "res.status(200).json",
+          "lineNumber": 79
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "res.status",
+          "lineNumber": 79
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "console.error",
+          "lineNumber": 81
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "res.status(500).json",
+          "lineNumber": 82
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "res.status",
+          "lineNumber": 82
+        },
+        {
+          "caller": "deleteFamily",
+          "callee": "familyService.deleteFamily",
+          "lineNumber": 93
+        },
+        {
+          "caller": "deleteFamily",
+          "callee": "res.status(404).json",
+          "lineNumber": 96
+        },
+        {
+          "caller": "deleteFamily",
+          "callee": "res.status",
+          "lineNumber": 96
+        },
+        {
+          "caller": "deleteFamily",
+          "callee": "res.status(200).json",
+          "lineNumber": 99
+        },
+        {
+          "caller": "deleteFamily",
+          "callee": "res.status",
+          "lineNumber": 99
+        },
+        {
+          "caller": "deleteFamily",
+          "callee": "console.error",
+          "lineNumber": 101
+        },
+        {
+          "caller": "deleteFamily",
+          "callee": "res.status(500).json",
+          "lineNumber": 102
+        },
+        {
+          "caller": "deleteFamily",
+          "callee": "res.status",
+          "lineNumber": 102
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/legacyController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 30,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/cron/reminderCron.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 61,
+      "nonEmptyLines": 50,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/middleware/errorHandler.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "errorHandler",
+          "startLine": 5,
+          "endLine": 16,
+          "params": [
+            "err",
+            "req",
+            "res",
+            "next"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "errorHandler",
+          "callee": "console.error",
+          "lineNumber": 6
+        },
+        {
+          "caller": "errorHandler",
+          "callee": "res.status(statusCode).json",
+          "lineNumber": 11
+        },
+        {
+          "caller": "errorHandler",
+          "callee": "res.status",
+          "lineNumber": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/middleware/validationMiddleware.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 12,
+      "functions": [
+        {
+          "name": "validateRequest",
+          "startLine": 6,
+          "endLine": 12,
+          "params": [
+            "req",
+            "res",
+            "next"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "validateRequest",
+          "callee": "validationResult",
+          "lineNumber": 7
+        },
+        {
+          "caller": "validateRequest",
+          "callee": "errors.isEmpty",
+          "lineNumber": 8
+        },
+        {
+          "caller": "validateRequest",
+          "callee": "res.status(400).json",
+          "lineNumber": 9
+        },
+        {
+          "caller": "validateRequest",
+          "callee": "res.status",
+          "lineNumber": 9
+        },
+        {
+          "caller": "validateRequest",
+          "callee": "errors.array",
+          "lineNumber": 9
+        },
+        {
+          "caller": "validateRequest",
+          "callee": "next",
+          "lineNumber": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/migrate_demo.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "migrate",
+          "startLine": 4,
+          "endLine": 25,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "migrate",
+          "callee": "pool.query",
+          "lineNumber": 7
+        },
+        {
+          "caller": "migrate",
+          "callee": "bcrypt.hash",
+          "lineNumber": 8
+        },
+        {
+          "caller": "migrate",
+          "callee": "pool.query",
+          "lineNumber": 11
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 15
+        },
+        {
+          "caller": "migrate",
+          "callee": "pool.query",
+          "lineNumber": 17
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 18
+        },
+        {
+          "caller": "migrate",
+          "callee": "process.exit",
+          "lineNumber": 20
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.error",
+          "lineNumber": 22
+        },
+        {
+          "caller": "migrate",
+          "callee": "process.exit",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/familyModel.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 93,
+      "nonEmptyLines": 87,
+      "functions": [
+        {
+          "name": "createFamily",
+          "startLine": 9,
+          "endLine": 18,
+          "params": [
+            "family_name",
+            "created_by"
+          ]
+        },
+        {
+          "name": "getFamiliesByUser",
+          "startLine": 25,
+          "endLine": 36,
+          "params": [
+            "user_id"
+          ]
+        },
+        {
+          "name": "getFamilyById",
+          "startLine": 43,
+          "endLine": 53,
+          "params": [
+            "family_id",
+            "user_id"
+          ]
+        },
+        {
+          "name": "updateFamily",
+          "startLine": 61,
+          "endLine": 70,
+          "params": [
+            "family_id",
+            "family_name",
+            "user_id"
+          ]
+        },
+        {
+          "name": "deleteFamily",
+          "startLine": 77,
+          "endLine": 85,
+          "params": [
+            "family_id",
+            "user_id"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createFamily",
+          "callee": "pool.query",
+          "lineNumber": 16
+        },
+        {
+          "caller": "getFamiliesByUser",
+          "callee": "pool.query",
+          "lineNumber": 34
+        },
+        {
+          "caller": "getFamilyById",
+          "callee": "pool.query",
+          "lineNumber": 51
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "pool.query",
+          "lineNumber": 68
+        },
+        {
+          "caller": "deleteFamily",
+          "callee": "pool.query",
+          "lineNumber": 83
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/userModel.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 51,
+      "functions": [
+        {
+          "name": "createUser",
+          "startLine": 10,
+          "endLine": 19,
+          "params": [
+            "name",
+            "email",
+            "password_hash"
+          ]
+        },
+        {
+          "name": "getUserByEmail",
+          "startLine": 26,
+          "endLine": 34,
+          "params": [
+            "email"
+          ]
+        },
+        {
+          "name": "getUserById",
+          "startLine": 41,
+          "endLine": 49,
+          "params": [
+            "id"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createUser",
+          "callee": "pool.query",
+          "lineNumber": 17
+        },
+        {
+          "caller": "getUserByEmail",
+          "callee": "pool.query",
+          "lineNumber": 32
+        },
+        {
+          "caller": "getUserById",
+          "callee": "pool.query",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/authRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 26,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/familyRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 25,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/legacyRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/personRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 110,
+      "nonEmptyLines": 100,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/server.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 140,
+      "nonEmptyLines": 120,
+      "metrics": {
+        "importCount": 14,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/services/authService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 77,
+      "nonEmptyLines": 66,
+      "functions": [
+        {
+          "name": "registerUser",
+          "startLine": 12,
+          "endLine": 26,
+          "params": [
+            "name",
+            "email",
+            "password"
+          ]
+        },
+        {
+          "name": "loginUser",
+          "startLine": 34,
+          "endLine": 72,
+          "params": [
+            "email",
+            "password"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "registerUser",
+          "callee": "userModel.getUserByEmail",
+          "lineNumber": 14
+        },
+        {
+          "caller": "registerUser",
+          "callee": "bcrypt.hash",
+          "lineNumber": 21
+        },
+        {
+          "caller": "registerUser",
+          "callee": "userModel.createUser",
+          "lineNumber": 24
+        },
+        {
+          "caller": "loginUser",
+          "callee": "userModel.getUserByEmail",
+          "lineNumber": 36
+        },
+        {
+          "caller": "loginUser",
+          "callee": "bcrypt.compare",
+          "lineNumber": 42
+        },
+        {
+          "caller": "loginUser",
+          "callee": "jwt.sign",
+          "lineNumber": 57
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/services/familyService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 71,
+      "nonEmptyLines": 65,
+      "functions": [
+        {
+          "name": "createFamily",
+          "startLine": 9,
+          "endLine": 14,
+          "params": [
+            "family_name",
+            "created_by"
+          ]
+        },
+        {
+          "name": "getFamiliesByUser",
+          "startLine": 21,
+          "endLine": 26,
+          "params": [
+            "user_id"
+          ]
+        },
+        {
+          "name": "getFamilyById",
+          "startLine": 33,
+          "endLine": 38,
+          "params": [
+            "family_id",
+            "user_id"
+          ]
+        },
+        {
+          "name": "updateFamily",
+          "startLine": 46,
+          "endLine": 51,
+          "params": [
+            "family_id",
+            "family_name",
+            "user_id"
+          ]
+        },
+        {
+          "name": "deleteFamily",
+          "startLine": 58,
+          "endLine": 63,
+          "params": [
+            "family_id",
+            "user_id"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createFamily",
+          "callee": "familyModel.createFamily",
+          "lineNumber": 13
+        },
+        {
+          "caller": "getFamiliesByUser",
+          "callee": "familyModel.getFamiliesByUser",
+          "lineNumber": 25
+        },
+        {
+          "caller": "getFamilyById",
+          "callee": "familyModel.getFamilyById",
+          "lineNumber": 37
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "familyModel.updateFamily",
+          "lineNumber": 50
+        },
+        {
+          "caller": "deleteFamily",
+          "callee": "familyModel.deleteFamily",
+          "lineNumber": 62
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/setup_demo_user.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 19,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

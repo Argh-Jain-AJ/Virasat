@@ -1,0 +1,1347 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/components/MemoryTimeline.js",
+      "type": "file",
+      "name": "MemoryTimeline.js",
+      "filePath": "frontend/src/components/MemoryTimeline.js",
+      "summary": "Renders a chronologically sorted, scroll-reveal-animated timeline of memories for a person, falling back to a smart empty-state when no memories exist.",
+      "tags": [
+        "component",
+        "timeline",
+        "memories",
+        "empty-state"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/PersonNode.js",
+      "type": "file",
+      "name": "PersonNode.js",
+      "filePath": "frontend/src/components/PersonNode.js",
+      "summary": "Custom React Flow node component that renders a single person's card in the tree canvas, with generation-based color coding, avatar, lifespan, hover actions, and connection handles.",
+      "tags": [
+        "component",
+        "react-flow",
+        "node",
+        "memoized"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/SearchBar.js",
+      "type": "file",
+      "name": "SearchBar.js",
+      "filePath": "frontend/src/components/SearchBar.js",
+      "summary": "Global debounced search input that queries persons via the API, shows a results dropdown, and navigates to the selected person's profile with keyboard and outside-click handling.",
+      "tags": [
+        "component",
+        "search",
+        "navigation",
+        "debounce"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/SmartSuggestions.js",
+      "type": "file",
+      "name": "SmartSuggestions.js",
+      "filePath": "frontend/src/components/SmartSuggestions.js",
+      "summary": "Analyzes the current tree's nodes and edges to generate dismissible, actionable suggestions such as missing relationships or incomplete profile data.",
+      "tags": [
+        "component",
+        "suggestions",
+        "data-analysis",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/UpcomingReminders.js",
+      "type": "file",
+      "name": "UpcomingReminders.js",
+      "filePath": "frontend/src/components/UpcomingReminders.js",
+      "summary": "Fetches upcoming birthday and anniversary events from the API and displays them as a reminders widget.",
+      "tags": [
+        "component",
+        "reminders",
+        "api-handler",
+        "data-fetching"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/pages/FamilyTreePage.js",
+      "type": "file",
+      "name": "FamilyTreePage.js",
+      "filePath": "frontend/src/pages/FamilyTreePage.js",
+      "summary": "Main workspace page that assembles the family tree canvas with the member/relationship creation forms, activity feed, insights panel, collaboration panel, search bar, and GEDCOM import, and owns tree data fetching plus create/update handlers.",
+      "tags": [
+        "page",
+        "entry-point",
+        "workspace",
+        "orchestration"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/pages/PersonProfile.js",
+      "type": "file",
+      "name": "PersonProfile.js",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "summary": "Large person profile page combining editable fields, avatar upload, a mini tree preview, family relationship management, memory and legacy-message CRUD, privacy/sharing controls, and AI-assisted biography and story-mode generation.",
+      "tags": [
+        "page",
+        "profile",
+        "crud",
+        "ai-assisted"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/services/familyService.js",
+      "type": "file",
+      "name": "familyService.js",
+      "filePath": "frontend/src/services/familyService.js",
+      "summary": "Service layer wrapping REST calls for families, persons, and relationships (create/read/update/delete) on top of the shared Axios API client.",
+      "tags": [
+        "service",
+        "api-wrapper",
+        "crud",
+        "data-model"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/MemoryTimeline.js:TimelineCard",
+      "type": "function",
+      "name": "TimelineCard",
+      "filePath": "frontend/src/components/MemoryTimeline.js",
+      "lineRange": [
+        11,
+        56
+      ],
+      "summary": "Renders a single memory as an animated timeline entry, revealed via IntersectionObserver, showing date and tags.",
+      "tags": [
+        "component",
+        "ui",
+        "animation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/MemoryTimeline.js:SmartEmptyState",
+      "type": "function",
+      "name": "SmartEmptyState",
+      "filePath": "frontend/src/components/MemoryTimeline.js",
+      "lineRange": [
+        59,
+        96
+      ],
+      "summary": "Empty-state placeholder shown when a person has no recorded memories, with animated skeleton placeholders.",
+      "tags": [
+        "component",
+        "empty-state",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/MemoryTimeline.js:MemoryTimeline",
+      "type": "function",
+      "name": "MemoryTimeline",
+      "filePath": "frontend/src/components/MemoryTimeline.js",
+      "lineRange": [
+        98,
+        119
+      ],
+      "summary": "Default-exported component that sorts memories chronologically and renders TimelineCard entries or the SmartEmptyState.",
+      "tags": [
+        "component",
+        "entry-point",
+        "timeline"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/PersonNode.js:PersonNode",
+      "type": "function",
+      "name": "PersonNode",
+      "filePath": "frontend/src/components/PersonNode.js",
+      "lineRange": [
+        19,
+        158
+      ],
+      "summary": "Memoized React Flow node component rendering a person's avatar, name, lifespan, gender/occupation/birthplace chips, generation-based color styling, and hover-triggered quick-add-relative buttons and tooltip.",
+      "tags": [
+        "component",
+        "entry-point",
+        "react-flow",
+        "memoized"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/components/SearchBar.js:GlobalSearchBar",
+      "type": "function",
+      "name": "GlobalSearchBar",
+      "filePath": "frontend/src/components/SearchBar.js",
+      "lineRange": [
+        12,
+        147
+      ],
+      "summary": "Default-exported global search component: debounces query input, fetches matching persons from the API, manages a results dropdown with outside-click and keyboard navigation, and navigates to the selected profile.",
+      "tags": [
+        "component",
+        "entry-point",
+        "search",
+        "navigation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/components/SmartSuggestions.js:SmartSuggestions",
+      "type": "function",
+      "name": "SmartSuggestions",
+      "filePath": "frontend/src/components/SmartSuggestions.js",
+      "lineRange": [
+        11,
+        142
+      ],
+      "summary": "Default-exported component that derives actionable suggestions (missing parents/spouses, incomplete profiles) from the current tree's nodes and edges, and renders a dismissible suggestion list.",
+      "tags": [
+        "component",
+        "entry-point",
+        "suggestions",
+        "data-analysis"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/components/UpcomingReminders.js:UpcomingReminders",
+      "type": "function",
+      "name": "UpcomingReminders",
+      "filePath": "frontend/src/components/UpcomingReminders.js",
+      "lineRange": [
+        4,
+        71
+      ],
+      "summary": "Default-exported component that fetches upcoming birthday/anniversary events on mount and renders them as a categorized reminders list.",
+      "tags": [
+        "component",
+        "entry-point",
+        "reminders",
+        "api-handler"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/FamilyTreePage.js:WorkspaceSummary",
+      "type": "function",
+      "name": "WorkspaceSummary",
+      "filePath": "frontend/src/pages/FamilyTreePage.js",
+      "lineRange": [
+        41,
+        103
+      ],
+      "summary": "Computes workspace-level summary statistics (member count, max generation depth via recursive getDepth, relationship type breakdown) and renders them as stat cards.",
+      "tags": [
+        "component",
+        "statistics",
+        "algorithm"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/FamilyTreePage.js:SmartMemberForm",
+      "type": "function",
+      "name": "SmartMemberForm",
+      "filePath": "frontend/src/pages/FamilyTreePage.js",
+      "lineRange": [
+        109,
+        178
+      ],
+      "summary": "Smart add-member form that detects likely duplicate names against existing tree members and previews a gender-based icon while the user types.",
+      "tags": [
+        "component",
+        "form",
+        "validation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/FamilyTreePage.js:RelationshipBuilder",
+      "type": "function",
+      "name": "RelationshipBuilder",
+      "filePath": "frontend/src/pages/FamilyTreePage.js",
+      "lineRange": [
+        190,
+        257
+      ],
+      "summary": "Form for selecting two existing persons and a relationship type/label to create a new relationship between them.",
+      "tags": [
+        "component",
+        "form",
+        "relationship-builder"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/FamilyTreePage.js:FamilyTreePage",
+      "type": "function",
+      "name": "FamilyTreePage",
+      "filePath": "frontend/src/pages/FamilyTreePage.js",
+      "lineRange": [
+        290,
+        500
+      ],
+      "summary": "Default-exported top-level workspace page: resolves the selected family from the URL/localStorage, fetches the tree via familyService, and wires create-person/create-relationship handlers plus the activity log across all child panels.",
+      "tags": [
+        "page",
+        "entry-point",
+        "workspace",
+        "state-management"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:Avatar",
+      "type": "function",
+      "name": "Avatar",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        27,
+        49
+      ],
+      "summary": "Renders a circular avatar image, falling back to the person's initial letter when no photo is set.",
+      "tags": [
+        "component",
+        "ui",
+        "presentational"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:UploadableAvatar",
+      "type": "function",
+      "name": "UploadableAvatar",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        52,
+        124
+      ],
+      "summary": "Avatar variant supporting click-to-upload with local preview and a direct fetch-based upload request, invoking a callback once the new photo URL is available.",
+      "tags": [
+        "component",
+        "file-upload",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:Chip",
+      "type": "function",
+      "name": "Chip",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        130,
+        140
+      ],
+      "summary": "Small presentational pill/tag UI element used throughout the profile page.",
+      "tags": [
+        "component",
+        "ui",
+        "presentational"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:BreadcrumbNav",
+      "type": "function",
+      "name": "BreadcrumbNav",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        145,
+        166
+      ],
+      "summary": "Renders breadcrumb navigation linking back to the dashboard and family tree.",
+      "tags": [
+        "component",
+        "navigation",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:InlineEditField",
+      "type": "function",
+      "name": "InlineEditField",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        171,
+        218
+      ],
+      "summary": "Inline click-to-edit text field that commits changes on blur or Enter and reverts on Escape.",
+      "tags": [
+        "component",
+        "form",
+        "inline-edit"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:useCountUp",
+      "type": "function",
+      "name": "useCountUp",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        223,
+        237
+      ],
+      "summary": "Custom hook that animates a numeric value counting up to a target over a fixed interval.",
+      "tags": [
+        "hook",
+        "animation",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:StatCard",
+      "type": "function",
+      "name": "StatCard",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        242,
+        258
+      ],
+      "summary": "Presentational stat card that displays an animated metric using the useCountUp hook.",
+      "tags": [
+        "component",
+        "ui",
+        "presentational"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:InsightsPanel",
+      "type": "function",
+      "name": "InsightsPanel",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        260,
+        273
+      ],
+      "summary": "Displays computed profile insights such as age and derived stats using StatCard.",
+      "tags": [
+        "component",
+        "statistics",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:ProfileStrengthBar",
+      "type": "function",
+      "name": "ProfileStrengthBar",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        278,
+        306
+      ],
+      "summary": "Computes profile completeness from a set of field checks and renders a progress bar with hints about missing fields.",
+      "tags": [
+        "component",
+        "validation",
+        "ui"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:StoryModeModal",
+      "type": "function",
+      "name": "StoryModeModal",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        311,
+        364
+      ],
+      "summary": "Modal that requests an AI-generated narrative summary ('story mode') of the person from the API and displays it with a loading skeleton.",
+      "tags": [
+        "component",
+        "ai-assisted",
+        "modal"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:MiniTreePreview",
+      "type": "function",
+      "name": "MiniTreePreview",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        369,
+        493
+      ],
+      "summary": "Renders a small SVG-based mini family tree preview showing the current person's parents, children, and spouses with click-to-navigate nodes.",
+      "tags": [
+        "component",
+        "visualization",
+        "svg"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:PrivacyControls",
+      "type": "function",
+      "name": "PrivacyControls",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        498,
+        545
+      ],
+      "summary": "Controls for toggling a profile's public/private visibility, copying a share link to the clipboard, and exporting/printing the profile.",
+      "tags": [
+        "component",
+        "privacy",
+        "sharing"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:FamilyMemberCard",
+      "type": "function",
+      "name": "FamilyMemberCard",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        565,
+        584
+      ],
+      "summary": "Card summarizing a related family member with click-to-navigate, edit, and delete relationship actions.",
+      "tags": [
+        "component",
+        "ui",
+        "presentational"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:FamilySection",
+      "type": "function",
+      "name": "FamilySection",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        586,
+        619
+      ],
+      "summary": "Groups a person's relationships by resolved role (parent/child/spouse/sibling) and renders grouped FamilyMemberCard lists.",
+      "tags": [
+        "component",
+        "relationship-builder",
+        "ui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:MemoryForm",
+      "type": "function",
+      "name": "MemoryForm",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        627,
+        666
+      ],
+      "summary": "Form for composing a new memory entry with title, description, date, tag toggles, and emotion selection.",
+      "tags": [
+        "component",
+        "form",
+        "memories"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:BiographySection",
+      "type": "function",
+      "name": "BiographySection",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        671,
+        738
+      ],
+      "summary": "Displays the person's biography and triggers AI-assisted biography generation via the API, showing a generation-in-progress skeleton.",
+      "tags": [
+        "component",
+        "ai-assisted",
+        "entry-point"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/PersonProfile.js:PersonProfile",
+      "type": "function",
+      "name": "PersonProfile",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "lineRange": [
+        746,
+        1145
+      ],
+      "summary": "Default-exported top-level profile page: fetches person, relationships, memories, and legacy data in parallel, manages inline/full editing, memory and legacy-message CRUD, relationship edit/delete, and composes all profile sub-sections.",
+      "tags": [
+        "page",
+        "entry-point",
+        "crud",
+        "state-management"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/services/familyService.js:createFamily",
+      "type": "function",
+      "name": "createFamily",
+      "filePath": "frontend/src/services/familyService.js",
+      "lineRange": [
+        7,
+        10
+      ],
+      "summary": "Creates a new family via POST /families and normalizes the response payload.",
+      "tags": [
+        "service",
+        "crud",
+        "api-wrapper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/services/familyService.js:getFamilies",
+      "type": "function",
+      "name": "getFamilies",
+      "filePath": "frontend/src/services/familyService.js",
+      "lineRange": [
+        15,
+        18
+      ],
+      "summary": "Fetches all families for the current user via GET /families.",
+      "tags": [
+        "service",
+        "crud",
+        "api-wrapper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/services/familyService.js:createPerson",
+      "type": "function",
+      "name": "createPerson",
+      "filePath": "frontend/src/services/familyService.js",
+      "lineRange": [
+        24,
+        27
+      ],
+      "summary": "Creates a new person via POST /persons.",
+      "tags": [
+        "service",
+        "crud",
+        "api-wrapper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/services/familyService.js:createRelationship",
+      "type": "function",
+      "name": "createRelationship",
+      "filePath": "frontend/src/services/familyService.js",
+      "lineRange": [
+        33,
+        36
+      ],
+      "summary": "Creates a new relationship between two persons via POST /relationships.",
+      "tags": [
+        "service",
+        "crud",
+        "api-wrapper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/services/familyService.js:getFamilyTree",
+      "type": "function",
+      "name": "getFamilyTree",
+      "filePath": "frontend/src/services/familyService.js",
+      "lineRange": [
+        43,
+        46
+      ],
+      "summary": "Fetches the aggregated tree (nodes and edges) for a family via GET /family-tree/:family_id.",
+      "tags": [
+        "service",
+        "crud",
+        "api-wrapper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/services/familyService.js:updateFamily",
+      "type": "function",
+      "name": "updateFamily",
+      "filePath": "frontend/src/services/familyService.js",
+      "lineRange": [
+        50,
+        53
+      ],
+      "summary": "Updates a family's data via PUT /families/:family_id.",
+      "tags": [
+        "service",
+        "crud",
+        "api-wrapper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/services/familyService.js:deleteFamily",
+      "type": "function",
+      "name": "deleteFamily",
+      "filePath": "frontend/src/services/familyService.js",
+      "lineRange": [
+        55,
+        58
+      ],
+      "summary": "Deletes a family via DELETE /families/:family_id.",
+      "tags": [
+        "service",
+        "crud",
+        "api-wrapper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/services/familyService.js:updatePerson",
+      "type": "function",
+      "name": "updatePerson",
+      "filePath": "frontend/src/services/familyService.js",
+      "lineRange": [
+        60,
+        63
+      ],
+      "summary": "Updates a person's data via PUT /persons/:person_id.",
+      "tags": [
+        "service",
+        "crud",
+        "api-wrapper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/services/familyService.js:deletePerson",
+      "type": "function",
+      "name": "deletePerson",
+      "filePath": "frontend/src/services/familyService.js",
+      "lineRange": [
+        65,
+        68
+      ],
+      "summary": "Deletes a person via DELETE /persons/:person_id.",
+      "tags": [
+        "service",
+        "crud",
+        "api-wrapper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/services/familyService.js:updateRelationship",
+      "type": "function",
+      "name": "updateRelationship",
+      "filePath": "frontend/src/services/familyService.js",
+      "lineRange": [
+        70,
+        73
+      ],
+      "summary": "Updates a relationship's data via PUT /relationships/:relationship_id.",
+      "tags": [
+        "service",
+        "crud",
+        "api-wrapper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/services/familyService.js:deleteRelationship",
+      "type": "function",
+      "name": "deleteRelationship",
+      "filePath": "frontend/src/services/familyService.js",
+      "lineRange": [
+        75,
+        78
+      ],
+      "summary": "Deletes a relationship via DELETE /relationships/:relationship_id.",
+      "tags": [
+        "service",
+        "crud",
+        "api-wrapper"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/components/SearchBar.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/UpcomingReminders.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/ActivityFeed.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/CollaborationPanel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/FamilyInsightsPanel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/FamilyTree.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/GedcomImport.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/SearchBar.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/SmartSuggestions.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/UpcomingReminders.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/services/familyService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "file:frontend/src/components/LegacySection.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "file:frontend/src/components/MemoryTimeline.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "file:frontend/src/services/familyService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/MemoryTimeline.js",
+      "target": "function:frontend/src/components/MemoryTimeline.js:TimelineCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/MemoryTimeline.js",
+      "target": "function:frontend/src/components/MemoryTimeline.js:SmartEmptyState",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/MemoryTimeline.js",
+      "target": "function:frontend/src/components/MemoryTimeline.js:MemoryTimeline",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/PersonNode.js",
+      "target": "function:frontend/src/components/PersonNode.js:PersonNode",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/SearchBar.js",
+      "target": "function:frontend/src/components/SearchBar.js:GlobalSearchBar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/SmartSuggestions.js",
+      "target": "function:frontend/src/components/SmartSuggestions.js:SmartSuggestions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/UpcomingReminders.js",
+      "target": "function:frontend/src/components/UpcomingReminders.js:UpcomingReminders",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "function:frontend/src/pages/FamilyTreePage.js:WorkspaceSummary",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "function:frontend/src/pages/FamilyTreePage.js:SmartMemberForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "function:frontend/src/pages/FamilyTreePage.js:RelationshipBuilder",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "function:frontend/src/pages/FamilyTreePage.js:FamilyTreePage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:Avatar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:UploadableAvatar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:Chip",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:BreadcrumbNav",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:InlineEditField",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:useCountUp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:StatCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:InsightsPanel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:ProfileStrengthBar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:StoryModeModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:MiniTreePreview",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:PrivacyControls",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:FamilyMemberCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:FamilySection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:MemoryForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:BiographySection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:PersonProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:createFamily",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:getFamilies",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:createPerson",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:createRelationship",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:getFamilyTree",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:updateFamily",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:deleteFamily",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:updatePerson",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:deletePerson",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:updateRelationship",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:deleteRelationship",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/components/MemoryTimeline.js",
+      "target": "function:frontend/src/components/MemoryTimeline.js:MemoryTimeline",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/PersonNode.js",
+      "target": "function:frontend/src/components/PersonNode.js:PersonNode",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/SearchBar.js",
+      "target": "function:frontend/src/components/SearchBar.js:GlobalSearchBar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/SmartSuggestions.js",
+      "target": "function:frontend/src/components/SmartSuggestions.js:SmartSuggestions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/UpcomingReminders.js",
+      "target": "function:frontend/src/components/UpcomingReminders.js:UpcomingReminders",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "function:frontend/src/pages/FamilyTreePage.js:FamilyTreePage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "function:frontend/src/pages/PersonProfile.js:PersonProfile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:createFamily",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:getFamilies",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:createPerson",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:createRelationship",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:getFamilyTree",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:updateFamily",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:deleteFamily",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:updatePerson",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:deletePerson",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:updateRelationship",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "function:frontend/src/services/familyService.js:deleteRelationship",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FamilyTreePage.js:FamilyTreePage",
+      "target": "function:frontend/src/services/familyService.js:getFamilyTree",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FamilyTreePage.js:FamilyTreePage",
+      "target": "function:frontend/src/services/familyService.js:createPerson",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/FamilyTreePage.js:FamilyTreePage",
+      "target": "function:frontend/src/services/familyService.js:createRelationship",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/PersonProfile.js:PersonProfile",
+      "target": "function:frontend/src/services/familyService.js:updatePerson",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/PersonProfile.js:PersonProfile",
+      "target": "function:frontend/src/services/familyService.js:deletePerson",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/PersonProfile.js:PersonProfile",
+      "target": "function:frontend/src/services/familyService.js:deleteRelationship",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/pages/PersonProfile.js:PersonProfile",
+      "target": "function:frontend/src/services/familyService.js:updateRelationship",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "projectRoot": "/Users/arghjain/Desktop/Projects/Family Tree",
+  "batchFiles": [
+    {"path": "backend/Dockerfile", "language": "dockerfile", "sizeLines": 12, "fileCategory": "infra"}
+  ],
+  "batchImportData": {
+    "backend/Dockerfile": []
+  }
+}

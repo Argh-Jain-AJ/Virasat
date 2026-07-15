@@ -1,0 +1,456 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "backend/controllers/eventController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 77,
+      "nonEmptyLines": 69,
+      "functions": [
+        {
+          "name": "getFamilyEvents",
+          "startLine": 8,
+          "endLine": 73,
+          "params": [
+            "req",
+            "res",
+            "next"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getFamilyEvents",
+          "callee": "res.status(400).json",
+          "lineNumber": 12
+        },
+        {
+          "caller": "getFamilyEvents",
+          "callee": "res.status",
+          "lineNumber": 12
+        },
+        {
+          "caller": "getFamilyEvents",
+          "callee": "personService.getPersonsByFamily",
+          "lineNumber": 15
+        },
+        {
+          "caller": "getFamilyEvents",
+          "callee": "events.push",
+          "lineNumber": 24
+        },
+        {
+          "caller": "getFamilyEvents",
+          "callee": "events.push",
+          "lineNumber": 34
+        },
+        {
+          "caller": "getFamilyEvents",
+          "callee": "memoryService.getMemoriesByPerson",
+          "lineNumber": 46
+        },
+        {
+          "caller": "getFamilyEvents",
+          "callee": "memories.forEach",
+          "lineNumber": 48
+        },
+        {
+          "caller": "getFamilyEvents",
+          "callee": "events.push",
+          "lineNumber": 50
+        },
+        {
+          "caller": "getFamilyEvents",
+          "callee": "events.sort",
+          "lineNumber": 67
+        },
+        {
+          "caller": "getFamilyEvents",
+          "callee": "res.status(200).json",
+          "lineNumber": 69
+        },
+        {
+          "caller": "getFamilyEvents",
+          "callee": "res.status",
+          "lineNumber": 69
+        },
+        {
+          "caller": "getFamilyEvents",
+          "callee": "next",
+          "lineNumber": 71
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/memoryController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 76,
+      "nonEmptyLines": 69,
+      "functions": [
+        {
+          "name": "createMemory",
+          "startLine": 7,
+          "endLine": 19,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "getMemoriesByFamily",
+          "startLine": 25,
+          "endLine": 34,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "getMemoriesByPerson",
+          "startLine": 40,
+          "endLine": 49,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "deleteMemory",
+          "startLine": 55,
+          "endLine": 69,
+          "params": [
+            "req",
+            "res"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createMemory",
+          "callee": "memoryService.createMemory",
+          "lineNumber": 10
+        },
+        {
+          "caller": "createMemory",
+          "callee": "res.status(201).json",
+          "lineNumber": 11
+        },
+        {
+          "caller": "createMemory",
+          "callee": "res.status",
+          "lineNumber": 11
+        },
+        {
+          "caller": "createMemory",
+          "callee": "console.error",
+          "lineNumber": 13
+        },
+        {
+          "caller": "createMemory",
+          "callee": "error.message.includes",
+          "lineNumber": 14
+        },
+        {
+          "caller": "createMemory",
+          "callee": "res.status(400).json",
+          "lineNumber": 15
+        },
+        {
+          "caller": "createMemory",
+          "callee": "res.status",
+          "lineNumber": 15
+        },
+        {
+          "caller": "createMemory",
+          "callee": "res.status(500).json",
+          "lineNumber": 17
+        },
+        {
+          "caller": "createMemory",
+          "callee": "res.status",
+          "lineNumber": 17
+        },
+        {
+          "caller": "getMemoriesByFamily",
+          "callee": "memoryService.getMemoriesByFamily",
+          "lineNumber": 28
+        },
+        {
+          "caller": "getMemoriesByFamily",
+          "callee": "res.status(200).json",
+          "lineNumber": 29
+        },
+        {
+          "caller": "getMemoriesByFamily",
+          "callee": "res.status",
+          "lineNumber": 29
+        },
+        {
+          "caller": "getMemoriesByFamily",
+          "callee": "console.error",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getMemoriesByFamily",
+          "callee": "res.status(500).json",
+          "lineNumber": 32
+        },
+        {
+          "caller": "getMemoriesByFamily",
+          "callee": "res.status",
+          "lineNumber": 32
+        },
+        {
+          "caller": "getMemoriesByPerson",
+          "callee": "memoryService.getMemoriesByPerson",
+          "lineNumber": 43
+        },
+        {
+          "caller": "getMemoriesByPerson",
+          "callee": "res.status(200).json",
+          "lineNumber": 44
+        },
+        {
+          "caller": "getMemoriesByPerson",
+          "callee": "res.status",
+          "lineNumber": 44
+        },
+        {
+          "caller": "getMemoriesByPerson",
+          "callee": "console.error",
+          "lineNumber": 46
+        },
+        {
+          "caller": "getMemoriesByPerson",
+          "callee": "res.status(500).json",
+          "lineNumber": 47
+        },
+        {
+          "caller": "getMemoriesByPerson",
+          "callee": "res.status",
+          "lineNumber": 47
+        },
+        {
+          "caller": "deleteMemory",
+          "callee": "memoryService.deleteMemory",
+          "lineNumber": 58
+        },
+        {
+          "caller": "deleteMemory",
+          "callee": "res.status(404).json",
+          "lineNumber": 61
+        },
+        {
+          "caller": "deleteMemory",
+          "callee": "res.status",
+          "lineNumber": 61
+        },
+        {
+          "caller": "deleteMemory",
+          "callee": "res.status(200).json",
+          "lineNumber": 64
+        },
+        {
+          "caller": "deleteMemory",
+          "callee": "res.status",
+          "lineNumber": 64
+        },
+        {
+          "caller": "deleteMemory",
+          "callee": "console.error",
+          "lineNumber": 66
+        },
+        {
+          "caller": "deleteMemory",
+          "callee": "res.status(500).json",
+          "lineNumber": 67
+        },
+        {
+          "caller": "deleteMemory",
+          "callee": "res.status",
+          "lineNumber": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/memoryModel.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 79,
+      "functions": [
+        {
+          "name": "createMemory",
+          "startLine": 8,
+          "endLine": 35,
+          "params": [
+            "memoryData"
+          ]
+        },
+        {
+          "name": "getMemoriesByFamily",
+          "startLine": 42,
+          "endLine": 50,
+          "params": [
+            "family_id"
+          ]
+        },
+        {
+          "name": "getMemoriesByPerson",
+          "startLine": 57,
+          "endLine": 65,
+          "params": [
+            "person_id"
+          ]
+        },
+        {
+          "name": "deleteMemory",
+          "startLine": 72,
+          "endLine": 80,
+          "params": [
+            "memory_id"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createMemory",
+          "callee": "pool.query",
+          "lineNumber": 33
+        },
+        {
+          "caller": "getMemoriesByFamily",
+          "callee": "pool.query",
+          "lineNumber": 48
+        },
+        {
+          "caller": "getMemoriesByPerson",
+          "callee": "pool.query",
+          "lineNumber": 63
+        },
+        {
+          "caller": "deleteMemory",
+          "callee": "pool.query",
+          "lineNumber": 78
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/eventRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 9,
+      "nonEmptyLines": 7,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/memoryRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/services/memoryService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 56,
+      "nonEmptyLines": 51,
+      "functions": [
+        {
+          "name": "createMemory",
+          "startLine": 8,
+          "endLine": 13,
+          "params": [
+            "memoryData"
+          ]
+        },
+        {
+          "name": "getMemoriesByFamily",
+          "startLine": 20,
+          "endLine": 25,
+          "params": [
+            "family_id"
+          ]
+        },
+        {
+          "name": "getMemoriesByPerson",
+          "startLine": 32,
+          "endLine": 37,
+          "params": [
+            "person_id"
+          ]
+        },
+        {
+          "name": "deleteMemory",
+          "startLine": 44,
+          "endLine": 49,
+          "params": [
+            "memory_id"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createMemory",
+          "callee": "memoryModel.createMemory",
+          "lineNumber": 12
+        },
+        {
+          "caller": "getMemoriesByFamily",
+          "callee": "memoryModel.getMemoriesByFamily",
+          "lineNumber": 24
+        },
+        {
+          "caller": "getMemoriesByPerson",
+          "callee": "memoryModel.getMemoriesByPerson",
+          "lineNumber": 36
+        },
+        {
+          "caller": "deleteMemory",
+          "callee": "memoryModel.deleteMemory",
+          "lineNumber": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    }
+  ]
+}
