@@ -1,0 +1,267 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 97,
+    "filesWithImports": 54,
+    "totalEdges": 106
+  },
+  "importMap": {
+    ".DS_Store": [],
+    ".understand-anything/.understandignore": [],
+    "backend/.env": [],
+    "backend/.env.example": [],
+    "backend/config/db.js": [],
+    "backend/controllers/aiController.js": [
+      "backend/services/personService.js",
+      "backend/services/relationshipService.js"
+    ],
+    "backend/controllers/authController.js": [
+      "backend/services/authService.js"
+    ],
+    "backend/controllers/eventController.js": [
+      "backend/services/memoryService.js",
+      "backend/services/personService.js"
+    ],
+    "backend/controllers/familyController.js": [
+      "backend/services/familyService.js"
+    ],
+    "backend/controllers/gedcomController.js": [
+      "backend/config/db.js",
+      "backend/utils/gedcomParser.js",
+      "backend/utils/treeBuilder.js"
+    ],
+    "backend/controllers/legacyController.js": [
+      "backend/config/db.js"
+    ],
+    "backend/controllers/memoryController.js": [
+      "backend/services/memoryService.js"
+    ],
+    "backend/controllers/personController.js": [
+      "backend/services/personService.js"
+    ],
+    "backend/controllers/relationshipController.js": [
+      "backend/services/relationshipService.js"
+    ],
+    "backend/controllers/reminderController.js": [
+      "backend/config/db.js"
+    ],
+    "backend/cron/reminderCron.js": [
+      "backend/config/db.js"
+    ],
+    "backend/Dockerfile": [],
+    "backend/init_cloud_db.js": [],
+    "backend/init_db.js": [],
+    "backend/middleware/authMiddleware.js": [],
+    "backend/middleware/errorHandler.js": [],
+    "backend/middleware/validationMiddleware.js": [],
+    "backend/migrate_demo.js": [
+      "backend/config/db.js"
+    ],
+    "backend/models/familyModel.js": [
+      "backend/config/db.js"
+    ],
+    "backend/models/memoryModel.js": [
+      "backend/config/db.js"
+    ],
+    "backend/models/personModel.js": [
+      "backend/config/db.js"
+    ],
+    "backend/models/relationshipModel.js": [
+      "backend/config/db.js"
+    ],
+    "backend/models/userModel.js": [
+      "backend/config/db.js"
+    ],
+    "backend/package.json": [],
+    "backend/routes/aiRoutes.js": [
+      "backend/controllers/aiController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/routes/authRoutes.js": [
+      "backend/controllers/authController.js",
+      "backend/middleware/validationMiddleware.js"
+    ],
+    "backend/routes/eventRoutes.js": [
+      "backend/controllers/eventController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/routes/familyRoutes.js": [
+      "backend/controllers/familyController.js",
+      "backend/middleware/authMiddleware.js",
+      "backend/middleware/validationMiddleware.js"
+    ],
+    "backend/routes/familyTreeRoutes.js": [
+      "backend/middleware/authMiddleware.js",
+      "backend/utils/treeBuilder.js"
+    ],
+    "backend/routes/gedcomRoutes.js": [
+      "backend/controllers/gedcomController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/routes/legacyRoutes.js": [
+      "backend/controllers/legacyController.js"
+    ],
+    "backend/routes/memoryRoutes.js": [
+      "backend/controllers/memoryController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/routes/personRoutes.js": [
+      "backend/config/db.js",
+      "backend/controllers/personController.js",
+      "backend/middleware/authMiddleware.js",
+      "backend/middleware/validationMiddleware.js"
+    ],
+    "backend/routes/relationshipRoutes.js": [
+      "backend/controllers/relationshipController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/routes/reminderRoutes.js": [
+      "backend/controllers/reminderController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/schema.sql": [],
+    "backend/server.js": [
+      "backend/config/db.js",
+      "backend/cron/reminderCron.js",
+      "backend/middleware/errorHandler.js",
+      "backend/routes/aiRoutes.js",
+      "backend/routes/authRoutes.js",
+      "backend/routes/eventRoutes.js",
+      "backend/routes/familyRoutes.js",
+      "backend/routes/familyTreeRoutes.js",
+      "backend/routes/gedcomRoutes.js",
+      "backend/routes/legacyRoutes.js",
+      "backend/routes/memoryRoutes.js",
+      "backend/routes/personRoutes.js",
+      "backend/routes/relationshipRoutes.js",
+      "backend/routes/reminderRoutes.js"
+    ],
+    "backend/services/authService.js": [
+      "backend/models/userModel.js"
+    ],
+    "backend/services/familyService.js": [
+      "backend/models/familyModel.js"
+    ],
+    "backend/services/memoryService.js": [
+      "backend/models/memoryModel.js"
+    ],
+    "backend/services/personService.js": [
+      "backend/models/personModel.js"
+    ],
+    "backend/services/relationshipService.js": [
+      "backend/models/relationshipModel.js"
+    ],
+    "backend/setup_demo_user.js": [
+      "backend/config/db.js"
+    ],
+    "backend/swagger.yaml": [],
+    "backend/tests/integration.test.js": [],
+    "backend/utils/gedcomParser.js": [],
+    "backend/utils/treeBuilder.js": [
+      "backend/config/db.js"
+    ],
+    "backend/vercel.json": [],
+    "docker-compose.yml": [],
+    "frontend/.env.example": [],
+    "frontend/Dockerfile": [],
+    "frontend/package.json": [],
+    "frontend/postcss.config.js": [],
+    "frontend/public/index.html": [],
+    "frontend/public/manifest.json": [],
+    "frontend/public/robots.txt": [],
+    "frontend/README.md": [],
+    "frontend/src/api/api.js": [],
+    "frontend/src/App.css": [],
+    "frontend/src/App.js": [
+      "frontend/src/App.css",
+      "frontend/src/components/Footer.js",
+      "frontend/src/context/ToastContext.js"
+    ],
+    "frontend/src/App.test.js": [
+      "frontend/src/App.js"
+    ],
+    "frontend/src/components/ActivityFeed.js": [],
+    "frontend/src/components/CanvasNetwork.js": [],
+    "frontend/src/components/CollaborationPanel.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/FamilyInsightsPanel.js": [],
+    "frontend/src/components/FamilyInvite.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/FamilyTimeline.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/FamilyTree.js": [
+      "frontend/src/components/PersonNode.js"
+    ],
+    "frontend/src/components/Footer.js": [],
+    "frontend/src/components/GedcomImport.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/LegacySection.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/MemoryTimeline.js": [],
+    "frontend/src/components/PersonNode.js": [],
+    "frontend/src/components/SearchBar.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/SmartSuggestions.js": [],
+    "frontend/src/components/UpcomingReminders.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/context/ToastContext.js": [],
+    "frontend/src/index.css": [],
+    "frontend/src/index.js": [
+      "frontend/src/App.js",
+      "frontend/src/index.css",
+      "frontend/src/reportWebVitals.js"
+    ],
+    "frontend/src/pages/Dashboard.js": [
+      "frontend/src/components/CanvasNetwork.js",
+      "frontend/src/context/ToastContext.js",
+      "frontend/src/services/familyService.js"
+    ],
+    "frontend/src/pages/FamilyTreePage.js": [
+      "frontend/src/components/ActivityFeed.js",
+      "frontend/src/components/CollaborationPanel.js",
+      "frontend/src/components/FamilyInsightsPanel.js",
+      "frontend/src/components/FamilyTree.js",
+      "frontend/src/components/GedcomImport.js",
+      "frontend/src/components/SearchBar.js",
+      "frontend/src/components/SmartSuggestions.js",
+      "frontend/src/components/UpcomingReminders.js",
+      "frontend/src/services/familyService.js"
+    ],
+    "frontend/src/pages/Login.js": [
+      "frontend/src/api/api.js",
+      "frontend/src/components/CanvasNetwork.js",
+      "frontend/src/context/ToastContext.js"
+    ],
+    "frontend/src/pages/PersonProfile.js": [
+      "frontend/src/api/api.js",
+      "frontend/src/components/LegacySection.js",
+      "frontend/src/components/MemoryTimeline.js",
+      "frontend/src/services/familyService.js"
+    ],
+    "frontend/src/pages/Register.js": [
+      "frontend/src/api/api.js",
+      "frontend/src/context/ToastContext.js"
+    ],
+    "frontend/src/pages/StoryTransition.js": [],
+    "frontend/src/reportWebVitals.js": [],
+    "frontend/src/services/familyService.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/setupTests.js": [],
+    "frontend/src/tests/components.test.js": [
+      "frontend/src/pages/Dashboard.js",
+      "frontend/src/pages/Login.js",
+      "frontend/src/pages/Register.js"
+    ],
+    "frontend/tailwind.config.js": [],
+    "README.md": [],
+    "security_audit.md": []
+  }
+}

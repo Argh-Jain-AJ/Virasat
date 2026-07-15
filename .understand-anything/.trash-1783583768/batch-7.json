@@ -1,0 +1,24 @@
+{
+  "nodes": [
+    {
+      "id": "service:backend/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "backend/Dockerfile",
+      "summary": "Single-stage Docker build for the backend Node.js API, installing production dependencies on a node:18-alpine base image and starting the server with npm start on port 5001.",
+      "tags": ["containerization", "infrastructure", "deployment", "node-js", "backend"],
+      "complexity": "simple",
+      "languageNotes": "Single-stage build (no multi-stage separation of build vs runtime layers); relies on `npm install --production` to keep the image lean instead."
+    },
+    {
+      "id": "service:backend/Dockerfile:node",
+      "type": "service",
+      "name": "node",
+      "filePath": "backend/Dockerfile",
+      "summary": "The sole build stage, based on node:18-alpine, that copies package manifests, installs production dependencies, copies the rest of the backend source, and exposes port 5001 for the API server.",
+      "tags": ["containerization", "docker-stage", "node-js"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": []
+}

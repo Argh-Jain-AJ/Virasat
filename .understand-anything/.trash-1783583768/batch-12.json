@@ -1,0 +1,42 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/public/index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "frontend/public/index.html",
+      "summary": "HTML entry template for the Create React App-based frontend; mounts the React app into a #root div, sets Virasat.ai branding/meta tags and description, links the PWA manifest and favicon, and includes a Google Analytics boilerplate script with a placeholder tracking ID.",
+      "tags": ["entry-point", "html-template", "react", "seo", "analytics"],
+      "complexity": "simple",
+      "languageNotes": "Standard Create React App public/index.html using %PUBLIC_URL% substitution; the Google Analytics tracking ID is still the unconfigured placeholder 'YOUR_TRACKING_ID'."
+    },
+    {
+      "id": "config:frontend/public/manifest.json",
+      "type": "config",
+      "name": "manifest.json",
+      "filePath": "frontend/public/manifest.json",
+      "summary": "Progressive Web App manifest defining installable app metadata (icons, start URL, display mode, theme/background colors) for the frontend; still contains the default unmodified Create React App boilerplate values.",
+      "tags": ["configuration", "pwa", "manifest", "web-app"],
+      "complexity": "simple",
+      "languageNotes": "short_name and name still read 'React App' / 'Create React App Sample', indicating this manifest was never customized for the Virasat.ai/Family Tree branding used elsewhere in index.html."
+    },
+    {
+      "id": "document:frontend/public/robots.txt",
+      "type": "document",
+      "name": "robots.txt",
+      "filePath": "frontend/public/robots.txt",
+      "summary": "Robots exclusion file for the frontend static site that permits all web crawlers unrestricted access (no Disallow rules).",
+      "tags": ["seo", "crawler-config", "static-asset"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:frontend/public/manifest.json",
+      "target": "file:frontend/public/index.html",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

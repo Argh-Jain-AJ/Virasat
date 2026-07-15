@@ -1,0 +1,110 @@
+{
+  "nodes": [
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Primary project README describing the Family Tree platform's architecture (React Flow + Dagre frontend, Node.js/Express backend, PostgreSQL database), tech stack, local installation and run instructions, environment variables, REST API endpoint reference, and a production deployment guide (Supabase/Neon, Render/Railway, Vercel).",
+      "tags": ["documentation", "entry-point", "overview", "deployment-guide", "api-reference"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:security_audit.md",
+      "type": "document",
+      "name": "security_audit.md",
+      "filePath": "security_audit.md",
+      "summary": "Security audit report for the Virasat.ai / Family Tree backend and frontend, cataloging 3 critical, 5 high, and 2 medium severity vulnerabilities that were found and fixed (hardcoded JWT fallback secret, wildcard CORS, leaked error messages, missing XSS sanitization, exposed Swagger UI, weak rate limiting, permissive Helmet config), plus a checklist of recommended pre-production hardening steps.",
+      "tags": ["documentation", "security", "audit", "vulnerability-report"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "docker-compose.yml",
+      "summary": "Docker Compose configuration that orchestrates the PostgreSQL database, Node.js backend, and React frontend as three networked services for local development and one-command containerized startup.",
+      "tags": ["orchestration", "infrastructure", "containerization", "docker-compose"],
+      "complexity": "simple",
+      "languageNotes": "Defines a shared bridge network (family_net) and a named volume (pgdata) for database persistence; services communicate by service name rather than hardcoded hostnames."
+    },
+    {
+      "id": "service:docker-compose.yml:database",
+      "type": "service",
+      "name": "database",
+      "filePath": "docker-compose.yml",
+      "summary": "PostgreSQL 15 database service storing the family tree relational data, exposing port 5432 and persisting data via the pgdata named volume.",
+      "tags": ["database", "postgresql", "containerization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:docker-compose.yml:backend",
+      "type": "service",
+      "name": "backend",
+      "filePath": "docker-compose.yml",
+      "summary": "Node.js/Express backend service built from the ./backend directory, exposing port 5001 and configured via environment variables for DB connection and JWT secret; depends on the database service being available.",
+      "tags": ["backend-service", "containerization", "express"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:docker-compose.yml:frontend",
+      "type": "service",
+      "name": "frontend",
+      "filePath": "docker-compose.yml",
+      "summary": "React frontend service built from the ./frontend directory, served on host port 3000 (mapped to container port 80); depends on the backend service.",
+      "tags": ["frontend-service", "containerization", "react"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:database",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:backend",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:frontend",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:docker-compose.yml:backend",
+      "target": "service:docker-compose.yml:database",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:frontend",
+      "target": "service:docker-compose.yml:backend",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:README.md",
+      "target": "service:docker-compose.yml",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:security_audit.md",
+      "target": "document:README.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

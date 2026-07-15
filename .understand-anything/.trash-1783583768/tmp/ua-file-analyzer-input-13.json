@@ -1,0 +1,29 @@
+{
+  "projectRoot": "/Users/arghjain/Desktop/Projects/Family Tree",
+  "batchFiles": [
+    {"path": ".DS_Store", "language": "unknown", "sizeLines": 2, "fileCategory": "code"},
+    {"path": ".understand-anything/.understandignore", "language": "unknown", "sizeLines": 38, "fileCategory": "code"},
+    {"path": "backend/init_cloud_db.js", "language": "javascript", "sizeLines": 37, "fileCategory": "code"},
+    {"path": "backend/init_db.js", "language": "javascript", "sizeLines": 55, "fileCategory": "code"},
+    {"path": "backend/tests/integration.test.js", "language": "javascript", "sizeLines": 81, "fileCategory": "code"},
+    {"path": "frontend/postcss.config.js", "language": "javascript", "sizeLines": 6, "fileCategory": "code"},
+    {"path": "frontend/src/App.css", "language": "css", "sizeLines": 38, "fileCategory": "markup"},
+    {"path": "frontend/src/index.css", "language": "css", "sizeLines": 17, "fileCategory": "markup"},
+    {"path": "frontend/src/pages/StoryTransition.js", "language": "javascript", "sizeLines": 44, "fileCategory": "code"},
+    {"path": "frontend/src/setupTests.js", "language": "javascript", "sizeLines": 5, "fileCategory": "code"},
+    {"path": "frontend/tailwind.config.js", "language": "javascript", "sizeLines": 10, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    ".DS_Store": [],
+    ".understand-anything/.understandignore": [],
+    "backend/init_cloud_db.js": [],
+    "backend/init_db.js": [],
+    "backend/tests/integration.test.js": [],
+    "frontend/postcss.config.js": [],
+    "frontend/src/App.css": [],
+    "frontend/src/index.css": [],
+    "frontend/src/pages/StoryTransition.js": [],
+    "frontend/src/setupTests.js": [],
+    "frontend/tailwind.config.js": []
+  }
+}

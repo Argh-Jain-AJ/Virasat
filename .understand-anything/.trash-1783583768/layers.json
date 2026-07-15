@@ -1,0 +1,181 @@
+[
+  {
+    "id": "layer:api",
+    "name": "API Layer",
+    "description": "Express route definitions and controllers that expose the family-tree REST API (auth, families, persons, relationships, events, memories, legacy messages, GEDCOM, AI, reminders), plus the server entry point and integration test.",
+    "nodeIds": [
+      "file:backend/controllers/authController.js",
+      "file:backend/controllers/familyController.js",
+      "file:backend/controllers/legacyController.js",
+      "file:backend/controllers/aiController.js",
+      "file:backend/controllers/personController.js",
+      "file:backend/controllers/relationshipController.js",
+      "file:backend/controllers/gedcomController.js",
+      "file:backend/controllers/reminderController.js",
+      "file:backend/controllers/eventController.js",
+      "file:backend/controllers/memoryController.js",
+      "file:backend/routes/authRoutes.js",
+      "file:backend/routes/familyRoutes.js",
+      "file:backend/routes/legacyRoutes.js",
+      "file:backend/routes/personRoutes.js",
+      "file:backend/routes/aiRoutes.js",
+      "file:backend/routes/relationshipRoutes.js",
+      "file:backend/routes/familyTreeRoutes.js",
+      "file:backend/routes/gedcomRoutes.js",
+      "file:backend/routes/reminderRoutes.js",
+      "file:backend/routes/eventRoutes.js",
+      "file:backend/routes/memoryRoutes.js",
+      "file:backend/server.js",
+      "file:backend/tests/integration.test.js"
+    ]
+  },
+  {
+    "id": "layer:service",
+    "name": "Service Layer",
+    "description": "Backend business-logic modules that orchestrate family/person/relationship/memory/auth operations, the reminder cron job, and the GEDCOM parsing / tree-building domain algorithms.",
+    "nodeIds": [
+      "file:backend/services/authService.js",
+      "file:backend/services/familyService.js",
+      "file:backend/services/personService.js",
+      "file:backend/services/relationshipService.js",
+      "file:backend/services/memoryService.js",
+      "file:backend/cron/reminderCron.js",
+      "file:backend/utils/gedcomParser.js",
+      "file:backend/utils/treeBuilder.js"
+    ]
+  },
+  {
+    "id": "layer:data",
+    "name": "Data Layer",
+    "description": "PostgreSQL data-access models, the DB connection pool, database setup/seed scripts, the normalized schema.sql table definitions, and the swagger.yaml API contract with its documented endpoints.",
+    "nodeIds": [
+      "file:backend/models/familyModel.js",
+      "file:backend/models/userModel.js",
+      "file:backend/models/personModel.js",
+      "file:backend/models/relationshipModel.js",
+      "file:backend/models/memoryModel.js",
+      "file:backend/config/db.js",
+      "file:backend/migrate_demo.js",
+      "file:backend/init_cloud_db.js",
+      "file:backend/init_db.js",
+      "file:backend/setup_demo_user.js",
+      "table:backend/schema.sql:users",
+      "table:backend/schema.sql:families",
+      "table:backend/schema.sql:persons",
+      "table:backend/schema.sql:relationships",
+      "table:backend/schema.sql:memories",
+      "table:backend/schema.sql:legacy_messages",
+      "config:backend/swagger.yaml",
+      "endpoint:backend/swagger.yaml:POST-/api/auth/register",
+      "endpoint:backend/swagger.yaml:POST-/api/auth/login",
+      "endpoint:backend/swagger.yaml:GET-/api/families",
+      "endpoint:backend/swagger.yaml:POST-/api/families",
+      "endpoint:backend/swagger.yaml:GET-/api/family-tree/{family_id}",
+      "endpoint:backend/swagger.yaml:POST-/api/persons",
+      "endpoint:backend/swagger.yaml:POST-/api/relationships",
+      "endpoint:backend/swagger.yaml:POST-/api/gedcom/import"
+    ]
+  },
+  {
+    "id": "layer:middleware",
+    "name": "Middleware Layer",
+    "description": "Express middleware for JWT authentication, centralized error handling, and request validation shared across the backend API.",
+    "nodeIds": [
+      "file:backend/middleware/authMiddleware.js",
+      "file:backend/middleware/errorHandler.js",
+      "file:backend/middleware/validationMiddleware.js"
+    ]
+  },
+  {
+    "id": "layer:ui",
+    "name": "UI Layer",
+    "description": "React components and pages that render the interactive family tree (React Flow/Dagre canvas), member profiles, memory timelines, collaboration and GEDCOM import UI, plus the app shell, styling, and CRA bootstrap files.",
+    "nodeIds": [
+      "file:frontend/src/components/MemoryTimeline.js",
+      "file:frontend/src/components/PersonNode.js",
+      "file:frontend/src/components/SearchBar.js",
+      "file:frontend/src/components/SmartSuggestions.js",
+      "file:frontend/src/components/UpcomingReminders.js",
+      "file:frontend/src/components/ActivityFeed.js",
+      "file:frontend/src/components/CollaborationPanel.js",
+      "file:frontend/src/components/FamilyInsightsPanel.js",
+      "file:frontend/src/components/FamilyInvite.js",
+      "file:frontend/src/components/FamilyTimeline.js",
+      "file:frontend/src/components/FamilyTree.js",
+      "file:frontend/src/components/GedcomImport.js",
+      "file:frontend/src/components/LegacySection.js",
+      "file:frontend/src/components/CanvasNetwork.js",
+      "file:frontend/src/components/Footer.js",
+      "file:frontend/src/pages/FamilyTreePage.js",
+      "file:frontend/src/pages/PersonProfile.js",
+      "file:frontend/src/pages/Dashboard.js",
+      "file:frontend/src/pages/Login.js",
+      "file:frontend/src/pages/Register.js",
+      "file:frontend/src/pages/StoryTransition.js",
+      "file:frontend/src/App.js",
+      "file:frontend/src/App.test.js",
+      "file:frontend/src/App.css",
+      "file:frontend/src/index.js",
+      "file:frontend/src/index.css",
+      "file:frontend/src/reportWebVitals.js",
+      "file:frontend/src/setupTests.js",
+      "file:frontend/src/context/ToastContext.js",
+      "file:frontend/src/tests/components.test.js",
+      "file:frontend/public/index.html"
+    ]
+  },
+  {
+    "id": "layer:client-services",
+    "name": "Client Services Layer",
+    "description": "Frontend integration layer that centralizes HTTP calls to the backend REST API and family-specific client-side service logic, consumed across nearly all UI components.",
+    "nodeIds": [
+      "file:frontend/src/api/api.js",
+      "file:frontend/src/services/familyService.js"
+    ]
+  },
+  {
+    "id": "layer:infrastructure",
+    "name": "Infrastructure",
+    "description": "Docker and Docker Compose definitions for backend, frontend, and database containers, and the Vercel deployment configuration for the backend.",
+    "nodeIds": [
+      "service:backend/Dockerfile",
+      "service:backend/Dockerfile:node",
+      "config:backend/vercel.json",
+      "service:frontend/Dockerfile",
+      "service:frontend/Dockerfile:build",
+      "service:frontend/Dockerfile:nginx",
+      "service:docker-compose.yml",
+      "service:docker-compose.yml:database",
+      "service:docker-compose.yml:backend",
+      "service:docker-compose.yml:frontend"
+    ]
+  },
+  {
+    "id": "layer:config",
+    "name": "Configuration",
+    "description": "Package manifests, environment variable templates, build-tool configs (Tailwind, PostCSS), the PWA manifest, and miscellaneous project metadata files for both backend and frontend.",
+    "nodeIds": [
+      "config:backend/package.json",
+      "config:backend/.env",
+      "config:backend/.env.example",
+      "config:frontend/package.json",
+      "config:frontend/.env.example",
+      "config:frontend/public/manifest.json",
+      "file:frontend/postcss.config.js",
+      "file:frontend/tailwind.config.js",
+      "file:.DS_Store",
+      "file:.understand-anything/.understandignore"
+    ]
+  },
+  {
+    "id": "layer:documentation",
+    "name": "Documentation",
+    "description": "Project-level and frontend README files, the security audit report, and the frontend's robots.txt.",
+    "nodeIds": [
+      "document:README.md",
+      "document:security_audit.md",
+      "document:frontend/README.md",
+      "document:frontend/public/robots.txt"
+    ]
+  }
+]

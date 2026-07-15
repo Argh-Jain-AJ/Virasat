@@ -1,0 +1,3295 @@
+{
+  "fileNodes": [
+    {
+      "id": "file:backend/config/db.js",
+      "type": "file",
+      "name": "db.js",
+      "filePath": "backend/config/db.js",
+      "summary": "Configures and exports a shared PostgreSQL connection pool using either a DATABASE_URL or discrete DB_* environment variables, with connect/error event logging.",
+      "tags": [
+        "config",
+        "database",
+        "connection-pool",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "file:backend/controllers/authController.js",
+      "type": "file",
+      "name": "authController.js",
+      "filePath": "backend/controllers/authController.js",
+      "summary": "Express controller handling user registration and login HTTP requests, delegating business logic to authService and mapping errors to appropriate HTTP status codes.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "controller",
+        "error-handling"
+      ]
+    },
+    {
+      "id": "file:backend/controllers/familyController.js",
+      "type": "file",
+      "name": "familyController.js",
+      "filePath": "backend/controllers/familyController.js",
+      "summary": "Express controller providing full CRUD operations (create, list, get, update, delete) for family records, scoped to the authenticated user.",
+      "tags": [
+        "api-handler",
+        "controller",
+        "crud",
+        "family"
+      ]
+    },
+    {
+      "id": "file:backend/controllers/legacyController.js",
+      "type": "file",
+      "name": "legacyController.js",
+      "filePath": "backend/controllers/legacyController.js",
+      "summary": "Express controller for creating and listing legacy messages (memorial/tribute text) attached to a person.",
+      "tags": [
+        "api-handler",
+        "controller",
+        "crud",
+        "legacy-message"
+      ]
+    },
+    {
+      "id": "file:backend/cron/reminderCron.js",
+      "type": "file",
+      "name": "reminderCron.js",
+      "filePath": "backend/cron/reminderCron.js",
+      "summary": "Daily scheduled cron job (node-cron) that queries birthdays, death anniversaries, and memory events occurring today across all families and logs mock reminder emails to the console.",
+      "tags": [
+        "cron-job",
+        "scheduler",
+        "notifications",
+        "sql"
+      ]
+    },
+    {
+      "id": "file:backend/middleware/errorHandler.js",
+      "type": "file",
+      "name": "errorHandler.js",
+      "filePath": "backend/middleware/errorHandler.js",
+      "summary": "Centralized Express error-handling middleware used as the final middleware in the request pipeline to log and format error responses.",
+      "tags": [
+        "middleware",
+        "error-handling",
+        "utility"
+      ]
+    },
+    {
+      "id": "file:backend/middleware/validationMiddleware.js",
+      "type": "file",
+      "name": "validationMiddleware.js",
+      "filePath": "backend/middleware/validationMiddleware.js",
+      "summary": "Reusable Express middleware that runs express-validator's validation result check and rejects invalid requests with a 400 response.",
+      "tags": [
+        "middleware",
+        "validation",
+        "utility"
+      ]
+    },
+    {
+      "id": "file:backend/migrate_demo.js",
+      "type": "file",
+      "name": "migrate_demo.js",
+      "filePath": "backend/migrate_demo.js",
+      "summary": "Standalone Node.js script that seeds or resets the demo user's password hash directly in the database, intended to be run manually or during deployment.",
+      "tags": [
+        "script",
+        "database",
+        "seed-data",
+        "migration"
+      ]
+    },
+    {
+      "id": "file:backend/models/familyModel.js",
+      "type": "file",
+      "name": "familyModel.js",
+      "filePath": "backend/models/familyModel.js",
+      "summary": "Data access layer for the families table, providing parameterized SQL queries for create, read, update, and delete operations scoped to the owning user.",
+      "tags": [
+        "data-model",
+        "database",
+        "sql",
+        "crud"
+      ]
+    },
+    {
+      "id": "file:backend/models/userModel.js",
+      "type": "file",
+      "name": "userModel.js",
+      "filePath": "backend/models/userModel.js",
+      "summary": "Data access layer for the users table, providing functions to create users and look them up by email or ID.",
+      "tags": [
+        "data-model",
+        "database",
+        "sql",
+        "authentication"
+      ]
+    },
+    {
+      "id": "file:backend/routes/authRoutes.js",
+      "type": "file",
+      "name": "authRoutes.js",
+      "filePath": "backend/routes/authRoutes.js",
+      "summary": "Defines the /api/auth Express routes for registration and login, wiring express-validator rules and the validation middleware to the auth controller.",
+      "tags": [
+        "routing",
+        "api-handler",
+        "authentication",
+        "validation"
+      ]
+    },
+    {
+      "id": "file:backend/routes/familyRoutes.js",
+      "type": "file",
+      "name": "familyRoutes.js",
+      "filePath": "backend/routes/familyRoutes.js",
+      "summary": "Defines the /api/families Express routes for family CRUD operations, protected by the verifyToken auth middleware, plus a mock invite endpoint.",
+      "tags": [
+        "routing",
+        "api-handler",
+        "middleware",
+        "family"
+      ]
+    },
+    {
+      "id": "file:backend/routes/legacyRoutes.js",
+      "type": "file",
+      "name": "legacyRoutes.js",
+      "filePath": "backend/routes/legacyRoutes.js",
+      "summary": "Defines the /api/legacy Express routes for creating and listing legacy messages for a given person.",
+      "tags": [
+        "routing",
+        "api-handler",
+        "legacy-message"
+      ]
+    },
+    {
+      "id": "file:backend/routes/personRoutes.js",
+      "type": "file",
+      "name": "personRoutes.js",
+      "filePath": "backend/routes/personRoutes.js",
+      "summary": "Defines the /api/persons Express routes including person CRUD, search, and a multer-based photo upload endpoint with a dedicated rate limiter.",
+      "tags": [
+        "routing",
+        "api-handler",
+        "file-upload",
+        "rate-limiting"
+      ]
+    },
+    {
+      "id": "file:backend/server.js",
+      "type": "file",
+      "name": "server.js",
+      "filePath": "backend/server.js",
+      "summary": "Main Express application entry point that configures security middleware (helmet, CORS, rate limiting, sanitization), mounts all API route modules, initializes the reminder cron job, and starts the HTTP server.",
+      "tags": [
+        "entry-point",
+        "middleware",
+        "security",
+        "routing"
+      ]
+    },
+    {
+      "id": "file:backend/services/authService.js",
+      "type": "file",
+      "name": "authService.js",
+      "filePath": "backend/services/authService.js",
+      "summary": "Business logic layer for authentication: registers new users with bcrypt password hashing and validates login credentials while issuing signed JWT tokens.",
+      "tags": [
+        "service",
+        "authentication",
+        "business-logic",
+        "jwt"
+      ]
+    },
+    {
+      "id": "file:backend/services/familyService.js",
+      "type": "file",
+      "name": "familyService.js",
+      "filePath": "backend/services/familyService.js",
+      "summary": "Thin service layer that delegates family CRUD operations to the family model, sitting between the family controller and the data access layer.",
+      "tags": [
+        "service",
+        "business-logic",
+        "crud",
+        "family"
+      ]
+    },
+    {
+      "id": "file:backend/setup_demo_user.js",
+      "type": "file",
+      "name": "setup_demo_user.js",
+      "filePath": "backend/setup_demo_user.js",
+      "summary": "Standalone Node.js script that seeds a demo user account into the database if one does not already exist.",
+      "tags": [
+        "script",
+        "seed-data",
+        "database"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/MemoryTimeline.js",
+      "type": "file",
+      "name": "MemoryTimeline.js",
+      "filePath": "frontend/src/components/MemoryTimeline.js",
+      "summary": "Renders a chronologically sorted, scroll-reveal-animated timeline of memories for a person, falling back to a smart empty-state when no memories exist.",
+      "tags": [
+        "component",
+        "timeline",
+        "memories",
+        "empty-state"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/PersonNode.js",
+      "type": "file",
+      "name": "PersonNode.js",
+      "filePath": "frontend/src/components/PersonNode.js",
+      "summary": "Custom React Flow node component that renders a single person's card in the tree canvas, with generation-based color coding, avatar, lifespan, hover actions, and connection handles.",
+      "tags": [
+        "component",
+        "react-flow",
+        "node",
+        "memoized"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/SearchBar.js",
+      "type": "file",
+      "name": "SearchBar.js",
+      "filePath": "frontend/src/components/SearchBar.js",
+      "summary": "Global debounced search input that queries persons via the API, shows a results dropdown, and navigates to the selected person's profile with keyboard and outside-click handling.",
+      "tags": [
+        "component",
+        "search",
+        "navigation",
+        "debounce"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/SmartSuggestions.js",
+      "type": "file",
+      "name": "SmartSuggestions.js",
+      "filePath": "frontend/src/components/SmartSuggestions.js",
+      "summary": "Analyzes the current tree's nodes and edges to generate dismissible, actionable suggestions such as missing relationships or incomplete profile data.",
+      "tags": [
+        "component",
+        "suggestions",
+        "data-analysis",
+        "ui"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/UpcomingReminders.js",
+      "type": "file",
+      "name": "UpcomingReminders.js",
+      "filePath": "frontend/src/components/UpcomingReminders.js",
+      "summary": "Fetches upcoming birthday and anniversary events from the API and displays them as a reminders widget.",
+      "tags": [
+        "component",
+        "reminders",
+        "api-handler",
+        "data-fetching"
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/FamilyTreePage.js",
+      "type": "file",
+      "name": "FamilyTreePage.js",
+      "filePath": "frontend/src/pages/FamilyTreePage.js",
+      "summary": "Main workspace page that assembles the family tree canvas with the member/relationship creation forms, activity feed, insights panel, collaboration panel, search bar, and GEDCOM import, and owns tree data fetching plus create/update handlers.",
+      "tags": [
+        "page",
+        "entry-point",
+        "workspace",
+        "orchestration"
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/PersonProfile.js",
+      "type": "file",
+      "name": "PersonProfile.js",
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "summary": "Large person profile page combining editable fields, avatar upload, a mini tree preview, family relationship management, memory and legacy-message CRUD, privacy/sharing controls, and AI-assisted biography and story-mode generation.",
+      "tags": [
+        "page",
+        "profile",
+        "crud",
+        "ai-assisted"
+      ]
+    },
+    {
+      "id": "file:frontend/src/services/familyService.js",
+      "type": "file",
+      "name": "familyService.js",
+      "filePath": "frontend/src/services/familyService.js",
+      "summary": "Service layer wrapping REST calls for families, persons, and relationships (create/read/update/delete) on top of the shared Axios API client.",
+      "tags": [
+        "service",
+        "api-wrapper",
+        "crud",
+        "data-model"
+      ]
+    },
+    {
+      "id": "file:frontend/src/api/api.js",
+      "type": "file",
+      "name": "api.js",
+      "filePath": "frontend/src/api/api.js",
+      "summary": "Configures the shared Axios HTTP client with a base URL, JWT bearer-token request interceptor, and a global response interceptor that standardizes error messages and redirects to login on 401 responses.",
+      "tags": [
+        "api-client",
+        "http",
+        "authentication",
+        "interceptor",
+        "utility"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/ActivityFeed.js",
+      "type": "file",
+      "name": "ActivityFeed.js",
+      "filePath": "frontend/src/components/ActivityFeed.js",
+      "summary": "Renders a live, auto-scrolling feed of recent collaboration activity events (adds, edits, invites) on the family tree workspace.",
+      "tags": [
+        "component",
+        "activity-log",
+        "real-time",
+        "ui"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/CollaborationPanel.js",
+      "type": "file",
+      "name": "CollaborationPanel.js",
+      "filePath": "frontend/src/components/CollaborationPanel.js",
+      "summary": "Displays the list of family tree collaborators and provides an invite-by-email form plus per-collaborator role change and removal controls.",
+      "tags": [
+        "component",
+        "collaboration",
+        "form",
+        "api-handler"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/FamilyInsightsPanel.js",
+      "type": "file",
+      "name": "FamilyInsightsPanel.js",
+      "filePath": "frontend/src/components/FamilyInsightsPanel.js",
+      "summary": "Computes aggregate statistics about the family tree (member counts, generation depth, relationship breakdown) and renders them as an animated insights dashboard panel.",
+      "tags": [
+        "component",
+        "analytics",
+        "data-visualization",
+        "statistics"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/FamilyInvite.js",
+      "type": "file",
+      "name": "FamilyInvite.js",
+      "filePath": "frontend/src/components/FamilyInvite.js",
+      "summary": "Standalone form component that lets a user invite a new collaborator by email and role, posting the invitation through the API client.",
+      "tags": [
+        "component",
+        "form",
+        "invitation",
+        "collaboration"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/FamilyTimeline.js",
+      "type": "file",
+      "name": "FamilyTimeline.js",
+      "filePath": "frontend/src/components/FamilyTimeline.js",
+      "summary": "Fetches family-wide chronological events from the API and renders them as a vertical timeline with loading and error states.",
+      "tags": [
+        "component",
+        "timeline",
+        "api-handler",
+        "data-fetching"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/FamilyTree.js",
+      "type": "file",
+      "name": "FamilyTree.js",
+      "filePath": "frontend/src/components/FamilyTree.js",
+      "summary": "Core interactive family tree visualization built on React Flow: computes a generation-based hierarchical layout (adjacency building, generation assignment, collision resolution, iterative barycenter positioning) and renders the pannable/zoomable tree canvas with focus mode, search highlighting, and PNG export.",
+      "tags": [
+        "component",
+        "visualization",
+        "layout-algorithm",
+        "react-flow",
+        "core"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/GedcomImport.js",
+      "type": "file",
+      "name": "GedcomImport.js",
+      "filePath": "frontend/src/components/GedcomImport.js",
+      "summary": "Drag-and-drop and click-to-browse GEDCOM file uploader with client-side validation, upload progress tracking, and API submission for bulk family data import.",
+      "tags": [
+        "component",
+        "file-upload",
+        "gedcom",
+        "import"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/LegacySection.js",
+      "type": "file",
+      "name": "LegacySection.js",
+      "filePath": "frontend/src/components/LegacySection.js",
+      "summary": "Displays a person's legacy/memory messages and provides a composer form (title, message, emotion tag) for adding new legacy entries.",
+      "tags": [
+        "component",
+        "legacy-messages",
+        "form",
+        "memory"
+      ]
+    },
+    {
+      "id": "file:frontend/src/App.js",
+      "type": "file",
+      "name": "App.js",
+      "filePath": "frontend/src/App.js",
+      "summary": "Root React component that sets up the router, lazy-loaded route pages, global toast provider, and an online/offline network status listener.",
+      "tags": [
+        "entry-point",
+        "routing",
+        "component",
+        "lazy-loading",
+        "tested"
+      ]
+    },
+    {
+      "id": "file:frontend/src/App.test.js",
+      "type": "file",
+      "name": "App.test.js",
+      "filePath": "frontend/src/App.test.js",
+      "summary": "Default Create-React-App smoke test that renders the App component and checks for a 'learn react' link.",
+      "tags": [
+        "test",
+        "smoke-test",
+        "react-testing-library"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/CanvasNetwork.js",
+      "type": "file",
+      "name": "CanvasNetwork.js",
+      "filePath": "frontend/src/components/CanvasNetwork.js",
+      "summary": "Decorative canvas component that animates a network of connected particles as an ambient background effect for auth and dashboard pages.",
+      "tags": [
+        "component",
+        "canvas",
+        "animation",
+        "ui"
+      ]
+    },
+    {
+      "id": "file:frontend/src/components/Footer.js",
+      "type": "file",
+      "name": "Footer.js",
+      "filePath": "frontend/src/components/Footer.js",
+      "summary": "Site-wide footer displaying the current year copyright notice, hidden on the full-screen StoryTransition route.",
+      "tags": [
+        "component",
+        "ui",
+        "footer"
+      ]
+    },
+    {
+      "id": "file:frontend/src/context/ToastContext.js",
+      "type": "file",
+      "name": "ToastContext.js",
+      "filePath": "frontend/src/context/ToastContext.js",
+      "summary": "React context provider implementing a global toast notification system, exposing addToast/removeToast via the useToast hook.",
+      "tags": [
+        "context",
+        "hook",
+        "state-management",
+        "notifications"
+      ]
+    },
+    {
+      "id": "file:frontend/src/index.js",
+      "type": "file",
+      "name": "index.js",
+      "filePath": "frontend/src/index.js",
+      "summary": "Application bootstrap that mounts the root App component into the DOM, suppresses a benign ResizeObserver console error, and initiates web-vitals reporting.",
+      "tags": [
+        "entry-point",
+        "bootstrap",
+        "react-dom"
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/Dashboard.js",
+      "type": "file",
+      "name": "Dashboard.js",
+      "filePath": "frontend/src/pages/Dashboard.js",
+      "summary": "Main authenticated dashboard page listing the user's families as animated lineage cards, with create, rename, and delete family workflows.",
+      "tags": [
+        "component",
+        "page",
+        "state-management",
+        "crud",
+        "tested"
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/Login.js",
+      "type": "file",
+      "name": "Login.js",
+      "filePath": "frontend/src/pages/Login.js",
+      "summary": "Login page with an animated canvas-network background that authenticates the user against the backend and stores the returned JWT token.",
+      "tags": [
+        "component",
+        "page",
+        "authentication",
+        "form",
+        "tested"
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/Register.js",
+      "type": "file",
+      "name": "Register.js",
+      "filePath": "frontend/src/pages/Register.js",
+      "summary": "Registration page that collects name, email, and password, submits a signup request to the backend, and redirects to login on success.",
+      "tags": [
+        "component",
+        "page",
+        "authentication",
+        "form",
+        "tested"
+      ]
+    },
+    {
+      "id": "file:frontend/src/reportWebVitals.js",
+      "type": "file",
+      "name": "reportWebVitals.js",
+      "filePath": "frontend/src/reportWebVitals.js",
+      "summary": "Create-React-App performance reporting utility that lazily loads web-vitals and forwards CLS/FID/FCP/LCP/TTFB metrics to a callback.",
+      "tags": [
+        "utility",
+        "performance",
+        "monitoring"
+      ]
+    },
+    {
+      "id": "file:frontend/src/tests/components.test.js",
+      "type": "file",
+      "name": "components.test.js",
+      "filePath": "frontend/src/tests/components.test.js",
+      "summary": "Integration-style tests rendering the Login, Register, and Dashboard pages inside a BrowserRouter to assert key UI text and form fields appear.",
+      "tags": [
+        "test",
+        "react-testing-library",
+        "integration-test"
+      ]
+    },
+    {
+      "id": "file:backend/controllers/aiController.js",
+      "type": "file",
+      "name": "aiController.js",
+      "filePath": "backend/controllers/aiController.js",
+      "summary": "Express controller handling AI-assisted biography generation for a person, orchestrating calls to person and relationship services and persisting the generated bio back to the person's profile.",
+      "tags": [
+        "api-handler",
+        "ai",
+        "biography",
+        "controller"
+      ]
+    },
+    {
+      "id": "file:backend/controllers/personController.js",
+      "type": "file",
+      "name": "personController.js",
+      "filePath": "backend/controllers/personController.js",
+      "summary": "Express controller exposing CRUD and search HTTP endpoints for person records, delegating persistence logic to personService and translating results into HTTP status codes and error responses.",
+      "tags": [
+        "api-handler",
+        "crud",
+        "controller",
+        "person"
+      ]
+    },
+    {
+      "id": "file:backend/controllers/relationshipController.js",
+      "type": "file",
+      "name": "relationshipController.js",
+      "filePath": "backend/controllers/relationshipController.js",
+      "summary": "Express controller managing relationship records between family members (create, fetch, update, delete), delegating persistence to relationshipService.",
+      "tags": [
+        "api-handler",
+        "controller",
+        "relationship",
+        "crud"
+      ]
+    },
+    {
+      "id": "file:backend/models/personModel.js",
+      "type": "file",
+      "name": "personModel.js",
+      "filePath": "backend/models/personModel.js",
+      "summary": "Data access layer for the persons table, providing parameterized SQL queries for creating, reading, updating, deleting, and searching person records.",
+      "tags": [
+        "data-model",
+        "database",
+        "sql",
+        "person"
+      ]
+    },
+    {
+      "id": "file:backend/models/relationshipModel.js",
+      "type": "file",
+      "name": "relationshipModel.js",
+      "filePath": "backend/models/relationshipModel.js",
+      "summary": "Data access layer for the relationships table, providing parameterized SQL queries to create, fetch, update, and delete relationships between persons.",
+      "tags": [
+        "data-model",
+        "database",
+        "sql",
+        "relationship"
+      ]
+    },
+    {
+      "id": "file:backend/routes/aiRoutes.js",
+      "type": "file",
+      "name": "aiRoutes.js",
+      "filePath": "backend/routes/aiRoutes.js",
+      "summary": "Express router wiring the protected AI biography generation endpoint to aiController, guarded by token verification middleware.",
+      "tags": [
+        "routing",
+        "middleware",
+        "ai",
+        "api-handler"
+      ]
+    },
+    {
+      "id": "file:backend/routes/relationshipRoutes.js",
+      "type": "file",
+      "name": "relationshipRoutes.js",
+      "filePath": "backend/routes/relationshipRoutes.js",
+      "summary": "Express router defining protected CRUD endpoints for relationships, delegating to relationshipController and enforcing authentication via middleware.",
+      "tags": [
+        "routing",
+        "middleware",
+        "relationship",
+        "crud"
+      ]
+    },
+    {
+      "id": "file:backend/services/personService.js",
+      "type": "file",
+      "name": "personService.js",
+      "filePath": "backend/services/personService.js",
+      "summary": "Service layer wrapping personModel to provide business logic for person CRUD operations and name search, consumed by multiple controllers across the app.",
+      "tags": [
+        "service",
+        "business-logic",
+        "person"
+      ]
+    },
+    {
+      "id": "file:backend/services/relationshipService.js",
+      "type": "file",
+      "name": "relationshipService.js",
+      "filePath": "backend/services/relationshipService.js",
+      "summary": "Service layer wrapping relationshipModel to provide business logic for creating, fetching, updating, and deleting relationships between family members.",
+      "tags": [
+        "service",
+        "business-logic",
+        "relationship"
+      ]
+    },
+    {
+      "id": "file:backend/controllers/gedcomController.js",
+      "type": "file",
+      "name": "gedcomController.js",
+      "filePath": "backend/controllers/gedcomController.js",
+      "summary": "Express controller handling GEDCOM file import: parses the uploaded .ged file, deduplicates and inserts persons/relationships into Postgres inside a single transaction, then returns the rebuilt family tree data for the frontend.",
+      "tags": [
+        "api-handler",
+        "gedcom-import",
+        "transaction",
+        "controller",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "file:backend/controllers/reminderController.js",
+      "type": "file",
+      "name": "reminderController.js",
+      "filePath": "backend/controllers/reminderController.js",
+      "summary": "Express controller that fetches upcoming birthdays, death anniversaries, and memory events for a family via a UNION SQL query, computes each event's next yearly occurrence, and returns those within 45 days sorted by proximity.",
+      "tags": [
+        "api-handler",
+        "reminders",
+        "postgresql",
+        "date-calculation"
+      ]
+    },
+    {
+      "id": "file:backend/middleware/authMiddleware.js",
+      "type": "file",
+      "name": "authMiddleware.js",
+      "filePath": "backend/middleware/authMiddleware.js",
+      "summary": "Express middleware that verifies the JWT bearer token from the Authorization header, attaches the decoded user payload to the request, and rejects unauthenticated or invalid requests.",
+      "tags": [
+        "middleware",
+        "authentication",
+        "jwt",
+        "security"
+      ]
+    },
+    {
+      "id": "file:backend/routes/familyTreeRoutes.js",
+      "type": "file",
+      "name": "familyTreeRoutes.js",
+      "filePath": "backend/routes/familyTreeRoutes.js",
+      "summary": "Express router exposing a protected GET endpoint that returns ReactFlow-formatted nodes/edges for a family's tree by delegating to treeBuilder.",
+      "tags": [
+        "router",
+        "api-routes",
+        "family-tree",
+        "protected-route"
+      ]
+    },
+    {
+      "id": "file:backend/routes/gedcomRoutes.js",
+      "type": "file",
+      "name": "gedcomRoutes.js",
+      "filePath": "backend/routes/gedcomRoutes.js",
+      "summary": "Express router configuring Multer disk storage and a .ged file filter (5MB limit) for a protected GEDCOM import endpoint that delegates to gedcomController.importGedcom, with manual Multer error handling.",
+      "tags": [
+        "router",
+        "file-upload",
+        "gedcom-import",
+        "multer",
+        "protected-route"
+      ]
+    },
+    {
+      "id": "file:backend/routes/reminderRoutes.js",
+      "type": "file",
+      "name": "reminderRoutes.js",
+      "filePath": "backend/routes/reminderRoutes.js",
+      "summary": "Minimal Express router exposing a single protected GET endpoint that returns upcoming reminders for a family via reminderController.",
+      "tags": [
+        "router",
+        "api-routes",
+        "reminders",
+        "protected-route"
+      ]
+    },
+    {
+      "id": "file:backend/utils/gedcomParser.js",
+      "type": "file",
+      "name": "gedcomParser.js",
+      "filePath": "backend/utils/gedcomParser.js",
+      "summary": "Utility that parses raw GEDCOM file content into structured person records and spouse/parent-child relationships by walking INDI and FAM node trees.",
+      "tags": [
+        "utility",
+        "gedcom-parsing",
+        "data-transformation"
+      ]
+    },
+    {
+      "id": "file:backend/utils/treeBuilder.js",
+      "type": "file",
+      "name": "treeBuilder.js",
+      "filePath": "backend/utils/treeBuilder.js",
+      "summary": "Utility that queries persons and relationships for a family from Postgres and transforms them into ReactFlow-compatible nodes and edges, normalizing relationship direction into a top-down parent-to-child DAG.",
+      "tags": [
+        "utility",
+        "family-tree",
+        "react-flow",
+        "data-transformation",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "file:backend/controllers/eventController.js",
+      "type": "file",
+      "name": "eventController.js",
+      "filePath": "backend/controllers/eventController.js",
+      "summary": "Controller that builds a unified, chronologically sorted family timeline by combining birth/death events derived from person records with linked memory entries.",
+      "tags": [
+        "api-handler",
+        "controller",
+        "timeline",
+        "family-events"
+      ]
+    },
+    {
+      "id": "file:backend/controllers/memoryController.js",
+      "type": "file",
+      "name": "memoryController.js",
+      "filePath": "backend/controllers/memoryController.js",
+      "summary": "Express controller exposing HTTP handlers for family memories \u2014 create, list by family, list by person, and delete \u2014 delegating all business logic to memoryService.",
+      "tags": [
+        "api-handler",
+        "controller",
+        "memory",
+        "crud"
+      ]
+    },
+    {
+      "id": "file:backend/models/memoryModel.js",
+      "type": "file",
+      "name": "memoryModel.js",
+      "filePath": "backend/models/memoryModel.js",
+      "summary": "Data access layer executing parameterized SQL queries against the memories table for create, list-by-family, list-by-person, and delete operations.",
+      "tags": [
+        "data-model",
+        "database",
+        "memory",
+        "sql"
+      ]
+    },
+    {
+      "id": "file:backend/routes/eventRoutes.js",
+      "type": "file",
+      "name": "eventRoutes.js",
+      "filePath": "backend/routes/eventRoutes.js",
+      "summary": "Express router wiring the protected GET /api/events endpoint to the eventController's family timeline handler.",
+      "tags": [
+        "routing",
+        "api-handler",
+        "middleware"
+      ]
+    },
+    {
+      "id": "file:backend/routes/memoryRoutes.js",
+      "type": "file",
+      "name": "memoryRoutes.js",
+      "filePath": "backend/routes/memoryRoutes.js",
+      "summary": "Express router defining protected CRUD endpoints (create, list by family, list by person, delete) for family memories, delegating to memoryController.",
+      "tags": [
+        "routing",
+        "api-handler",
+        "crud",
+        "middleware"
+      ]
+    },
+    {
+      "id": "file:backend/services/memoryService.js",
+      "type": "file",
+      "name": "memoryService.js",
+      "filePath": "backend/services/memoryService.js",
+      "summary": "Business logic layer validating memory input (required family_id/title/person_id/memory_id) before delegating persistence operations to memoryModel.",
+      "tags": [
+        "service",
+        "validation",
+        "memory"
+      ]
+    },
+    {
+      "id": "service:backend/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "backend/Dockerfile",
+      "summary": "Single-stage Docker build for the backend Node.js API, installing production dependencies on a node:18-alpine base image and starting the server with npm start on port 5001.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment",
+        "node-js",
+        "backend"
+      ]
+    },
+    {
+      "id": "service:backend/Dockerfile:node",
+      "type": "service",
+      "name": "node",
+      "filePath": "backend/Dockerfile",
+      "summary": "The sole build stage, based on node:18-alpine, that copies package manifests, installs production dependencies, copies the rest of the backend source, and exposes port 5001 for the API server.",
+      "tags": [
+        "containerization",
+        "docker-stage",
+        "node-js"
+      ]
+    },
+    {
+      "id": "service:frontend/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Multi-stage Docker build for the React frontend: compiles the app with Node.js and serves the resulting static assets through a lightweight Nginx image.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment",
+        "multi-stage-build",
+        "frontend"
+      ]
+    },
+    {
+      "id": "service:frontend/Dockerfile:build",
+      "type": "service",
+      "name": "build",
+      "filePath": "frontend/Dockerfile",
+      "summary": "First Docker stage (node:18-alpine) that installs npm dependencies and runs `npm run build` to produce the production static assets for the frontend.",
+      "tags": [
+        "build-stage",
+        "npm",
+        "containerization",
+        "node"
+      ]
+    },
+    {
+      "id": "service:frontend/Dockerfile:nginx",
+      "type": "service",
+      "name": "nginx",
+      "filePath": "frontend/Dockerfile",
+      "summary": "Second Docker stage (nginx:alpine) that copies the compiled frontend assets from the build stage and serves them on port 80.",
+      "tags": [
+        "serve-stage",
+        "nginx",
+        "containerization",
+        "deployment"
+      ]
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Primary project README describing the Family Tree platform's architecture (React Flow + Dagre frontend, Node.js/Express backend, PostgreSQL database), tech stack, local installation and run instructions, environment variables, REST API endpoint reference, and a production deployment guide (Supabase/Neon, Render/Railway, Vercel).",
+      "tags": [
+        "documentation",
+        "entry-point",
+        "overview",
+        "deployment-guide",
+        "api-reference"
+      ]
+    },
+    {
+      "id": "document:security_audit.md",
+      "type": "document",
+      "name": "security_audit.md",
+      "filePath": "security_audit.md",
+      "summary": "Security audit report for the Virasat.ai / Family Tree backend and frontend, cataloging 3 critical, 5 high, and 2 medium severity vulnerabilities that were found and fixed (hardcoded JWT fallback secret, wildcard CORS, leaked error messages, missing XSS sanitization, exposed Swagger UI, weak rate limiting, permissive Helmet config), plus a checklist of recommended pre-production hardening steps.",
+      "tags": [
+        "documentation",
+        "security",
+        "audit",
+        "vulnerability-report"
+      ]
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "docker-compose.yml",
+      "summary": "Docker Compose configuration that orchestrates the PostgreSQL database, Node.js backend, and React frontend as three networked services for local development and one-command containerized startup.",
+      "tags": [
+        "orchestration",
+        "infrastructure",
+        "containerization",
+        "docker-compose"
+      ]
+    },
+    {
+      "id": "service:docker-compose.yml:database",
+      "type": "service",
+      "name": "database",
+      "filePath": "docker-compose.yml",
+      "summary": "PostgreSQL 15 database service storing the family tree relational data, exposing port 5432 and persisting data via the pgdata named volume.",
+      "tags": [
+        "database",
+        "postgresql",
+        "containerization"
+      ]
+    },
+    {
+      "id": "service:docker-compose.yml:backend",
+      "type": "service",
+      "name": "backend",
+      "filePath": "docker-compose.yml",
+      "summary": "Node.js/Express backend service built from the ./backend directory, exposing port 5001 and configured via environment variables for DB connection and JWT secret; depends on the database service being available.",
+      "tags": [
+        "backend-service",
+        "containerization",
+        "express"
+      ]
+    },
+    {
+      "id": "service:docker-compose.yml:frontend",
+      "type": "service",
+      "name": "frontend",
+      "filePath": "docker-compose.yml",
+      "summary": "React frontend service built from the ./frontend directory, served on host port 3000 (mapped to container port 80); depends on the backend service.",
+      "tags": [
+        "frontend-service",
+        "containerization",
+        "react"
+      ]
+    },
+    {
+      "id": "config:backend/.env",
+      "type": "config",
+      "name": ".env",
+      "filePath": "backend/.env",
+      "summary": "Backend runtime environment file supplying the server port, PostgreSQL connection credentials, JWT signing secret, and allowed CORS origins for the Express server in production mode.",
+      "tags": [
+        "configuration",
+        "environment-variables",
+        "database",
+        "secrets",
+        "security"
+      ]
+    },
+    {
+      "id": "config:backend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "backend/.env.example",
+      "summary": "Template environment file documenting the variables required to run the Virasat.ai family tree backend (server port, PostgreSQL connection, JWT secret, CORS origins) with placeholder values and setup instructions.",
+      "tags": [
+        "configuration",
+        "environment-variables",
+        "documentation",
+        "template"
+      ]
+    },
+    {
+      "id": "config:backend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "backend/package.json",
+      "summary": "Node.js package manifest for the Family Tree Express backend, declaring core dependencies (Express, pg, jsonwebtoken, bcryptjs, multer, gedcom, node-cron, helmet, cors) and npm scripts for starting the server in development and production.",
+      "tags": [
+        "configuration",
+        "dependency-management",
+        "build-system",
+        "entry-point-config"
+      ]
+    },
+    {
+      "id": "table:backend/schema.sql:users",
+      "type": "table",
+      "name": "users",
+      "filePath": "backend/schema.sql",
+      "summary": "Stores registered application user accounts with hashed passwords, used for authentication and as the owner reference for created families.",
+      "tags": [
+        "database",
+        "authentication",
+        "schema-definition",
+        "table"
+      ]
+    },
+    {
+      "id": "table:backend/schema.sql:families",
+      "type": "table",
+      "name": "families",
+      "filePath": "backend/schema.sql",
+      "summary": "Represents a family unit created by a user, acting as the top-level grouping for persons, memories, and the overall family tree.",
+      "tags": [
+        "database",
+        "schema-definition",
+        "table"
+      ]
+    },
+    {
+      "id": "table:backend/schema.sql:persons",
+      "type": "table",
+      "name": "persons",
+      "filePath": "backend/schema.sql",
+      "summary": "Core entity table storing individual family members with biographical details (name, gender, birth/death dates, birth place, occupation, bio, photo) scoped to a family.",
+      "tags": [
+        "database",
+        "data-model",
+        "schema-definition",
+        "table"
+      ]
+    },
+    {
+      "id": "table:backend/schema.sql:relationships",
+      "type": "table",
+      "name": "relationships",
+      "filePath": "backend/schema.sql",
+      "summary": "Junction table linking two persons via a typed relationship (e.g. parent, spouse), with a check constraint preventing a person from being related to themselves.",
+      "tags": [
+        "database",
+        "data-model",
+        "schema-definition",
+        "table"
+      ]
+    },
+    {
+      "id": "table:backend/schema.sql:memories",
+      "type": "table",
+      "name": "memories",
+      "filePath": "backend/schema.sql",
+      "summary": "Stores memory and timeline entries (title, description, media, event date) linked to a person and family, powering the member memory timeline feature.",
+      "tags": [
+        "database",
+        "data-model",
+        "schema-definition",
+        "table"
+      ]
+    },
+    {
+      "id": "table:backend/schema.sql:legacy_messages",
+      "type": "table",
+      "name": "legacy_messages",
+      "filePath": "backend/schema.sql",
+      "summary": "Stores legacy/heritage messages authored for a person, optionally tagged with an emotion and referencing associated memory records via an array of memory IDs.",
+      "tags": [
+        "database",
+        "data-model",
+        "schema-definition",
+        "table"
+      ]
+    },
+    {
+      "id": "config:backend/swagger.yaml",
+      "type": "config",
+      "name": "swagger.yaml",
+      "filePath": "backend/swagger.yaml",
+      "summary": "OpenAPI 3.0 specification documenting the Family Tree REST API, covering authentication, family and person management, relationships, GEDCOM import, and family-tree visualization endpoints, served via swagger-ui-express.",
+      "tags": [
+        "api-schema",
+        "documentation",
+        "configuration",
+        "openapi"
+      ]
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:POST-/api/auth/register",
+      "type": "endpoint",
+      "name": "POST /api/auth/register",
+      "filePath": "backend/swagger.yaml",
+      "summary": "Registers a new user account with name, email, and password; returns 201 on success.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "endpoint"
+      ]
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:POST-/api/auth/login",
+      "type": "endpoint",
+      "name": "POST /api/auth/login",
+      "filePath": "backend/swagger.yaml",
+      "summary": "Authenticates a user with email and password credentials, returning a success response used to establish an authenticated session.",
+      "tags": [
+        "api-handler",
+        "authentication",
+        "endpoint"
+      ]
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:GET-/api/families",
+      "type": "endpoint",
+      "name": "GET /api/families",
+      "filePath": "backend/swagger.yaml",
+      "summary": "Retrieves the list of families belonging to the authenticated user.",
+      "tags": [
+        "api-handler",
+        "families",
+        "endpoint"
+      ]
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:POST-/api/families",
+      "type": "endpoint",
+      "name": "POST /api/families",
+      "filePath": "backend/swagger.yaml",
+      "summary": "Creates a new family record with a family name for the authenticated user.",
+      "tags": [
+        "api-handler",
+        "families",
+        "endpoint"
+      ]
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:GET-/api/family-tree/{family_id}",
+      "type": "endpoint",
+      "name": "GET /api/family-tree/{family_id}",
+      "filePath": "backend/swagger.yaml",
+      "summary": "Returns the family tree structure as nodes and edges formatted for rendering with React Flow.",
+      "tags": [
+        "api-handler",
+        "visualization",
+        "endpoint"
+      ]
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:POST-/api/persons",
+      "type": "endpoint",
+      "name": "POST /api/persons",
+      "filePath": "backend/swagger.yaml",
+      "summary": "Adds a new family member (person) with name, gender, and birth place details to a family.",
+      "tags": [
+        "api-handler",
+        "persons",
+        "endpoint"
+      ]
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:POST-/api/relationships",
+      "type": "endpoint",
+      "name": "POST /api/relationships",
+      "filePath": "backend/swagger.yaml",
+      "summary": "Creates a relationship link between two family members with a specified relationship type (e.g. parent).",
+      "tags": [
+        "api-handler",
+        "relationships",
+        "endpoint"
+      ]
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:POST-/api/gedcom/import",
+      "type": "endpoint",
+      "name": "POST /api/gedcom/import",
+      "filePath": "backend/swagger.yaml",
+      "summary": "Imports an uploaded GEDCOM genealogy file and converts it into family tree nodes and edges.",
+      "tags": [
+        "api-handler",
+        "gedcom-import",
+        "endpoint"
+      ]
+    },
+    {
+      "id": "config:backend/vercel.json",
+      "type": "config",
+      "name": "vercel.json",
+      "filePath": "backend/vercel.json",
+      "summary": "Vercel deployment configuration that builds the Express server.js entry point as a serverless function and routes all incoming requests to it.",
+      "tags": [
+        "configuration",
+        "deployment",
+        "infrastructure",
+        "serverless"
+      ]
+    },
+    {
+      "id": "config:frontend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "frontend/.env.example",
+      "summary": "Template environment file for the React frontend, declaring the REACT_APP_API_BASE_URL variable used to point the client at the backend API.",
+      "tags": [
+        "configuration",
+        "environment-variables",
+        "api-config"
+      ]
+    },
+    {
+      "id": "document:frontend/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "frontend/README.md",
+      "summary": "Standard Create React App documentation covering available npm scripts (start, test, build, eject), code splitting, bundle analysis, PWA setup, and deployment guidance.",
+      "tags": [
+        "documentation",
+        "getting-started",
+        "create-react-app"
+      ]
+    },
+    {
+      "id": "config:frontend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "frontend/package.json",
+      "summary": "NPM manifest for the React frontend, declaring dependencies (React 19, React Router, ReactFlow, Dagre, elkjs, axios, Tailwind CSS, html-to-image) and Create React App scripts for the family tree visualization client.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "dependency-management",
+        "react"
+      ]
+    },
+    {
+      "id": "file:frontend/public/index.html",
+      "type": "file",
+      "name": "index.html",
+      "filePath": "frontend/public/index.html",
+      "summary": "HTML entry template for the Create React App-based frontend; mounts the React app into a #root div, sets Virasat.ai branding/meta tags and description, links the PWA manifest and favicon, and includes a Google Analytics boilerplate script with a placeholder tracking ID.",
+      "tags": [
+        "entry-point",
+        "html-template",
+        "react",
+        "seo",
+        "analytics"
+      ]
+    },
+    {
+      "id": "config:frontend/public/manifest.json",
+      "type": "config",
+      "name": "manifest.json",
+      "filePath": "frontend/public/manifest.json",
+      "summary": "Progressive Web App manifest defining installable app metadata (icons, start URL, display mode, theme/background colors) for the frontend; still contains the default unmodified Create React App boilerplate values.",
+      "tags": [
+        "configuration",
+        "pwa",
+        "manifest",
+        "web-app"
+      ]
+    },
+    {
+      "id": "document:frontend/public/robots.txt",
+      "type": "document",
+      "name": "robots.txt",
+      "filePath": "frontend/public/robots.txt",
+      "summary": "Robots exclusion file for the frontend static site that permits all web crawlers unrestricted access (no Disallow rules).",
+      "tags": [
+        "seo",
+        "crawler-config",
+        "static-asset"
+      ]
+    },
+    {
+      "id": "file:.DS_Store",
+      "type": "file",
+      "name": ".DS_Store",
+      "filePath": ".DS_Store",
+      "summary": "macOS Finder metadata file that stores folder view settings and icon positions; not part of the application source and carries no functional logic.",
+      "tags": [
+        "system-file",
+        "macos",
+        "non-source",
+        "metadata"
+      ]
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "Ignore-pattern configuration for the Understand-Anything analysis tool, listing commented-out gitignore-style globs (test files, generated code, per-language exclusions) that can be uncommented to exclude paths from the knowledge graph scan.",
+      "tags": [
+        "configuration",
+        "ignore-patterns",
+        "tooling",
+        "understand-anything"
+      ]
+    },
+    {
+      "id": "file:backend/init_cloud_db.js",
+      "type": "file",
+      "name": "init_cloud_db.js",
+      "filePath": "backend/init_cloud_db.js",
+      "summary": "Standalone CLI script that connects to an external/cloud PostgreSQL database via a connection string argument and applies schema.sql to bootstrap the production database (e.g., for a Vercel deployment).",
+      "tags": [
+        "database",
+        "setup-script",
+        "cli-script",
+        "postgresql",
+        "deployment"
+      ]
+    },
+    {
+      "id": "file:backend/init_db.js",
+      "type": "file",
+      "name": "init_db.js",
+      "filePath": "backend/init_db.js",
+      "summary": "Local development setup script that creates the family_tree PostgreSQL database if it does not already exist, then connects to it and applies schema.sql to build the schema.",
+      "tags": [
+        "database",
+        "setup-script",
+        "cli-script",
+        "postgresql",
+        "local-development"
+      ]
+    },
+    {
+      "id": "file:backend/tests/integration.test.js",
+      "type": "file",
+      "name": "integration.test.js",
+      "filePath": "backend/tests/integration.test.js",
+      "summary": "End-to-end integration test suite that exercises the live backend API over HTTP (register, login, create family, add person, create relationship) using supertest against a running local server.",
+      "tags": [
+        "test",
+        "integration-test",
+        "api",
+        "backend"
+      ]
+    },
+    {
+      "id": "file:frontend/postcss.config.js",
+      "type": "file",
+      "name": "postcss.config.js",
+      "filePath": "frontend/postcss.config.js",
+      "summary": "PostCSS build configuration enabling the tailwindcss and autoprefixer plugins for the frontend's CSS pipeline.",
+      "tags": [
+        "configuration",
+        "build-tool",
+        "postcss",
+        "css"
+      ]
+    },
+    {
+      "id": "file:frontend/src/App.css",
+      "type": "file",
+      "name": "App.css",
+      "filePath": "frontend/src/App.css",
+      "summary": "Legacy Create React App boilerplate stylesheet defining the .App container, header, logo spin animation, and link styling.",
+      "tags": [
+        "styling",
+        "css",
+        "boilerplate",
+        "animation"
+      ]
+    },
+    {
+      "id": "file:frontend/src/index.css",
+      "type": "file",
+      "name": "index.css",
+      "filePath": "frontend/src/index.css",
+      "summary": "Global stylesheet that loads Tailwind's base, components, and utilities layers and sets base body/code font families for the app.",
+      "tags": [
+        "styling",
+        "css",
+        "tailwind",
+        "global-styles"
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/StoryTransition.js",
+      "type": "file",
+      "name": "StoryTransition.js",
+      "filePath": "frontend/src/pages/StoryTransition.js",
+      "summary": "Full-screen cinematic transition page that staggers two fading text lines over timed intervals before auto-navigating to the demo family tree view.",
+      "tags": [
+        "component",
+        "page",
+        "animation",
+        "react",
+        "navigation"
+      ]
+    },
+    {
+      "id": "file:frontend/src/setupTests.js",
+      "type": "file",
+      "name": "setupTests.js",
+      "filePath": "frontend/src/setupTests.js",
+      "summary": "Jest test environment setup file that imports @testing-library/jest-dom to enable custom DOM matchers for the frontend test suite.",
+      "tags": [
+        "test",
+        "configuration",
+        "jest-dom",
+        "setup"
+      ]
+    },
+    {
+      "id": "file:frontend/tailwind.config.js",
+      "type": "file",
+      "name": "tailwind.config.js",
+      "filePath": "frontend/tailwind.config.js",
+      "summary": "Tailwind CSS configuration scanning all JS/JSX/TS/TSX files under src for class usage, with an empty theme extension and no additional plugins.",
+      "tags": [
+        "configuration",
+        "build-tool",
+        "tailwind",
+        "css"
+      ]
+    }
+  ],
+  "importEdges": [
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "file:backend/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/familyController.js",
+      "target": "file:backend/services/familyService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/legacyController.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/cron/reminderCron.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/migrate_demo.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/models/familyModel.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/models/userModel.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/authRoutes.js",
+      "target": "file:backend/controllers/authController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/authRoutes.js",
+      "target": "file:backend/middleware/validationMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/familyRoutes.js",
+      "target": "file:backend/controllers/familyController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/familyRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/familyRoutes.js",
+      "target": "file:backend/middleware/validationMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/legacyRoutes.js",
+      "target": "file:backend/controllers/legacyController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/personRoutes.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/personRoutes.js",
+      "target": "file:backend/controllers/personController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/personRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/personRoutes.js",
+      "target": "file:backend/middleware/validationMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/cron/reminderCron.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/middleware/errorHandler.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/aiRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/authRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/eventRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/familyRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/familyTreeRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/gedcomRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/legacyRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/memoryRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/personRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/relationshipRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/reminderRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/authService.js",
+      "target": "file:backend/models/userModel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/familyService.js",
+      "target": "file:backend/models/familyModel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/setup_demo_user.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/SearchBar.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/UpcomingReminders.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/ActivityFeed.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/CollaborationPanel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/FamilyInsightsPanel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/FamilyTree.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/GedcomImport.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/SearchBar.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/SmartSuggestions.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/UpcomingReminders.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/services/familyService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "file:frontend/src/components/LegacySection.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "file:frontend/src/components/MemoryTimeline.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "file:frontend/src/services/familyService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/CollaborationPanel.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/FamilyInvite.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/FamilyTimeline.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/FamilyTree.js",
+      "target": "file:frontend/src/components/PersonNode.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/GedcomImport.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/LegacySection.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/App.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/Footer.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/context/ToastContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.test.js",
+      "target": "file:frontend/src/App.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/index.js",
+      "target": "file:frontend/src/App.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/index.js",
+      "target": "file:frontend/src/index.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/index.js",
+      "target": "file:frontend/src/reportWebVitals.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Dashboard.js",
+      "target": "file:frontend/src/components/CanvasNetwork.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Dashboard.js",
+      "target": "file:frontend/src/context/ToastContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Dashboard.js",
+      "target": "file:frontend/src/services/familyService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Login.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Login.js",
+      "target": "file:frontend/src/components/CanvasNetwork.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Login.js",
+      "target": "file:frontend/src/context/ToastContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Register.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Register.js",
+      "target": "file:frontend/src/context/ToastContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/tests/components.test.js",
+      "target": "file:frontend/src/pages/Dashboard.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/tests/components.test.js",
+      "target": "file:frontend/src/pages/Login.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/tests/components.test.js",
+      "target": "file:frontend/src/pages/Register.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/aiController.js",
+      "target": "file:backend/services/personService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/aiController.js",
+      "target": "file:backend/services/relationshipService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/personController.js",
+      "target": "file:backend/services/personService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/relationshipController.js",
+      "target": "file:backend/services/relationshipService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/models/personModel.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/models/relationshipModel.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/aiRoutes.js",
+      "target": "file:backend/controllers/aiController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/aiRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/relationshipRoutes.js",
+      "target": "file:backend/controllers/relationshipController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/relationshipRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/personService.js",
+      "target": "file:backend/models/personModel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/relationshipService.js",
+      "target": "file:backend/models/relationshipModel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/gedcomController.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/gedcomController.js",
+      "target": "file:backend/utils/gedcomParser.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/gedcomController.js",
+      "target": "file:backend/utils/treeBuilder.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/reminderController.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/familyTreeRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/familyTreeRoutes.js",
+      "target": "file:backend/utils/treeBuilder.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/gedcomRoutes.js",
+      "target": "file:backend/controllers/gedcomController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/gedcomRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/reminderRoutes.js",
+      "target": "file:backend/controllers/reminderController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/reminderRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/utils/treeBuilder.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/eventController.js",
+      "target": "file:backend/services/memoryService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/eventController.js",
+      "target": "file:backend/services/personService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/memoryController.js",
+      "target": "file:backend/services/memoryService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/models/memoryModel.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/eventRoutes.js",
+      "target": "file:backend/controllers/eventController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/eventRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/memoryRoutes.js",
+      "target": "file:backend/controllers/memoryController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/memoryRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/memoryService.js",
+      "target": "file:backend/models/memoryModel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ],
+  "allEdges": [
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "file:backend/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/familyController.js",
+      "target": "file:backend/services/familyService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/legacyController.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/cron/reminderCron.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/migrate_demo.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/models/familyModel.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/models/userModel.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/authRoutes.js",
+      "target": "file:backend/controllers/authController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/authRoutes.js",
+      "target": "file:backend/middleware/validationMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/familyRoutes.js",
+      "target": "file:backend/controllers/familyController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/familyRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/familyRoutes.js",
+      "target": "file:backend/middleware/validationMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/legacyRoutes.js",
+      "target": "file:backend/controllers/legacyController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/personRoutes.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/personRoutes.js",
+      "target": "file:backend/controllers/personController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/personRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/personRoutes.js",
+      "target": "file:backend/middleware/validationMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/cron/reminderCron.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/middleware/errorHandler.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/aiRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/authRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/eventRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/familyRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/familyTreeRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/gedcomRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/legacyRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/memoryRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/personRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/relationshipRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/reminderRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/authService.js",
+      "target": "file:backend/models/userModel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/familyService.js",
+      "target": "file:backend/models/familyModel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/setup_demo_user.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/SearchBar.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/UpcomingReminders.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/ActivityFeed.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/CollaborationPanel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/FamilyInsightsPanel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/FamilyTree.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/GedcomImport.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/SearchBar.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/SmartSuggestions.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/components/UpcomingReminders.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/FamilyTreePage.js",
+      "target": "file:frontend/src/services/familyService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "file:frontend/src/components/LegacySection.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "file:frontend/src/components/MemoryTimeline.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/PersonProfile.js",
+      "target": "file:frontend/src/services/familyService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/services/familyService.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/CollaborationPanel.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/FamilyInvite.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/FamilyTimeline.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/FamilyTree.js",
+      "target": "file:frontend/src/components/PersonNode.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/GedcomImport.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/LegacySection.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/App.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/Footer.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/context/ToastContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/pages/Register.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/pages/Login.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/pages/Dashboard.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/pages/FamilyTreePage.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/pages/PersonProfile.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/pages/StoryTransition.js",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/src/App.test.js",
+      "target": "file:frontend/src/App.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/App.test.js",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/index.js",
+      "target": "file:frontend/src/App.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/index.js",
+      "target": "file:frontend/src/index.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/index.js",
+      "target": "file:frontend/src/reportWebVitals.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Dashboard.js",
+      "target": "file:frontend/src/components/CanvasNetwork.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Dashboard.js",
+      "target": "file:frontend/src/context/ToastContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Dashboard.js",
+      "target": "file:frontend/src/services/familyService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Login.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Login.js",
+      "target": "file:frontend/src/components/CanvasNetwork.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Login.js",
+      "target": "file:frontend/src/context/ToastContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Register.js",
+      "target": "file:frontend/src/api/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Register.js",
+      "target": "file:frontend/src/context/ToastContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/tests/components.test.js",
+      "target": "file:frontend/src/pages/Dashboard.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/tests/components.test.js",
+      "target": "file:frontend/src/pages/Login.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/tests/components.test.js",
+      "target": "file:frontend/src/pages/Register.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/pages/Dashboard.js",
+      "target": "file:frontend/src/tests/components.test.js",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/pages/Login.js",
+      "target": "file:frontend/src/tests/components.test.js",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/pages/Register.js",
+      "target": "file:frontend/src/tests/components.test.js",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:backend/controllers/aiController.js",
+      "target": "file:backend/services/personService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/aiController.js",
+      "target": "file:backend/services/relationshipService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/personController.js",
+      "target": "file:backend/services/personService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/relationshipController.js",
+      "target": "file:backend/services/relationshipService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/models/personModel.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/models/relationshipModel.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/aiRoutes.js",
+      "target": "file:backend/controllers/aiController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/aiRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/relationshipRoutes.js",
+      "target": "file:backend/controllers/relationshipController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/relationshipRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/personService.js",
+      "target": "file:backend/models/personModel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/relationshipService.js",
+      "target": "file:backend/models/relationshipModel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/gedcomController.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/gedcomController.js",
+      "target": "file:backend/utils/gedcomParser.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/gedcomController.js",
+      "target": "file:backend/utils/treeBuilder.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/reminderController.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/familyTreeRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/familyTreeRoutes.js",
+      "target": "file:backend/utils/treeBuilder.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/gedcomRoutes.js",
+      "target": "file:backend/controllers/gedcomController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/gedcomRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/reminderRoutes.js",
+      "target": "file:backend/controllers/reminderController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/reminderRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/utils/treeBuilder.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/eventController.js",
+      "target": "file:backend/services/memoryService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/eventController.js",
+      "target": "file:backend/services/personService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/memoryController.js",
+      "target": "file:backend/services/memoryService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/models/memoryModel.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/eventRoutes.js",
+      "target": "file:backend/controllers/eventController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/eventRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/memoryRoutes.js",
+      "target": "file:backend/controllers/memoryController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/memoryRoutes.js",
+      "target": "file:backend/middleware/authMiddleware.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/memoryService.js",
+      "target": "file:backend/models/memoryModel.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:build",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:frontend/Dockerfile",
+      "target": "service:frontend/Dockerfile:nginx",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:frontend/Dockerfile:nginx",
+      "target": "service:frontend/Dockerfile:build",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:database",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:backend",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:frontend",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:docker-compose.yml:backend",
+      "target": "service:docker-compose.yml:database",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:frontend",
+      "target": "service:docker-compose.yml:backend",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:README.md",
+      "target": "service:docker-compose.yml",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:security_audit.md",
+      "target": "document:README.md",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:backend/schema.sql:families",
+      "target": "table:backend/schema.sql:users",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:backend/schema.sql:persons",
+      "target": "table:backend/schema.sql:families",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:backend/schema.sql:relationships",
+      "target": "table:backend/schema.sql:persons",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:backend/schema.sql:memories",
+      "target": "table:backend/schema.sql:families",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:backend/schema.sql:memories",
+      "target": "table:backend/schema.sql:persons",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:backend/schema.sql:legacy_messages",
+      "target": "table:backend/schema.sql:persons",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:backend/package.json",
+      "target": "file:backend/server.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:backend/vercel.json",
+      "target": "file:backend/server.js",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "config:backend/.env",
+      "target": "file:backend/server.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:backend/.env.example",
+      "target": "config:backend/.env",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "file:backend/server.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:POST-/api/auth/register",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:POST-/api/auth/login",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:GET-/api/families",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:POST-/api/families",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:GET-/api/family-tree/{family_id}",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:POST-/api/persons",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:POST-/api/relationships",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:POST-/api/gedcom/import",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "document:frontend/README.md",
+      "target": "config:frontend/package.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:frontend/.env.example",
+      "target": "config:frontend/package.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:frontend/public/manifest.json",
+      "target": "file:frontend/public/index.html",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/src/App.css",
+      "target": "file:frontend/src/App.js",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/index.css",
+      "target": "file:frontend/src/index.js",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

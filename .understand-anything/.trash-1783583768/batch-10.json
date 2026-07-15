@@ -1,0 +1,327 @@
+{
+  "nodes": [
+    {
+      "id": "config:backend/.env",
+      "type": "config",
+      "name": ".env",
+      "filePath": "backend/.env",
+      "summary": "Backend runtime environment file supplying the server port, PostgreSQL connection credentials, JWT signing secret, and allowed CORS origins for the Express server in production mode.",
+      "tags": ["configuration", "environment-variables", "database", "secrets", "security"],
+      "complexity": "simple",
+      "languageNotes": "Contains live-looking values (a real DB password and a 128-character JWT secret) rather than placeholders, which is a notable security concern if this file is committed to version control."
+    },
+    {
+      "id": "config:backend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "backend/.env.example",
+      "summary": "Template environment file documenting the variables required to run the Virasat.ai family tree backend (server port, PostgreSQL connection, JWT secret, CORS origins) with placeholder values and setup instructions.",
+      "tags": ["configuration", "environment-variables", "documentation", "template"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:backend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "backend/package.json",
+      "summary": "Node.js package manifest for the Family Tree Express backend, declaring core dependencies (Express, pg, jsonwebtoken, bcryptjs, multer, gedcom, node-cron, helmet, cors) and npm scripts for starting the server in development and production.",
+      "tags": ["configuration", "dependency-management", "build-system", "entry-point-config"],
+      "complexity": "simple",
+      "languageNotes": "Dependency set indicates a security-hardened Express API (helmet, express-rate-limit, express-mongo-sanitize, xss-clean) combined with GEDCOM genealogy file parsing and scheduled jobs via node-cron."
+    },
+    {
+      "id": "table:backend/schema.sql:users",
+      "type": "table",
+      "name": "users",
+      "filePath": "backend/schema.sql",
+      "lineRange": [5, 11],
+      "summary": "Stores registered application user accounts with hashed passwords, used for authentication and as the owner reference for created families.",
+      "tags": ["database", "authentication", "schema-definition", "table"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:backend/schema.sql:families",
+      "type": "table",
+      "name": "families",
+      "filePath": "backend/schema.sql",
+      "lineRange": [13, 18],
+      "summary": "Represents a family unit created by a user, acting as the top-level grouping for persons, memories, and the overall family tree.",
+      "tags": ["database", "schema-definition", "table"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:backend/schema.sql:persons",
+      "type": "table",
+      "name": "persons",
+      "filePath": "backend/schema.sql",
+      "lineRange": [20, 33],
+      "summary": "Core entity table storing individual family members with biographical details (name, gender, birth/death dates, birth place, occupation, bio, photo) scoped to a family.",
+      "tags": ["database", "data-model", "schema-definition", "table"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:backend/schema.sql:relationships",
+      "type": "table",
+      "name": "relationships",
+      "filePath": "backend/schema.sql",
+      "lineRange": [35, 42],
+      "summary": "Junction table linking two persons via a typed relationship (e.g. parent, spouse), with a check constraint preventing a person from being related to themselves.",
+      "tags": ["database", "data-model", "schema-definition", "table"],
+      "complexity": "simple"
+    },
+    {
+      "id": "table:backend/schema.sql:memories",
+      "type": "table",
+      "name": "memories",
+      "filePath": "backend/schema.sql",
+      "lineRange": [44, 54],
+      "summary": "Stores memory and timeline entries (title, description, media, event date) linked to a person and family, powering the member memory timeline feature.",
+      "tags": ["database", "data-model", "schema-definition", "table"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:backend/schema.sql:legacy_messages",
+      "type": "table",
+      "name": "legacy_messages",
+      "filePath": "backend/schema.sql",
+      "lineRange": [56, 64],
+      "summary": "Stores legacy/heritage messages authored for a person, optionally tagged with an emotion and referencing associated memory records via an array of memory IDs.",
+      "tags": ["database", "data-model", "schema-definition", "table"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:backend/swagger.yaml",
+      "type": "config",
+      "name": "swagger.yaml",
+      "filePath": "backend/swagger.yaml",
+      "summary": "OpenAPI 3.0 specification documenting the Family Tree REST API, covering authentication, family and person management, relationships, GEDCOM import, and family-tree visualization endpoints, served via swagger-ui-express.",
+      "tags": ["api-schema", "documentation", "configuration", "openapi"],
+      "complexity": "moderate",
+      "languageNotes": "Uses bearer JWT security globally with explicit opt-outs on the register/login endpoints, matching a typical JWT-based auth flow."
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:POST-/api/auth/register",
+      "type": "endpoint",
+      "name": "POST /api/auth/register",
+      "filePath": "backend/swagger.yaml",
+      "lineRange": [17, 37],
+      "summary": "Registers a new user account with name, email, and password; returns 201 on success.",
+      "tags": ["api-handler", "authentication", "endpoint"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:POST-/api/auth/login",
+      "type": "endpoint",
+      "name": "POST /api/auth/login",
+      "filePath": "backend/swagger.yaml",
+      "lineRange": [38, 56],
+      "summary": "Authenticates a user with email and password credentials, returning a success response used to establish an authenticated session.",
+      "tags": ["api-handler", "authentication", "endpoint"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:GET-/api/families",
+      "type": "endpoint",
+      "name": "GET /api/families",
+      "filePath": "backend/swagger.yaml",
+      "lineRange": [58, 63],
+      "summary": "Retrieves the list of families belonging to the authenticated user.",
+      "tags": ["api-handler", "families", "endpoint"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:POST-/api/families",
+      "type": "endpoint",
+      "name": "POST /api/families",
+      "filePath": "backend/swagger.yaml",
+      "lineRange": [64, 78],
+      "summary": "Creates a new family record with a family name for the authenticated user.",
+      "tags": ["api-handler", "families", "endpoint"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:GET-/api/family-tree/{family_id}",
+      "type": "endpoint",
+      "name": "GET /api/family-tree/{family_id}",
+      "filePath": "backend/swagger.yaml",
+      "lineRange": [79, 91],
+      "summary": "Returns the family tree structure as nodes and edges formatted for rendering with React Flow.",
+      "tags": ["api-handler", "visualization", "endpoint"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:POST-/api/persons",
+      "type": "endpoint",
+      "name": "POST /api/persons",
+      "filePath": "backend/swagger.yaml",
+      "lineRange": [92, 115],
+      "summary": "Adds a new family member (person) with name, gender, and birth place details to a family.",
+      "tags": ["api-handler", "persons", "endpoint"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:POST-/api/relationships",
+      "type": "endpoint",
+      "name": "POST /api/relationships",
+      "filePath": "backend/swagger.yaml",
+      "lineRange": [116, 136],
+      "summary": "Creates a relationship link between two family members with a specified relationship type (e.g. parent).",
+      "tags": ["api-handler", "relationships", "endpoint"],
+      "complexity": "simple"
+    },
+    {
+      "id": "endpoint:backend/swagger.yaml:POST-/api/gedcom/import",
+      "type": "endpoint",
+      "name": "POST /api/gedcom/import",
+      "filePath": "backend/swagger.yaml",
+      "lineRange": [137, 155],
+      "summary": "Imports an uploaded GEDCOM genealogy file and converts it into family tree nodes and edges.",
+      "tags": ["api-handler", "gedcom-import", "endpoint"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:backend/vercel.json",
+      "type": "config",
+      "name": "vercel.json",
+      "filePath": "backend/vercel.json",
+      "summary": "Vercel deployment configuration that builds the Express server.js entry point as a serverless function and routes all incoming requests to it.",
+      "tags": ["configuration", "deployment", "infrastructure", "serverless"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "table:backend/schema.sql:families",
+      "target": "table:backend/schema.sql:users",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:backend/schema.sql:persons",
+      "target": "table:backend/schema.sql:families",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:backend/schema.sql:relationships",
+      "target": "table:backend/schema.sql:persons",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:backend/schema.sql:memories",
+      "target": "table:backend/schema.sql:families",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:backend/schema.sql:memories",
+      "target": "table:backend/schema.sql:persons",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:backend/schema.sql:legacy_messages",
+      "target": "table:backend/schema.sql:persons",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:backend/package.json",
+      "target": "file:backend/server.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:backend/vercel.json",
+      "target": "file:backend/server.js",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "config:backend/.env",
+      "target": "file:backend/server.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:backend/.env.example",
+      "target": "config:backend/.env",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "file:backend/server.js",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:POST-/api/auth/register",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:POST-/api/auth/login",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:GET-/api/families",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:POST-/api/families",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:GET-/api/family-tree/{family_id}",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:POST-/api/persons",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:POST-/api/relationships",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "config:backend/swagger.yaml",
+      "target": "endpoint:backend/swagger.yaml:POST-/api/gedcom/import",
+      "type": "defines_schema",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

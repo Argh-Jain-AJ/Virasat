@@ -1,0 +1,19 @@
+{
+  "projectRoot": "/Users/arghjain/Desktop/Projects/Family Tree",
+  "batchFiles": [
+    {"path": "backend/.env", "language": "config", "sizeLines": 13, "fileCategory": "config"},
+    {"path": "backend/.env.example", "language": "config", "sizeLines": 23, "fileCategory": "config"},
+    {"path": "backend/package.json", "language": "json", "sizeLines": 33, "fileCategory": "config"},
+    {"path": "backend/schema.sql", "language": "sql", "sizeLines": 64, "fileCategory": "data"},
+    {"path": "backend/swagger.yaml", "language": "yaml", "sizeLines": 155, "fileCategory": "config"},
+    {"path": "backend/vercel.json", "language": "json", "sizeLines": 15, "fileCategory": "config"}
+  ],
+  "batchImportData": {
+    "backend/.env": [],
+    "backend/.env.example": [],
+    "backend/package.json": [],
+    "backend/schema.sql": [],
+    "backend/swagger.yaml": [],
+    "backend/vercel.json": []
+  }
+}

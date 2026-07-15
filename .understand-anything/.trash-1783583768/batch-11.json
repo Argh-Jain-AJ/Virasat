@@ -1,0 +1,48 @@
+{
+  "nodes": [
+    {
+      "id": "config:frontend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "frontend/.env.example",
+      "summary": "Template environment file for the React frontend, declaring the REACT_APP_API_BASE_URL variable used to point the client at the backend API.",
+      "tags": ["configuration", "environment-variables", "api-config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:frontend/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "frontend/README.md",
+      "summary": "Standard Create React App documentation covering available npm scripts (start, test, build, eject), code splitting, bundle analysis, PWA setup, and deployment guidance.",
+      "tags": ["documentation", "getting-started", "create-react-app"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "frontend/package.json",
+      "summary": "NPM manifest for the React frontend, declaring dependencies (React 19, React Router, ReactFlow, Dagre, elkjs, axios, Tailwind CSS, html-to-image) and Create React App scripts for the family tree visualization client.",
+      "tags": ["configuration", "build-system", "dependency-management", "react"],
+      "complexity": "moderate",
+      "languageNotes": "Uses react-scripts (Create React App) for tooling, with ReactFlow and Dagre/elkjs paired for interactive hierarchical tree layout and rendering, and Tailwind CSS as a devDependency for styling."
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:frontend/README.md",
+      "target": "config:frontend/package.json",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:frontend/.env.example",
+      "target": "config:frontend/package.json",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

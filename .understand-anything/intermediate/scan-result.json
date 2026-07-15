@@ -1,0 +1,870 @@
+{
+  "name": "Family Tree",
+  "description": "A full-stack family tree and legacy platform for building, visualizing, and managing generational family history, rendering interactive hierarchical trees with React Flow and Dagre atop a normalized PostgreSQL backend. It includes role-based collaboration, member profiles with linked memory timelines, GEDCOM import, and optional AI-assisted biography generation.",
+  "languages": [
+    "config",
+    "css",
+    "dockerfile",
+    "html",
+    "javascript",
+    "json",
+    "markdown",
+    "sql",
+    "txt",
+    "yaml"
+  ],
+  "frameworks": [
+    "React",
+    "Express",
+    "Jest",
+    "TailwindCSS",
+    "Docker",
+    "Docker Compose"
+  ],
+  "files": [
+    {
+      "path": ".DS_Store",
+      "language": "unknown",
+      "sizeLines": 2,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/.env",
+      "language": "config",
+      "sizeLines": 13,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/.env.example",
+      "language": "config",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/config/db.js",
+      "language": "javascript",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/aiController.js",
+      "language": "javascript",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/authController.js",
+      "language": "javascript",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/eventController.js",
+      "language": "javascript",
+      "sizeLines": 77,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/familyController.js",
+      "language": "javascript",
+      "sizeLines": 112,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/gedcomController.js",
+      "language": "javascript",
+      "sizeLines": 112,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/legacyController.js",
+      "language": "javascript",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/memoryController.js",
+      "language": "javascript",
+      "sizeLines": 76,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/personController.js",
+      "language": "javascript",
+      "sizeLines": 123,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/relationshipController.js",
+      "language": "javascript",
+      "sizeLines": 88,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/reminderController.js",
+      "language": "javascript",
+      "sizeLines": 69,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/cron/reminderCron.js",
+      "language": "javascript",
+      "sizeLines": 61,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/Dockerfile",
+      "language": "dockerfile",
+      "sizeLines": 12,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "backend/init_cloud_db.js",
+      "language": "javascript",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/init_db.js",
+      "language": "javascript",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/middleware/authMiddleware.js",
+      "language": "javascript",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/middleware/errorHandler.js",
+      "language": "javascript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/middleware/validationMiddleware.js",
+      "language": "javascript",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/migrate_demo.js",
+      "language": "javascript",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/familyModel.js",
+      "language": "javascript",
+      "sizeLines": 93,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/memoryModel.js",
+      "language": "javascript",
+      "sizeLines": 87,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/personModel.js",
+      "language": "javascript",
+      "sizeLines": 145,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/relationshipModel.js",
+      "language": "javascript",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/userModel.js",
+      "language": "javascript",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/package.json",
+      "language": "json",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/routes/aiRoutes.js",
+      "language": "javascript",
+      "sizeLines": 9,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/authRoutes.js",
+      "language": "javascript",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/eventRoutes.js",
+      "language": "javascript",
+      "sizeLines": 9,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/familyRoutes.js",
+      "language": "javascript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/familyTreeRoutes.js",
+      "language": "javascript",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/gedcomRoutes.js",
+      "language": "javascript",
+      "sizeLines": 51,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/legacyRoutes.js",
+      "language": "javascript",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/memoryRoutes.js",
+      "language": "javascript",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/personRoutes.js",
+      "language": "javascript",
+      "sizeLines": 110,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/relationshipRoutes.js",
+      "language": "javascript",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/reminderRoutes.js",
+      "language": "javascript",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/schema.sql",
+      "language": "sql",
+      "sizeLines": 64,
+      "fileCategory": "data"
+    },
+    {
+      "path": "backend/server.js",
+      "language": "javascript",
+      "sizeLines": 140,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/authService.js",
+      "language": "javascript",
+      "sizeLines": 77,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/familyService.js",
+      "language": "javascript",
+      "sizeLines": 71,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/memoryService.js",
+      "language": "javascript",
+      "sizeLines": 56,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/personService.js",
+      "language": "javascript",
+      "sizeLines": 78,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/relationshipService.js",
+      "language": "javascript",
+      "sizeLines": 64,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/setup_demo_user.js",
+      "language": "javascript",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/swagger.yaml",
+      "language": "yaml",
+      "sizeLines": 155,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/tests/integration.test.js",
+      "language": "javascript",
+      "sizeLines": 81,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/utils/gedcomParser.js",
+      "language": "javascript",
+      "sizeLines": 100,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/utils/treeBuilder.js",
+      "language": "javascript",
+      "sizeLines": 56,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/vercel.json",
+      "language": "json",
+      "sizeLines": 15,
+      "fileCategory": "config"
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "sizeLines": 50,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "frontend/.env.example",
+      "language": "config",
+      "sizeLines": 1,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/Dockerfile",
+      "language": "dockerfile",
+      "sizeLines": 18,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "frontend/package.json",
+      "language": "json",
+      "sizeLines": 51,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/postcss.config.js",
+      "language": "javascript",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/public/index.html",
+      "language": "html",
+      "sizeLines": 51,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/public/manifest.json",
+      "language": "json",
+      "sizeLines": 25,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/public/robots.txt",
+      "language": "txt",
+      "sizeLines": 3,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend/README.md",
+      "language": "markdown",
+      "sizeLines": 70,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend/src/api/api.js",
+      "language": "javascript",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/App.css",
+      "language": "css",
+      "sizeLines": 38,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/App.js",
+      "language": "javascript",
+      "sizeLines": 68,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/App.test.js",
+      "language": "javascript",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/ActivityFeed.js",
+      "language": "javascript",
+      "sizeLines": 99,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/CanvasNetwork.js",
+      "language": "javascript",
+      "sizeLines": 98,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/CollaborationPanel.js",
+      "language": "javascript",
+      "sizeLines": 142,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/FamilyInsightsPanel.js",
+      "language": "javascript",
+      "sizeLines": 224,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/FamilyInvite.js",
+      "language": "javascript",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/FamilyTimeline.js",
+      "language": "javascript",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/FamilyTree.js",
+      "language": "javascript",
+      "sizeLines": 718,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/Footer.js",
+      "language": "javascript",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/GedcomImport.js",
+      "language": "javascript",
+      "sizeLines": 159,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/LegacySection.js",
+      "language": "javascript",
+      "sizeLines": 153,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/MemoryTimeline.js",
+      "language": "javascript",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/PersonNode.js",
+      "language": "javascript",
+      "sizeLines": 161,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/SearchBar.js",
+      "language": "javascript",
+      "sizeLines": 149,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/SmartSuggestions.js",
+      "language": "javascript",
+      "sizeLines": 144,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/UpcomingReminders.js",
+      "language": "javascript",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/context/ToastContext.js",
+      "language": "javascript",
+      "sizeLines": 56,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/index.css",
+      "language": "css",
+      "sizeLines": 17,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/src/index.js",
+      "language": "javascript",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/Dashboard.js",
+      "language": "javascript",
+      "sizeLines": 536,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/FamilyTreePage.js",
+      "language": "javascript",
+      "sizeLines": 502,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/Login.js",
+      "language": "javascript",
+      "sizeLines": 217,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/PersonProfile.js",
+      "language": "javascript",
+      "sizeLines": 1147,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/Register.js",
+      "language": "javascript",
+      "sizeLines": 148,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/pages/StoryTransition.js",
+      "language": "javascript",
+      "sizeLines": 44,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/reportWebVitals.js",
+      "language": "javascript",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/services/familyService.js",
+      "language": "javascript",
+      "sizeLines": 78,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/setupTests.js",
+      "language": "javascript",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/tests/components.test.js",
+      "language": "javascript",
+      "sizeLines": 43,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/tailwind.config.js",
+      "language": "javascript",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 178,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "security_audit.md",
+      "language": "markdown",
+      "sizeLines": 134,
+      "fileCategory": "docs"
+    }
+  ],
+  "totalFiles": 97,
+  "filteredByIgnore": 0,
+  "estimatedComplexity": "moderate",
+  "importMap": {
+    ".DS_Store": [],
+    ".understand-anything/.understandignore": [],
+    "backend/.env": [],
+    "backend/.env.example": [],
+    "backend/config/db.js": [],
+    "backend/controllers/aiController.js": [
+      "backend/services/personService.js",
+      "backend/services/relationshipService.js"
+    ],
+    "backend/controllers/authController.js": [
+      "backend/services/authService.js"
+    ],
+    "backend/controllers/eventController.js": [
+      "backend/services/memoryService.js",
+      "backend/services/personService.js"
+    ],
+    "backend/controllers/familyController.js": [
+      "backend/services/familyService.js"
+    ],
+    "backend/controllers/gedcomController.js": [
+      "backend/config/db.js",
+      "backend/utils/gedcomParser.js",
+      "backend/utils/treeBuilder.js"
+    ],
+    "backend/controllers/legacyController.js": [
+      "backend/config/db.js"
+    ],
+    "backend/controllers/memoryController.js": [
+      "backend/services/memoryService.js"
+    ],
+    "backend/controllers/personController.js": [
+      "backend/services/personService.js"
+    ],
+    "backend/controllers/relationshipController.js": [
+      "backend/services/relationshipService.js"
+    ],
+    "backend/controllers/reminderController.js": [
+      "backend/config/db.js"
+    ],
+    "backend/cron/reminderCron.js": [
+      "backend/config/db.js"
+    ],
+    "backend/Dockerfile": [],
+    "backend/init_cloud_db.js": [],
+    "backend/init_db.js": [],
+    "backend/middleware/authMiddleware.js": [],
+    "backend/middleware/errorHandler.js": [],
+    "backend/middleware/validationMiddleware.js": [],
+    "backend/migrate_demo.js": [
+      "backend/config/db.js"
+    ],
+    "backend/models/familyModel.js": [
+      "backend/config/db.js"
+    ],
+    "backend/models/memoryModel.js": [
+      "backend/config/db.js"
+    ],
+    "backend/models/personModel.js": [
+      "backend/config/db.js"
+    ],
+    "backend/models/relationshipModel.js": [
+      "backend/config/db.js"
+    ],
+    "backend/models/userModel.js": [
+      "backend/config/db.js"
+    ],
+    "backend/package.json": [],
+    "backend/routes/aiRoutes.js": [
+      "backend/controllers/aiController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/routes/authRoutes.js": [
+      "backend/controllers/authController.js",
+      "backend/middleware/validationMiddleware.js"
+    ],
+    "backend/routes/eventRoutes.js": [
+      "backend/controllers/eventController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/routes/familyRoutes.js": [
+      "backend/controllers/familyController.js",
+      "backend/middleware/authMiddleware.js",
+      "backend/middleware/validationMiddleware.js"
+    ],
+    "backend/routes/familyTreeRoutes.js": [
+      "backend/middleware/authMiddleware.js",
+      "backend/utils/treeBuilder.js"
+    ],
+    "backend/routes/gedcomRoutes.js": [
+      "backend/controllers/gedcomController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/routes/legacyRoutes.js": [
+      "backend/controllers/legacyController.js"
+    ],
+    "backend/routes/memoryRoutes.js": [
+      "backend/controllers/memoryController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/routes/personRoutes.js": [
+      "backend/config/db.js",
+      "backend/controllers/personController.js",
+      "backend/middleware/authMiddleware.js",
+      "backend/middleware/validationMiddleware.js"
+    ],
+    "backend/routes/relationshipRoutes.js": [
+      "backend/controllers/relationshipController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/routes/reminderRoutes.js": [
+      "backend/controllers/reminderController.js",
+      "backend/middleware/authMiddleware.js"
+    ],
+    "backend/schema.sql": [],
+    "backend/server.js": [
+      "backend/config/db.js",
+      "backend/cron/reminderCron.js",
+      "backend/middleware/errorHandler.js",
+      "backend/routes/aiRoutes.js",
+      "backend/routes/authRoutes.js",
+      "backend/routes/eventRoutes.js",
+      "backend/routes/familyRoutes.js",
+      "backend/routes/familyTreeRoutes.js",
+      "backend/routes/gedcomRoutes.js",
+      "backend/routes/legacyRoutes.js",
+      "backend/routes/memoryRoutes.js",
+      "backend/routes/personRoutes.js",
+      "backend/routes/relationshipRoutes.js",
+      "backend/routes/reminderRoutes.js"
+    ],
+    "backend/services/authService.js": [
+      "backend/models/userModel.js"
+    ],
+    "backend/services/familyService.js": [
+      "backend/models/familyModel.js"
+    ],
+    "backend/services/memoryService.js": [
+      "backend/models/memoryModel.js"
+    ],
+    "backend/services/personService.js": [
+      "backend/models/personModel.js"
+    ],
+    "backend/services/relationshipService.js": [
+      "backend/models/relationshipModel.js"
+    ],
+    "backend/setup_demo_user.js": [
+      "backend/config/db.js"
+    ],
+    "backend/swagger.yaml": [],
+    "backend/tests/integration.test.js": [],
+    "backend/utils/gedcomParser.js": [],
+    "backend/utils/treeBuilder.js": [
+      "backend/config/db.js"
+    ],
+    "backend/vercel.json": [],
+    "docker-compose.yml": [],
+    "frontend/.env.example": [],
+    "frontend/Dockerfile": [],
+    "frontend/package.json": [],
+    "frontend/postcss.config.js": [],
+    "frontend/public/index.html": [],
+    "frontend/public/manifest.json": [],
+    "frontend/public/robots.txt": [],
+    "frontend/README.md": [],
+    "frontend/src/api/api.js": [],
+    "frontend/src/App.css": [],
+    "frontend/src/App.js": [
+      "frontend/src/App.css",
+      "frontend/src/components/Footer.js",
+      "frontend/src/context/ToastContext.js"
+    ],
+    "frontend/src/App.test.js": [
+      "frontend/src/App.js"
+    ],
+    "frontend/src/components/ActivityFeed.js": [],
+    "frontend/src/components/CanvasNetwork.js": [],
+    "frontend/src/components/CollaborationPanel.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/FamilyInsightsPanel.js": [],
+    "frontend/src/components/FamilyInvite.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/FamilyTimeline.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/FamilyTree.js": [
+      "frontend/src/components/PersonNode.js"
+    ],
+    "frontend/src/components/Footer.js": [],
+    "frontend/src/components/GedcomImport.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/LegacySection.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/MemoryTimeline.js": [],
+    "frontend/src/components/PersonNode.js": [],
+    "frontend/src/components/SearchBar.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/components/SmartSuggestions.js": [],
+    "frontend/src/components/UpcomingReminders.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/context/ToastContext.js": [],
+    "frontend/src/index.css": [],
+    "frontend/src/index.js": [
+      "frontend/src/App.js",
+      "frontend/src/index.css",
+      "frontend/src/reportWebVitals.js"
+    ],
+    "frontend/src/pages/Dashboard.js": [
+      "frontend/src/components/CanvasNetwork.js",
+      "frontend/src/context/ToastContext.js",
+      "frontend/src/services/familyService.js"
+    ],
+    "frontend/src/pages/FamilyTreePage.js": [
+      "frontend/src/components/ActivityFeed.js",
+      "frontend/src/components/CollaborationPanel.js",
+      "frontend/src/components/FamilyInsightsPanel.js",
+      "frontend/src/components/FamilyTree.js",
+      "frontend/src/components/GedcomImport.js",
+      "frontend/src/components/SearchBar.js",
+      "frontend/src/components/SmartSuggestions.js",
+      "frontend/src/components/UpcomingReminders.js",
+      "frontend/src/services/familyService.js"
+    ],
+    "frontend/src/pages/Login.js": [
+      "frontend/src/api/api.js",
+      "frontend/src/components/CanvasNetwork.js",
+      "frontend/src/context/ToastContext.js"
+    ],
+    "frontend/src/pages/PersonProfile.js": [
+      "frontend/src/api/api.js",
+      "frontend/src/components/LegacySection.js",
+      "frontend/src/components/MemoryTimeline.js",
+      "frontend/src/services/familyService.js"
+    ],
+    "frontend/src/pages/Register.js": [
+      "frontend/src/api/api.js",
+      "frontend/src/context/ToastContext.js"
+    ],
+    "frontend/src/pages/StoryTransition.js": [],
+    "frontend/src/reportWebVitals.js": [],
+    "frontend/src/services/familyService.js": [
+      "frontend/src/api/api.js"
+    ],
+    "frontend/src/setupTests.js": [],
+    "frontend/src/tests/components.test.js": [
+      "frontend/src/pages/Dashboard.js",
+      "frontend/src/pages/Login.js",
+      "frontend/src/pages/Register.js"
+    ],
+    "frontend/tailwind.config.js": [],
+    "README.md": [],
+    "security_audit.md": []
+  }
+}

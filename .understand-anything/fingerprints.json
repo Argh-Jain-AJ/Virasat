@@ -1,0 +1,2908 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "78c9e39e508993e09d4afbcbdd2191b8288dfe11",
+  "generatedAt": "2026-07-09T07:55:45.114Z",
+  "files": {
+    ".DS_Store": {
+      "filePath": ".DS_Store",
+      "contentHash": "16ef4a609a344f310335c41def0aa08323289172949d00cf88be6eadf478b30b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": false
+    },
+    ".understand-anything/.understandignore": {
+      "filePath": ".understand-anything/.understandignore",
+      "contentHash": "6cd0d80af014fe5ef7e36b4d143af7abab65e8c7da25984db52bf22cfbc9c3cc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 39,
+      "hasStructuralAnalysis": false
+    },
+    "backend/.env": {
+      "filePath": "backend/.env",
+      "contentHash": "ed6a27e02e9abe1438c1ce1c780730653e4c6a2325aa244a9074e40081dbec11",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "backend/.env.example": {
+      "filePath": "backend/.env.example",
+      "contentHash": "eb22bb4ca15d6a8266ba328526dffa53f41413767a0b4a1429d43b581b43abcd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "backend/config/db.js": {
+      "filePath": "backend/config/db.js",
+      "contentHash": "512422e80eacf26f6916da4bc2787ca15eadc8503f9f09086613cdf927fbb345",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/aiController.js": {
+      "filePath": "backend/controllers/aiController.js",
+      "contentHash": "00d2770c5212e3d919b3026d913c78be8436ffffadda49e3c325615a547446f2",
+      "functions": [
+        {
+          "name": "generateBiography",
+          "params": [
+            "req",
+            "res",
+            "next"
+          ],
+          "exported": false,
+          "lineCount": 36
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 48,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/authController.js": {
+      "filePath": "backend/controllers/authController.js",
+      "contentHash": "80922e47b9c24ead3edc7978acff45d710870b93bf3dd2f1d4c269cfb1ba25a3",
+      "functions": [
+        {
+          "name": "register",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 20
+        },
+        {
+          "name": "login",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 18
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 55,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/eventController.js": {
+      "filePath": "backend/controllers/eventController.js",
+      "contentHash": "066ab1e2a2b024e3fc843ae53725fdf459b8ce7f49840060e7475d25aa35f615",
+      "functions": [
+        {
+          "name": "getFamilyEvents",
+          "params": [
+            "req",
+            "res",
+            "next"
+          ],
+          "exported": false,
+          "lineCount": 66
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 78,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/familyController.js": {
+      "filePath": "backend/controllers/familyController.js",
+      "contentHash": "f6c1104d2384babb97104950aecec0e7adaa8666b3324855fec2aabab76b2e0c",
+      "functions": [
+        {
+          "name": "createFamily",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 17
+        },
+        {
+          "name": "getFamilies",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "getFamilyById",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "updateFamily",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 21
+        },
+        {
+          "name": "deleteFamily",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 15
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 113,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/gedcomController.js": {
+      "filePath": "backend/controllers/gedcomController.js",
+      "contentHash": "5d1f59998797eb74433ea687ee485d116085c72725eac4fb64f7988a727b6f1b",
+      "functions": [
+        {
+          "name": "importGedcom",
+          "params": [
+            "req",
+            "res",
+            "next"
+          ],
+          "exported": false,
+          "lineCount": 97
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 113,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/legacyController.js": {
+      "filePath": "backend/controllers/legacyController.js",
+      "contentHash": "6a26c18b62a18e5a92267ff6c58e0f95089e4adfb64752d97a3e1805b25c52c4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/memoryController.js": {
+      "filePath": "backend/controllers/memoryController.js",
+      "contentHash": "a5823d9077811ec85c4a58e7e62ecb52df4ecdabcfe6adccd8cae9d6bbaf25bd",
+      "functions": [
+        {
+          "name": "createMemory",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "getMemoriesByFamily",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "getMemoriesByPerson",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "deleteMemory",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 15
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 77,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/personController.js": {
+      "filePath": "backend/controllers/personController.js",
+      "contentHash": "f2b932aee9750fd5bd68fc77e22c9b607a357352201ecea76f919680edf8ec49",
+      "functions": [
+        {
+          "name": "addPerson",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "getPersonsByFamily",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "getPersonById",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "updatePerson",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 17
+        },
+        {
+          "name": "deletePerson",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "searchPersons",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 124,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/relationshipController.js": {
+      "filePath": "backend/controllers/relationshipController.js",
+      "contentHash": "9e5524ba3fae580b852991af44bf5c8aa575c4b500625d202471cf3dae5d539a",
+      "functions": [
+        {
+          "name": "createRelationship",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "getRelationshipsByPerson",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "deleteRelationship",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "updateRelationship",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 21
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 89,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/reminderController.js": {
+      "filePath": "backend/controllers/reminderController.js",
+      "contentHash": "cf5753fd71cb4a7f814afa8a589887260c39302fdeb107577a327b3e700ec1b1",
+      "functions": [
+        {
+          "name": "getUpcomingReminders",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 59
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "backend/cron/reminderCron.js": {
+      "filePath": "backend/cron/reminderCron.js",
+      "contentHash": "c2c100f3f7ad121393f05970d845bc0806c4dd20d60b302910a776a51516edb5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 62,
+      "hasStructuralAnalysis": true
+    },
+    "backend/Dockerfile": {
+      "filePath": "backend/Dockerfile",
+      "contentHash": "623b75bccefc0372a009b5ee8f50b022895905708ebbe4e2039e122f33782c6e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "backend/init_cloud_db.js": {
+      "filePath": "backend/init_cloud_db.js",
+      "contentHash": "c3f72e765a1dd8b0536aad3614c69ee14dde1fce18a8376250285247212579c4",
+      "functions": [
+        {
+          "name": "initializeDatabase",
+          "params": [],
+          "exported": false,
+          "lineCount": 17
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 38,
+      "hasStructuralAnalysis": true
+    },
+    "backend/init_db.js": {
+      "filePath": "backend/init_db.js",
+      "contentHash": "dc025c9dd5453e2c76b6a7312ee2a95a050466876525d820453d698314ad6a04",
+      "functions": [
+        {
+          "name": "setup",
+          "params": [],
+          "exported": false,
+          "lineCount": 49
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "backend/middleware/authMiddleware.js": {
+      "filePath": "backend/middleware/authMiddleware.js",
+      "contentHash": "d5f90ee230850b945b2a3b8b23aff3ce1869812e2dfb2d60095520b1840a8185",
+      "functions": [
+        {
+          "name": "verifyToken",
+          "params": [
+            "req",
+            "res",
+            "next"
+          ],
+          "exported": false,
+          "lineCount": 22
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 32,
+      "hasStructuralAnalysis": true
+    },
+    "backend/middleware/errorHandler.js": {
+      "filePath": "backend/middleware/errorHandler.js",
+      "contentHash": "2869e1a230bf6aee14e73184070c53e1802891b6a1470ac3aa9ea50325d9338b",
+      "functions": [
+        {
+          "name": "errorHandler",
+          "params": [
+            "err",
+            "req",
+            "res",
+            "next"
+          ],
+          "exported": false,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "backend/middleware/validationMiddleware.js": {
+      "filePath": "backend/middleware/validationMiddleware.js",
+      "contentHash": "146ace16eae79d149f3dc7539be050bfed63a0251b76317a7a8dd13ff3ba6a05",
+      "functions": [
+        {
+          "name": "validateRequest",
+          "params": [
+            "req",
+            "res",
+            "next"
+          ],
+          "exported": false,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "backend/migrate_demo.js": {
+      "filePath": "backend/migrate_demo.js",
+      "contentHash": "fa612fb3a0ccef01cb2833fad06f85e5e9a1b4b0f72480af7c1626df32fafc16",
+      "functions": [
+        {
+          "name": "migrate",
+          "params": [],
+          "exported": false,
+          "lineCount": 22
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/familyModel.js": {
+      "filePath": "backend/models/familyModel.js",
+      "contentHash": "e8197869fa5bd462a0f9e47ec63a7127665c91acacd515a4bb599d68f665acbd",
+      "functions": [
+        {
+          "name": "createFamily",
+          "params": [
+            "family_name",
+            "created_by"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "getFamiliesByUser",
+          "params": [
+            "user_id"
+          ],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "getFamilyById",
+          "params": [
+            "family_id",
+            "user_id"
+          ],
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "updateFamily",
+          "params": [
+            "family_id",
+            "family_name",
+            "user_id"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "deleteFamily",
+          "params": [
+            "family_id",
+            "user_id"
+          ],
+          "exported": false,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 94,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/memoryModel.js": {
+      "filePath": "backend/models/memoryModel.js",
+      "contentHash": "fe5de363364b299212aab239f9df89cfb880172ed15ba04cc977ce9f7d7759f8",
+      "functions": [
+        {
+          "name": "createMemory",
+          "params": [
+            "memoryData"
+          ],
+          "exported": false,
+          "lineCount": 28
+        },
+        {
+          "name": "getMemoriesByFamily",
+          "params": [
+            "family_id"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "getMemoriesByPerson",
+          "params": [
+            "person_id"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "deleteMemory",
+          "params": [
+            "memory_id"
+          ],
+          "exported": false,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 88,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/personModel.js": {
+      "filePath": "backend/models/personModel.js",
+      "contentHash": "8d3841be2c54704767eb412a5265fcc6749c87efc158776dd8fa4330f0705f95",
+      "functions": [
+        {
+          "name": "createPerson",
+          "params": [
+            "personData"
+          ],
+          "exported": false,
+          "lineCount": 31
+        },
+        {
+          "name": "getPersonsByFamily",
+          "params": [
+            "family_id"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "getPersonById",
+          "params": [
+            "person_id"
+          ],
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "updatePerson",
+          "params": [
+            "person_id",
+            "updatedData"
+          ],
+          "exported": false,
+          "lineCount": 26
+        },
+        {
+          "name": "deletePerson",
+          "params": [
+            "person_id"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "searchPersons",
+          "params": [
+            "query"
+          ],
+          "exported": false,
+          "lineCount": 15
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 146,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/relationshipModel.js": {
+      "filePath": "backend/models/relationshipModel.js",
+      "contentHash": "89d0b2579d887287ad378a3e13d05545f4dd9eb62e7b2b376b71df2a53b9d5a6",
+      "functions": [
+        {
+          "name": "createRelationship",
+          "params": [
+            "person1_id",
+            "person2_id",
+            "relationship_type"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "getRelationshipsByPerson",
+          "params": [
+            "person_id"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "deleteRelationship",
+          "params": [
+            "relationship_id"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "updateRelationship",
+          "params": [
+            "relationship_id",
+            "relationship_type"
+          ],
+          "exported": false,
+          "lineCount": 10
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 74,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/userModel.js": {
+      "filePath": "backend/models/userModel.js",
+      "contentHash": "470dd23fdf7a0b9a7fa01d4ff0f727e857b5386b0f4ee7ba16dd2af691ecfbda",
+      "functions": [
+        {
+          "name": "createUser",
+          "params": [
+            "name",
+            "email",
+            "password_hash"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "getUserByEmail",
+          "params": [
+            "email"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "getUserById",
+          "params": [
+            "id"
+          ],
+          "exported": false,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "backend/package.json": {
+      "filePath": "backend/package.json",
+      "contentHash": "b7b40da475241dc2b3a8687462c99b880386eea02ee4bbc18fb70a617fd40750",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 34,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/aiRoutes.js": {
+      "filePath": "backend/routes/aiRoutes.js",
+      "contentHash": "61c0c03bc7c66bd537af5c8871b3fef4b7d7c0362465296bee10c906501eb25e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/authRoutes.js": {
+      "filePath": "backend/routes/authRoutes.js",
+      "contentHash": "4f6f793506a3bd0c61443509470bb127c477c6103e301976804585c9c0fc9ce5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 30,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/eventRoutes.js": {
+      "filePath": "backend/routes/eventRoutes.js",
+      "contentHash": "f0306a03c10947c802094e855d9d71f168697165013739d67ad6d043c4036e10",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/familyRoutes.js": {
+      "filePath": "backend/routes/familyRoutes.js",
+      "contentHash": "d17281dc3054aa697f4f261a580f8ba1e2b694ce849ace94f84baad9bc7807bb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/familyTreeRoutes.js": {
+      "filePath": "backend/routes/familyTreeRoutes.js",
+      "contentHash": "4a5dfc6b1954a399a45cfb81ad2a7b4149199cc6c40f034fad8d18421cb2a2a1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/gedcomRoutes.js": {
+      "filePath": "backend/routes/gedcomRoutes.js",
+      "contentHash": "bdc1d26494e7881bcbe00015804872ddcfe01ca5a2238ec8fb0a42e3352718e5",
+      "functions": [
+        {
+          "name": "fileFilter",
+          "params": [
+            "req",
+            "file",
+            "cb"
+          ],
+          "exported": false,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 52,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/legacyRoutes.js": {
+      "filePath": "backend/routes/legacyRoutes.js",
+      "contentHash": "844f08469d8270753ee1e4d2cb816c8be69b743a129bd2f067b584f83fb38a4a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/memoryRoutes.js": {
+      "filePath": "backend/routes/memoryRoutes.js",
+      "contentHash": "5755cd37c4268669b249b60bb8dae7616c735159c93606547b4463c620e03db7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/personRoutes.js": {
+      "filePath": "backend/routes/personRoutes.js",
+      "contentHash": "fd3d27daa8654164fcf5811d5171d840b2638cf6035c60c6031c503ee2147608",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 111,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/relationshipRoutes.js": {
+      "filePath": "backend/routes/relationshipRoutes.js",
+      "contentHash": "e7a5c6d2c0681e07acc77d8562dec982c5c16fbc9d7e7eaa96261d2669127a1b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/reminderRoutes.js": {
+      "filePath": "backend/routes/reminderRoutes.js",
+      "contentHash": "ad9e4e457d4823f6867e05782720d5e960019da4834997e235c197456a544409",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "backend/schema.sql": {
+      "filePath": "backend/schema.sql",
+      "contentHash": "0ee92165b733b21ae1d464e987d3e1f01c252ef751df651f9a06ebdb5f2a92ee",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 65,
+      "hasStructuralAnalysis": true
+    },
+    "backend/server.js": {
+      "filePath": "backend/server.js",
+      "contentHash": "c99792c4970005d509c8e0ca84d4c3c9436f5a9823f27eb43f7233ab5fe358c7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 141,
+      "hasStructuralAnalysis": true
+    },
+    "backend/services/authService.js": {
+      "filePath": "backend/services/authService.js",
+      "contentHash": "e5ccf1cb1c2d2531784db76e2e22e522d980bd6100b39e4a030d5d4739ef8982",
+      "functions": [
+        {
+          "name": "registerUser",
+          "params": [
+            "name",
+            "email",
+            "password"
+          ],
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "loginUser",
+          "params": [
+            "email",
+            "password"
+          ],
+          "exported": false,
+          "lineCount": 39
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 78,
+      "hasStructuralAnalysis": true
+    },
+    "backend/services/familyService.js": {
+      "filePath": "backend/services/familyService.js",
+      "contentHash": "d15bc395f0b6902f7f34d25ef9a05cad55b21c1fb3668cd2ac876ac6ccd921cb",
+      "functions": [
+        {
+          "name": "createFamily",
+          "params": [
+            "family_name",
+            "created_by"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "getFamiliesByUser",
+          "params": [
+            "user_id"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "getFamilyById",
+          "params": [
+            "family_id",
+            "user_id"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "updateFamily",
+          "params": [
+            "family_id",
+            "family_name",
+            "user_id"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "deleteFamily",
+          "params": [
+            "family_id",
+            "user_id"
+          ],
+          "exported": false,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 72,
+      "hasStructuralAnalysis": true
+    },
+    "backend/services/memoryService.js": {
+      "filePath": "backend/services/memoryService.js",
+      "contentHash": "ebd8bd1020820df20e60f9dbdc0752cf68687f97e7b8fd4d902cd5c7b0db6230",
+      "functions": [
+        {
+          "name": "createMemory",
+          "params": [
+            "memoryData"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "getMemoriesByFamily",
+          "params": [
+            "family_id"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "getMemoriesByPerson",
+          "params": [
+            "person_id"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "deleteMemory",
+          "params": [
+            "memory_id"
+          ],
+          "exported": false,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 57,
+      "hasStructuralAnalysis": true
+    },
+    "backend/services/personService.js": {
+      "filePath": "backend/services/personService.js",
+      "contentHash": "c0a04c46d0f2e945f3624a9b00273ed8d9e700bad778d0e5f30debed1323a413",
+      "functions": [
+        {
+          "name": "addPerson",
+          "params": [
+            "personData"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "getPersonsByFamily",
+          "params": [
+            "family_id"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "getPersonById",
+          "params": [
+            "person_id"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "updatePerson",
+          "params": [
+            "person_id",
+            "updatedData"
+          ],
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "deletePerson",
+          "params": [
+            "person_id"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "searchPersons",
+          "params": [
+            "query"
+          ],
+          "exported": false,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 79,
+      "hasStructuralAnalysis": true
+    },
+    "backend/services/relationshipService.js": {
+      "filePath": "backend/services/relationshipService.js",
+      "contentHash": "ec546035fe5b5add69aa1f050fb889d43e76f4737899e4cb3bf4f5a0b08c3d4d",
+      "functions": [
+        {
+          "name": "createRelationship",
+          "params": [
+            "person1_id",
+            "person2_id",
+            "relationship_type"
+          ],
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "getRelationshipsByPerson",
+          "params": [
+            "person_id"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "deleteRelationship",
+          "params": [
+            "relationship_id"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "updateRelationship",
+          "params": [
+            "relationship_id",
+            "relationship_type"
+          ],
+          "exported": false,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 65,
+      "hasStructuralAnalysis": true
+    },
+    "backend/setup_demo_user.js": {
+      "filePath": "backend/setup_demo_user.js",
+      "contentHash": "bb7b7b6d5201af86eb00a4c57a5d1e80e721650ba5ef7f67d60a0816651f5838",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "backend/swagger.yaml": {
+      "filePath": "backend/swagger.yaml",
+      "contentHash": "e90d0e7fd3fcc77ff7a315d5101fd8d7c1d6c71c6c1c05bbb239616c50942d04",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 156,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/integration.test.js": {
+      "filePath": "backend/tests/integration.test.js",
+      "contentHash": "a4c6e186c52523f6d9cce5f2952e21ac2051a449a48526c6775d7c57b78479a3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 82,
+      "hasStructuralAnalysis": true
+    },
+    "backend/utils/gedcomParser.js": {
+      "filePath": "backend/utils/gedcomParser.js",
+      "contentHash": "d405e2f84c0131a8ed55f38ab940395dcf4ce4810450332bcd6ad78f5fcd61ce",
+      "functions": [
+        {
+          "name": "parseGedcom",
+          "params": [
+            "gedcomString"
+          ],
+          "exported": false,
+          "lineCount": 89
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 101,
+      "hasStructuralAnalysis": true
+    },
+    "backend/utils/treeBuilder.js": {
+      "filePath": "backend/utils/treeBuilder.js",
+      "contentHash": "2c8e99d6e6b0423c6f1a738c9ac27307e7aa2e5c10ea9a3811f2e970a4790cfe",
+      "functions": [
+        {
+          "name": "buildFamilyTreeData",
+          "params": [
+            "family_id"
+          ],
+          "exported": false,
+          "lineCount": 45
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 57,
+      "hasStructuralAnalysis": true
+    },
+    "backend/vercel.json": {
+      "filePath": "backend/vercel.json",
+      "contentHash": "497de0095b4d8f841b94c90cd783e5df976f8d40140eb5bc90e585723d83df3c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "docker-compose.yml": {
+      "filePath": "docker-compose.yml",
+      "contentHash": "79b4d943f08a359220a56527b572a351ba62e898f128a607e3e86091c5c0656b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/.env.example": {
+      "filePath": "frontend/.env.example",
+      "contentHash": "a6eb0caae0dca8302af4409d8306c57afba26e6dd69f5ba4701d94f42db9f0ef",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/Dockerfile": {
+      "filePath": "frontend/Dockerfile",
+      "contentHash": "46ba0fa11d8dba285cb8e01f026ee0d3c06358680dcee00ac21aa6227233224a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/package.json": {
+      "filePath": "frontend/package.json",
+      "contentHash": "f243d2ea8acb4fc1298302738260a18a6b2b1e227b833db19c7c8e811ae21a10",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 52,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/postcss.config.js": {
+      "filePath": "frontend/postcss.config.js",
+      "contentHash": "251ecddd4672c9cf467547e3dc535de00ad2129df26e7e7ae728fa4e5ac45fc5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/public/index.html": {
+      "filePath": "frontend/public/index.html",
+      "contentHash": "5d95a6287b4d4a47ec9352fd47862e87412655e72b9ae73be92c891830be4c39",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 52,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/public/manifest.json": {
+      "filePath": "frontend/public/manifest.json",
+      "contentHash": "50b3d8c3903af3f78d871b94557ab14f4e39ca192eaca3d2cfa863c867279a14",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/public/robots.txt": {
+      "filePath": "frontend/public/robots.txt",
+      "contentHash": "90d24bc3bf698ac1e173739502298ccca72adf1f564fab05f484b8c48d1cadd2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/README.md": {
+      "filePath": "frontend/README.md",
+      "contentHash": "70eafbc7a5fd466aa3213b5a7e1b2a41383cbe5d4e6fc5f4582efc58bdb509d1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/api/api.js": {
+      "filePath": "frontend/src/api/api.js",
+      "contentHash": "a2f1071c3d8f3ea46ba9af1634fb15c45481d67eb386bc368275b728d2af0587",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "axios",
+          "specifiers": [
+            "axios"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 55,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/App.css": {
+      "filePath": "frontend/src/App.css",
+      "contentHash": "c5ac42e56bf8c34eb741d752bc879144f186d7ca0a48fcbb73b967177f7a9240",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 39,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/App.js": {
+      "filePath": "frontend/src/App.js",
+      "contentHash": "fca72703dd974dcfc684a63b6c903db7f0f92d24ffd8180cd5de9ec54f576d13",
+      "functions": [
+        {
+          "name": "NetworkListener",
+          "params": [],
+          "exported": false,
+          "lineCount": 18
+        },
+        {
+          "name": "PageLoader",
+          "params": [],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "App",
+          "params": [],
+          "exported": false,
+          "lineCount": 25
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "Suspense",
+            "lazy",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "BrowserRouter",
+            "Routes",
+            "Route",
+            "Navigate"
+          ]
+        },
+        {
+          "source": "./components/Footer",
+          "specifiers": [
+            "Footer"
+          ]
+        },
+        {
+          "source": "./context/ToastContext",
+          "specifiers": [
+            "ToastProvider",
+            "useToast"
+          ]
+        },
+        {
+          "source": "./App.css",
+          "specifiers": []
+        }
+      ],
+      "exports": [],
+      "totalLines": 69,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/App.test.js": {
+      "filePath": "frontend/src/App.test.js",
+      "contentHash": "f7784693194b8657d1bf70c37ea70f4a2d694c4566ec41550a8e650eb600aaa4",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "source": "./App",
+          "specifiers": [
+            "App"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/ActivityFeed.js": {
+      "filePath": "frontend/src/components/ActivityFeed.js",
+      "contentHash": "9b8fa23efc3618b33bd0592d0a6ebd1a65fd1f74a9837db3dec78e0f9226d188",
+      "functions": [
+        {
+          "name": "timeAgo",
+          "params": [
+            "ts"
+          ],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "ActivityItem",
+          "params": [],
+          "exported": false,
+          "lineCount": 29
+        },
+        {
+          "name": "ActivityFeed",
+          "params": [],
+          "exported": false,
+          "lineCount": 43
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useEffect",
+            "useRef"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 100,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/CanvasNetwork.js": {
+      "filePath": "frontend/src/components/CanvasNetwork.js",
+      "contentHash": "b166f142c1f87cfbd37458b1c8907ca152ae2924c165539760fd37c4439fd4a0",
+      "functions": [
+        {
+          "name": "CanvasNetwork",
+          "params": [],
+          "exported": false,
+          "lineCount": 94
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useRef",
+            "useEffect"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 99,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/CollaborationPanel.js": {
+      "filePath": "frontend/src/components/CollaborationPanel.js",
+      "contentHash": "c737e24a20692a754f5cd709f2bf74ed7deb95fced87fa2403cb0f1bcf4d9bc6",
+      "functions": [
+        {
+          "name": "initials",
+          "params": [
+            "email"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "CollaborationPanel",
+          "params": [],
+          "exported": false,
+          "lineCount": 123
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState"
+          ]
+        },
+        {
+          "source": "../api/api",
+          "specifiers": [
+            "api"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 143,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/FamilyInsightsPanel.js": {
+      "filePath": "frontend/src/components/FamilyInsightsPanel.js",
+      "contentHash": "76eafbe1cfd3809bf9e3e1e04b96a86907e26796f64ce6851d1b4aea2e5b10d1",
+      "functions": [
+        {
+          "name": "AnimatedCounter",
+          "params": [],
+          "exported": false,
+          "lineCount": 32
+        },
+        {
+          "name": "InsightCard",
+          "params": [],
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "FamilyInsightsPanel",
+          "params": [],
+          "exported": false,
+          "lineCount": 171
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useMemo"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 225,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/FamilyInvite.js": {
+      "filePath": "frontend/src/components/FamilyInvite.js",
+      "contentHash": "8063117baed95a5434bc7984887e682728e2bbd689c7813bcc4cf1867fd6b2c7",
+      "functions": [
+        {
+          "name": "FamilyInvite",
+          "params": [],
+          "exported": false,
+          "lineCount": 65
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState"
+          ]
+        },
+        {
+          "source": "../api/api",
+          "specifiers": [
+            "api"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/FamilyTimeline.js": {
+      "filePath": "frontend/src/components/FamilyTimeline.js",
+      "contentHash": "4951eb8057bf717199c5015071afe6d6f336b0ef51c2a1e1f1fa00167f37b1b8",
+      "functions": [
+        {
+          "name": "FamilyTimeline",
+          "params": [],
+          "exported": false,
+          "lineCount": 48
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "../api/api",
+          "specifiers": [
+            "api"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 54,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/FamilyTree.js": {
+      "filePath": "frontend/src/components/FamilyTree.js",
+      "contentHash": "c8e1d8bb70a9c5eeedcace4429a8148584b6d80b761b03811d05506d98bb7d7e",
+      "functions": [
+        {
+          "name": "buildAdjacency",
+          "params": [
+            "nodes",
+            "edges"
+          ],
+          "exported": false,
+          "lineCount": 30
+        },
+        {
+          "name": "assignGenerations",
+          "params": [
+            "nodes",
+            "childOf",
+            "sameGen",
+            "parentOf"
+          ],
+          "exported": false,
+          "lineCount": 49
+        },
+        {
+          "name": "groupByGeneration",
+          "params": [
+            "nodes",
+            "genMap"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "initialXPositions",
+          "params": [
+            "levels"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "resolveCollisions",
+          "params": [
+            "ids",
+            "xPos",
+            "minGap"
+          ],
+          "exported": false,
+          "lineCount": 24
+        },
+        {
+          "name": "iterativeLayout",
+          "params": [
+            "levels",
+            "xPos",
+            "genMap",
+            "parentOf",
+            "childOf"
+          ],
+          "exported": false,
+          "lineCount": 36
+        },
+        {
+          "name": "computeLayout",
+          "params": [
+            "nodes",
+            "edges"
+          ],
+          "exported": false,
+          "lineCount": 41
+        },
+        {
+          "name": "LayoutUpdater",
+          "params": [],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "QuickAddForm",
+          "params": [],
+          "exported": false,
+          "lineCount": 24
+        },
+        {
+          "name": "FamilyTreeInner",
+          "params": [],
+          "exported": false,
+          "lineCount": 247
+        },
+        {
+          "name": "FamilyTree",
+          "params": [
+            "props"
+          ],
+          "exported": false,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useCallback",
+            "useMemo",
+            "useRef",
+            "useEffect",
+            "useState",
+            "memo"
+          ]
+        },
+        {
+          "source": "reactflow",
+          "specifiers": [
+            "ReactFlow",
+            "MiniMap",
+            "Background",
+            "useNodesState",
+            "useEdgesState",
+            "MarkerType",
+            "ReactFlowProvider",
+            "useReactFlow",
+            "EdgeLabelRenderer",
+            "BaseEdge",
+            "getStraightPath",
+            "getBezierPath",
+            "getNodesBounds",
+            "getViewportForBounds"
+          ]
+        },
+        {
+          "source": "html-to-image",
+          "specifiers": [
+            "toPng"
+          ]
+        },
+        {
+          "source": "reactflow/dist/style.css",
+          "specifiers": []
+        },
+        {
+          "source": "./PersonNode",
+          "specifiers": [
+            "PersonNode"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 719,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/Footer.js": {
+      "filePath": "frontend/src/components/Footer.js",
+      "contentHash": "6eaa0a51d4264d88f7e5ada7d809fab25689b584b3bb100561acb4380ea9d4a8",
+      "functions": [
+        {
+          "name": "Footer",
+          "params": [],
+          "exported": false,
+          "lineCount": 19
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useLocation"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/GedcomImport.js": {
+      "filePath": "frontend/src/components/GedcomImport.js",
+      "contentHash": "e485a8ac40c4bc35b3b013cf18cb629a23242b1f463ded30bd3f660b44001b95",
+      "functions": [
+        {
+          "name": "GedcomImport",
+          "params": [],
+          "exported": false,
+          "lineCount": 154
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useRef",
+            "useCallback"
+          ]
+        },
+        {
+          "source": "../api/api",
+          "specifiers": [
+            "api"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 160,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/LegacySection.js": {
+      "filePath": "frontend/src/components/LegacySection.js",
+      "contentHash": "df5615d63c775487bfaa814de186f253f3c33323a2f9fd6209204dbc612b4e6a",
+      "functions": [
+        {
+          "name": "LegacyCard",
+          "params": [],
+          "exported": false,
+          "lineCount": 29
+        },
+        {
+          "name": "LegacySection",
+          "params": [],
+          "exported": false,
+          "lineCount": 109
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState"
+          ]
+        },
+        {
+          "source": "../api/api",
+          "specifiers": [
+            "api"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 154,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/MemoryTimeline.js": {
+      "filePath": "frontend/src/components/MemoryTimeline.js",
+      "contentHash": "c6d2808443b6ee6fc7a851aa0c95e5c33dd269ab9fae37f66f3387930d4d91ad",
+      "functions": [
+        {
+          "name": "TimelineCard",
+          "params": [],
+          "exported": false,
+          "lineCount": 46
+        },
+        {
+          "name": "SmartEmptyState",
+          "params": [],
+          "exported": false,
+          "lineCount": 38
+        },
+        {
+          "name": "MemoryTimeline",
+          "params": [],
+          "exported": false,
+          "lineCount": 22
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useEffect",
+            "useRef"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 122,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/PersonNode.js": {
+      "filePath": "frontend/src/components/PersonNode.js",
+      "contentHash": "f3cc1205348b9c859d290eb841639f1d0340fdd4105b391ce7e54cb2a19b0004",
+      "functions": [
+        {
+          "name": "genderAvatar",
+          "params": [
+            "gender"
+          ],
+          "exported": false,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "memo"
+          ]
+        },
+        {
+          "source": "reactflow",
+          "specifiers": [
+            "Handle",
+            "Position"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 162,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/SearchBar.js": {
+      "filePath": "frontend/src/components/SearchBar.js",
+      "contentHash": "85bc59215a38876fe1b3e278baf7dbc6743eb32db019c83f2969adf7e17e85a9",
+      "functions": [
+        {
+          "name": "GlobalSearchBar",
+          "params": [],
+          "exported": false,
+          "lineCount": 136
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useRef",
+            "useCallback"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "../api/api",
+          "specifiers": [
+            "api"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 150,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/SmartSuggestions.js": {
+      "filePath": "frontend/src/components/SmartSuggestions.js",
+      "contentHash": "c4005ba3f43d62b9fc828b2eeac205b9aca1c47aa905e5c6119b95ca2be73463",
+      "functions": [
+        {
+          "name": "SmartSuggestions",
+          "params": [],
+          "exported": false,
+          "lineCount": 132
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useMemo",
+            "useState"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 145,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/UpcomingReminders.js": {
+      "filePath": "frontend/src/components/UpcomingReminders.js",
+      "contentHash": "9ba7b04a7301d279ceef94187132ad0801a0a85b3aa577af8aaf02b2751737bd",
+      "functions": [
+        {
+          "name": "UpcomingReminders",
+          "params": [],
+          "exported": false,
+          "lineCount": 68
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "../api/api",
+          "specifiers": [
+            "api"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 74,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/context/ToastContext.js": {
+      "filePath": "frontend/src/context/ToastContext.js",
+      "contentHash": "2001478d7ac4dbcf9fa3d7a116beccfe4729c4e0c030b510c50930d06eef1ec5",
+      "functions": [
+        {
+          "name": "useToast",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "ToastProvider",
+          "params": [],
+          "exported": true,
+          "lineCount": 50
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "createContext",
+            "useContext",
+            "useState",
+            "useCallback"
+          ]
+        }
+      ],
+      "exports": [
+        "useToast",
+        "ToastProvider"
+      ],
+      "totalLines": 57,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/index.css": {
+      "filePath": "frontend/src/index.css",
+      "contentHash": "19786dcec8122bb5bfc6c1535206609e398d91f7b98e6ef4174ee00a39bc0b75",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/index.js": {
+      "filePath": "frontend/src/index.js",
+      "contentHash": "f5f9fbfa3cab3c5580fa9e4c95cdda3f8cd35b8be0b110f4b4066516b3196bb5",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React"
+          ]
+        },
+        {
+          "source": "react-dom/client",
+          "specifiers": [
+            "ReactDOM"
+          ]
+        },
+        {
+          "source": "./index.css",
+          "specifiers": []
+        },
+        {
+          "source": "./App",
+          "specifiers": [
+            "App"
+          ]
+        },
+        {
+          "source": "./reportWebVitals",
+          "specifiers": [
+            "reportWebVitals"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/pages/Dashboard.js": {
+      "filePath": "frontend/src/pages/Dashboard.js",
+      "contentHash": "1a53cd673d0f592439d4b47e257de9e3a4ee3ed2006f6edae533a4a1a12c99d6",
+      "functions": [
+        {
+          "name": "CardLineageCanvas",
+          "params": [],
+          "exported": false,
+          "lineCount": 77
+        },
+        {
+          "name": "LineageCard",
+          "params": [],
+          "exported": false,
+          "lineCount": 76
+        },
+        {
+          "name": "Dashboard",
+          "params": [],
+          "exported": false,
+          "lineCount": 364
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useMemo",
+            "useRef",
+            "useCallback"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "../services/familyService",
+          "specifiers": [
+            "getFamilies",
+            "createFamily",
+            "deleteFamily",
+            "updateFamily"
+          ]
+        },
+        {
+          "source": "../assets/hero-bg.png",
+          "specifiers": [
+            "bgImage"
+          ]
+        },
+        {
+          "source": "../components/CanvasNetwork",
+          "specifiers": [
+            "CanvasNetwork"
+          ]
+        },
+        {
+          "source": "../context/ToastContext",
+          "specifiers": [
+            "useToast"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 537,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/pages/FamilyTreePage.js": {
+      "filePath": "frontend/src/pages/FamilyTreePage.js",
+      "contentHash": "8f93028061e84881f34d94c36dd3845d904695fea52ab8357513c4de9fccd2a4",
+      "functions": [
+        {
+          "name": "Card",
+          "params": [],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "CardHeader",
+          "params": [],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "WorkspaceSummary",
+          "params": [],
+          "exported": false,
+          "lineCount": 63
+        },
+        {
+          "name": "SmartMemberForm",
+          "params": [],
+          "exported": false,
+          "lineCount": 70
+        },
+        {
+          "name": "RelationshipBuilder",
+          "params": [],
+          "exported": false,
+          "lineCount": 68
+        },
+        {
+          "name": "FamilyTreePage",
+          "params": [],
+          "exported": false,
+          "lineCount": 211
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useMemo",
+            "useCallback",
+            "useRef",
+            "memo"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "../services/familyService",
+          "specifiers": [
+            "createPerson",
+            "createRelationship",
+            "getFamilyTree"
+          ]
+        },
+        {
+          "source": "../components/FamilyTree",
+          "specifiers": [
+            "FamilyTree"
+          ]
+        },
+        {
+          "source": "../components/SearchBar",
+          "specifiers": [
+            "GlobalSearchBar"
+          ]
+        },
+        {
+          "source": "../components/CollaborationPanel",
+          "specifiers": [
+            "CollaborationPanel"
+          ]
+        },
+        {
+          "source": "../components/ActivityFeed",
+          "specifiers": [
+            "ActivityFeed"
+          ]
+        },
+        {
+          "source": "../components/SmartSuggestions",
+          "specifiers": [
+            "SmartSuggestions"
+          ]
+        },
+        {
+          "source": "../components/GedcomImport",
+          "specifiers": [
+            "GedcomImport"
+          ]
+        },
+        {
+          "source": "../components/UpcomingReminders",
+          "specifiers": [
+            "UpcomingReminders"
+          ]
+        },
+        {
+          "source": "../components/FamilyInsightsPanel",
+          "specifiers": [
+            "FamilyInsightsPanel"
+          ]
+        },
+        {
+          "source": "../assets/hero-bg.png",
+          "specifiers": [
+            "bgImage"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 503,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/pages/Login.js": {
+      "filePath": "frontend/src/pages/Login.js",
+      "contentHash": "a4348fdb2bf2c051318b66dfa68f5ba33b1719d74e0b790a39bef770999e4413",
+      "functions": [
+        {
+          "name": "Login",
+          "params": [],
+          "exported": false,
+          "lineCount": 208
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate",
+            "Link"
+          ]
+        },
+        {
+          "source": "../assets/hero-bg.png",
+          "specifiers": [
+            "bgImage"
+          ]
+        },
+        {
+          "source": "../api/api",
+          "specifiers": [
+            "api"
+          ]
+        },
+        {
+          "source": "../context/ToastContext",
+          "specifiers": [
+            "useToast"
+          ]
+        },
+        {
+          "source": "../components/CanvasNetwork",
+          "specifiers": [
+            "CanvasNetwork"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 218,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/pages/PersonProfile.js": {
+      "filePath": "frontend/src/pages/PersonProfile.js",
+      "contentHash": "c5c7e1dda9a7f32fb8375326087cad536a99427ccdd84bb457d7e82a147fab19",
+      "functions": [
+        {
+          "name": "calcAge",
+          "params": [
+            "birthDate",
+            "deathDate"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "Avatar",
+          "params": [],
+          "exported": false,
+          "lineCount": 23
+        },
+        {
+          "name": "UploadableAvatar",
+          "params": [],
+          "exported": false,
+          "lineCount": 73
+        },
+        {
+          "name": "Chip",
+          "params": [],
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "BreadcrumbNav",
+          "params": [],
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "InlineEditField",
+          "params": [],
+          "exported": false,
+          "lineCount": 48
+        },
+        {
+          "name": "useCountUp",
+          "params": [
+            "target"
+          ],
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "StatCard",
+          "params": [],
+          "exported": false,
+          "lineCount": 17
+        },
+        {
+          "name": "InsightsPanel",
+          "params": [],
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "ProfileStrengthBar",
+          "params": [],
+          "exported": false,
+          "lineCount": 29
+        },
+        {
+          "name": "StoryModeModal",
+          "params": [],
+          "exported": false,
+          "lineCount": 54
+        },
+        {
+          "name": "MiniTreePreview",
+          "params": [],
+          "exported": false,
+          "lineCount": 125
+        },
+        {
+          "name": "PrivacyControls",
+          "params": [],
+          "exported": false,
+          "lineCount": 48
+        },
+        {
+          "name": "resolveRole",
+          "params": [
+            "type",
+            "isPerson1"
+          ],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "FamilyMemberCard",
+          "params": [],
+          "exported": false,
+          "lineCount": 20
+        },
+        {
+          "name": "FamilySection",
+          "params": [],
+          "exported": false,
+          "lineCount": 34
+        },
+        {
+          "name": "MemoryForm",
+          "params": [],
+          "exported": false,
+          "lineCount": 40
+        },
+        {
+          "name": "BiographySection",
+          "params": [],
+          "exported": false,
+          "lineCount": 68
+        },
+        {
+          "name": "PersonProfile",
+          "params": [],
+          "exported": false,
+          "lineCount": 400
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useRef",
+            "useCallback"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useParams",
+            "useNavigate",
+            "useLocation"
+          ]
+        },
+        {
+          "source": "../api/api",
+          "specifiers": [
+            "api"
+          ]
+        },
+        {
+          "source": "../components/MemoryTimeline",
+          "specifiers": [
+            "MemoryTimeline"
+          ]
+        },
+        {
+          "source": "../components/LegacySection",
+          "specifiers": [
+            "LegacySection"
+          ]
+        },
+        {
+          "source": "../services/familyService",
+          "specifiers": [
+            "deletePerson",
+            "updatePerson",
+            "deleteRelationship",
+            "updateRelationship"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 1148,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/pages/Register.js": {
+      "filePath": "frontend/src/pages/Register.js",
+      "contentHash": "1fc8ac1fca24c74fefbda85a316c3ddec6017967f4ac264301c822abc7e2ef94",
+      "functions": [
+        {
+          "name": "Register",
+          "params": [],
+          "exported": false,
+          "lineCount": 140
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate",
+            "Link"
+          ]
+        },
+        {
+          "source": "../api/api",
+          "specifiers": [
+            "api"
+          ]
+        },
+        {
+          "source": "../context/ToastContext",
+          "specifiers": [
+            "useToast"
+          ]
+        },
+        {
+          "source": "../assets/hero-bg.png",
+          "specifiers": [
+            "bgImage"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 149,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/pages/StoryTransition.js": {
+      "filePath": "frontend/src/pages/StoryTransition.js",
+      "contentHash": "e743e8e716a7ed90979345e060530cd2515e00f64d6e11381f73fc3ce81c6604",
+      "functions": [
+        {
+          "name": "StoryTransition",
+          "params": [],
+          "exported": false,
+          "lineCount": 39
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 45,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/reportWebVitals.js": {
+      "filePath": "frontend/src/reportWebVitals.js",
+      "contentHash": "714851669856152806c289f9aac6240b414bbac50c60ee4f7e6247f31eac0c1c",
+      "functions": [
+        {
+          "name": "reportWebVitals",
+          "params": [],
+          "exported": false,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/services/familyService.js": {
+      "filePath": "frontend/src/services/familyService.js",
+      "contentHash": "31b15c1d355b6634d586bf77a36b7b40ec0b08976321260e7bd7cf92e882eddc",
+      "functions": [
+        {
+          "name": "createFamily",
+          "params": [
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "getFamilies",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "createPerson",
+          "params": [
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "createRelationship",
+          "params": [
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "getFamilyTree",
+          "params": [
+            "familyId"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "updateFamily",
+          "params": [
+            "familyId",
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "deleteFamily",
+          "params": [
+            "familyId"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "updatePerson",
+          "params": [
+            "personId",
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "deletePerson",
+          "params": [
+            "personId"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "updateRelationship",
+          "params": [
+            "relationshipId",
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "deleteRelationship",
+          "params": [
+            "relationshipId"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../api/api",
+          "specifiers": [
+            "api"
+          ]
+        }
+      ],
+      "exports": [
+        "createFamily",
+        "getFamilies",
+        "createPerson",
+        "createRelationship",
+        "getFamilyTree",
+        "updateFamily",
+        "deleteFamily",
+        "updatePerson",
+        "deletePerson",
+        "updateRelationship",
+        "deleteRelationship"
+      ],
+      "totalLines": 79,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/setupTests.js": {
+      "filePath": "frontend/src/setupTests.js",
+      "contentHash": "22583759d0045fdf8d62c9db0aacba9fd8bddde79c671aa08c97dcfd4e930cc6",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@testing-library/jest-dom",
+          "specifiers": []
+        }
+      ],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/tests/components.test.js": {
+      "filePath": "frontend/src/tests/components.test.js",
+      "contentHash": "460a3e0d37a2666e4f87f4e463e14ef17f789e4e7c67860220bff87b0bb9f568",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React"
+          ]
+        },
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "BrowserRouter"
+          ]
+        },
+        {
+          "source": "../pages/Login",
+          "specifiers": [
+            "Login"
+          ]
+        },
+        {
+          "source": "../pages/Register",
+          "specifiers": [
+            "Register"
+          ]
+        },
+        {
+          "source": "../pages/Dashboard",
+          "specifiers": [
+            "Dashboard"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 44,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/tailwind.config.js": {
+      "filePath": "frontend/tailwind.config.js",
+      "contentHash": "21882b8ac14efd943480fc5ecf0595824edee78327eca84ff77ef5cda7af0e24",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "734ce44e790f8f9ca96aaf0a61c277e8e96f36ebc70f04fd8c31ed377e6c8ffe",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 179,
+      "hasStructuralAnalysis": true
+    },
+    "security_audit.md": {
+      "filePath": "security_audit.md",
+      "contentHash": "f82f12c5ec5bd82b8632da8353984c040182ac65656aaa7e9befeb6adae438e8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 135,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

@@ -1,0 +1,307 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/App.js",
+      "type": "file",
+      "name": "App.js",
+      "filePath": "frontend/src/App.js",
+      "summary": "Root React component that sets up the router, lazy-loaded route pages, global toast provider, and an online/offline network status listener.",
+      "tags": ["entry-point", "routing", "component", "lazy-loading"],
+      "complexity": "moderate",
+      "languageNotes": "Uses React.lazy/Suspense to code-split all page routes (Register, Login, Dashboard, FamilyTreePage, PersonProfile, StoryTransition) for smaller initial bundle size."
+    },
+    {
+      "id": "function:frontend/src/App.js:NetworkListener",
+      "type": "function",
+      "name": "NetworkListener",
+      "filePath": "frontend/src/App.js",
+      "lineRange": [16, 33],
+      "summary": "Invisible component that listens for browser online/offline events and surfaces connectivity status via toast notifications.",
+      "tags": ["event-handler", "hook", "network"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.js:PageLoader",
+      "type": "function",
+      "name": "PageLoader",
+      "filePath": "frontend/src/App.js",
+      "lineRange": [36, 40],
+      "summary": "Simple full-screen spinner shown as the Suspense fallback while lazy-loaded route pages are fetched.",
+      "tags": ["component", "loading-state"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.js:App",
+      "type": "function",
+      "name": "App",
+      "filePath": "frontend/src/App.js",
+      "lineRange": [42, 66],
+      "summary": "Top-level application component wiring ToastProvider, BrowserRouter, and all page routes with a catch-all redirect to login.",
+      "tags": ["entry-point", "routing", "component"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/App.test.js",
+      "type": "file",
+      "name": "App.test.js",
+      "filePath": "frontend/src/App.test.js",
+      "summary": "Default Create-React-App smoke test that renders the App component and checks for a 'learn react' link.",
+      "tags": ["test", "smoke-test", "react-testing-library"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/CanvasNetwork.js",
+      "type": "file",
+      "name": "CanvasNetwork.js",
+      "filePath": "frontend/src/components/CanvasNetwork.js",
+      "summary": "Decorative canvas component that animates a network of connected particles as an ambient background effect for auth and dashboard pages.",
+      "tags": ["component", "canvas", "animation", "ui"],
+      "complexity": "moderate",
+      "languageNotes": "Uses HTML5 Canvas 2D API with requestAnimationFrame for a particle network animation, cleaning up listeners and animation frames on unmount."
+    },
+    {
+      "id": "function:frontend/src/components/CanvasNetwork.js:CanvasNetwork",
+      "type": "function",
+      "name": "CanvasNetwork",
+      "filePath": "frontend/src/components/CanvasNetwork.js",
+      "lineRange": [3, 96],
+      "summary": "Renders and drives an animated particle-network canvas background, handling resize, particle initialization, and per-frame drawing.",
+      "tags": ["component", "canvas", "animation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/Footer.js",
+      "type": "file",
+      "name": "Footer.js",
+      "filePath": "frontend/src/components/Footer.js",
+      "summary": "Site-wide footer displaying the current year copyright notice, hidden on the full-screen StoryTransition route.",
+      "tags": ["component", "ui", "footer"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/Footer.js:Footer",
+      "type": "function",
+      "name": "Footer",
+      "filePath": "frontend/src/components/Footer.js",
+      "lineRange": [7, 25],
+      "summary": "Renders the app footer with copyright text, suppressing itself on routes listed in HIDDEN_ROUTES.",
+      "tags": ["component", "ui"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/context/ToastContext.js",
+      "type": "file",
+      "name": "ToastContext.js",
+      "filePath": "frontend/src/context/ToastContext.js",
+      "summary": "React context provider implementing a global toast notification system, exposing addToast/removeToast via the useToast hook.",
+      "tags": ["context", "hook", "state-management", "notifications"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/context/ToastContext.js:useToast",
+      "type": "function",
+      "name": "useToast",
+      "filePath": "frontend/src/context/ToastContext.js",
+      "lineRange": [5, 5],
+      "summary": "Custom hook that returns the ToastContext value (addToast function) for any consuming component.",
+      "tags": ["hook", "context"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:frontend/src/context/ToastContext.js:ToastProvider",
+      "type": "function",
+      "name": "ToastProvider",
+      "filePath": "frontend/src/context/ToastContext.js",
+      "lineRange": [7, 56],
+      "summary": "Context provider component that manages toast state, auto-dismisses toasts after 4 seconds, and renders the toast stack UI.",
+      "tags": ["context", "provider", "state-management", "notifications"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/index.js",
+      "type": "file",
+      "name": "index.js",
+      "filePath": "frontend/src/index.js",
+      "summary": "Application bootstrap that mounts the root App component into the DOM, suppresses a benign ResizeObserver console error, and initiates web-vitals reporting.",
+      "tags": ["entry-point", "bootstrap", "react-dom"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/pages/Dashboard.js",
+      "type": "file",
+      "name": "Dashboard.js",
+      "filePath": "frontend/src/pages/Dashboard.js",
+      "summary": "Main authenticated dashboard page listing the user's families as animated lineage cards, with create, rename, and delete family workflows.",
+      "tags": ["component", "page", "state-management", "crud"],
+      "complexity": "complex",
+      "languageNotes": "Combines two canvas-based decorative sub-components (CardLineageCanvas, particle network per card) with extensive local state for modals, loading, and family CRUD operations."
+    },
+    {
+      "id": "function:frontend/src/pages/Dashboard.js:CardLineageCanvas",
+      "type": "function",
+      "name": "CardLineageCanvas",
+      "filePath": "frontend/src/pages/Dashboard.js",
+      "lineRange": [11, 87],
+      "summary": "Per-card animated canvas rendering a small network of connected nodes as decorative background for each family lineage card.",
+      "tags": ["component", "canvas", "animation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/Dashboard.js:LineageCard",
+      "type": "function",
+      "name": "LineageCard",
+      "filePath": "frontend/src/pages/Dashboard.js",
+      "lineRange": [92, 167],
+      "summary": "Renders a single family card with hover state, formatted creation date, and select/update/delete actions.",
+      "tags": ["component", "ui", "card"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/Dashboard.js:Dashboard",
+      "type": "function",
+      "name": "Dashboard",
+      "filePath": "frontend/src/pages/Dashboard.js",
+      "lineRange": [172, 535],
+      "summary": "Top-level dashboard page component that fetches families on mount, tracks mouse position for background effects, and orchestrates create/rename/delete family modals.",
+      "tags": ["component", "page", "crud", "state-management"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/pages/Login.js",
+      "type": "file",
+      "name": "Login.js",
+      "filePath": "frontend/src/pages/Login.js",
+      "summary": "Login page with an animated canvas-network background that authenticates the user against the backend and stores the returned JWT token.",
+      "tags": ["component", "page", "authentication", "form"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/Login.js:Login",
+      "type": "function",
+      "name": "Login",
+      "filePath": "frontend/src/pages/Login.js",
+      "lineRange": [8, 215],
+      "summary": "Renders the login form, submits credentials to the auth API, stores the JWT in localStorage on success, and surfaces errors via toast.",
+      "tags": ["component", "authentication", "form"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/pages/Register.js",
+      "type": "file",
+      "name": "Register.js",
+      "filePath": "frontend/src/pages/Register.js",
+      "summary": "Registration page that collects name, email, and password, submits a signup request to the backend, and redirects to login on success.",
+      "tags": ["component", "page", "authentication", "form"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/pages/Register.js:Register",
+      "type": "function",
+      "name": "Register",
+      "filePath": "frontend/src/pages/Register.js",
+      "lineRange": [7, 146],
+      "summary": "Renders the registration form, posts new-account data to the auth API, and handles duplicate-email and validation error states via toast.",
+      "tags": ["component", "authentication", "form"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/reportWebVitals.js",
+      "type": "file",
+      "name": "reportWebVitals.js",
+      "filePath": "frontend/src/reportWebVitals.js",
+      "summary": "Create-React-App performance reporting utility that lazily loads web-vitals and forwards CLS/FID/FCP/LCP/TTFB metrics to a callback.",
+      "tags": ["utility", "performance", "monitoring"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/reportWebVitals.js:reportWebVitals",
+      "type": "function",
+      "name": "reportWebVitals",
+      "filePath": "frontend/src/reportWebVitals.js",
+      "lineRange": [1, 11],
+      "summary": "Dynamically imports the web-vitals library and, if a callback is provided, reports each core web vital metric to it.",
+      "tags": ["utility", "performance"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/tests/components.test.js",
+      "type": "file",
+      "name": "components.test.js",
+      "filePath": "frontend/src/tests/components.test.js",
+      "summary": "Integration-style tests rendering the Login, Register, and Dashboard pages inside a BrowserRouter to assert key UI text and form fields appear.",
+      "tags": ["test", "react-testing-library", "integration-test"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    { "source": "file:frontend/src/App.js", "target": "function:frontend/src/App.js:NetworkListener", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/App.js", "target": "function:frontend/src/App.js:PageLoader", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/App.js", "target": "function:frontend/src/App.js:App", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/App.js", "target": "function:frontend/src/App.js:App", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:frontend/src/App.js", "target": "file:frontend/src/App.css", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/App.js", "target": "file:frontend/src/components/Footer.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/App.js", "target": "file:frontend/src/context/ToastContext.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/App.js", "target": "file:frontend/src/pages/Register.js", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+    { "source": "file:frontend/src/App.js", "target": "file:frontend/src/pages/Login.js", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+    { "source": "file:frontend/src/App.js", "target": "file:frontend/src/pages/Dashboard.js", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+    { "source": "file:frontend/src/App.js", "target": "file:frontend/src/pages/FamilyTreePage.js", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+    { "source": "file:frontend/src/App.js", "target": "file:frontend/src/pages/PersonProfile.js", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+    { "source": "file:frontend/src/App.js", "target": "file:frontend/src/pages/StoryTransition.js", "type": "depends_on", "direction": "forward", "weight": 0.6 },
+    { "source": "function:frontend/src/App.js:NetworkListener", "target": "function:frontend/src/context/ToastContext.js:useToast", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:frontend/src/App.test.js", "target": "file:frontend/src/App.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/App.js", "target": "file:frontend/src/App.test.js", "type": "tested_by", "direction": "forward", "weight": 0.5 },
+
+    { "source": "file:frontend/src/components/CanvasNetwork.js", "target": "function:frontend/src/components/CanvasNetwork.js:CanvasNetwork", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/components/CanvasNetwork.js", "target": "function:frontend/src/components/CanvasNetwork.js:CanvasNetwork", "type": "exports", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:frontend/src/components/Footer.js", "target": "function:frontend/src/components/Footer.js:Footer", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/components/Footer.js", "target": "function:frontend/src/components/Footer.js:Footer", "type": "exports", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:frontend/src/context/ToastContext.js", "target": "function:frontend/src/context/ToastContext.js:useToast", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/context/ToastContext.js", "target": "class:frontend/src/context/ToastContext.js:ToastProvider", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/context/ToastContext.js", "target": "function:frontend/src/context/ToastContext.js:useToast", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:frontend/src/context/ToastContext.js", "target": "class:frontend/src/context/ToastContext.js:ToastProvider", "type": "exports", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:frontend/src/index.js", "target": "file:frontend/src/App.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/index.js", "target": "file:frontend/src/index.css", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/index.js", "target": "file:frontend/src/reportWebVitals.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/index.js", "target": "function:frontend/src/reportWebVitals.js:reportWebVitals", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:frontend/src/pages/Dashboard.js", "target": "function:frontend/src/pages/Dashboard.js:CardLineageCanvas", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/pages/Dashboard.js", "target": "function:frontend/src/pages/Dashboard.js:LineageCard", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/pages/Dashboard.js", "target": "function:frontend/src/pages/Dashboard.js:Dashboard", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/pages/Dashboard.js", "target": "function:frontend/src/pages/Dashboard.js:Dashboard", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:frontend/src/pages/Dashboard.js", "target": "file:frontend/src/components/CanvasNetwork.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/pages/Dashboard.js", "target": "file:frontend/src/context/ToastContext.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/pages/Dashboard.js", "target": "file:frontend/src/services/familyService.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:frontend/src/pages/Dashboard.js:Dashboard", "target": "function:frontend/src/context/ToastContext.js:useToast", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:frontend/src/pages/Dashboard.js:Dashboard", "target": "function:frontend/src/services/familyService.js:getFamilies", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:frontend/src/pages/Dashboard.js:Dashboard", "target": "function:frontend/src/services/familyService.js:createFamily", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:frontend/src/pages/Dashboard.js:Dashboard", "target": "function:frontend/src/services/familyService.js:updateFamily", "type": "calls", "direction": "forward", "weight": 0.8 },
+    { "source": "function:frontend/src/pages/Dashboard.js:Dashboard", "target": "function:frontend/src/services/familyService.js:deleteFamily", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:frontend/src/pages/Login.js", "target": "function:frontend/src/pages/Login.js:Login", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/pages/Login.js", "target": "function:frontend/src/pages/Login.js:Login", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:frontend/src/pages/Login.js", "target": "file:frontend/src/api/api.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/pages/Login.js", "target": "file:frontend/src/components/CanvasNetwork.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/pages/Login.js", "target": "file:frontend/src/context/ToastContext.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:frontend/src/pages/Login.js:Login", "target": "function:frontend/src/context/ToastContext.js:useToast", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:frontend/src/pages/Register.js", "target": "function:frontend/src/pages/Register.js:Register", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/pages/Register.js", "target": "function:frontend/src/pages/Register.js:Register", "type": "exports", "direction": "forward", "weight": 0.8 },
+    { "source": "file:frontend/src/pages/Register.js", "target": "file:frontend/src/api/api.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/pages/Register.js", "target": "file:frontend/src/context/ToastContext.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "function:frontend/src/pages/Register.js:Register", "target": "function:frontend/src/context/ToastContext.js:useToast", "type": "calls", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:frontend/src/reportWebVitals.js", "target": "function:frontend/src/reportWebVitals.js:reportWebVitals", "type": "contains", "direction": "forward", "weight": 1.0 },
+    { "source": "file:frontend/src/reportWebVitals.js", "target": "function:frontend/src/reportWebVitals.js:reportWebVitals", "type": "exports", "direction": "forward", "weight": 0.8 },
+
+    { "source": "file:frontend/src/tests/components.test.js", "target": "file:frontend/src/pages/Dashboard.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/tests/components.test.js", "target": "file:frontend/src/pages/Login.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/tests/components.test.js", "target": "file:frontend/src/pages/Register.js", "type": "imports", "direction": "forward", "weight": 0.7 },
+    { "source": "file:frontend/src/pages/Dashboard.js", "target": "file:frontend/src/tests/components.test.js", "type": "tested_by", "direction": "forward", "weight": 0.5 },
+    { "source": "file:frontend/src/pages/Login.js", "target": "file:frontend/src/tests/components.test.js", "type": "tested_by", "direction": "forward", "weight": 0.5 },
+    { "source": "file:frontend/src/pages/Register.js", "target": "file:frontend/src/tests/components.test.js", "type": "tested_by", "direction": "forward", "weight": 0.5 }
+  ]
+}

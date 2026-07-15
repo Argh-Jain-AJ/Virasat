@@ -1,0 +1,180 @@
+{
+  "nodes": [
+    {
+      "id": "file:.DS_Store",
+      "type": "file",
+      "name": ".DS_Store",
+      "filePath": ".DS_Store",
+      "summary": "macOS Finder metadata file that stores folder view settings and icon positions; not part of the application source and carries no functional logic.",
+      "tags": ["system-file", "macos", "non-source", "metadata"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "Ignore-pattern configuration for the Understand-Anything analysis tool, listing commented-out gitignore-style globs (test files, generated code, per-language exclusions) that can be uncommented to exclude paths from the knowledge graph scan.",
+      "tags": ["configuration", "ignore-patterns", "tooling", "understand-anything"],
+      "complexity": "simple",
+      "languageNotes": "Uses gitignore-style glob syntax with '!' negation support; all example rules ship commented out as opt-in suggestions."
+    },
+    {
+      "id": "file:backend/init_cloud_db.js",
+      "type": "file",
+      "name": "init_cloud_db.js",
+      "filePath": "backend/init_cloud_db.js",
+      "summary": "Standalone CLI script that connects to an external/cloud PostgreSQL database via a connection string argument and applies schema.sql to bootstrap the production database (e.g., for a Vercel deployment).",
+      "tags": ["database", "setup-script", "cli-script", "postgresql", "deployment"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/init_cloud_db.js:initializeDatabase",
+      "type": "function",
+      "name": "initializeDatabase",
+      "filePath": "backend/init_cloud_db.js",
+      "lineRange": [19, 35],
+      "summary": "Reads schema.sql from disk and executes it against the cloud Postgres connection pool, logging progress and closing the pool when done.",
+      "tags": ["database", "setup-script", "async"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/init_db.js",
+      "type": "file",
+      "name": "init_db.js",
+      "filePath": "backend/init_db.js",
+      "summary": "Local development setup script that creates the family_tree PostgreSQL database if it does not already exist, then connects to it and applies schema.sql to build the schema.",
+      "tags": ["database", "setup-script", "cli-script", "postgresql", "local-development"],
+      "complexity": "simple",
+      "languageNotes": "Uses hardcoded localhost credentials, appropriate only for local development bootstrapping rather than production use."
+    },
+    {
+      "id": "function:backend/init_db.js:setup",
+      "type": "function",
+      "name": "setup",
+      "filePath": "backend/init_db.js",
+      "lineRange": [5, 53],
+      "summary": "Connects to the default postgres database to conditionally create the family_tree database, then reconnects to family_tree and applies schema.sql.",
+      "tags": ["database", "setup-script", "async"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/tests/integration.test.js",
+      "type": "file",
+      "name": "integration.test.js",
+      "filePath": "backend/tests/integration.test.js",
+      "summary": "End-to-end integration test suite that exercises the live backend API over HTTP (register, login, create family, add person, create relationship) using supertest against a running local server.",
+      "tags": ["test", "integration-test", "api", "backend"],
+      "complexity": "moderate",
+      "languageNotes": "Tests hit a running dev server via HTTP rather than importing application modules directly, so no static project-internal imports are present."
+    },
+    {
+      "id": "file:frontend/postcss.config.js",
+      "type": "file",
+      "name": "postcss.config.js",
+      "filePath": "frontend/postcss.config.js",
+      "summary": "PostCSS build configuration enabling the tailwindcss and autoprefixer plugins for the frontend's CSS pipeline.",
+      "tags": ["configuration", "build-tool", "postcss", "css"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/App.css",
+      "type": "file",
+      "name": "App.css",
+      "filePath": "frontend/src/App.css",
+      "summary": "Legacy Create React App boilerplate stylesheet defining the .App container, header, logo spin animation, and link styling.",
+      "tags": ["styling", "css", "boilerplate", "animation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/index.css",
+      "type": "file",
+      "name": "index.css",
+      "filePath": "frontend/src/index.css",
+      "summary": "Global stylesheet that loads Tailwind's base, components, and utilities layers and sets base body/code font families for the app.",
+      "tags": ["styling", "css", "tailwind", "global-styles"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/pages/StoryTransition.js",
+      "type": "file",
+      "name": "StoryTransition.js",
+      "filePath": "frontend/src/pages/StoryTransition.js",
+      "summary": "Full-screen cinematic transition page that staggers two fading text lines over timed intervals before auto-navigating to the demo family tree view.",
+      "tags": ["component", "page", "animation", "react", "navigation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/pages/StoryTransition.js:StoryTransition",
+      "type": "function",
+      "name": "StoryTransition",
+      "filePath": "frontend/src/pages/StoryTransition.js",
+      "lineRange": [4, 42],
+      "summary": "React functional component that sequences four timed stages (text fade-ins, screen fade-out, then navigation to '/family-tree?demo=true') using chained setTimeout calls cleaned up on unmount.",
+      "tags": ["component", "react-hook", "animation", "navigation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/setupTests.js",
+      "type": "file",
+      "name": "setupTests.js",
+      "filePath": "frontend/src/setupTests.js",
+      "summary": "Jest test environment setup file that imports @testing-library/jest-dom to enable custom DOM matchers for the frontend test suite.",
+      "tags": ["test", "configuration", "jest-dom", "setup"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tailwind.config.js",
+      "type": "file",
+      "name": "tailwind.config.js",
+      "filePath": "frontend/tailwind.config.js",
+      "summary": "Tailwind CSS configuration scanning all JS/JSX/TS/TSX files under src for class usage, with an empty theme extension and no additional plugins.",
+      "tags": ["configuration", "build-tool", "tailwind", "css"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/init_cloud_db.js",
+      "target": "function:backend/init_cloud_db.js:initializeDatabase",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:backend/init_db.js",
+      "target": "function:backend/init_db.js:setup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/StoryTransition.js",
+      "target": "function:frontend/src/pages/StoryTransition.js:StoryTransition",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend/src/pages/StoryTransition.js",
+      "target": "function:frontend/src/pages/StoryTransition.js:StoryTransition",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/App.css",
+      "target": "file:frontend/src/App.js",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/index.css",
+      "target": "file:frontend/src/index.js",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

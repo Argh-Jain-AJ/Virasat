@@ -1,0 +1,4861 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 17,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "frontend/src/api/api.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 47,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/ActivityFeed.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 99,
+      "nonEmptyLines": 89,
+      "functions": [
+        {
+          "name": "timeAgo",
+          "startLine": 13,
+          "endLine": 19,
+          "params": [
+            "ts"
+          ]
+        },
+        {
+          "name": "ActivityItem",
+          "startLine": 21,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "ActivityFeed",
+          "startLine": 55,
+          "endLine": 97,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "timeAgo",
+          "callee": "Math.floor",
+          "lineNumber": 14
+        },
+        {
+          "caller": "timeAgo",
+          "callee": "Date.now",
+          "lineNumber": 14
+        },
+        {
+          "caller": "timeAgo",
+          "callee": "Math.floor",
+          "lineNumber": 16
+        },
+        {
+          "caller": "timeAgo",
+          "callee": "Math.floor",
+          "lineNumber": 17
+        },
+        {
+          "caller": "timeAgo",
+          "callee": "Math.floor",
+          "lineNumber": 18
+        },
+        {
+          "caller": "ActivityItem",
+          "callee": "useRef",
+          "lineNumber": 22
+        },
+        {
+          "caller": "ActivityItem",
+          "callee": "useEffect",
+          "lineNumber": 23
+        },
+        {
+          "caller": "ActivityItem",
+          "callee": "requestAnimationFrame",
+          "lineNumber": 29
+        },
+        {
+          "caller": "ActivityItem",
+          "callee": "timeAgo",
+          "lineNumber": 45
+        },
+        {
+          "caller": "ActivityFeed",
+          "callee": "useRef",
+          "lineNumber": 56
+        },
+        {
+          "caller": "ActivityFeed",
+          "callee": "useEffect",
+          "lineNumber": 58
+        },
+        {
+          "caller": "ActivityFeed",
+          "callee": "bottomRef.current.scrollIntoView",
+          "lineNumber": 60
+        },
+        {
+          "caller": "ActivityFeed",
+          "callee": "activities.slice().reverse().map",
+          "lineNumber": 89
+        },
+        {
+          "caller": "ActivityFeed",
+          "callee": "activities.slice().reverse",
+          "lineNumber": 89
+        },
+        {
+          "caller": "ActivityFeed",
+          "callee": "activities.slice",
+          "lineNumber": 89
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/CollaborationPanel.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 142,
+      "nonEmptyLines": 130,
+      "functions": [
+        {
+          "name": "initials",
+          "startLine": 10,
+          "endLine": 10,
+          "params": [
+            "email"
+          ]
+        },
+        {
+          "name": "CollaborationPanel",
+          "startLine": 18,
+          "endLine": 140,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "initials",
+          "callee": "email?.[0]?.toUpperCase",
+          "lineNumber": 10
+        },
+        {
+          "caller": "CollaborationPanel",
+          "callee": "useState",
+          "lineNumber": 19
+        },
+        {
+          "caller": "CollaborationPanel",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "CollaborationPanel",
+          "callee": "useState",
+          "lineNumber": 21
+        },
+        {
+          "caller": "CollaborationPanel",
+          "callee": "useState",
+          "lineNumber": 22
+        },
+        {
+          "caller": "CollaborationPanel",
+          "callee": "useState",
+          "lineNumber": 25
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "e.preventDefault",
+          "lineNumber": 30
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setStatus",
+          "lineNumber": 31
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setSending",
+          "lineNumber": 32
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setStatus",
+          "lineNumber": 33
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "api.post",
+          "lineNumber": 35
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setStatus",
+          "lineNumber": 36
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setCollaborators",
+          "lineNumber": 37
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "onActivity",
+          "lineNumber": 38
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setEmail",
+          "lineNumber": 39
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setRole",
+          "lineNumber": 40
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setStatus",
+          "lineNumber": 42
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setSending",
+          "lineNumber": 43
+        },
+        {
+          "caller": "handleRoleChange",
+          "callee": "setCollaborators",
+          "lineNumber": 47
+        },
+        {
+          "caller": "handleRoleChange",
+          "callee": "prev.map",
+          "lineNumber": 47
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "setCollaborators",
+          "lineNumber": 51
+        },
+        {
+          "caller": "handleRemove",
+          "callee": "prev.filter",
+          "lineNumber": 51
+        },
+        {
+          "caller": "CollaborationPanel",
+          "callee": "collaborators.map",
+          "lineNumber": 60
+        },
+        {
+          "caller": "CollaborationPanel",
+          "callee": "initials",
+          "lineNumber": 63
+        },
+        {
+          "caller": "CollaborationPanel",
+          "callee": "handleRoleChange",
+          "lineNumber": 79
+        },
+        {
+          "caller": "CollaborationPanel",
+          "callee": "handleRemove",
+          "lineNumber": 87
+        },
+        {
+          "caller": "CollaborationPanel",
+          "callee": "setEmail",
+          "lineNumber": 110
+        },
+        {
+          "caller": "CollaborationPanel",
+          "callee": "setRole",
+          "lineNumber": 117
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/FamilyInsightsPanel.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 224,
+      "nonEmptyLines": 194,
+      "functions": [
+        {
+          "name": "AnimatedCounter",
+          "startLine": 3,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "InsightCard",
+          "startLine": 36,
+          "endLine": 50,
+          "params": []
+        },
+        {
+          "name": "FamilyInsightsPanel",
+          "startLine": 52,
+          "endLine": 222,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AnimatedCounter",
+          "callee": "useState",
+          "lineNumber": 4
+        },
+        {
+          "caller": "AnimatedCounter",
+          "callee": "useEffect",
+          "lineNumber": 6
+        },
+        {
+          "caller": "AnimatedCounter",
+          "callee": "setCount",
+          "lineNumber": 8
+        },
+        {
+          "caller": "AnimatedCounter",
+          "callee": "setCount",
+          "lineNumber": 14
+        },
+        {
+          "caller": "AnimatedCounter",
+          "callee": "performance.now",
+          "lineNumber": 17
+        },
+        {
+          "caller": "animate",
+          "callee": "Math.min",
+          "lineNumber": 21
+        },
+        {
+          "caller": "animate",
+          "callee": "Math.pow",
+          "lineNumber": 23
+        },
+        {
+          "caller": "animate",
+          "callee": "setCount",
+          "lineNumber": 24
+        },
+        {
+          "caller": "animate",
+          "callee": "Math.floor",
+          "lineNumber": 24
+        },
+        {
+          "caller": "animate",
+          "callee": "requestAnimationFrame",
+          "lineNumber": 27
+        },
+        {
+          "caller": "AnimatedCounter",
+          "callee": "requestAnimationFrame",
+          "lineNumber": 30
+        },
+        {
+          "caller": "FamilyInsightsPanel",
+          "callee": "useState",
+          "lineNumber": 53
+        },
+        {
+          "caller": "FamilyInsightsPanel",
+          "callee": "useMemo",
+          "lineNumber": 55
+        },
+        {
+          "caller": "FamilyInsightsPanel",
+          "callee": "nodes.forEach",
+          "lineNumber": 72
+        },
+        {
+          "caller": "FamilyInsightsPanel",
+          "callee": "edges.forEach",
+          "lineNumber": 73
+        },
+        {
+          "caller": "FamilyInsightsPanel",
+          "callee": "nodes.forEach",
+          "lineNumber": 79
+        },
+        {
+          "caller": "FamilyInsightsPanel",
+          "callee": "edges.forEach",
+          "lineNumber": 80
+        },
+        {
+          "caller": "FamilyInsightsPanel",
+          "callee": "nodes.forEach",
+          "lineNumber": 86
+        },
+        {
+          "caller": "FamilyInsightsPanel",
+          "callee": "`${p.first_name || 'Unknown'} ${p.last_name || ''}`.trim",
+          "lineNumber": 102
+        },
+        {
+          "caller": "FamilyInsightsPanel",
+          "callee": "setShowAutoFix",
+          "lineNumber": 145
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/FamilyInvite.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 70,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "FamilyInvite",
+          "startLine": 4,
+          "endLine": 68,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "FamilyInvite",
+          "callee": "useState",
+          "lineNumber": 5
+        },
+        {
+          "caller": "FamilyInvite",
+          "callee": "useState",
+          "lineNumber": 6
+        },
+        {
+          "caller": "FamilyInvite",
+          "callee": "useState",
+          "lineNumber": 7
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "e.preventDefault",
+          "lineNumber": 10
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setStatus",
+          "lineNumber": 11
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setStatus",
+          "lineNumber": 14
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "api.post",
+          "lineNumber": 19
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setStatus",
+          "lineNumber": 24
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setEmail",
+          "lineNumber": 25
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setRole",
+          "lineNumber": 26
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "console.error",
+          "lineNumber": 28
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setStatus",
+          "lineNumber": 29
+        },
+        {
+          "caller": "FamilyInvite",
+          "callee": "setEmail",
+          "lineNumber": 41
+        },
+        {
+          "caller": "FamilyInvite",
+          "callee": "setRole",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/FamilyTimeline.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 53,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "FamilyTimeline",
+          "startLine": 4,
+          "endLine": 51,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "FamilyTimeline",
+          "callee": "useState",
+          "lineNumber": 5
+        },
+        {
+          "caller": "FamilyTimeline",
+          "callee": "useState",
+          "lineNumber": 6
+        },
+        {
+          "caller": "FamilyTimeline",
+          "callee": "useState",
+          "lineNumber": 7
+        },
+        {
+          "caller": "FamilyTimeline",
+          "callee": "useEffect",
+          "lineNumber": 9
+        },
+        {
+          "caller": "FamilyTimeline",
+          "callee": "fetchEvents",
+          "lineNumber": 11
+        },
+        {
+          "caller": "fetchEvents",
+          "callee": "setLoading",
+          "lineNumber": 18
+        },
+        {
+          "caller": "fetchEvents",
+          "callee": "api.get",
+          "lineNumber": 19
+        },
+        {
+          "caller": "fetchEvents",
+          "callee": "setEvents",
+          "lineNumber": 20
+        },
+        {
+          "caller": "fetchEvents",
+          "callee": "console.error",
+          "lineNumber": 22
+        },
+        {
+          "caller": "fetchEvents",
+          "callee": "setError",
+          "lineNumber": 23
+        },
+        {
+          "caller": "fetchEvents",
+          "callee": "setLoading",
+          "lineNumber": 25
+        },
+        {
+          "caller": "FamilyTimeline",
+          "callee": "events.map",
+          "lineNumber": 35
+        },
+        {
+          "caller": "FamilyTimeline",
+          "callee": "new Date(evt.date).toLocaleDateString",
+          "lineNumber": 43
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/FamilyTree.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 718,
+      "nonEmptyLines": 644,
+      "functions": [
+        {
+          "name": "buildAdjacency",
+          "startLine": 32,
+          "endLine": 61,
+          "params": [
+            "nodes",
+            "edges"
+          ]
+        },
+        {
+          "name": "assignGenerations",
+          "startLine": 66,
+          "endLine": 114,
+          "params": [
+            "nodes",
+            "childOf",
+            "sameGen",
+            "parentOf"
+          ]
+        },
+        {
+          "name": "groupByGeneration",
+          "startLine": 119,
+          "endLine": 127,
+          "params": [
+            "nodes",
+            "genMap"
+          ]
+        },
+        {
+          "name": "initialXPositions",
+          "startLine": 132,
+          "endLine": 141,
+          "params": [
+            "levels"
+          ]
+        },
+        {
+          "name": "resolveCollisions",
+          "startLine": 147,
+          "endLine": 170,
+          "params": [
+            "ids",
+            "xPos",
+            "minGap"
+          ]
+        },
+        {
+          "name": "iterativeLayout",
+          "startLine": 175,
+          "endLine": 210,
+          "params": [
+            "levels",
+            "xPos",
+            "genMap",
+            "parentOf",
+            "childOf"
+          ]
+        },
+        {
+          "name": "computeLayout",
+          "startLine": 215,
+          "endLine": 255,
+          "params": [
+            "nodes",
+            "edges"
+          ]
+        },
+        {
+          "name": "LayoutUpdater",
+          "startLine": 420,
+          "endLine": 431,
+          "params": []
+        },
+        {
+          "name": "QuickAddForm",
+          "startLine": 436,
+          "endLine": 459,
+          "params": []
+        },
+        {
+          "name": "FamilyTreeInner",
+          "startLine": 464,
+          "endLine": 710,
+          "params": []
+        },
+        {
+          "name": "FamilyTree",
+          "startLine": 712,
+          "endLine": 716,
+          "params": [
+            "props"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "buildAdjacency",
+          "callee": "nodes.map",
+          "lineNumber": 33
+        },
+        {
+          "caller": "buildAdjacency",
+          "callee": "nodes.forEach",
+          "lineNumber": 38
+        },
+        {
+          "caller": "buildAdjacency",
+          "callee": "edges.forEach",
+          "lineNumber": 44
+        },
+        {
+          "caller": "buildAdjacency",
+          "callee": "e.data?.relationship_type?.toLowerCase",
+          "lineNumber": 45
+        },
+        {
+          "caller": "buildAdjacency",
+          "callee": "ids.has",
+          "lineNumber": 47
+        },
+        {
+          "caller": "buildAdjacency",
+          "callee": "ids.has",
+          "lineNumber": 47
+        },
+        {
+          "caller": "buildAdjacency",
+          "callee": "parentOf[src].add",
+          "lineNumber": 52
+        },
+        {
+          "caller": "buildAdjacency",
+          "callee": "childOf[tgt].add",
+          "lineNumber": 53
+        },
+        {
+          "caller": "buildAdjacency",
+          "callee": "sameGen[src].add",
+          "lineNumber": 55
+        },
+        {
+          "caller": "buildAdjacency",
+          "callee": "sameGen[tgt].add",
+          "lineNumber": 56
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "nodes.forEach",
+          "lineNumber": 69
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "nodes.filter(n => childOf[n.id].size > 0).map",
+          "lineNumber": 73
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "nodes.filter",
+          "lineNumber": 73
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "nodes.map(n => n.id).filter",
+          "lineNumber": 75
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "nodes.map",
+          "lineNumber": 75
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "hasParent.has",
+          "lineNumber": 75
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "roots.map",
+          "lineNumber": 78
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "queue.shift",
+          "lineNumber": 81
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "parentOf[id].forEach",
+          "lineNumber": 92
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "queue.push",
+          "lineNumber": 92
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "sameGen[id].forEach",
+          "lineNumber": 93
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "queue.push",
+          "lineNumber": 93
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "childOf[id].forEach",
+          "lineNumber": 94
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "queue.push",
+          "lineNumber": 94
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "parentOf[id].forEach",
+          "lineNumber": 101
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "queue.push",
+          "lineNumber": 101
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "sameGen[id].forEach",
+          "lineNumber": 102
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "queue.push",
+          "lineNumber": 102
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "childOf[id].forEach",
+          "lineNumber": 103
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "queue.push",
+          "lineNumber": 103
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "nodes.forEach",
+          "lineNumber": 107
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "Math.min",
+          "lineNumber": 110
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "Object.values",
+          "lineNumber": 110
+        },
+        {
+          "caller": "assignGenerations",
+          "callee": "nodes.forEach",
+          "lineNumber": 111
+        },
+        {
+          "caller": "groupByGeneration",
+          "callee": "nodes.forEach",
+          "lineNumber": 121
+        },
+        {
+          "caller": "groupByGeneration",
+          "callee": "levels[g].push",
+          "lineNumber": 124
+        },
+        {
+          "caller": "initialXPositions",
+          "callee": "Object.entries(levels).forEach",
+          "lineNumber": 134
+        },
+        {
+          "caller": "initialXPositions",
+          "callee": "Object.entries",
+          "lineNumber": 134
+        },
+        {
+          "caller": "initialXPositions",
+          "callee": "members.forEach",
+          "lineNumber": 136
+        },
+        {
+          "caller": "resolveCollisions",
+          "callee": "[...ids].sort",
+          "lineNumber": 152
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "Math.max",
+          "lineNumber": 176
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "Object.keys(levels).map",
+          "lineNumber": 176
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "Object.keys",
+          "lineNumber": 176
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "levels[g].forEach",
+          "lineNumber": 183
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "[...childOf[id]].filter",
+          "lineNumber": 184
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "parents.map",
+          "lineNumber": 186
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "Math.min",
+          "lineNumber": 187
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "Math.max",
+          "lineNumber": 187
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "resolveCollisions",
+          "lineNumber": 192
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "levels[g].forEach",
+          "lineNumber": 198
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "[...parentOf[id]].filter",
+          "lineNumber": 199
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "children.map",
+          "lineNumber": 201
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "Math.min",
+          "lineNumber": 202
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "Math.max",
+          "lineNumber": 202
+        },
+        {
+          "caller": "iterativeLayout",
+          "callee": "resolveCollisions",
+          "lineNumber": 207
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "buildAdjacency",
+          "lineNumber": 218
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "assignGenerations",
+          "lineNumber": 219
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "groupByGeneration",
+          "lineNumber": 220
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "initialXPositions",
+          "lineNumber": 221
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "Math.max",
+          "lineNumber": 223
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "Object.keys(levels).map",
+          "lineNumber": 223
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "Object.keys",
+          "lineNumber": 223
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "levels[g].sort",
+          "lineNumber": 229
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "[...childOf[a]].map",
+          "lineNumber": 230
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "[...childOf[b]].map",
+          "lineNumber": 231
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "pA.reduce",
+          "lineNumber": 232
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "pB.reduce",
+          "lineNumber": 233
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "levels[g].forEach",
+          "lineNumber": 238
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "iterativeLayout",
+          "lineNumber": 241
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "Object.values(levels).forEach",
+          "lineNumber": 244
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "Object.values",
+          "lineNumber": 244
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "resolveCollisions",
+          "lineNumber": 244
+        },
+        {
+          "caller": "computeLayout",
+          "callee": "nodes.forEach",
+          "lineNumber": 247
+        },
+        {
+          "caller": "LayoutUpdater",
+          "callee": "useReactFlow",
+          "lineNumber": 421
+        },
+        {
+          "caller": "LayoutUpdater",
+          "callee": "useRef",
+          "lineNumber": 422
+        },
+        {
+          "caller": "LayoutUpdater",
+          "callee": "useEffect",
+          "lineNumber": 423
+        },
+        {
+          "caller": "LayoutUpdater",
+          "callee": "setTimeout",
+          "lineNumber": 426
+        },
+        {
+          "caller": "LayoutUpdater",
+          "callee": "fitView",
+          "lineNumber": 426
+        },
+        {
+          "caller": "LayoutUpdater",
+          "callee": "clearTimeout",
+          "lineNumber": 427
+        },
+        {
+          "caller": "QuickAddForm",
+          "callee": "useState",
+          "lineNumber": 437
+        },
+        {
+          "caller": "QuickAddForm",
+          "callee": "setName",
+          "lineNumber": 447
+        },
+        {
+          "caller": "QuickAddForm",
+          "callee": "name.trim",
+          "lineNumber": 448
+        },
+        {
+          "caller": "QuickAddForm",
+          "callee": "onConfirm",
+          "lineNumber": 448
+        },
+        {
+          "caller": "QuickAddForm",
+          "callee": "name.trim",
+          "lineNumber": 448
+        },
+        {
+          "caller": "QuickAddForm",
+          "callee": "name.trim",
+          "lineNumber": 451
+        },
+        {
+          "caller": "QuickAddForm",
+          "callee": "onConfirm",
+          "lineNumber": 451
+        },
+        {
+          "caller": "QuickAddForm",
+          "callee": "name.trim",
+          "lineNumber": 451
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useReactFlow",
+          "lineNumber": 465
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useNodesState",
+          "lineNumber": 466
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useEdgesState",
+          "lineNumber": 467
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useState",
+          "lineNumber": 470
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useState",
+          "lineNumber": 471
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useState",
+          "lineNumber": 472
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useState",
+          "lineNumber": 473
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useState",
+          "lineNumber": 474
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useState",
+          "lineNumber": 475
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useRef",
+          "lineNumber": 476
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useRef",
+          "lineNumber": 477
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useCallback",
+          "lineNumber": 480
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "incomingEdges.forEach",
+          "lineNumber": 482
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "s.add",
+          "lineNumber": 483
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "s.add",
+          "lineNumber": 483
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useCallback",
+          "lineNumber": 488
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "incomingEdges.forEach",
+          "lineNumber": 490
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "s.add",
+          "lineNumber": 493
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "s.add",
+          "lineNumber": 493
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useMemo",
+          "lineNumber": 501
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "computeLayout",
+          "lineNumber": 505
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useEffect",
+          "lineNumber": 512
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setRfNodes",
+          "lineNumber": 514
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setRfEdges",
+          "lineNumber": 514
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "getConnected",
+          "lineNumber": 519
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "getPathIds",
+          "lineNumber": 520
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "getConnected",
+          "lineNumber": 521
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "incomingNodes.map",
+          "lineNumber": 523
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "pathIds?.has",
+          "lineNumber": 526
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "focusConn.has",
+          "lineNumber": 527
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "hoverConn.has",
+          "lineNumber": 528
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setSelectedPerson",
+          "lineNumber": 541
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setQuickAdd",
+          "lineNumber": 542
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "incomingEdges.map",
+          "lineNumber": 547
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "edge.data?.relationship_type?.toLowerCase",
+          "lineNumber": 548
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "pathIds?.has",
+          "lineNumber": 550
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "pathIds?.has",
+          "lineNumber": 550
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "focusConn.has",
+          "lineNumber": 551
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "focusConn.has",
+          "lineNumber": 551
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "hoverConn.has",
+          "lineNumber": 552
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "hoverConn.has",
+          "lineNumber": 552
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setRfNodes",
+          "lineNumber": 573
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setRfEdges",
+          "lineNumber": 574
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useCallback",
+          "lineNumber": 580
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setSearchHL",
+          "lineNumber": 581
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "incomingNodes.find",
+          "lineNumber": 583
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setCenter",
+          "lineNumber": 587
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useCallback",
+          "lineNumber": 591
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "getNodesBounds",
+          "lineNumber": 592
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "getNodes",
+          "lineNumber": 592
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "getViewportForBounds",
+          "lineNumber": 595
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "document.querySelector",
+          "lineNumber": 597
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "toPng(viewportEl, {\n      backgroundColor: '#050505',\n      width: imageWidth,\n      height: imageHeight,\n      style: {\n        width: imageWidth,\n        height: imageHeight,\n        transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,\n      },\n      filter: (node) => {\n        // Exclude UI controls from the image\n        if (node?.classList?.contains('react-flow__panel') || node?.classList?.contains('react-flow__controls')) return false;\n        return true;\n      }\n    })\n      .then(url => {\n        const a = document.createElement('a');\n        a.download = 'KINSphere-Lineage.png';\n        a.href = url;\n        a.click();\n      })\n      .catch",
+          "lineNumber": 601
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "toPng(viewportEl, {\n      backgroundColor: '#050505',\n      width: imageWidth,\n      height: imageHeight,\n      style: {\n        width: imageWidth,\n        height: imageHeight,\n        transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,\n      },\n      filter: (node) => {\n        // Exclude UI controls from the image\n        if (node?.classList?.contains('react-flow__panel') || node?.classList?.contains('react-flow__controls')) return false;\n        return true;\n      }\n    })\n      .then",
+          "lineNumber": 601
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "toPng",
+          "lineNumber": 601
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "node?.classList?.contains",
+          "lineNumber": 612
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "node?.classList?.contains",
+          "lineNumber": 612
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "document.createElement",
+          "lineNumber": 617
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "a.click",
+          "lineNumber": 620
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useCallback",
+          "lineNumber": 625
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setQuickAdd",
+          "lineNumber": 628
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "onAddPerson",
+          "lineNumber": 630
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "onAddRelationship",
+          "lineNumber": 631
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "console.error",
+          "lineNumber": 632
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useMemo",
+          "lineNumber": 635
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "useMemo",
+          "lineNumber": 636
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "zoomIn",
+          "lineNumber": 642
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "zoomOut",
+          "lineNumber": 643
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "fitView",
+          "lineNumber": 644
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setFocusMode",
+          "lineNumber": 647
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setShowPhotos",
+          "lineNumber": 649
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "onNodeClick",
+          "lineNumber": 655
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setSelectedPerson",
+          "lineNumber": 656
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setQuickAdd",
+          "lineNumber": 657
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setHoveredId",
+          "lineNumber": 674
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setHoveredId",
+          "lineNumber": 675
+        },
+        {
+          "caller": "FamilyTreeInner",
+          "callee": "setQuickAdd",
+          "lineNumber": 705
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 11,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/GedcomImport.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 159,
+      "nonEmptyLines": 143,
+      "functions": [
+        {
+          "name": "GedcomImport",
+          "startLine": 4,
+          "endLine": 157,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GedcomImport",
+          "callee": "useState",
+          "lineNumber": 5
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "useState",
+          "lineNumber": 6
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "useState",
+          "lineNumber": 7
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "useState",
+          "lineNumber": 8
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "useState",
+          "lineNumber": 9
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "useState",
+          "lineNumber": 10
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "useRef",
+          "lineNumber": 11
+        },
+        {
+          "caller": "processFile",
+          "callee": "f.name.endsWith",
+          "lineNumber": 15
+        },
+        {
+          "caller": "processFile",
+          "callee": "setError",
+          "lineNumber": 16
+        },
+        {
+          "caller": "processFile",
+          "callee": "setFile",
+          "lineNumber": 19
+        },
+        {
+          "caller": "processFile",
+          "callee": "setMessage",
+          "lineNumber": 20
+        },
+        {
+          "caller": "processFile",
+          "callee": "setError",
+          "lineNumber": 21
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "useCallback",
+          "lineNumber": 24
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "e.preventDefault",
+          "lineNumber": 25
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "setDragging",
+          "lineNumber": 26
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "processFile",
+          "lineNumber": 28
+        },
+        {
+          "caller": "handleDragOver",
+          "callee": "e.preventDefault",
+          "lineNumber": 31
+        },
+        {
+          "caller": "handleDragOver",
+          "callee": "setDragging",
+          "lineNumber": 31
+        },
+        {
+          "caller": "handleDragLeave",
+          "callee": "setDragging",
+          "lineNumber": 32
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "e.preventDefault",
+          "lineNumber": 35
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setError",
+          "lineNumber": 36
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setError",
+          "lineNumber": 37
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "formData.append",
+          "lineNumber": 40
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "formData.append",
+          "lineNumber": 41
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setUploading",
+          "lineNumber": 44
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setError",
+          "lineNumber": 45
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setMessage",
+          "lineNumber": 46
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setProgress",
+          "lineNumber": 47
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "api.post",
+          "lineNumber": 49
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setProgress",
+          "lineNumber": 52
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "Math.round",
+          "lineNumber": 52
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setProgress",
+          "lineNumber": 56
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setMessage",
+          "lineNumber": 57
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setFile",
+          "lineNumber": 58
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "onImportSuccess",
+          "lineNumber": 60
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setError",
+          "lineNumber": 62
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setProgress",
+          "lineNumber": 63
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setUploading",
+          "lineNumber": 65
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "inputRef.current?.click",
+          "lineNumber": 82
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "processFile",
+          "lineNumber": 98
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "(file.size / 1024).toFixed",
+          "lineNumber": 105
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "e.stopPropagation",
+          "lineNumber": 108
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "setFile",
+          "lineNumber": 108
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "setProgress",
+          "lineNumber": 108
+        },
+        {
+          "caller": "GedcomImport",
+          "callee": "setMessage",
+          "lineNumber": 108
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/LegacySection.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 153,
+      "nonEmptyLines": 135,
+      "functions": [
+        {
+          "name": "LegacyCard",
+          "startLine": 13,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "LegacySection",
+          "startLine": 43,
+          "endLine": 151,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LegacyCard",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "LegacyCard",
+          "callee": "new Date(message.created_at).toLocaleDateString",
+          "lineNumber": 23
+        },
+        {
+          "caller": "LegacyCard",
+          "callee": "setExpanded",
+          "lineNumber": 33
+        },
+        {
+          "caller": "LegacySection",
+          "callee": "useState",
+          "lineNumber": 44
+        },
+        {
+          "caller": "LegacySection",
+          "callee": "useState",
+          "lineNumber": 45
+        },
+        {
+          "caller": "LegacySection",
+          "callee": "useState",
+          "lineNumber": 46
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "e.preventDefault",
+          "lineNumber": 49
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.title.trim",
+          "lineNumber": 50
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "form.message.trim",
+          "lineNumber": 50
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setLoading",
+          "lineNumber": 52
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "api.post",
+          "lineNumber": 54
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "onMessageAdded",
+          "lineNumber": 55
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setForm",
+          "lineNumber": 56
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setIsComposing",
+          "lineNumber": 57
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "console.error",
+          "lineNumber": 59
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setLoading",
+          "lineNumber": 61
+        },
+        {
+          "caller": "LegacySection",
+          "callee": "setIsComposing",
+          "lineNumber": 80
+        },
+        {
+          "caller": "LegacySection",
+          "callee": "setIsComposing",
+          "lineNumber": 90
+        },
+        {
+          "caller": "LegacySection",
+          "callee": "EMOTIONS.map",
+          "lineNumber": 97
+        },
+        {
+          "caller": "LegacySection",
+          "callee": "setForm",
+          "lineNumber": 100
+        },
+        {
+          "caller": "LegacySection",
+          "callee": "setForm",
+          "lineNumber": 114
+        },
+        {
+          "caller": "LegacySection",
+          "callee": "setForm",
+          "lineNumber": 123
+        },
+        {
+          "caller": "LegacySection",
+          "callee": "messages.map",
+          "lineNumber": 146
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/MemoryTimeline.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 121,
+      "nonEmptyLines": 113,
+      "functions": [
+        {
+          "name": "TimelineCard",
+          "startLine": 11,
+          "endLine": 56,
+          "params": []
+        },
+        {
+          "name": "SmartEmptyState",
+          "startLine": 59,
+          "endLine": 96,
+          "params": []
+        },
+        {
+          "name": "MemoryTimeline",
+          "startLine": 98,
+          "endLine": 119,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "TimelineCard",
+          "callee": "useRef",
+          "lineNumber": 12
+        },
+        {
+          "caller": "TimelineCard",
+          "callee": "useEffect",
+          "lineNumber": 13
+        },
+        {
+          "caller": "TimelineCard",
+          "callee": "obs.observe",
+          "lineNumber": 20
+        },
+        {
+          "caller": "TimelineCard",
+          "callee": "obs.disconnect",
+          "lineNumber": 21
+        },
+        {
+          "caller": "TimelineCard",
+          "callee": "new Date(mem.event_date).toLocaleDateString",
+          "lineNumber": 39
+        },
+        {
+          "caller": "TimelineCard",
+          "callee": "Array.isArray",
+          "lineNumber": 43
+        },
+        {
+          "caller": "TimelineCard",
+          "callee": "mem.tags.map",
+          "lineNumber": 45
+        },
+        {
+          "caller": "SmartEmptyState",
+          "callee": "placeholders.map",
+          "lineNumber": 73
+        },
+        {
+          "caller": "MemoryTimeline",
+          "callee": "[...memories].sort",
+          "lineNumber": 108
+        },
+        {
+          "caller": "MemoryTimeline",
+          "callee": "sorted.map",
+          "lineNumber": 116
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/PersonNode.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 161,
+      "nonEmptyLines": 142,
+      "functions": [
+        {
+          "name": "genderAvatar",
+          "startLine": 14,
+          "endLine": 17,
+          "params": [
+            "gender"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "genderAvatar",
+          "callee": "gender?.toLowerCase",
+          "lineNumber": 15
+        },
+        {
+          "caller": "genderAvatar",
+          "callee": "gender?.toLowerCase",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/SearchBar.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 149,
+      "nonEmptyLines": 139,
+      "functions": [
+        {
+          "name": "GlobalSearchBar",
+          "startLine": 12,
+          "endLine": 147,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "useNavigate",
+          "lineNumber": 13
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "useRef",
+          "lineNumber": 18
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "useRef",
+          "lineNumber": 19
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "useEffect",
+          "lineNumber": 22
+        },
+        {
+          "caller": "handler",
+          "callee": "wrapperRef.current.contains",
+          "lineNumber": 24
+        },
+        {
+          "caller": "handler",
+          "callee": "setOpen",
+          "lineNumber": 25
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "document.addEventListener",
+          "lineNumber": 28
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "document.removeEventListener",
+          "lineNumber": 29
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "useCallback",
+          "lineNumber": 32
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "q.trim",
+          "lineNumber": 33
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "setResults",
+          "lineNumber": 34
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "setOpen",
+          "lineNumber": 35
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "setLoading",
+          "lineNumber": 38
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "api.get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "encodeURIComponent",
+          "lineNumber": 40
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "q.trim",
+          "lineNumber": 40
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "setResults",
+          "lineNumber": 41
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "setOpen",
+          "lineNumber": 42
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "setResults",
+          "lineNumber": 44
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "setLoading",
+          "lineNumber": 46
+        },
+        {
+          "caller": "handleChange",
+          "callee": "setQuery",
+          "lineNumber": 52
+        },
+        {
+          "caller": "handleChange",
+          "callee": "clearTimeout",
+          "lineNumber": 53
+        },
+        {
+          "caller": "handleChange",
+          "callee": "setTimeout",
+          "lineNumber": 54
+        },
+        {
+          "caller": "handleChange",
+          "callee": "doSearch",
+          "lineNumber": 54
+        },
+        {
+          "caller": "handleSelect",
+          "callee": "setQuery",
+          "lineNumber": 58
+        },
+        {
+          "caller": "handleSelect",
+          "callee": "setResults",
+          "lineNumber": 59
+        },
+        {
+          "caller": "handleSelect",
+          "callee": "setOpen",
+          "lineNumber": 60
+        },
+        {
+          "caller": "handleSelect",
+          "callee": "navigate",
+          "lineNumber": 61
+        },
+        {
+          "caller": "handleKeyDown",
+          "callee": "setOpen",
+          "lineNumber": 65
+        },
+        {
+          "caller": "handleKeyDown",
+          "callee": "setQuery",
+          "lineNumber": 65
+        },
+        {
+          "caller": "handleKeyDown",
+          "callee": "handleSelect",
+          "lineNumber": 66
+        },
+        {
+          "caller": "initial",
+          "callee": "`${p.first_name?.[0] || ''}${p.last_name?.[0] || ''}`.toUpperCase",
+          "lineNumber": 69
+        },
+        {
+          "caller": "fullName",
+          "callee": "`${p.first_name || ''} ${p.last_name || ''}`.trim",
+          "lineNumber": 70
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "setOpen",
+          "lineNumber": 87
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "setQuery",
+          "lineNumber": 95
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "setResults",
+          "lineNumber": 95
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "setOpen",
+          "lineNumber": 95
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "results.map",
+          "lineNumber": 116
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "handleSelect",
+          "lineNumber": 119
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "initial",
+          "lineNumber": 125
+        },
+        {
+          "caller": "GlobalSearchBar",
+          "callee": "fullName",
+          "lineNumber": 129
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/SmartSuggestions.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 144,
+      "nonEmptyLines": 130,
+      "functions": [
+        {
+          "name": "SmartSuggestions",
+          "startLine": 11,
+          "endLine": 142,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SmartSuggestions",
+          "callee": "useState",
+          "lineNumber": 12
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "nodes.filter(n => n.data?.person).map",
+          "lineNumber": 14
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "nodes.filter",
+          "lineNumber": 14
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "useMemo",
+          "lineNumber": 16
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "list.push",
+          "lineNumber": 20
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "edges.forEach",
+          "lineNumber": 28
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "hasChild.add",
+          "lineNumber": 30
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "hasParent.add",
+          "lineNumber": 30
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "hasParent.add",
+          "lineNumber": 31
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "hasChild.add",
+          "lineNumber": 31
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "hasSpouse.add",
+          "lineNumber": 32
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "hasSpouse.add",
+          "lineNumber": 32
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "persons.filter",
+          "lineNumber": 36
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "list.push",
+          "lineNumber": 38
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "persons.forEach",
+          "lineNumber": 47
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "hasChild.has",
+          "lineNumber": 48
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "edges.filter",
+          "lineNumber": 49
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "list.push",
+          "lineNumber": 54
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "persons.filter",
+          "lineNumber": 65
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "edges.some",
+          "lineNumber": 66
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "list.push",
+          "lineNumber": 69
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "list.push",
+          "lineNumber": 79
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "persons.filter",
+          "lineNumber": 88
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "list.push",
+          "lineNumber": 90
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "list.slice",
+          "lineNumber": 98
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "suggestions.filter",
+          "lineNumber": 101
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "dismissed.includes",
+          "lineNumber": 101
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "visible.map",
+          "lineNumber": 112
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "onAction",
+          "lineNumber": 123
+        },
+        {
+          "caller": "SmartSuggestions",
+          "callee": "setDismissed",
+          "lineNumber": 131
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/UpcomingReminders.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "UpcomingReminders",
+          "startLine": 4,
+          "endLine": 71,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "UpcomingReminders",
+          "callee": "useState",
+          "lineNumber": 5
+        },
+        {
+          "caller": "UpcomingReminders",
+          "callee": "useState",
+          "lineNumber": 6
+        },
+        {
+          "caller": "UpcomingReminders",
+          "callee": "useState",
+          "lineNumber": 7
+        },
+        {
+          "caller": "UpcomingReminders",
+          "callee": "useEffect",
+          "lineNumber": 9
+        },
+        {
+          "caller": "fetchReminders",
+          "callee": "setLoading",
+          "lineNumber": 13
+        },
+        {
+          "caller": "fetchReminders",
+          "callee": "api.get",
+          "lineNumber": 15
+        },
+        {
+          "caller": "fetchReminders",
+          "callee": "setReminders",
+          "lineNumber": 16
+        },
+        {
+          "caller": "fetchReminders",
+          "callee": "console.error",
+          "lineNumber": 18
+        },
+        {
+          "caller": "fetchReminders",
+          "callee": "setError",
+          "lineNumber": 19
+        },
+        {
+          "caller": "fetchReminders",
+          "callee": "setLoading",
+          "lineNumber": 21
+        },
+        {
+          "caller": "UpcomingReminders",
+          "callee": "fetchReminders",
+          "lineNumber": 25
+        },
+        {
+          "caller": "UpcomingReminders",
+          "callee": "reminders.map",
+          "lineNumber": 34
+        },
+        {
+          "caller": "UpcomingReminders",
+          "callee": "event.event_type.includes",
+          "lineNumber": 39
+        },
+        {
+          "caller": "UpcomingReminders",
+          "callee": "event.event_type.includes",
+          "lineNumber": 43
+        },
+        {
+          "caller": "UpcomingReminders",
+          "callee": "event.event_type.includes",
+          "lineNumber": 43
+        },
+        {
+          "caller": "UpcomingReminders",
+          "callee": "new Date(event.next_occurrence).toLocaleDateString",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/pages/FamilyTreePage.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 502,
+      "nonEmptyLines": 448,
+      "functions": [
+        {
+          "name": "Card",
+          "startLine": 21,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "CardHeader",
+          "startLine": 28,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "WorkspaceSummary",
+          "startLine": 41,
+          "endLine": 103,
+          "params": []
+        },
+        {
+          "name": "SmartMemberForm",
+          "startLine": 109,
+          "endLine": 178,
+          "params": []
+        },
+        {
+          "name": "RelationshipBuilder",
+          "startLine": 190,
+          "endLine": 257,
+          "params": []
+        },
+        {
+          "name": "FamilyTreePage",
+          "startLine": 290,
+          "endLine": 500,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "WorkspaceSummary",
+          "callee": "nodes.filter",
+          "lineNumber": 42
+        },
+        {
+          "caller": "WorkspaceSummary",
+          "callee": "useMemo",
+          "lineNumber": 45
+        },
+        {
+          "caller": "WorkspaceSummary",
+          "callee": "nodes.forEach",
+          "lineNumber": 50
+        },
+        {
+          "caller": "WorkspaceSummary",
+          "callee": "edges.forEach",
+          "lineNumber": 52
+        },
+        {
+          "caller": "WorkspaceSummary",
+          "callee": "e.data?.relationship_type?.toLowerCase",
+          "lineNumber": 53
+        },
+        {
+          "caller": "WorkspaceSummary",
+          "callee": "parentsOf[e.target].push",
+          "lineNumber": 55
+        },
+        {
+          "caller": "getDepth",
+          "callee": "visited.has",
+          "lineNumber": 62
+        },
+        {
+          "caller": "getDepth",
+          "callee": "visited.add",
+          "lineNumber": 63
+        },
+        {
+          "caller": "getDepth",
+          "callee": "Math.max",
+          "lineNumber": 71
+        },
+        {
+          "caller": "getDepth",
+          "callee": "parents.map",
+          "lineNumber": 71
+        },
+        {
+          "caller": "getDepth",
+          "callee": "getDepth",
+          "lineNumber": 71
+        },
+        {
+          "caller": "WorkspaceSummary",
+          "callee": "nodes.forEach",
+          "lineNumber": 77
+        },
+        {
+          "caller": "WorkspaceSummary",
+          "callee": "getDepth",
+          "lineNumber": 78
+        },
+        {
+          "caller": "WorkspaceSummary",
+          "callee": "stats.map",
+          "lineNumber": 93
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "useState",
+          "lineNumber": 110
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "useState",
+          "lineNumber": 111
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "useMemo",
+          "lineNumber": 113
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "existingNodes.find",
+          "lineNumber": 115
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "`${p.first_name}`.toLowerCase().includes",
+          "lineNumber": 118
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "`${p.first_name}`.toLowerCase",
+          "lineNumber": 118
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "form.first_name.toLowerCase",
+          "lineNumber": 118
+        },
+        {
+          "caller": "initial",
+          "callee": "`${f?.[0] || ''}${l?.[0] || ''}`.toUpperCase",
+          "lineNumber": 122
+        },
+        {
+          "caller": "genderIcon",
+          "callee": "g?.toLowerCase",
+          "lineNumber": 123
+        },
+        {
+          "caller": "genderIcon",
+          "callee": "g?.toLowerCase",
+          "lineNumber": 123
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "e.preventDefault",
+          "lineNumber": 126
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setSubmitting",
+          "lineNumber": 127
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "onSubmit",
+          "lineNumber": 128
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setForm",
+          "lineNumber": 129
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setSubmitting",
+          "lineNumber": 130
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "setForm",
+          "lineNumber": 139
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "setForm",
+          "lineNumber": 140
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "setForm",
+          "lineNumber": 143
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "setForm",
+          "lineNumber": 149
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "initial",
+          "lineNumber": 166
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "genderIcon",
+          "lineNumber": 166
+        },
+        {
+          "caller": "SmartMemberForm",
+          "callee": "genderIcon",
+          "lineNumber": 170
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "useState",
+          "lineNumber": 191
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "useState",
+          "lineNumber": 192
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "nodes.filter(n => n.data?.person).map",
+          "lineNumber": 194
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "nodes.filter",
+          "lineNumber": 194
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "persons.find",
+          "lineNumber": 195
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "persons.find",
+          "lineNumber": 196
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "e.preventDefault",
+          "lineNumber": 201
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setSubmitting",
+          "lineNumber": 202
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "onSubmit",
+          "lineNumber": 203
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setRel",
+          "lineNumber": 204
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setSubmitting",
+          "lineNumber": 205
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "`${p1.first_name} ${p1.last_name || ''}`.trim",
+          "lineNumber": 215
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "`${p2.first_name} ${p2.last_name || ''}`.trim",
+          "lineNumber": 225
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "setRel",
+          "lineNumber": 229
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "persons.map",
+          "lineNumber": 231
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "setRel",
+          "lineNumber": 233
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "Object.entries(REL_LABELS).map",
+          "lineNumber": 235
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "Object.entries",
+          "lineNumber": 235
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "setRel",
+          "lineNumber": 237
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "persons.filter(p => p.id !== rel.person1_id).map",
+          "lineNumber": 239
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "persons.filter",
+          "lineNumber": 239
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "Object.entries(REL_LABELS).map",
+          "lineNumber": 243
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "Object.entries",
+          "lineNumber": 243
+        },
+        {
+          "caller": "RelationshipBuilder",
+          "callee": "setRel",
+          "lineNumber": 244
+        },
+        {
+          "caller": "mm",
+          "callee": "window.requestAnimationFrame",
+          "lineNumber": 270
+        },
+        {
+          "caller": "mm",
+          "callee": "setMousePos",
+          "lineNumber": 271
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "useNavigate",
+          "lineNumber": 291
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "useState",
+          "lineNumber": 292
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "useState",
+          "lineNumber": 293
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "useState",
+          "lineNumber": 294
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "useState",
+          "lineNumber": 297
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "Date.now",
+          "lineNumber": 298
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "Date.now",
+          "lineNumber": 299
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "Date.now",
+          "lineNumber": 300
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "Date.now",
+          "lineNumber": 301
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "useRef",
+          "lineNumber": 303
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "useCallback",
+          "lineNumber": 305
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "setActivities",
+          "lineNumber": 307
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "Date.now",
+          "lineNumber": 307
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "useEffect",
+          "lineNumber": 310
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "new URLSearchParams(window.location.search).get",
+          "lineNumber": 311
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "localStorage.getItem",
+          "lineNumber": 312
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "navigate",
+          "lineNumber": 313
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "setSelectedFamily",
+          "lineNumber": 314
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "setTreeData",
+          "lineNumber": 317
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "fetchTree",
+          "lineNumber": 332
+        },
+        {
+          "caller": "fetchTree",
+          "callee": "getFamilyTree",
+          "lineNumber": 338
+        },
+        {
+          "caller": "fetchTree",
+          "callee": "setTreeData",
+          "lineNumber": 339
+        },
+        {
+          "caller": "fetchTree",
+          "callee": "setError",
+          "lineNumber": 340
+        },
+        {
+          "caller": "handleCreatePerson",
+          "callee": "createPerson",
+          "lineNumber": 346
+        },
+        {
+          "caller": "handleCreatePerson",
+          "callee": "pushActivity",
+          "lineNumber": 347
+        },
+        {
+          "caller": "handleCreatePerson",
+          "callee": "`Added ${formData.first_name} ${formData.last_name || ''}`.trim",
+          "lineNumber": 347
+        },
+        {
+          "caller": "handleCreatePerson",
+          "callee": "fetchTree",
+          "lineNumber": 348
+        },
+        {
+          "caller": "handleCreatePerson",
+          "callee": "setError",
+          "lineNumber": 349
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "useCallback",
+          "lineNumber": 353
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "createPerson",
+          "lineNumber": 356
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "pushActivity",
+          "lineNumber": 357
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "setError",
+          "lineNumber": 359
+        },
+        {
+          "caller": "handleCreateRelationship",
+          "callee": "createRelationship",
+          "lineNumber": 365
+        },
+        {
+          "caller": "handleCreateRelationship",
+          "callee": "treeData.nodes.find",
+          "lineNumber": 366
+        },
+        {
+          "caller": "handleCreateRelationship",
+          "callee": "treeData.nodes.find",
+          "lineNumber": 367
+        },
+        {
+          "caller": "handleCreateRelationship",
+          "callee": "pushActivity",
+          "lineNumber": 368
+        },
+        {
+          "caller": "handleCreateRelationship",
+          "callee": "fetchTree",
+          "lineNumber": 369
+        },
+        {
+          "caller": "handleCreateRelationship",
+          "callee": "setError",
+          "lineNumber": 370
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "useCallback",
+          "lineNumber": 373
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "navigate",
+          "lineNumber": 374
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "new URLSearchParams(window.location.search).get",
+          "lineNumber": 391
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "selectedFamily.substring",
+          "lineNumber": 396
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "navigate",
+          "lineNumber": 400
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "pushActivity",
+          "lineNumber": 425
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "setTreeData",
+          "lineNumber": 431
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "pushActivity",
+          "lineNumber": 432
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "treeData.nodes.filter",
+          "lineNumber": 462
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "handleAddPersonFromGraph",
+          "lineNumber": 470
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "fetchTree",
+          "lineNumber": 471
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "handleCreateRelationship",
+          "lineNumber": 475
+        },
+        {
+          "caller": "FamilyTreePage",
+          "callee": "setActivities",
+          "lineNumber": 486
+        }
+      ],
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 0,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/pages/PersonProfile.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 1147,
+      "nonEmptyLines": 1051,
+      "functions": [
+        {
+          "name": "calcAge",
+          "startLine": 17,
+          "endLine": 22,
+          "params": [
+            "birthDate",
+            "deathDate"
+          ]
+        },
+        {
+          "name": "Avatar",
+          "startLine": 27,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "UploadableAvatar",
+          "startLine": 52,
+          "endLine": 124,
+          "params": []
+        },
+        {
+          "name": "Chip",
+          "startLine": 130,
+          "endLine": 140,
+          "params": []
+        },
+        {
+          "name": "BreadcrumbNav",
+          "startLine": 145,
+          "endLine": 166,
+          "params": []
+        },
+        {
+          "name": "InlineEditField",
+          "startLine": 171,
+          "endLine": 218,
+          "params": []
+        },
+        {
+          "name": "useCountUp",
+          "startLine": 223,
+          "endLine": 237,
+          "params": [
+            "target"
+          ]
+        },
+        {
+          "name": "StatCard",
+          "startLine": 242,
+          "endLine": 258,
+          "params": []
+        },
+        {
+          "name": "InsightsPanel",
+          "startLine": 260,
+          "endLine": 273,
+          "params": []
+        },
+        {
+          "name": "ProfileStrengthBar",
+          "startLine": 278,
+          "endLine": 306,
+          "params": []
+        },
+        {
+          "name": "StoryModeModal",
+          "startLine": 311,
+          "endLine": 364,
+          "params": []
+        },
+        {
+          "name": "MiniTreePreview",
+          "startLine": 369,
+          "endLine": 493,
+          "params": []
+        },
+        {
+          "name": "PrivacyControls",
+          "startLine": 498,
+          "endLine": 545,
+          "params": []
+        },
+        {
+          "name": "resolveRole",
+          "startLine": 550,
+          "endLine": 556,
+          "params": [
+            "type",
+            "isPerson1"
+          ]
+        },
+        {
+          "name": "FamilyMemberCard",
+          "startLine": 565,
+          "endLine": 584,
+          "params": []
+        },
+        {
+          "name": "FamilySection",
+          "startLine": 586,
+          "endLine": 619,
+          "params": []
+        },
+        {
+          "name": "MemoryForm",
+          "startLine": 627,
+          "endLine": 666,
+          "params": []
+        },
+        {
+          "name": "BiographySection",
+          "startLine": 671,
+          "endLine": 738,
+          "params": []
+        },
+        {
+          "name": "PersonProfile",
+          "startLine": 746,
+          "endLine": 1145,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "calcAge",
+          "callee": "Math.floor",
+          "lineNumber": 21
+        },
+        {
+          "caller": "Avatar",
+          "callee": "name?.[0]?.toUpperCase",
+          "lineNumber": 45
+        },
+        {
+          "caller": "UploadableAvatar",
+          "callee": "useState",
+          "lineNumber": 53
+        },
+        {
+          "caller": "UploadableAvatar",
+          "callee": "useState",
+          "lineNumber": 54
+        },
+        {
+          "caller": "UploadableAvatar",
+          "callee": "useRef",
+          "lineNumber": 55
+        },
+        {
+          "caller": "handleFile",
+          "callee": "URL.createObjectURL",
+          "lineNumber": 61
+        },
+        {
+          "caller": "handleFile",
+          "callee": "setPreview",
+          "lineNumber": 62
+        },
+        {
+          "caller": "handleFile",
+          "callee": "setUploading",
+          "lineNumber": 63
+        },
+        {
+          "caller": "handleFile",
+          "callee": "localStorage.getItem",
+          "lineNumber": 65
+        },
+        {
+          "caller": "handleFile",
+          "callee": "fd.append",
+          "lineNumber": 67
+        },
+        {
+          "caller": "handleFile",
+          "callee": "fetch",
+          "lineNumber": 69
+        },
+        {
+          "caller": "handleFile",
+          "callee": "res.json",
+          "lineNumber": 74
+        },
+        {
+          "caller": "handleFile",
+          "callee": "onUploaded",
+          "lineNumber": 75
+        },
+        {
+          "caller": "handleFile",
+          "callee": "console.error",
+          "lineNumber": 78
+        },
+        {
+          "caller": "handleFile",
+          "callee": "setPreview",
+          "lineNumber": 79
+        },
+        {
+          "caller": "handleFile",
+          "callee": "setUploading",
+          "lineNumber": 81
+        },
+        {
+          "caller": "UploadableAvatar",
+          "callee": "fileRef.current?.click",
+          "lineNumber": 93
+        },
+        {
+          "caller": "UploadableAvatar",
+          "callee": "name?.[0]?.toUpperCase",
+          "lineNumber": 104
+        },
+        {
+          "caller": "BreadcrumbNav",
+          "callee": "useNavigate",
+          "lineNumber": 146
+        },
+        {
+          "caller": "BreadcrumbNav",
+          "callee": "navigate",
+          "lineNumber": 148
+        },
+        {
+          "caller": "BreadcrumbNav",
+          "callee": "navigate",
+          "lineNumber": 149
+        },
+        {
+          "caller": "BreadcrumbNav",
+          "callee": "crumbs.map",
+          "lineNumber": 154
+        },
+        {
+          "caller": "InlineEditField",
+          "callee": "useState",
+          "lineNumber": 172
+        },
+        {
+          "caller": "InlineEditField",
+          "callee": "useState",
+          "lineNumber": 173
+        },
+        {
+          "caller": "InlineEditField",
+          "callee": "useRef",
+          "lineNumber": 174
+        },
+        {
+          "caller": "commit",
+          "callee": "setEditing",
+          "lineNumber": 177
+        },
+        {
+          "caller": "commit",
+          "callee": "onSave",
+          "lineNumber": 178
+        },
+        {
+          "caller": "InlineEditField",
+          "callee": "useEffect",
+          "lineNumber": 181
+        },
+        {
+          "caller": "InlineEditField",
+          "callee": "ref.current.focus",
+          "lineNumber": 182
+        },
+        {
+          "caller": "InlineEditField",
+          "callee": "setEditing",
+          "lineNumber": 188
+        },
+        {
+          "caller": "InlineEditField",
+          "callee": "setDraft",
+          "lineNumber": 195
+        },
+        {
+          "caller": "InlineEditField",
+          "callee": "setEditing",
+          "lineNumber": 197
+        },
+        {
+          "caller": "InlineEditField",
+          "callee": "setDraft",
+          "lineNumber": 204
+        },
+        {
+          "caller": "InlineEditField",
+          "callee": "commit",
+          "lineNumber": 206
+        },
+        {
+          "caller": "InlineEditField",
+          "callee": "setEditing",
+          "lineNumber": 206
+        },
+        {
+          "caller": "useCountUp",
+          "callee": "useState",
+          "lineNumber": 224
+        },
+        {
+          "caller": "useCountUp",
+          "callee": "useEffect",
+          "lineNumber": 225
+        },
+        {
+          "caller": "useCountUp",
+          "callee": "setInterval",
+          "lineNumber": 229
+        },
+        {
+          "caller": "useCountUp",
+          "callee": "setVal",
+          "lineNumber": 231
+        },
+        {
+          "caller": "useCountUp",
+          "callee": "clearInterval",
+          "lineNumber": 231
+        },
+        {
+          "caller": "useCountUp",
+          "callee": "setVal",
+          "lineNumber": 232
+        },
+        {
+          "caller": "useCountUp",
+          "callee": "Math.floor",
+          "lineNumber": 232
+        },
+        {
+          "caller": "useCountUp",
+          "callee": "clearInterval",
+          "lineNumber": 234
+        },
+        {
+          "caller": "StatCard",
+          "callee": "useCountUp",
+          "lineNumber": 243
+        },
+        {
+          "caller": "InsightsPanel",
+          "callee": "calcAge",
+          "lineNumber": 261
+        },
+        {
+          "caller": "InsightsPanel",
+          "callee": "Math.floor",
+          "lineNumber": 266
+        },
+        {
+          "caller": "InsightsPanel",
+          "callee": "new Date(person.birth_date).getFullYear",
+          "lineNumber": 266
+        },
+        {
+          "caller": "InsightsPanel",
+          "callee": "stats.map",
+          "lineNumber": 270
+        },
+        {
+          "caller": "ProfileStrengthBar",
+          "callee": "Math.round",
+          "lineNumber": 289
+        },
+        {
+          "caller": "ProfileStrengthBar",
+          "callee": "checks.filter",
+          "lineNumber": 289
+        },
+        {
+          "caller": "ProfileStrengthBar",
+          "callee": "checks.filter(c => !c.done).map",
+          "lineNumber": 290
+        },
+        {
+          "caller": "ProfileStrengthBar",
+          "callee": "checks.filter",
+          "lineNumber": 290
+        },
+        {
+          "caller": "ProfileStrengthBar",
+          "callee": "missing.slice(0, 2).join",
+          "lineNumber": 302
+        },
+        {
+          "caller": "ProfileStrengthBar",
+          "callee": "missing.slice",
+          "lineNumber": 302
+        },
+        {
+          "caller": "StoryModeModal",
+          "callee": "useState",
+          "lineNumber": 312
+        },
+        {
+          "caller": "StoryModeModal",
+          "callee": "useState",
+          "lineNumber": 313
+        },
+        {
+          "caller": "buildStory",
+          "callee": "setLoading",
+          "lineNumber": 316
+        },
+        {
+          "caller": "buildStory",
+          "callee": "api.post",
+          "lineNumber": 318
+        },
+        {
+          "caller": "buildStory",
+          "callee": "setStory",
+          "lineNumber": 319
+        },
+        {
+          "caller": "buildStory",
+          "callee": "`${person.first_name} ${person.last_name || ''}`.trim",
+          "lineNumber": 321
+        },
+        {
+          "caller": "buildStory",
+          "callee": "new Date(person.birth_date).toLocaleDateString",
+          "lineNumber": 323
+        },
+        {
+          "caller": "buildStory",
+          "callee": "Object.values(relPersons).slice(0, 2).map(p => `${p.first_name} ${p.last_name || ''}`.trim()).join",
+          "lineNumber": 324
+        },
+        {
+          "caller": "buildStory",
+          "callee": "Object.values(relPersons).slice(0, 2).map",
+          "lineNumber": 324
+        },
+        {
+          "caller": "buildStory",
+          "callee": "Object.values(relPersons).slice",
+          "lineNumber": 324
+        },
+        {
+          "caller": "buildStory",
+          "callee": "Object.values",
+          "lineNumber": 324
+        },
+        {
+          "caller": "buildStory",
+          "callee": "`${p.first_name} ${p.last_name || ''}`.trim",
+          "lineNumber": 324
+        },
+        {
+          "caller": "buildStory",
+          "callee": "setStory",
+          "lineNumber": 326
+        },
+        {
+          "caller": "buildStory",
+          "callee": "setLoading",
+          "lineNumber": 327
+        },
+        {
+          "caller": "StoryModeModal",
+          "callee": "useEffect",
+          "lineNumber": 330
+        },
+        {
+          "caller": "StoryModeModal",
+          "callee": "buildStory",
+          "lineNumber": 330
+        },
+        {
+          "caller": "StoryModeModal",
+          "callee": "[90, 75, 85, 60, 80].map",
+          "lineNumber": 346
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "relationships\n    .filter(r => {\n      const t = r.relationship_type;\n      return (t === 'parent' && r.person2_id === id) || (t === 'child' && r.person1_id === id);\n    })\n    .map(r => {\n      const pid = r.person1_id === id ? r.person2_id : r.person1_id;\n      return { id: pid, ...relPersons[pid] };\n    }).slice",
+          "lineNumber": 373
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "relationships\n    .filter(r => {\n      const t = r.relationship_type;\n      return (t === 'parent' && r.person2_id === id) || (t === 'child' && r.person1_id === id);\n    })\n    .map",
+          "lineNumber": 373
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "relationships\n    .filter",
+          "lineNumber": 373
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "relationships\n    .filter(r => {\n      const t = r.relationship_type;\n      return (t === 'child' && r.person2_id === id) || (t === 'parent' && r.person1_id === id);\n    })\n    .map(r => {\n      const cid = r.person1_id === id ? r.person2_id : r.person1_id;\n      return { id: cid, ...relPersons[cid] };\n    }).slice",
+          "lineNumber": 383
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "relationships\n    .filter(r => {\n      const t = r.relationship_type;\n      return (t === 'child' && r.person2_id === id) || (t === 'parent' && r.person1_id === id);\n    })\n    .map",
+          "lineNumber": 383
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "relationships\n    .filter",
+          "lineNumber": 383
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "relationships\n    .filter(r => r.relationship_type === 'spouse')\n    .map(r => {\n      const sid = r.person1_id === id ? r.person2_id : r.person1_id;\n      return { id: sid, ...relPersons[sid] };\n    }).slice",
+          "lineNumber": 393
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "relationships\n    .filter(r => r.relationship_type === 'spouse')\n    .map",
+          "lineNumber": 393
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "relationships\n    .filter",
+          "lineNumber": 393
+        },
+        {
+          "caller": "NodeCircle",
+          "callee": "`${p.first_name || ''} ${p.last_name || ''}`.trim",
+          "lineNumber": 401
+        },
+        {
+          "caller": "NodeCircle",
+          "callee": "name[0]?.toUpperCase",
+          "lineNumber": 402
+        },
+        {
+          "caller": "NodeCircle",
+          "callee": "onNodeClick",
+          "lineNumber": 405
+        },
+        {
+          "caller": "NodeCircle",
+          "callee": "name.substring",
+          "lineNumber": 423
+        },
+        {
+          "caller": "spread",
+          "callee": "Array.from",
+          "lineNumber": 435
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "spread",
+          "lineNumber": 440
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "spread",
+          "lineNumber": 441
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "parentPos.map",
+          "lineNumber": 452
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "childPos.map",
+          "lineNumber": 457
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "spouses.map",
+          "lineNumber": 462
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "parents.map",
+          "lineNumber": 468
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "children.map",
+          "lineNumber": 472
+        },
+        {
+          "caller": "MiniTreePreview",
+          "callee": "spouses.map",
+          "lineNumber": 476
+        },
+        {
+          "caller": "PrivacyControls",
+          "callee": "useState",
+          "lineNumber": 499
+        },
+        {
+          "caller": "PrivacyControls",
+          "callee": "useState",
+          "lineNumber": 500
+        },
+        {
+          "caller": "handleCopy",
+          "callee": "navigator.clipboard.writeText",
+          "lineNumber": 503
+        },
+        {
+          "caller": "handleCopy",
+          "callee": "setCopied",
+          "lineNumber": 504
+        },
+        {
+          "caller": "handleCopy",
+          "callee": "setTimeout",
+          "lineNumber": 505
+        },
+        {
+          "caller": "handleCopy",
+          "callee": "setCopied",
+          "lineNumber": 505
+        },
+        {
+          "caller": "handleExport",
+          "callee": "document.createElement",
+          "lineNumber": 509
+        },
+        {
+          "caller": "handleExport",
+          "callee": "document.head.appendChild",
+          "lineNumber": 511
+        },
+        {
+          "caller": "handleExport",
+          "callee": "window.print",
+          "lineNumber": 512
+        },
+        {
+          "caller": "handleExport",
+          "callee": "setTimeout",
+          "lineNumber": 513
+        },
+        {
+          "caller": "handleExport",
+          "callee": "document.head.removeChild",
+          "lineNumber": 513
+        },
+        {
+          "caller": "PrivacyControls",
+          "callee": "setIsPublic",
+          "lineNumber": 520
+        },
+        {
+          "caller": "FamilyMemberCard",
+          "callee": "onNavigate",
+          "lineNumber": 569
+        },
+        {
+          "caller": "FamilyMemberCard",
+          "callee": "e.stopPropagation",
+          "lineNumber": 573
+        },
+        {
+          "caller": "FamilyMemberCard",
+          "callee": "onEdit",
+          "lineNumber": 573
+        },
+        {
+          "caller": "FamilyMemberCard",
+          "callee": "e.stopPropagation",
+          "lineNumber": 574
+        },
+        {
+          "caller": "FamilyMemberCard",
+          "callee": "onDelete",
+          "lineNumber": 574
+        },
+        {
+          "caller": "FamilyMemberCard",
+          "callee": "`${other.first_name} ${other.last_name || ''}`.trim",
+          "lineNumber": 579
+        },
+        {
+          "caller": "FamilySection",
+          "callee": "relationships.forEach",
+          "lineNumber": 588
+        },
+        {
+          "caller": "FamilySection",
+          "callee": "resolveRole",
+          "lineNumber": 592
+        },
+        {
+          "caller": "FamilySection",
+          "callee": "groups[role].push",
+          "lineNumber": 593
+        },
+        {
+          "caller": "FamilySection",
+          "callee": "Object.values(groups).some",
+          "lineNumber": 595
+        },
+        {
+          "caller": "FamilySection",
+          "callee": "Object.values",
+          "lineNumber": 595
+        },
+        {
+          "caller": "FamilySection",
+          "callee": "Object.entries(groups).filter(([, arr]) => arr.length > 0).map",
+          "lineNumber": 605
+        },
+        {
+          "caller": "FamilySection",
+          "callee": "Object.entries(groups).filter",
+          "lineNumber": 605
+        },
+        {
+          "caller": "FamilySection",
+          "callee": "Object.entries",
+          "lineNumber": 605
+        },
+        {
+          "caller": "FamilySection",
+          "callee": "arr.map",
+          "lineNumber": 609
+        },
+        {
+          "caller": "MemoryForm",
+          "callee": "useState",
+          "lineNumber": 629
+        },
+        {
+          "caller": "toggleTag",
+          "callee": "setForm",
+          "lineNumber": 630
+        },
+        {
+          "caller": "toggleTag",
+          "callee": "f.tags.includes",
+          "lineNumber": 630
+        },
+        {
+          "caller": "toggleTag",
+          "callee": "f.tags.filter",
+          "lineNumber": 630
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "e.preventDefault",
+          "lineNumber": 631
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "onSubmit",
+          "lineNumber": 631
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setForm",
+          "lineNumber": 631
+        },
+        {
+          "caller": "MemoryForm",
+          "callee": "setForm",
+          "lineNumber": 635
+        },
+        {
+          "caller": "MemoryForm",
+          "callee": "setForm",
+          "lineNumber": 636
+        },
+        {
+          "caller": "MemoryForm",
+          "callee": "TAGS.map",
+          "lineNumber": 640
+        },
+        {
+          "caller": "MemoryForm",
+          "callee": "toggleTag",
+          "lineNumber": 641
+        },
+        {
+          "caller": "MemoryForm",
+          "callee": "form.tags.includes",
+          "lineNumber": 642
+        },
+        {
+          "caller": "MemoryForm",
+          "callee": "EMOTIONS.map",
+          "lineNumber": 649
+        },
+        {
+          "caller": "MemoryForm",
+          "callee": "setForm",
+          "lineNumber": 650
+        },
+        {
+          "caller": "MemoryForm",
+          "callee": "setForm",
+          "lineNumber": 656
+        },
+        {
+          "caller": "MemoryForm",
+          "callee": "setForm",
+          "lineNumber": 657
+        },
+        {
+          "caller": "MemoryForm",
+          "callee": "setForm",
+          "lineNumber": 659
+        },
+        {
+          "caller": "BiographySection",
+          "callee": "useState",
+          "lineNumber": 672
+        },
+        {
+          "caller": "BiographySection",
+          "callee": "useState",
+          "lineNumber": 673
+        },
+        {
+          "caller": "handleGenerate",
+          "callee": "setGenerating",
+          "lineNumber": 678
+        },
+        {
+          "caller": "handleGenerate",
+          "callee": "api.post",
+          "lineNumber": 680
+        },
+        {
+          "caller": "handleGenerate",
+          "callee": "onBioUpdate",
+          "lineNumber": 681
+        },
+        {
+          "caller": "handleGenerate",
+          "callee": "relationships.slice(0, 3).map(r => {\n        const oid = r.person1_id === person.id ? r.person2_id : r.person1_id;\n        const op = relPersons[oid];\n        return op ? `${r.relationship_type} of ${op.first_name}` : null;\n      }).filter(Boolean).join",
+          "lineNumber": 684
+        },
+        {
+          "caller": "handleGenerate",
+          "callee": "relationships.slice(0, 3).map(r => {\n        const oid = r.person1_id === person.id ? r.person2_id : r.person1_id;\n        const op = relPersons[oid];\n        return op ? `${r.relationship_type} of ${op.first_name}` : null;\n      }).filter",
+          "lineNumber": 684
+        },
+        {
+          "caller": "handleGenerate",
+          "callee": "relationships.slice(0, 3).map",
+          "lineNumber": 684
+        },
+        {
+          "caller": "handleGenerate",
+          "callee": "relationships.slice",
+          "lineNumber": 684
+        },
+        {
+          "caller": "handleGenerate",
+          "callee": "[\n        `${person.first_name} ${person.last_name || ''} was born${person.birth_date ? ` on ${new Date(person.birth_date).toLocaleDateString('en-IN', { year:'numeric', month:'long', day:'numeric' })}` : ''}${person.birth_place ? ` in ${person.birth_place}` : ''}.`,\n        rels ? `Known relationships include: ${rels}.` : '',\n        memories.length > 0 ? `${person.first_name}'s life story includes ${memories.length} recorded ${memories.length === 1 ? 'memory' : 'memories'}.` : '',\n        person.occupation ? `${person.first_name} worked as ${person.occupation}.` : '',\n      ].filter(Boolean).join",
+          "lineNumber": 690
+        },
+        {
+          "caller": "handleGenerate",
+          "callee": "[\n        `${person.first_name} ${person.last_name || ''} was born${person.birth_date ? ` on ${new Date(person.birth_date).toLocaleDateString('en-IN', { year:'numeric', month:'long', day:'numeric' })}` : ''}${person.birth_place ? ` in ${person.birth_place}` : ''}.`,\n        rels ? `Known relationships include: ${rels}.` : '',\n        memories.length > 0 ? `${person.first_name}'s life story includes ${memories.length} recorded ${memories.length === 1 ? 'memory' : 'memories'}.` : '',\n        person.occupation ? `${person.first_name} worked as ${person.occupation}.` : '',\n      ].filter",
+          "lineNumber": 690
+        },
+        {
+          "caller": "handleGenerate",
+          "callee": "new Date(person.birth_date).toLocaleDateString",
+          "lineNumber": 691
+        },
+        {
+          "caller": "handleGenerate",
+          "callee": "onBioUpdate",
+          "lineNumber": 697
+        },
+        {
+          "caller": "handleGenerate",
+          "callee": "setGenerating",
+          "lineNumber": 699
+        },
+        {
+          "caller": "BiographySection",
+          "callee": "[80, 95, 65, 85].map",
+          "lineNumber": 716
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useParams",
+          "lineNumber": 747
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useNavigate",
+          "lineNumber": 748
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useState",
+          "lineNumber": 750
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useState",
+          "lineNumber": 751
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useState",
+          "lineNumber": 752
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useState",
+          "lineNumber": 753
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useState",
+          "lineNumber": 754
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useState",
+          "lineNumber": 755
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useState",
+          "lineNumber": 756
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useState",
+          "lineNumber": 757
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useState",
+          "lineNumber": 758
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useState",
+          "lineNumber": 759
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useRef",
+          "lineNumber": 760
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useState",
+          "lineNumber": 762
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useCallback",
+          "lineNumber": 764
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setLoading",
+          "lineNumber": 766
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setPerson",
+          "lineNumber": 805
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setEditForm",
+          "lineNumber": 806
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setMemories",
+          "lineNumber": 807
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setLegacyMessages",
+          "lineNumber": 808
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setRelationships",
+          "lineNumber": 809
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "data.relationships.map",
+          "lineNumber": 811
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "otherIds.forEach",
+          "lineNumber": 813
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setRelPersons",
+          "lineNumber": 816
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setLoading",
+          "lineNumber": 817
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "Promise.all",
+          "lineNumber": 821
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "api.get",
+          "lineNumber": 822
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "api.get",
+          "lineNumber": 823
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "api.get",
+          "lineNumber": 824
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "api.get(`/legacy/${id}`).catch",
+          "lineNumber": 825
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "api.get",
+          "lineNumber": 825
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setPerson",
+          "lineNumber": 827
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setEditForm",
+          "lineNumber": 828
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setMemories",
+          "lineNumber": 829
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setLegacyMessages",
+          "lineNumber": 830
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setRelationships",
+          "lineNumber": 832
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "rels.map",
+          "lineNumber": 834
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "Promise.allSettled",
+          "lineNumber": 835
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "otherIds.map",
+          "lineNumber": 836
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "api.get(`/persons/${pid}`).then",
+          "lineNumber": 836
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "api.get",
+          "lineNumber": 836
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "personResults.forEach",
+          "lineNumber": 839
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setRelPersons",
+          "lineNumber": 840
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setError",
+          "lineNumber": 842
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setLoading",
+          "lineNumber": 844
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "useEffect",
+          "lineNumber": 848
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "fetchProfileData",
+          "lineNumber": 848
+        },
+        {
+          "caller": "handleAddMemory",
+          "callee": "setSavingMemory",
+          "lineNumber": 852
+        },
+        {
+          "caller": "handleAddMemory",
+          "callee": "api.post",
+          "lineNumber": 854
+        },
+        {
+          "caller": "handleAddMemory",
+          "callee": "setMemories",
+          "lineNumber": 855
+        },
+        {
+          "caller": "handleAddMemory",
+          "callee": "setError",
+          "lineNumber": 856
+        },
+        {
+          "caller": "handleAddMemory",
+          "callee": "setTimeout",
+          "lineNumber": 856
+        },
+        {
+          "caller": "handleAddMemory",
+          "callee": "setError",
+          "lineNumber": 856
+        },
+        {
+          "caller": "handleAddMemory",
+          "callee": "setSavingMemory",
+          "lineNumber": 857
+        },
+        {
+          "caller": "handleLegacyAdded",
+          "callee": "setLegacyMessages",
+          "lineNumber": 861
+        },
+        {
+          "caller": "handleInlineSave",
+          "callee": "updatePerson",
+          "lineNumber": 867
+        },
+        {
+          "caller": "handleInlineSave",
+          "callee": "setPerson",
+          "lineNumber": 868
+        },
+        {
+          "caller": "handleInlineSave",
+          "callee": "setError",
+          "lineNumber": 869
+        },
+        {
+          "caller": "handleSaveEditForm",
+          "callee": "updatePerson",
+          "lineNumber": 874
+        },
+        {
+          "caller": "handleSaveEditForm",
+          "callee": "setPerson",
+          "lineNumber": 875
+        },
+        {
+          "caller": "handleSaveEditForm",
+          "callee": "setEditing",
+          "lineNumber": 876
+        },
+        {
+          "caller": "handleSaveEditForm",
+          "callee": "setError",
+          "lineNumber": 877
+        },
+        {
+          "caller": "handleDeletePerson",
+          "callee": "window.confirm",
+          "lineNumber": 881
+        },
+        {
+          "caller": "handleDeletePerson",
+          "callee": "deletePerson",
+          "lineNumber": 882
+        },
+        {
+          "caller": "handleDeletePerson",
+          "callee": "navigate",
+          "lineNumber": 882
+        },
+        {
+          "caller": "handleDeletePerson",
+          "callee": "setError",
+          "lineNumber": 883
+        },
+        {
+          "caller": "handleDeleteRelationship",
+          "callee": "window.confirm",
+          "lineNumber": 887
+        },
+        {
+          "caller": "handleDeleteRelationship",
+          "callee": "deleteRelationship",
+          "lineNumber": 888
+        },
+        {
+          "caller": "handleDeleteRelationship",
+          "callee": "fetchProfileData",
+          "lineNumber": 888
+        },
+        {
+          "caller": "handleDeleteRelationship",
+          "callee": "setError",
+          "lineNumber": 889
+        },
+        {
+          "caller": "handleEditRelationship",
+          "callee": "window.prompt",
+          "lineNumber": 893
+        },
+        {
+          "caller": "handleEditRelationship",
+          "callee": "updateRelationship",
+          "lineNumber": 895
+        },
+        {
+          "caller": "handleEditRelationship",
+          "callee": "newType.trim().toLowerCase",
+          "lineNumber": 895
+        },
+        {
+          "caller": "handleEditRelationship",
+          "callee": "newType.trim",
+          "lineNumber": 895
+        },
+        {
+          "caller": "handleEditRelationship",
+          "callee": "fetchProfileData",
+          "lineNumber": 895
+        },
+        {
+          "caller": "handleEditRelationship",
+          "callee": "setError",
+          "lineNumber": 896
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "relationships\n    .filter(r => (r.relationship_type === 'parent' && r.person2_id === id) || (r.relationship_type === 'child' && r.person1_id === id))\n    .map",
+          "lineNumber": 900
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "relationships\n    .filter",
+          "lineNumber": 900
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "relationships\n    .filter(r => (r.relationship_type === 'child' && r.person2_id === id) || (r.relationship_type === 'parent' && r.person1_id === id))\n    .map",
+          "lineNumber": 903
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "relationships\n    .filter",
+          "lineNumber": 903
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "`${person.first_name} ${person.last_name || ''}`.trim",
+          "lineNumber": 922
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setEditing",
+          "lineNumber": 936
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "parentIds.slice(0, 2).map",
+          "lineNumber": 955
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "parentIds.slice",
+          "lineNumber": 955
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "navigate",
+          "lineNumber": 956
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "navigate",
+          "lineNumber": 961
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "childIds.slice(0, 2).map",
+          "lineNumber": 965
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "childIds.slice",
+          "lineNumber": 965
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "navigate",
+          "lineNumber": 966
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setPerson",
+          "lineNumber": 985
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "[['first_name','First Name'],['last_name','Last Name'],['gender','Gender'],['birth_place','Birth Place'],['occupation','Occupation']].map",
+          "lineNumber": 991
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setEditForm",
+          "lineNumber": 994
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "editForm.birth_date.split",
+          "lineNumber": 1000
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setEditForm",
+          "lineNumber": 1001
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setEditing",
+          "lineNumber": 1007
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "handleInlineSave",
+          "lineNumber": 1014
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "handleInlineSave",
+          "lineNumber": 1016
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "handleInlineSave",
+          "lineNumber": 1020
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "new Date(person.birth_date).toLocaleDateString",
+          "lineNumber": 1027
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "new Date(person.death_date).toLocaleDateString",
+          "lineNumber": 1028
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "calcAge",
+          "lineNumber": 1029
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "calcAge",
+          "lineNumber": 1030
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setShowStory",
+          "lineNumber": 1041
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "handleInlineSave",
+          "lineNumber": 1065
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "navigate",
+          "lineNumber": 1077
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "navigate",
+          "lineNumber": 1091
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "memoryFormRef.current?.scrollIntoView",
+          "lineNumber": 1117
+        },
+        {
+          "caller": "PersonProfile",
+          "callee": "setShowStory",
+          "lineNumber": 1140
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 19,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/services/familyService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 78,
+      "nonEmptyLines": 66,
+      "functions": [
+        {
+          "name": "createFamily",
+          "startLine": 7,
+          "endLine": 10,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "getFamilies",
+          "startLine": 15,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "createPerson",
+          "startLine": 24,
+          "endLine": 27,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "createRelationship",
+          "startLine": 33,
+          "endLine": 36,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "getFamilyTree",
+          "startLine": 43,
+          "endLine": 46,
+          "params": [
+            "familyId"
+          ]
+        },
+        {
+          "name": "updateFamily",
+          "startLine": 50,
+          "endLine": 53,
+          "params": [
+            "familyId",
+            "data"
+          ]
+        },
+        {
+          "name": "deleteFamily",
+          "startLine": 55,
+          "endLine": 58,
+          "params": [
+            "familyId"
+          ]
+        },
+        {
+          "name": "updatePerson",
+          "startLine": 60,
+          "endLine": 63,
+          "params": [
+            "personId",
+            "data"
+          ]
+        },
+        {
+          "name": "deletePerson",
+          "startLine": 65,
+          "endLine": 68,
+          "params": [
+            "personId"
+          ]
+        },
+        {
+          "name": "updateRelationship",
+          "startLine": 70,
+          "endLine": 73,
+          "params": [
+            "relationshipId",
+            "data"
+          ]
+        },
+        {
+          "name": "deleteRelationship",
+          "startLine": 75,
+          "endLine": 78,
+          "params": [
+            "relationshipId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "createFamily",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "getFamilies",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "createPerson",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "createRelationship",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "getFamilyTree",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "updateFamily",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "deleteFamily",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "updatePerson",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "deletePerson",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "updateRelationship",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "deleteRelationship",
+          "line": 75,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createFamily",
+          "callee": "api.post",
+          "lineNumber": 8
+        },
+        {
+          "caller": "getFamilies",
+          "callee": "api.get",
+          "lineNumber": 16
+        },
+        {
+          "caller": "createPerson",
+          "callee": "api.post",
+          "lineNumber": 25
+        },
+        {
+          "caller": "createRelationship",
+          "callee": "api.post",
+          "lineNumber": 34
+        },
+        {
+          "caller": "getFamilyTree",
+          "callee": "api.get",
+          "lineNumber": 44
+        },
+        {
+          "caller": "updateFamily",
+          "callee": "api.put",
+          "lineNumber": 51
+        },
+        {
+          "caller": "deleteFamily",
+          "callee": "api.delete",
+          "lineNumber": 56
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "api.put",
+          "lineNumber": 61
+        },
+        {
+          "caller": "deletePerson",
+          "callee": "api.delete",
+          "lineNumber": 66
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "api.put",
+          "lineNumber": 71
+        },
+        {
+          "caller": "deleteRelationship",
+          "callee": "api.delete",
+          "lineNumber": 76
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 11,
+        "functionCount": 11,
+        "classCount": 0
+      }
+    }
+  ]
+}

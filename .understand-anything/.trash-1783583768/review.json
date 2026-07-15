@@ -1,0 +1,42 @@
+{
+  "issues": [],
+  "warnings": [
+    "Node 'service:backend/Dockerfile' has no edges (orphan)",
+    "Node 'service:backend/Dockerfile:node' has no edges (orphan)",
+    "Node 'document:frontend/public/robots.txt' has no edges (orphan)",
+    "Node 'file:.DS_Store' has no edges (orphan)",
+    "Node 'file:.understand-anything/.understandignore' has no edges (orphan)",
+    "Node 'file:backend/tests/integration.test.js' has no edges (orphan)",
+    "Node 'file:frontend/postcss.config.js' has no edges (orphan)",
+    "Node 'file:frontend/src/setupTests.js' has no edges (orphan)",
+    "Node 'file:frontend/tailwind.config.js' has no edges (orphan)"
+  ],
+  "stats": {
+    "totalNodes": 268,
+    "totalEdges": 485,
+    "totalLayers": 9,
+    "tourSteps": 15,
+    "nodeTypes": {
+      "file": 81,
+      "function": 152,
+      "service": 9,
+      "document": 4,
+      "config": 8,
+      "table": 6,
+      "endpoint": 8
+    },
+    "edgeTypes": {
+      "imports": 106,
+      "contains": 157,
+      "exports": 111,
+      "calls": 72,
+      "depends_on": 9,
+      "tested_by": 4,
+      "documents": 2,
+      "related": 11,
+      "configures": 4,
+      "deploys": 1,
+      "defines_schema": 8
+    }
+  }
+}

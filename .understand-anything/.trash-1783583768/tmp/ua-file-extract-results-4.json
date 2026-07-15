@@ -1,0 +1,1020 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "backend/controllers/aiController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "generateBiography",
+          "startLine": 8,
+          "endLine": 43,
+          "params": [
+            "req",
+            "res",
+            "next"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "generateBiography",
+          "callee": "res.status(400).json",
+          "lineNumber": 12
+        },
+        {
+          "caller": "generateBiography",
+          "callee": "res.status",
+          "lineNumber": 12
+        },
+        {
+          "caller": "generateBiography",
+          "callee": "personService.getPersonById",
+          "lineNumber": 16
+        },
+        {
+          "caller": "generateBiography",
+          "callee": "res.status(404).json",
+          "lineNumber": 18
+        },
+        {
+          "caller": "generateBiography",
+          "callee": "res.status",
+          "lineNumber": 18
+        },
+        {
+          "caller": "generateBiography",
+          "callee": "relationshipService.getRelationshipsByPerson",
+          "lineNumber": 21
+        },
+        {
+          "caller": "generateBiography",
+          "callee": "new Date(person.birth_date).getFullYear",
+          "lineNumber": 32
+        },
+        {
+          "caller": "generateBiography",
+          "callee": "personService.updatePerson",
+          "lineNumber": 37
+        },
+        {
+          "caller": "generateBiography",
+          "callee": "res.status(200).json",
+          "lineNumber": 39
+        },
+        {
+          "caller": "generateBiography",
+          "callee": "res.status",
+          "lineNumber": 39
+        },
+        {
+          "caller": "generateBiography",
+          "callee": "next",
+          "lineNumber": 41
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/personController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 123,
+      "nonEmptyLines": 109,
+      "functions": [
+        {
+          "name": "addPerson",
+          "startLine": 7,
+          "endLine": 19,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "getPersonsByFamily",
+          "startLine": 25,
+          "endLine": 34,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "getPersonById",
+          "startLine": 40,
+          "endLine": 54,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "updatePerson",
+          "startLine": 60,
+          "endLine": 76,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "deletePerson",
+          "startLine": 82,
+          "endLine": 96,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "searchPersons",
+          "startLine": 102,
+          "endLine": 114,
+          "params": [
+            "req",
+            "res"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "addPerson",
+          "callee": "personService.addPerson",
+          "lineNumber": 10
+        },
+        {
+          "caller": "addPerson",
+          "callee": "res.status(201).json",
+          "lineNumber": 11
+        },
+        {
+          "caller": "addPerson",
+          "callee": "res.status",
+          "lineNumber": 11
+        },
+        {
+          "caller": "addPerson",
+          "callee": "console.error",
+          "lineNumber": 13
+        },
+        {
+          "caller": "addPerson",
+          "callee": "error.message.includes",
+          "lineNumber": 14
+        },
+        {
+          "caller": "addPerson",
+          "callee": "res.status(400).json",
+          "lineNumber": 15
+        },
+        {
+          "caller": "addPerson",
+          "callee": "res.status",
+          "lineNumber": 15
+        },
+        {
+          "caller": "addPerson",
+          "callee": "res.status(500).json",
+          "lineNumber": 17
+        },
+        {
+          "caller": "addPerson",
+          "callee": "res.status",
+          "lineNumber": 17
+        },
+        {
+          "caller": "getPersonsByFamily",
+          "callee": "personService.getPersonsByFamily",
+          "lineNumber": 28
+        },
+        {
+          "caller": "getPersonsByFamily",
+          "callee": "res.status(200).json",
+          "lineNumber": 29
+        },
+        {
+          "caller": "getPersonsByFamily",
+          "callee": "res.status",
+          "lineNumber": 29
+        },
+        {
+          "caller": "getPersonsByFamily",
+          "callee": "console.error",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getPersonsByFamily",
+          "callee": "res.status(500).json",
+          "lineNumber": 32
+        },
+        {
+          "caller": "getPersonsByFamily",
+          "callee": "res.status",
+          "lineNumber": 32
+        },
+        {
+          "caller": "getPersonById",
+          "callee": "personService.getPersonById",
+          "lineNumber": 43
+        },
+        {
+          "caller": "getPersonById",
+          "callee": "res.status(404).json",
+          "lineNumber": 46
+        },
+        {
+          "caller": "getPersonById",
+          "callee": "res.status",
+          "lineNumber": 46
+        },
+        {
+          "caller": "getPersonById",
+          "callee": "res.status(200).json",
+          "lineNumber": 49
+        },
+        {
+          "caller": "getPersonById",
+          "callee": "res.status",
+          "lineNumber": 49
+        },
+        {
+          "caller": "getPersonById",
+          "callee": "console.error",
+          "lineNumber": 51
+        },
+        {
+          "caller": "getPersonById",
+          "callee": "res.status(500).json",
+          "lineNumber": 52
+        },
+        {
+          "caller": "getPersonById",
+          "callee": "res.status",
+          "lineNumber": 52
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "personService.updatePerson",
+          "lineNumber": 65
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "res.status(404).json",
+          "lineNumber": 68
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "res.status",
+          "lineNumber": 68
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "res.status(200).json",
+          "lineNumber": 71
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "res.status",
+          "lineNumber": 71
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "console.error",
+          "lineNumber": 73
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "res.status(500).json",
+          "lineNumber": 74
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "res.status",
+          "lineNumber": 74
+        },
+        {
+          "caller": "deletePerson",
+          "callee": "personService.deletePerson",
+          "lineNumber": 85
+        },
+        {
+          "caller": "deletePerson",
+          "callee": "res.status(404).json",
+          "lineNumber": 88
+        },
+        {
+          "caller": "deletePerson",
+          "callee": "res.status",
+          "lineNumber": 88
+        },
+        {
+          "caller": "deletePerson",
+          "callee": "res.status(200).json",
+          "lineNumber": 91
+        },
+        {
+          "caller": "deletePerson",
+          "callee": "res.status",
+          "lineNumber": 91
+        },
+        {
+          "caller": "deletePerson",
+          "callee": "console.error",
+          "lineNumber": 93
+        },
+        {
+          "caller": "deletePerson",
+          "callee": "res.status(500).json",
+          "lineNumber": 94
+        },
+        {
+          "caller": "deletePerson",
+          "callee": "res.status",
+          "lineNumber": 94
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "q.trim",
+          "lineNumber": 105
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "res.status(400).json",
+          "lineNumber": 106
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "res.status",
+          "lineNumber": 106
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "personService.searchPersons",
+          "lineNumber": 108
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "res.status(200).json",
+          "lineNumber": 109
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "res.status",
+          "lineNumber": 109
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "console.error",
+          "lineNumber": 111
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "res.status(500).json",
+          "lineNumber": 112
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "res.status",
+          "lineNumber": 112
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/relationshipController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 88,
+      "nonEmptyLines": 76,
+      "functions": [
+        {
+          "name": "createRelationship",
+          "startLine": 7,
+          "endLine": 20,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "getRelationshipsByPerson",
+          "startLine": 26,
+          "endLine": 35,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "deleteRelationship",
+          "startLine": 41,
+          "endLine": 55,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "updateRelationship",
+          "startLine": 61,
+          "endLine": 81,
+          "params": [
+            "req",
+            "res"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createRelationship",
+          "callee": "relationshipService.createRelationship",
+          "lineNumber": 11
+        },
+        {
+          "caller": "createRelationship",
+          "callee": "res.status(201).json",
+          "lineNumber": 12
+        },
+        {
+          "caller": "createRelationship",
+          "callee": "res.status",
+          "lineNumber": 12
+        },
+        {
+          "caller": "createRelationship",
+          "callee": "console.error",
+          "lineNumber": 14
+        },
+        {
+          "caller": "createRelationship",
+          "callee": "error.message.includes",
+          "lineNumber": 15
+        },
+        {
+          "caller": "createRelationship",
+          "callee": "error.message.includes",
+          "lineNumber": 15
+        },
+        {
+          "caller": "createRelationship",
+          "callee": "res.status(400).json",
+          "lineNumber": 16
+        },
+        {
+          "caller": "createRelationship",
+          "callee": "res.status",
+          "lineNumber": 16
+        },
+        {
+          "caller": "createRelationship",
+          "callee": "res.status(500).json",
+          "lineNumber": 18
+        },
+        {
+          "caller": "createRelationship",
+          "callee": "res.status",
+          "lineNumber": 18
+        },
+        {
+          "caller": "getRelationshipsByPerson",
+          "callee": "relationshipService.getRelationshipsByPerson",
+          "lineNumber": 29
+        },
+        {
+          "caller": "getRelationshipsByPerson",
+          "callee": "res.status(200).json",
+          "lineNumber": 30
+        },
+        {
+          "caller": "getRelationshipsByPerson",
+          "callee": "res.status",
+          "lineNumber": 30
+        },
+        {
+          "caller": "getRelationshipsByPerson",
+          "callee": "console.error",
+          "lineNumber": 32
+        },
+        {
+          "caller": "getRelationshipsByPerson",
+          "callee": "res.status(500).json",
+          "lineNumber": 33
+        },
+        {
+          "caller": "getRelationshipsByPerson",
+          "callee": "res.status",
+          "lineNumber": 33
+        },
+        {
+          "caller": "deleteRelationship",
+          "callee": "relationshipService.deleteRelationship",
+          "lineNumber": 44
+        },
+        {
+          "caller": "deleteRelationship",
+          "callee": "res.status(404).json",
+          "lineNumber": 47
+        },
+        {
+          "caller": "deleteRelationship",
+          "callee": "res.status",
+          "lineNumber": 47
+        },
+        {
+          "caller": "deleteRelationship",
+          "callee": "res.status(200).json",
+          "lineNumber": 50
+        },
+        {
+          "caller": "deleteRelationship",
+          "callee": "res.status",
+          "lineNumber": 50
+        },
+        {
+          "caller": "deleteRelationship",
+          "callee": "console.error",
+          "lineNumber": 52
+        },
+        {
+          "caller": "deleteRelationship",
+          "callee": "res.status(500).json",
+          "lineNumber": 53
+        },
+        {
+          "caller": "deleteRelationship",
+          "callee": "res.status",
+          "lineNumber": 53
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "res.status(400).json",
+          "lineNumber": 67
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "res.status",
+          "lineNumber": 67
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "relationshipService.updateRelationship",
+          "lineNumber": 70
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "res.status(404).json",
+          "lineNumber": 73
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "res.status",
+          "lineNumber": 73
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "res.status(200).json",
+          "lineNumber": 76
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "res.status",
+          "lineNumber": 76
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "console.error",
+          "lineNumber": 78
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "res.status(500).json",
+          "lineNumber": 79
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "res.status",
+          "lineNumber": 79
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/personModel.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 145,
+      "nonEmptyLines": 131,
+      "functions": [
+        {
+          "name": "createPerson",
+          "startLine": 8,
+          "endLine": 38,
+          "params": [
+            "personData"
+          ]
+        },
+        {
+          "name": "getPersonsByFamily",
+          "startLine": 45,
+          "endLine": 53,
+          "params": [
+            "family_id"
+          ]
+        },
+        {
+          "name": "getPersonById",
+          "startLine": 60,
+          "endLine": 67,
+          "params": [
+            "person_id"
+          ]
+        },
+        {
+          "name": "updatePerson",
+          "startLine": 75,
+          "endLine": 100,
+          "params": [
+            "person_id",
+            "updatedData"
+          ]
+        },
+        {
+          "name": "deletePerson",
+          "startLine": 107,
+          "endLine": 115,
+          "params": [
+            "person_id"
+          ]
+        },
+        {
+          "name": "searchPersons",
+          "startLine": 122,
+          "endLine": 136,
+          "params": [
+            "query"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createPerson",
+          "callee": "pool.query",
+          "lineNumber": 36
+        },
+        {
+          "caller": "getPersonsByFamily",
+          "callee": "pool.query",
+          "lineNumber": 51
+        },
+        {
+          "caller": "getPersonById",
+          "callee": "pool.query",
+          "lineNumber": 65
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "Object.entries",
+          "lineNumber": 80
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "fields.push",
+          "lineNumber": 82
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "values.push",
+          "lineNumber": 83
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "values.push",
+          "lineNumber": 90
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "fields.join",
+          "lineNumber": 93
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "pool.query",
+          "lineNumber": 98
+        },
+        {
+          "caller": "deletePerson",
+          "callee": "pool.query",
+          "lineNumber": 113
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "pool.query",
+          "lineNumber": 134
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/relationshipModel.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 68,
+      "functions": [
+        {
+          "name": "createRelationship",
+          "startLine": 10,
+          "endLine": 19,
+          "params": [
+            "person1_id",
+            "person2_id",
+            "relationship_type"
+          ]
+        },
+        {
+          "name": "getRelationshipsByPerson",
+          "startLine": 26,
+          "endLine": 34,
+          "params": [
+            "person_id"
+          ]
+        },
+        {
+          "name": "deleteRelationship",
+          "startLine": 41,
+          "endLine": 49,
+          "params": [
+            "relationship_id"
+          ]
+        },
+        {
+          "name": "updateRelationship",
+          "startLine": 57,
+          "endLine": 66,
+          "params": [
+            "relationship_id",
+            "relationship_type"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createRelationship",
+          "callee": "pool.query",
+          "lineNumber": 17
+        },
+        {
+          "caller": "getRelationshipsByPerson",
+          "callee": "pool.query",
+          "lineNumber": 32
+        },
+        {
+          "caller": "deleteRelationship",
+          "callee": "pool.query",
+          "lineNumber": 47
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "pool.query",
+          "lineNumber": 64
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/aiRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 9,
+      "nonEmptyLines": 7,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/relationshipRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/services/personService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 78,
+      "nonEmptyLines": 71,
+      "functions": [
+        {
+          "name": "addPerson",
+          "startLine": 8,
+          "endLine": 13,
+          "params": [
+            "personData"
+          ]
+        },
+        {
+          "name": "getPersonsByFamily",
+          "startLine": 20,
+          "endLine": 25,
+          "params": [
+            "family_id"
+          ]
+        },
+        {
+          "name": "getPersonById",
+          "startLine": 32,
+          "endLine": 37,
+          "params": [
+            "person_id"
+          ]
+        },
+        {
+          "name": "updatePerson",
+          "startLine": 45,
+          "endLine": 52,
+          "params": [
+            "person_id",
+            "updatedData"
+          ]
+        },
+        {
+          "name": "deletePerson",
+          "startLine": 59,
+          "endLine": 64,
+          "params": [
+            "person_id"
+          ]
+        },
+        {
+          "name": "searchPersons",
+          "startLine": 66,
+          "endLine": 69,
+          "params": [
+            "query"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "addPerson",
+          "callee": "personModel.createPerson",
+          "lineNumber": 12
+        },
+        {
+          "caller": "getPersonsByFamily",
+          "callee": "personModel.getPersonsByFamily",
+          "lineNumber": 24
+        },
+        {
+          "caller": "getPersonById",
+          "callee": "personModel.getPersonById",
+          "lineNumber": 36
+        },
+        {
+          "caller": "updatePerson",
+          "callee": "personModel.updatePerson",
+          "lineNumber": 51
+        },
+        {
+          "caller": "deletePerson",
+          "callee": "personModel.deletePerson",
+          "lineNumber": 63
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "query.trim",
+          "lineNumber": 67
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "personModel.searchPersons",
+          "lineNumber": 68
+        },
+        {
+          "caller": "searchPersons",
+          "callee": "query.trim",
+          "lineNumber": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/services/relationshipService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 64,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "createRelationship",
+          "startLine": 10,
+          "endLine": 20,
+          "params": [
+            "person1_id",
+            "person2_id",
+            "relationship_type"
+          ]
+        },
+        {
+          "name": "getRelationshipsByPerson",
+          "startLine": 27,
+          "endLine": 32,
+          "params": [
+            "person_id"
+          ]
+        },
+        {
+          "name": "deleteRelationship",
+          "startLine": 39,
+          "endLine": 44,
+          "params": [
+            "relationship_id"
+          ]
+        },
+        {
+          "name": "updateRelationship",
+          "startLine": 52,
+          "endLine": 57,
+          "params": [
+            "relationship_id",
+            "relationship_type"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createRelationship",
+          "callee": "relationshipModel.createRelationship",
+          "lineNumber": 19
+        },
+        {
+          "caller": "getRelationshipsByPerson",
+          "callee": "relationshipModel.getRelationshipsByPerson",
+          "lineNumber": 31
+        },
+        {
+          "caller": "deleteRelationship",
+          "callee": "relationshipModel.deleteRelationship",
+          "lineNumber": 43
+        },
+        {
+          "caller": "updateRelationship",
+          "callee": "relationshipModel.updateRelationship",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    }
+  ]
+}

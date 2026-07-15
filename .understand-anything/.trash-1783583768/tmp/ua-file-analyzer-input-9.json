@@ -1,0 +1,13 @@
+{
+  "projectRoot": "/Users/arghjain/Desktop/Projects/Family Tree",
+  "batchFiles": [
+    {"path": "README.md", "language": "markdown", "sizeLines": 178, "fileCategory": "docs"},
+    {"path": "docker-compose.yml", "language": "yaml", "sizeLines": 50, "fileCategory": "infra"},
+    {"path": "security_audit.md", "language": "markdown", "sizeLines": 134, "fileCategory": "docs"}
+  ],
+  "batchImportData": {
+    "README.md": [],
+    "docker-compose.yml": [],
+    "security_audit.md": []
+  }
+}

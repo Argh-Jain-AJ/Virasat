@@ -1,0 +1,545 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 8,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "backend/controllers/gedcomController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 112,
+      "nonEmptyLines": 92,
+      "functions": [
+        {
+          "name": "importGedcom",
+          "startLine": 12,
+          "endLine": 108,
+          "params": [
+            "req",
+            "res",
+            "next"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "importGedcom",
+          "callee": "pool.connect",
+          "lineNumber": 13
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "res.status(400).json",
+          "lineNumber": 17
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "res.status",
+          "lineNumber": 17
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "res.status(400).json",
+          "lineNumber": 22
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "res.status",
+          "lineNumber": 22
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "fs.readFileSync",
+          "lineNumber": 25
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "parseGedcom",
+          "lineNumber": 26
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "client.query",
+          "lineNumber": 28
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "dupVals.push",
+          "lineNumber": 43
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "client.query",
+          "lineNumber": 45
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "client.query",
+          "lineNumber": 59
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "client.query",
+          "lineNumber": 77
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "client.query",
+          "lineNumber": 84
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "client.query",
+          "lineNumber": 89
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "fs.unlinkSync",
+          "lineNumber": 92
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "buildFamilyTreeData",
+          "lineNumber": 95
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "res.status(200).json",
+          "lineNumber": 97
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "res.status",
+          "lineNumber": 97
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "client.query",
+          "lineNumber": 99
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "fs.unlinkSync",
+          "lineNumber": 101
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "console.error",
+          "lineNumber": 103
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "next",
+          "lineNumber": 104
+        },
+        {
+          "caller": "importGedcom",
+          "callee": "client.release",
+          "lineNumber": 106
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/reminderController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 69,
+      "nonEmptyLines": 56,
+      "functions": [
+        {
+          "name": "getUpcomingReminders",
+          "startLine": 7,
+          "endLine": 65,
+          "params": [
+            "req",
+            "res"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "pool.query",
+          "lineNumber": 34
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "today.setHours",
+          "lineNumber": 38
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "in30Days.setDate",
+          "lineNumber": 40
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "today.getDate",
+          "lineNumber": 40
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "result.rows.map(row => {\n      const eventDate = new Date(row.birth_date);\n      // Construct this year's occurrence\n      const thisYearEvent = new Date(today.getFullYear(), eventDate.getMonth(), eventDate.getDate());\n      \n      // If it already passed this year, look at next year\n      if (thisYearEvent < today) {\n        thisYearEvent.setFullYear(today.getFullYear() + 1);\n      }\n      \n      return {\n        ...row,\n        original_date: row.birth_date,\n        next_occurrence: thisYearEvent,\n        days_away: Math.ceil((thisYearEvent - today) / (1000 * 60 * 60 * 24))\n      };\n    }).filter(event => event.days_away <= 45).sort",
+          "lineNumber": 42
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "result.rows.map(row => {\n      const eventDate = new Date(row.birth_date);\n      // Construct this year's occurrence\n      const thisYearEvent = new Date(today.getFullYear(), eventDate.getMonth(), eventDate.getDate());\n      \n      // If it already passed this year, look at next year\n      if (thisYearEvent < today) {\n        thisYearEvent.setFullYear(today.getFullYear() + 1);\n      }\n      \n      return {\n        ...row,\n        original_date: row.birth_date,\n        next_occurrence: thisYearEvent,\n        days_away: Math.ceil((thisYearEvent - today) / (1000 * 60 * 60 * 24))\n      };\n    }).filter",
+          "lineNumber": 42
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "result.rows.map",
+          "lineNumber": 42
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "today.getFullYear",
+          "lineNumber": 45
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "eventDate.getMonth",
+          "lineNumber": 45
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "eventDate.getDate",
+          "lineNumber": 45
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "thisYearEvent.setFullYear",
+          "lineNumber": 49
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "today.getFullYear",
+          "lineNumber": 49
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "Math.ceil",
+          "lineNumber": 56
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "res.status(200).json",
+          "lineNumber": 60
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "res.status",
+          "lineNumber": 60
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "console.error",
+          "lineNumber": 62
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "res.status(500).json",
+          "lineNumber": 63
+        },
+        {
+          "caller": "getUpcomingReminders",
+          "callee": "res.status",
+          "lineNumber": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/middleware/authMiddleware.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 25,
+      "functions": [
+        {
+          "name": "verifyToken",
+          "startLine": 6,
+          "endLine": 27,
+          "params": [
+            "req",
+            "res",
+            "next"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "verifyToken",
+          "callee": "authHeader.startsWith",
+          "lineNumber": 9
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "res.status(401).json",
+          "lineNumber": 10
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "res.status",
+          "lineNumber": 10
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "authHeader.split",
+          "lineNumber": 13
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "console.error",
+          "lineNumber": 16
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "process.exit",
+          "lineNumber": 17
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "jwt.verify",
+          "lineNumber": 21
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "next",
+          "lineNumber": 23
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "res.status(401).json",
+          "lineNumber": 25
+        },
+        {
+          "caller": "verifyToken",
+          "callee": "res.status",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/familyTreeRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 13,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/gedcomRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 46,
+      "functions": [
+        {
+          "name": "fileFilter",
+          "startLine": 20,
+          "endLine": 26,
+          "params": [
+            "req",
+            "file",
+            "cb"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fileFilter",
+          "callee": "path.extname(file.originalname).toLowerCase",
+          "lineNumber": 21
+        },
+        {
+          "caller": "fileFilter",
+          "callee": "path.extname",
+          "lineNumber": 21
+        },
+        {
+          "caller": "fileFilter",
+          "callee": "cb",
+          "lineNumber": 23
+        },
+        {
+          "caller": "fileFilter",
+          "callee": "cb",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/reminderRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/utils/gedcomParser.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 100,
+      "nonEmptyLines": 90,
+      "functions": [
+        {
+          "name": "parseGedcom",
+          "startLine": 8,
+          "endLine": 96,
+          "params": [
+            "gedcomString"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseGedcom",
+          "callee": "parse",
+          "lineNumber": 9
+        },
+        {
+          "caller": "parseGedcom",
+          "callee": "child.data.split",
+          "lineNumber": 26
+        },
+        {
+          "caller": "parseGedcom",
+          "callee": "nameParts[0]?.trim",
+          "lineNumber": 27
+        },
+        {
+          "caller": "parseGedcom",
+          "callee": "nameParts[1]?.trim",
+          "lineNumber": 28
+        },
+        {
+          "caller": "parseGedcom",
+          "callee": "persons.push",
+          "lineNumber": 42
+        },
+        {
+          "caller": "parseGedcom",
+          "callee": "children.push",
+          "lineNumber": 62
+        },
+        {
+          "caller": "parseGedcom",
+          "callee": "relationships.push",
+          "lineNumber": 68
+        },
+        {
+          "caller": "parseGedcom",
+          "callee": "relationships.push",
+          "lineNumber": 78
+        },
+        {
+          "caller": "parseGedcom",
+          "callee": "relationships.push",
+          "lineNumber": 85
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/utils/treeBuilder.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 56,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "buildFamilyTreeData",
+          "startLine": 8,
+          "endLine": 52,
+          "params": [
+            "family_id"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "buildFamilyTreeData",
+          "callee": "pool.query",
+          "lineNumber": 9
+        },
+        {
+          "caller": "buildFamilyTreeData",
+          "callee": "pool.query",
+          "lineNumber": 12
+        },
+        {
+          "caller": "buildFamilyTreeData",
+          "callee": "persons.map",
+          "lineNumber": 19
+        },
+        {
+          "caller": "buildFamilyTreeData",
+          "callee": "`${p.first_name} ${p.last_name || ''}`.trim",
+          "lineNumber": 23
+        },
+        {
+          "caller": "buildFamilyTreeData",
+          "callee": "relationships.map",
+          "lineNumber": 28
+        },
+        {
+          "caller": "buildFamilyTreeData",
+          "callee": "r.relationship_type.toLowerCase",
+          "lineNumber": 34
+        },
+        {
+          "caller": "buildFamilyTreeData",
+          "callee": "r.relationship_type.toLowerCase",
+          "lineNumber": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

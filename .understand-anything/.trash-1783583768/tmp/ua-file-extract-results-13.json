@@ -1,0 +1,355 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 11,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".DS_Store",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {}
+    },
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 36,
+      "metrics": {}
+    },
+    {
+      "path": "backend/init_cloud_db.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "initializeDatabase",
+          "startLine": 19,
+          "endLine": 35,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "initializeDatabase",
+          "callee": "console.log",
+          "lineNumber": 21
+        },
+        {
+          "caller": "initializeDatabase",
+          "callee": "path.join",
+          "lineNumber": 22
+        },
+        {
+          "caller": "initializeDatabase",
+          "callee": "fs.readFileSync",
+          "lineNumber": 23
+        },
+        {
+          "caller": "initializeDatabase",
+          "callee": "console.log",
+          "lineNumber": 25
+        },
+        {
+          "caller": "initializeDatabase",
+          "callee": "pool.query",
+          "lineNumber": 26
+        },
+        {
+          "caller": "initializeDatabase",
+          "callee": "console.log",
+          "lineNumber": 28
+        },
+        {
+          "caller": "initializeDatabase",
+          "callee": "console.log",
+          "lineNumber": 29
+        },
+        {
+          "caller": "initializeDatabase",
+          "callee": "console.error",
+          "lineNumber": 31
+        },
+        {
+          "caller": "initializeDatabase",
+          "callee": "pool.end",
+          "lineNumber": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/init_db.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "setup",
+          "startLine": 5,
+          "endLine": 53,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setup",
+          "callee": "client.connect",
+          "lineNumber": 16
+        },
+        {
+          "caller": "setup",
+          "callee": "client.query",
+          "lineNumber": 19
+        },
+        {
+          "caller": "setup",
+          "callee": "console.log",
+          "lineNumber": 21
+        },
+        {
+          "caller": "setup",
+          "callee": "client.query",
+          "lineNumber": 22
+        },
+        {
+          "caller": "setup",
+          "callee": "console.log",
+          "lineNumber": 24
+        },
+        {
+          "caller": "setup",
+          "callee": "console.error",
+          "lineNumber": 27
+        },
+        {
+          "caller": "setup",
+          "callee": "client.end",
+          "lineNumber": 29
+        },
+        {
+          "caller": "setup",
+          "callee": "targetClient.connect",
+          "lineNumber": 42
+        },
+        {
+          "caller": "setup",
+          "callee": "console.log",
+          "lineNumber": 43
+        },
+        {
+          "caller": "setup",
+          "callee": "fs.readFileSync",
+          "lineNumber": 45
+        },
+        {
+          "caller": "setup",
+          "callee": "path.join",
+          "lineNumber": 45
+        },
+        {
+          "caller": "setup",
+          "callee": "targetClient.query",
+          "lineNumber": 46
+        },
+        {
+          "caller": "setup",
+          "callee": "console.log",
+          "lineNumber": 47
+        },
+        {
+          "caller": "setup",
+          "callee": "console.error",
+          "lineNumber": 49
+        },
+        {
+          "caller": "setup",
+          "callee": "targetClient.end",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/tests/integration.test.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 81,
+      "nonEmptyLines": 69,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/postcss.config.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 6,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/App.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 38,
+      "nonEmptyLines": 33,
+      "metrics": {}
+    },
+    {
+      "path": "frontend/src/index.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 17,
+      "nonEmptyLines": 15,
+      "metrics": {}
+    },
+    {
+      "path": "frontend/src/pages/StoryTransition.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "StoryTransition",
+          "startLine": 4,
+          "endLine": 42,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "StoryTransition",
+          "callee": "useNavigate",
+          "lineNumber": 5
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "useState",
+          "lineNumber": 6
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "useEffect",
+          "lineNumber": 8
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "setTimeout",
+          "lineNumber": 10
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "setStage",
+          "lineNumber": 10
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "setTimeout",
+          "lineNumber": 12
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "setStage",
+          "lineNumber": 12
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "setTimeout",
+          "lineNumber": 14
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "setStage",
+          "lineNumber": 14
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "setTimeout",
+          "lineNumber": 16
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "navigate",
+          "lineNumber": 16
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "clearTimeout",
+          "lineNumber": 19
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "clearTimeout",
+          "lineNumber": 20
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "clearTimeout",
+          "lineNumber": 21
+        },
+        {
+          "caller": "StoryTransition",
+          "callee": "clearTimeout",
+          "lineNumber": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/setupTests.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 5,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/tailwind.config.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 10,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}
