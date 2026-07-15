@@ -393,6 +393,13 @@ const FamilyTreePage = () => {
           <div className="flex gap-3 items-center flex-wrap relative z-50">
             <div className="bg-white/5 backdrop-blur-md rounded-xl p-1 border border-white/10 relative z-50 shadow-xl"><GlobalSearchBar /></div>
             <button onClick={() => navigate('/dashboard')} className="px-5 py-2.5 border border-white/20 bg-white/5 backdrop-blur-md rounded-xl text-white font-bold tracking-widest uppercase text-xs hover:bg-white hover:text-black active:scale-95 transition-all duration-300">Exit Workspace</button>
+            <button
+              onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('selectedFamily'); navigate('/login'); }}
+              title="Log out"
+              className="px-5 py-2.5 border border-white/10 bg-white/5 backdrop-blur-md rounded-xl text-gray-400 font-bold tracking-widest uppercase text-xs hover:bg-rose-500 hover:text-white hover:border-rose-400/50 active:scale-95 transition-all duration-300"
+            >
+              Logout
+            </button>
           </div>
         </header>
 

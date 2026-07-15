@@ -615,7 +615,7 @@ const FamilyTreeInner = ({ nodes: incomingNodes = [], edges: incomingEdges = [],
     })
       .then(url => {
         const a = document.createElement('a');
-        a.download = 'KINSphere-Lineage.png';
+        a.download = 'Virasat-Lineage.png';
         a.href = url;
         a.click();
       })
