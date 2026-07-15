@@ -65,7 +65,7 @@ const Register = () => {
 
         <div className="relative animate-fade-in-up">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500 drop-shadow-2xl">
-            KINSPHERE.
+            VIRASAT.AI
           </h1>
           <p className="text-xl md:text-2xl font-light text-rose-100/80 tracking-widest uppercase mb-8 border-l-2 border-rose-500 pl-4">
             Acknowledge Your Origins.
@@ -109,7 +109,7 @@ const Register = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-white/5 border-b-2 border-white/10 px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-rose-500 focus:bg-white/10 transition-all rounded-t-md"
-                placeholder="origin@kinsphere.com"
+                placeholder="origin@virasat.ai"
                 required
               />
             </div>

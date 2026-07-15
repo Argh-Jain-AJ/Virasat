@@ -279,6 +279,12 @@ const Dashboard = () => {
     return new Date(dateString).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("selectedFamily");
+    navigate("/login");
+  };
+
   const lastOpenedId = useMemo(() => {
     const selected = localStorage.getItem("selectedFamily");
     if (selected && families.some(f => f.id === selected)) return selected;
@@ -326,23 +332,33 @@ const Dashboard = () => {
               </p>
             </div>
 
-            {/* Emotional stats block */}
-            <div className="flex gap-4 md:gap-8 bg-black/40 backdrop-blur-xl border border-white/5 px-6 py-4 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-              <div className="flex flex-col">
-                <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-1">Active Stories</span>
-                <span className="text-2xl font-black text-white drop-shadow-md">{families.length}</span>
-              </div>
-              <div className="w-px bg-white/10" />
-              <div className="flex flex-col">
-                <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-1">Legacy Status</span>
-                <span className="text-sm font-bold text-emerald-400 flex items-center gap-2 mt-1 tracking-wide">
-                  <span className="relative w-2.5 h-2.5">
-                    <span className="absolute inset-0 rounded-full bg-emerald-400 animate-status-dot" />
-                    <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-20" />
+            <div className="flex items-start gap-4">
+              {/* Emotional stats block */}
+              <div className="flex gap-4 md:gap-8 bg-black/40 backdrop-blur-xl border border-white/5 px-6 py-4 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                <div className="flex flex-col">
+                  <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-1">Active Stories</span>
+                  <span className="text-2xl font-black text-white drop-shadow-md">{families.length}</span>
+                </div>
+                <div className="w-px bg-white/10" />
+                <div className="flex flex-col">
+                  <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-1">Legacy Status</span>
+                  <span className="text-sm font-bold text-emerald-400 flex items-center gap-2 mt-1 tracking-wide">
+                    <span className="relative w-2.5 h-2.5">
+                      <span className="absolute inset-0 rounded-full bg-emerald-400 animate-status-dot" />
+                      <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-20" />
+                    </span>
+                    Preserving your legacy
                   </span>
-                  Preserving your legacy
-                </span>
+                </div>
               </div>
+
+              <button
+                onClick={handleLogout}
+                title="Log out"
+                className="px-5 py-2.5 h-full border border-white/10 bg-black/40 backdrop-blur-xl rounded-xl text-gray-400 font-bold tracking-widest uppercase text-xs hover:bg-rose-500 hover:text-white hover:border-rose-400/50 active:scale-95 transition-all duration-300"
+              >
+                Logout
+              </button>
             </div>
           </header>
 
