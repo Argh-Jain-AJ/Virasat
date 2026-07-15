@@ -294,17 +294,12 @@ const FamilyTreePage = () => {
   const [error, setError] = useState('');
 
 
-  const [activities, setActivities] = useState([
-    { id: -1, type: 'system', message: 'System initialized. Virasat Engine online.', timestamp: Date.now() - 1200000 },
-    { id: -2, type: 'added_memory', message: 'Argh added a new memory', timestamp: Date.now() - 600000 },
-    { id: -3, type: 'added_relationship', message: 'Relationship created between Sandeep and Karuna', timestamp: Date.now() - 300000 },
-    { id: -4, type: 'added_person', message: 'New member Mukti added to tree', timestamp: Date.now() - 60000 }
-  ]);
+  const [activities, setActivities] = useState([]);
   const activityIdRef = useRef(0);
 
   const pushActivity = useCallback((type, message) => {
     const id = ++activityIdRef.current;
-    setActivities(prev => [{ id, type, message, timestamp: Date.now() }, ...prev]); // Prepend mock events so new ones show at top
+    setActivities(prev => [{ id, type, message, timestamp: Date.now() }, ...prev]);
   }, []);
 
   useEffect(() => {
