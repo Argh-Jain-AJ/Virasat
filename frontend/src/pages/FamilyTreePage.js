@@ -410,7 +410,7 @@ const FamilyTreePage = () => {
           </div>
           <div className="xl:col-span-2">
             <Card className="h-full">
-              <CardHeader icon="🧠" title="Smart Insights" sub="AI-powered tree analytics" />
+              <CardHeader icon="🧠" title="Smart Insights" sub="Automated tree analytics" />
               <FamilyInsightsPanel nodes={treeData.nodes} edges={treeData.edges} />
             </Card>
           </div>
@@ -451,7 +451,7 @@ const FamilyTreePage = () => {
 
         {/* SMART SUGGESTIONS */}
         <Card className="p-6 mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-700 fill-mode-both">
-          <CardHeader icon="🧠" title="Smart Suggestions" sub="AI-powered tree insights" />
+          <CardHeader icon="🧠" title="Smart Suggestions" sub="Automated tree insights" />
           <SmartSuggestions nodes={treeData.nodes} edges={treeData.edges} />
         </Card>
 

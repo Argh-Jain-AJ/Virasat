@@ -14,7 +14,7 @@ const Footer = () => {
     <footer className="w-full mt-auto py-5 px-6 border-t border-white/5 bg-transparent">
       <div className="flex flex-col items-center gap-1.5 text-center">
         <p className="text-[11px] text-gray-600 tracking-widest font-medium">
-          &copy; {year} <span className="text-gray-500 font-bold">Virasat.ai</span>. All rights reserved.
+          &copy; {year} <span className="text-gray-500 font-bold">Virasat</span>. All rights reserved.
         </p>
         <p className="text-[11px] text-gray-700 tracking-wider italic">
           Preserving your legacy.

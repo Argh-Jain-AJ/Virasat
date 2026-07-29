@@ -196,7 +196,7 @@ const FamilyInsightsPanel = ({ nodes, edges }) => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button className="p-3 bg-black/40 border border-amber-500/30 hover:bg-amber-500/10 rounded-xl text-left transition-all hover:-translate-y-0.5 group">
                   <div className="text-amber-400 text-sm font-bold mb-1 group-hover:text-amber-300">🪄 Magic Bio Generator</div>
-                  <div className="text-xs text-gray-500 leading-relaxed">Runs AI on {insights.missingBio} profiles automatically using existing data.</div>
+                  <div className="text-xs text-gray-500 leading-relaxed">Auto-generates bios for {insights.missingBio} profiles using their existing data.</div>
                 </button>
                 <button className="p-3 bg-black/40 border border-amber-500/30 hover:bg-amber-500/10 rounded-xl text-left transition-all hover:-translate-y-0.5 group">
                   <div className="text-amber-400 text-sm font-bold mb-1 group-hover:text-amber-300">📡 GEDCOM Sync</div>

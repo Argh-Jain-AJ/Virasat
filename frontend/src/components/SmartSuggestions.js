@@ -90,7 +90,7 @@ const SmartSuggestions = ({ nodes = [], edges = [], onAction }) => {
       list.push({
         id: 'no_bio',
         icon: '📝',
-        message: `${noBio.length} member${noBio.length > 1 ? 's' : ''} ${noBio.length > 1 ? 'have' : 'has'} no biography — open their profile and generate one with AI.`,
+        message: `${noBio.length} member${noBio.length > 1 ? 's' : ''} ${noBio.length > 1 ? 'have' : 'has'} no biography — open their profile to auto-generate one.`,
         action: null,
       });
     }

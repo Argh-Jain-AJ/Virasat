@@ -79,7 +79,7 @@ const Login = () => {
           
           <div className="relative animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-8 text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-gray-400 drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-              VIRASAT.AI
+              VIRASAT
             </h1>
             <p className="text-xl md:text-2xl font-medium text-white tracking-[0.15em] uppercase mb-12 border-l-2 border-rose-500 pl-5 drop-shadow-md">
               Every Family Has a Story. <br className="hidden md:block" />
@@ -144,7 +144,7 @@ const Login = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full bg-white/5 border border-white/10 hover:border-white/20 pl-12 pr-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-rose-500/80 focus:bg-white/10 transition-all duration-300 rounded-xl focus:shadow-[inset_0_2px_10px_rgba(225,29,72,0.05),0_0_15px_rgba(225,29,72,0.25)]"
-                    placeholder="lineage@virasat.ai"
+                    placeholder="you@example.com"
                     required
                   />
                 </div>

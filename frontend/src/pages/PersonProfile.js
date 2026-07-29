@@ -680,7 +680,7 @@ const BiographySection = ({ person, relationships, memories, relPersons, onBioUp
       const res = await api.post('/ai/generate-biography', { person_id: person.id });
       onBioUpdate(res.data.biography || res.data.bio || '');
     } catch {
-      // Build a local heuristic bio if AI fails
+      // Build a local heuristic bio if the request fails
       const rels = relationships.slice(0, 3).map(r => {
         const oid = r.person1_id === person.id ? r.person2_id : r.person1_id;
         const op = relPersons[oid];
@@ -708,7 +708,7 @@ const BiographySection = ({ person, relationships, memories, relPersons, onBioUp
           className="text-[10px] px-3 py-1.5 bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-lg font-bold uppercase tracking-wider hover:bg-rose-500 hover:text-white transition-all disabled:opacity-40 flex items-center gap-1.5">
           {generating ? (
             <><span className="w-3 h-3 border border-rose-400 border-t-transparent rounded-full animate-spin" /> Generating…</>
-          ) : '✨ AI Generate'}
+          ) : '✨ Auto-Generate'}
         </button>
       </div>
       {generating ? (
@@ -726,7 +726,7 @@ const BiographySection = ({ person, relationships, memories, relPersons, onBioUp
           )}
           <InlineEditField
             value={person?.bio}
-            placeholder="No biography yet — click AI Generate or click here to write one."
+            placeholder="No biography yet — click Auto-Generate or click here to write one."
             multiline
             onSave={onBioUpdate}
             className="text-gray-300 text-sm leading-relaxed block w-full"

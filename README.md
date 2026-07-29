@@ -7,7 +7,7 @@ Dynamic node-based relationship management
 Detailed member profiles with memories and timelines
 Secure authentication with JWT and bcrypt
 Role-based collaboration and family access management
-AI-assisted biography generation for family members
+Auto-generated biography summaries for family members
 Export family trees as high-quality PNG images
 Dockerized full-stack deployment setup
 PostgreSQL-backed normalized relational database structure
@@ -51,4 +51,4 @@ Timeline and memory archiving systems
 Educational genealogy visualization tools
 
 Short ATS-Friendly Version
-Built a production-ready full-stack Family Tree platform using React, Node.js, Express, and PostgreSQL with interactive graph visualization, secure authentication, relationship management, and AI-assisted biography generation.
+Built a production-ready full-stack Family Tree platform using React, Node.js, Express, and PostgreSQL with interactive graph visualization, secure authentication, relationship management, and auto-generated biography summaries.
