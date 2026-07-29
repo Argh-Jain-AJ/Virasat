@@ -446,7 +446,7 @@ const Dashboard = () => {
                       Lineage Name
                     </label>
                     <input
-                      placeholder="e.g. The Targaryen Ancestry"
+                      placeholder="e.g. The Sharma Family"
                       value={newFamilyName}
                       onChange={(e) => setNewFamilyName(e.target.value)}
                       required

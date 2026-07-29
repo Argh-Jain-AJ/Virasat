@@ -97,7 +97,7 @@ const Register = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full bg-white/5 border-b-2 border-white/10 px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-rose-500 focus:bg-white/10 transition-all rounded-t-md"
-                placeholder="Charles Leclerc"
+                placeholder="Priya Sharma"
                 required
               />
             </div>

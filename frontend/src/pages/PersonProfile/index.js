@@ -54,15 +54,15 @@ const PersonProfile = () => {
 
       const MOCK_DEMO_DATA = {
         n1: {
-          person: { id: 'n1', first_name: 'Arthur', last_name: 'Pendragon', gender: 'Male', birth_place: 'Camelot', bio: 'The legendary king of Britain, wielder of Excalibur.' },
-          memories: [{ id: 'm1', title: 'Drawing the Sword', description: 'Pulled Excalibur from the stone, fulfilling the ancient prophecy.', event_date: '0500-01-01', tags: ['Career'] }],
+          person: { id: 'n1', first_name: 'Ramesh', last_name: 'Sharma', gender: 'Male', birth_place: 'Jaipur', bio: 'A dedicated civil engineer who spent over three decades building bridges and highways, and even more time building memories with his family.' },
+          memories: [{ id: 'm1', title: 'Building Our First Home', description: 'Ramesh and Sunita spent one whole summer building their first family home together, room by room.', event_date: '1978-06-15', tags: ['Family'] }],
           relationships: [
             { id: 'r1', person1_id: 'n1', person2_id: 'n2', relationship_type: 'spouse' },
             { id: 'r2', person1_id: 'n1', person2_id: 'n3', relationship_type: 'parent' }
           ]
         },
         n2: {
-          person: { id: 'n2', first_name: 'Guinevere', last_name: 'Leodegrance', gender: 'Female', bio: 'The noble Queen of Camelot.' },
+          person: { id: 'n2', first_name: 'Sunita', last_name: 'Sharma', gender: 'Female', bio: 'A devoted schoolteacher who spent forty years shaping young minds, and an even longer time shaping this family.' },
           memories: [],
           relationships: [
             { id: 'r1', person1_id: 'n1', person2_id: 'n2', relationship_type: 'spouse' },
@@ -71,7 +71,7 @@ const PersonProfile = () => {
           ]
         },
         n3: {
-          person: { id: 'n3', first_name: 'Gawain', last_name: 'Pendragon', gender: 'Male', bio: 'A brave and loyal knight of the Round Table.' },
+          person: { id: 'n3', first_name: 'Rohan', last_name: 'Sharma', gender: 'Male', bio: 'The curious middle child who grew up to become a family doctor, always eager to learn something new.' },
           memories: [],
           relationships: [
             { id: 'r2', person1_id: 'n1', person2_id: 'n3', relationship_type: 'parent' },
@@ -79,7 +79,7 @@ const PersonProfile = () => {
           ]
         },
         n4: {
-          person: { id: 'n4', first_name: 'Lancelot', last_name: 'du Lac', gender: 'Male', bio: 'The greatest swordsman of Camelot.' },
+          person: { id: 'n4', first_name: 'Meena', last_name: 'Kapoor', gender: 'Female', bio: 'The free spirit of the family, known for her love of travel and her infectious laugh at every reunion.' },
           memories: [],
           relationships: [
             { id: 'r4', person1_id: 'n4', person2_id: 'n2', relationship_type: 'sibling' }

@@ -311,10 +311,10 @@ const FamilyTreePage = () => {
     if (isDemo) {
       setTreeData({
         nodes: [
-          { id: 'n1', position: { x: 0, y: 0 }, data: { person: { id: 'n1', first_name: 'Arthur', last_name: 'Pendragon', gender: 'Male', birth_place: 'Camelot' } } },
-          { id: 'n2', position: { x: 250, y: 0 }, data: { person: { id: 'n2', first_name: 'Guinevere', last_name: 'Leodegrance', gender: 'Female' } } },
-          { id: 'n3', position: { x: 125, y: 150 }, data: { person: { id: 'n3', first_name: 'Gawain', last_name: 'Pendragon', gender: 'Male' } } },
-          { id: 'n4', position: { x: 375, y: 150 }, data: { person: { id: 'n4', first_name: 'Lancelot', last_name: 'du Lac', gender: 'Male' } } },
+          { id: 'n1', position: { x: 0, y: 0 }, data: { person: { id: 'n1', first_name: 'Ramesh', last_name: 'Sharma', gender: 'Male', birth_place: 'Jaipur' } } },
+          { id: 'n2', position: { x: 250, y: 0 }, data: { person: { id: 'n2', first_name: 'Sunita', last_name: 'Sharma', gender: 'Female' } } },
+          { id: 'n3', position: { x: 125, y: 150 }, data: { person: { id: 'n3', first_name: 'Rohan', last_name: 'Sharma', gender: 'Male' } } },
+          { id: 'n4', position: { x: 375, y: 150 }, data: { person: { id: 'n4', first_name: 'Meena', last_name: 'Kapoor', gender: 'Female' } } },
         ],
         edges: [
           { id: 'e1', source: 'n1', target: 'n2', data: { relationship_type: 'spouse' } },
