@@ -7,8 +7,13 @@ const relationshipService = require('../services/relationshipService');
 const createRelationship = async (req, res) => {
   try {
     const { person1_id, person2_id, relationship_type } = req.body;
-    
-    const newRelationship = await relationshipService.createRelationship(person1_id, person2_id, relationship_type);
+
+    const newRelationship = await relationshipService.createRelationship(person1_id, person2_id, relationship_type, req.user.id);
+
+    if (!newRelationship) {
+      return res.status(404).json({ message: 'One or both persons not found' });
+    }
+
     res.status(201).json(newRelationship);
   } catch (error) {
     console.error('Error creating relationship:', error);
@@ -26,7 +31,7 @@ const createRelationship = async (req, res) => {
 const getRelationshipsByPerson = async (req, res) => {
   try {
     const { person_id } = req.params;
-    const relationships = await relationshipService.getRelationshipsByPerson(person_id);
+    const relationships = await relationshipService.getRelationshipsByPerson(person_id, req.user.id);
     res.status(200).json(relationships);
   } catch (error) {
     console.error('Error getting relationships:', error);
@@ -41,12 +46,12 @@ const getRelationshipsByPerson = async (req, res) => {
 const deleteRelationship = async (req, res) => {
   try {
     const { relationship_id } = req.params;
-    const success = await relationshipService.deleteRelationship(relationship_id);
-    
+    const success = await relationshipService.deleteRelationship(relationship_id, req.user.id);
+
     if (!success) {
       return res.status(404).json({ message: 'Relationship not found' });
     }
-    
+
     res.status(200).json({ message: 'Relationship deleted successfully' });
   } catch (error) {
     console.error('Error deleting relationship:', error);
@@ -62,17 +67,17 @@ const updateRelationship = async (req, res) => {
   try {
     const { relationship_id } = req.params;
     const { relationship_type } = req.body;
-    
+
     if (!relationship_type) {
       return res.status(400).json({ message: 'Relationship type is required' });
     }
 
-    const updated = await relationshipService.updateRelationship(relationship_id, relationship_type);
-    
+    const updated = await relationshipService.updateRelationship(relationship_id, relationship_type, req.user.id);
+
     if (!updated) {
       return res.status(404).json({ message: 'Relationship not found' });
     }
-    
+
     res.status(200).json(updated);
   } catch (error) {
     console.error('Error updating relationship:', error);

@@ -51,10 +51,16 @@ router.post(
       if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
       const baseUrl  = `${req.protocol}://${req.get('host')}`;
       const photoUrl = `${baseUrl}/uploads/persons/${req.file.filename}`;
-      await pool.query(
-        'UPDATE persons SET photo_url = $1 WHERE id = $2 RETURNING *',
-        [photoUrl, req.params.person_id]
+      const { rows } = await pool.query(
+        `UPDATE persons SET photo_url = $1
+         WHERE id = $2
+           AND family_id IN (SELECT id FROM families WHERE created_by = $3)
+         RETURNING *`,
+        [photoUrl, req.params.person_id, req.user.id]
       );
+      if (rows.length === 0) {
+        return res.status(404).json({ error: 'Person not found' });
+      }
       res.json({ photo_url: photoUrl });
     } catch (err) {
       console.error('Photo upload error:', err);

@@ -22,6 +22,14 @@ const importGedcom = async (req, res, next) => {
        return res.status(400).json({ error: true, message: 'Family ID is required to import members.' });
     }
 
+    const ownsFamily = await pool.query(
+      'SELECT id FROM families WHERE id = $1 AND created_by = $2',
+      [family_id, req.user.id]
+    );
+    if (ownsFamily.rows.length === 0) {
+      return res.status(404).json({ error: true, message: 'Family not found.' });
+    }
+
     const fileContent = fs.readFileSync(req.file.path, 'utf-8');
     const { persons, relationships } = await parseGedcom(fileContent);
 

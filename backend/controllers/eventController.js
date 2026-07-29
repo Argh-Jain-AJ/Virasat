@@ -12,7 +12,7 @@ const getFamilyEvents = async (req, res, next) => {
       return res.status(400).json({ error: true, message: 'family_id query parameter is required' });
     }
 
-    const persons = await personService.getPersonsByFamily(family_id);
+    const persons = await personService.getPersonsByFamily(family_id, req.user.id);
     
     // For a real production app we would query all memories for the family.
     // Currently memoryService.getMemoriesByPerson is defined, but we need all memories.

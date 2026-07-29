@@ -7,7 +7,12 @@ const personService = require('../services/personService');
 const addPerson = async (req, res) => {
   try {
     const personData = req.body;
-    const newPerson = await personService.addPerson(personData);
+    const newPerson = await personService.addPerson(personData, req.user.id);
+
+    if (!newPerson) {
+      return res.status(404).json({ message: 'Family not found' });
+    }
+
     res.status(201).json(newPerson);
   } catch (error) {
     console.error('Error adding person:', error);
@@ -25,7 +30,7 @@ const addPerson = async (req, res) => {
 const getPersonsByFamily = async (req, res) => {
   try {
     const { family_id } = req.params;
-    const persons = await personService.getPersonsByFamily(family_id);
+    const persons = await personService.getPersonsByFamily(family_id, req.user.id);
     res.status(200).json(persons);
   } catch (error) {
     console.error('Error getting persons by family:', error);
@@ -40,12 +45,12 @@ const getPersonsByFamily = async (req, res) => {
 const getPersonById = async (req, res) => {
   try {
     const { person_id } = req.params;
-    const person = await personService.getPersonById(person_id);
-    
+    const person = await personService.getPersonById(person_id, req.user.id);
+
     if (!person) {
       return res.status(404).json({ message: 'Person not found' });
     }
-    
+
     res.status(200).json(person);
   } catch (error) {
     console.error('Error getting person by ID:', error);
@@ -62,8 +67,8 @@ const updatePerson = async (req, res) => {
     const { person_id } = req.params;
     const updatedData = req.body;
 
-    const updatedPerson = await personService.updatePerson(person_id, updatedData);
-    
+    const updatedPerson = await personService.updatePerson(person_id, updatedData, req.user.id);
+
     if (!updatedPerson) {
       return res.status(404).json({ message: 'Person not found or no valid fields to update' });
     }
@@ -82,12 +87,12 @@ const updatePerson = async (req, res) => {
 const deletePerson = async (req, res) => {
   try {
     const { person_id } = req.params;
-    const success = await personService.deletePerson(person_id);
-    
+    const success = await personService.deletePerson(person_id, req.user.id);
+
     if (!success) {
       return res.status(404).json({ message: 'Person not found' });
     }
-    
+
     res.status(200).json({ message: 'Person deleted successfully' });
   } catch (error) {
     console.error('Error deleting person:', error);
@@ -96,7 +101,7 @@ const deletePerson = async (req, res) => {
 };
 
 /**
- * Search persons by name across all families
+ * Search persons by name within the requesting user's families
  * @route GET /api/persons/search?q=...
  */
 const searchPersons = async (req, res) => {
@@ -105,7 +110,7 @@ const searchPersons = async (req, res) => {
     if (!q || q.trim().length < 2) {
       return res.status(400).json({ message: 'Search query must be at least 2 characters' });
     }
-    const results = await personService.searchPersons(q);
+    const results = await personService.searchPersons(q, req.user.id);
     res.status(200).json(results);
   } catch (error) {
     console.error('Search error:', error);

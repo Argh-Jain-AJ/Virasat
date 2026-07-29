@@ -1,11 +1,12 @@
 const pool = require('../config/db');
 
 /**
- * Creates a new person in a family
+ * Creates a new person in a family owned by the given user
  * @param {Object} personData - The person's data
- * @returns {Object} The created person object
+ * @param {string} user_id - The ID of the requesting user (must own family_id)
+ * @returns {Object|null} The created person object, or null if the family isn't owned by user_id
  */
-const createPerson = async (personData) => {
+const createPerson = async (personData, user_id) => {
   const {
     family_id,
     first_name,
@@ -21,58 +22,64 @@ const createPerson = async (personData) => {
 
   const query = `
     INSERT INTO persons (
-      family_id, first_name, last_name, gender, birth_date, 
+      family_id, first_name, last_name, gender, birth_date,
       death_date, birth_place, occupation, bio, photo_url
     )
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    SELECT $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
+    WHERE EXISTS (SELECT 1 FROM families WHERE id = $1 AND created_by = $11)
     RETURNING *;
   `;
-  
+
   const values = [
     family_id, first_name, last_name, gender, birth_date,
-    death_date, birth_place, occupation, bio, photo_url
+    death_date, birth_place, occupation, bio, photo_url, user_id
   ];
-  
+
   const { rows } = await pool.query(query, values);
-  return rows[0];
-};
-
-/**
- * Retrieves all persons belonging to a specific family
- * @param {string} family_id - The ID of the family
- * @returns {Array} List of persons in the family
- */
-const getPersonsByFamily = async (family_id) => {
-  const query = `
-    SELECT * FROM persons
-    WHERE family_id = $1
-    ORDER BY birth_date ASC NULLS LAST;
-  `;
-  const { rows } = await pool.query(query, [family_id]);
-  return rows;
-};
-
-/**
- * Retrieves a person by their ID
- * @param {string} person_id - The ID of the person
- * @returns {Object|null} The person object or null if not found
- */
-const getPersonById = async (person_id) => {
-  const query = `
-    SELECT * FROM persons
-    WHERE id = $1;
-  `;
-  const { rows } = await pool.query(query, [person_id]);
   return rows[0] || null;
 };
 
 /**
- * Updates a person's details
+ * Retrieves all persons belonging to a specific family owned by user_id
+ * @param {string} family_id - The ID of the family
+ * @param {string} user_id - The ID of the requesting user
+ * @returns {Array} List of persons in the family
+ */
+const getPersonsByFamily = async (family_id, user_id) => {
+  const query = `
+    SELECT p.* FROM persons p
+    JOIN families f ON p.family_id = f.id
+    WHERE p.family_id = $1 AND f.created_by = $2
+    ORDER BY p.birth_date ASC NULLS LAST;
+  `;
+  const { rows } = await pool.query(query, [family_id, user_id]);
+  return rows;
+};
+
+/**
+ * Retrieves a person by their ID, scoped to families owned by user_id
+ * @param {string} person_id - The ID of the person
+ * @param {string} user_id - The ID of the requesting user
+ * @returns {Object|null} The person object or null if not found/not owned
+ */
+const getPersonById = async (person_id, user_id) => {
+  const query = `
+    SELECT p.* FROM persons p
+    JOIN families f ON p.family_id = f.id
+    WHERE p.id = $1 AND f.created_by = $2;
+  `;
+  const { rows } = await pool.query(query, [person_id, user_id]);
+  return rows[0] || null;
+};
+
+/**
+ * Updates a person's details, scoped to families owned by user_id
  * @param {string} person_id - The ID of the person to update
  * @param {Object} updatedData - The person's updatable fields
+ * @param {string} user_id - The ID of the requesting user
  * @returns {Object|null} The updated person object
  */
-const updatePerson = async (person_id, updatedData) => {
+const updatePerson = async (person_id, updatedData, user_id) => {
   const fields = [];
   const values = [];
   let paramIndex = 1;
@@ -87,11 +94,12 @@ const updatePerson = async (person_id, updatedData) => {
 
   if (fields.length === 0) return null;
 
-  values.push(person_id);
+  values.push(person_id, user_id);
   const query = `
     UPDATE persons
     SET ${fields.join(', ')}
     WHERE id = $${paramIndex}
+      AND family_id IN (SELECT id FROM families WHERE created_by = $${paramIndex + 1})
     RETURNING *;
   `;
 
@@ -100,38 +108,44 @@ const updatePerson = async (person_id, updatedData) => {
 };
 
 /**
- * Deletes a person from the database
+ * Deletes a person from the database, scoped to families owned by user_id
  * @param {string} person_id - The ID of the person to delete
- * @returns {boolean} True if deleted, false if not found
+ * @param {string} user_id - The ID of the requesting user
+ * @returns {boolean} True if deleted, false if not found/not owned
  */
-const deletePerson = async (person_id) => {
+const deletePerson = async (person_id, user_id) => {
   const query = `
     DELETE FROM persons
     WHERE id = $1
+      AND family_id IN (SELECT id FROM families WHERE created_by = $2)
     RETURNING id;
   `;
-  const { rows } = await pool.query(query, [person_id]);
+  const { rows } = await pool.query(query, [person_id, user_id]);
   return rows.length > 0;
 };
 
 /**
- * Searches persons by name across all families
+ * Searches persons by name, scoped to families owned by user_id
  * @param {string} query - Search string
+ * @param {string} user_id - The ID of the requesting user
  * @returns {Array} Matching persons (max 20)
  */
-const searchPersons = async (query) => {
+const searchPersons = async (query, user_id) => {
   const term = `%${query}%`;
   const sql = `
-    SELECT id, first_name, last_name, birth_place, gender, photo_url, family_id
-    FROM persons
-    WHERE
-      first_name ILIKE $1
-      OR last_name ILIKE $1
-      OR CONCAT(first_name, ' ', last_name) ILIKE $1
-    ORDER BY first_name, last_name
+    SELECT p.id, p.first_name, p.last_name, p.birth_place, p.gender, p.photo_url, p.family_id
+    FROM persons p
+    JOIN families f ON p.family_id = f.id
+    WHERE f.created_by = $2
+      AND (
+        p.first_name ILIKE $1
+        OR p.last_name ILIKE $1
+        OR CONCAT(p.first_name, ' ', p.last_name) ILIKE $1
+      )
+    ORDER BY p.first_name, p.last_name
     LIMIT 20;
   `;
-  const { rows } = await pool.query(sql, [term]);
+  const { rows } = await pool.query(sql, [term, user_id]);
   return rows;
 };
 
