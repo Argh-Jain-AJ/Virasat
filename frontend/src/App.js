@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Footer from './components/Footer';
+import ProtectedRoute from './components/ProtectedRoute';
 import { ToastProvider, useToast } from './context/ToastContext';
 import './App.css';
 
@@ -50,9 +51,9 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/story-transition" element={<StoryTransition />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/family-tree" element={<FamilyTreePage />} />
-              <Route path="/person/:id" element={<PersonProfile />} />
+              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/family-tree" element={<ProtectedRoute><FamilyTreePage /></ProtectedRoute>} />
+              <Route path="/person/:id" element={<ProtectedRoute><PersonProfile /></ProtectedRoute>} />
 
               {/* Default fallback route redirecting to login */}
               <Route path="*" element={<Navigate to="/login" replace />} />

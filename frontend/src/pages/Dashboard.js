@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getFamilies, createFamily, deleteFamily, updateFamily } from "../services/familyService";
 import bgImage from "../assets/hero-bg.png";
 import CanvasNetwork from "../components/CanvasNetwork";
+import Modal from "../components/Modal";
 import { useToast } from "../context/ToastContext";
 
 // ─────────────────────────────────────────────
@@ -475,75 +476,75 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* ── CUSTOM DELETE MODAL ── */}
+      {/* ── DELETE MODAL ── */}
       {deleteModalState.isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 animate-in fade-in zoom-in-95 duration-200">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => !deleteModalState.isDeleting && setDeleteModalState({ isOpen: false, familyId: null, isDeleting: false })} />
-          <div className="relative bg-[#0f0f0f] border border-red-500/30 rounded-3xl p-8 max-w-md w-full shadow-2xl z-10 text-center">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500/80 to-transparent rounded-t-3xl" />
-            <div className="text-5xl mb-4">⚠️</div>
-            <h2 className="text-2xl font-black text-white mb-2">Obliterate Lineage?</h2>
-            <p className="text-gray-400 text-sm mb-8">This action is permanent and irreversible. All descendants, memories, and connections will be lost forever.</p>
-            <div className="flex gap-3">
-              <button 
-                onClick={() => setDeleteModalState({ isOpen: false, familyId: null, isDeleting: false })}
-                disabled={deleteModalState.isDeleting}
-                className="flex-1 py-3 px-5 bg-white/5 border border-white/10 text-gray-300 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-white/10 transition-all disabled:opacity-50"
-              >
-                Cancel
-              </button>
-              <button 
-                onClick={confirmDeleteFamily}
-                disabled={deleteModalState.isDeleting}
-                className="flex-1 py-3 px-5 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all disabled:opacity-50 flex justify-center items-center gap-2"
-              >
-                {deleteModalState.isDeleting ? <span className="animate-pulse">Deleting...</span> : 'Yes, Delete'}
-              </button>
-            </div>
+        <Modal
+          accent="red"
+          center
+          closeDisabled={deleteModalState.isDeleting}
+          onClose={() => setDeleteModalState({ isOpen: false, familyId: null, isDeleting: false })}
+        >
+          <div className="text-5xl mb-4">⚠️</div>
+          <h2 className="text-2xl font-black text-white mb-2">Obliterate Lineage?</h2>
+          <p className="text-gray-400 text-sm mb-8">This action is permanent and irreversible. All descendants, memories, and connections will be lost forever.</p>
+          <div className="flex gap-3">
+            <button
+              onClick={() => setDeleteModalState({ isOpen: false, familyId: null, isDeleting: false })}
+              disabled={deleteModalState.isDeleting}
+              className="flex-1 py-3 px-5 bg-white/5 border border-white/10 text-gray-300 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-white/10 transition-all disabled:opacity-50"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={confirmDeleteFamily}
+              disabled={deleteModalState.isDeleting}
+              className="flex-1 py-3 px-5 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all disabled:opacity-50 flex justify-center items-center gap-2"
+            >
+              {deleteModalState.isDeleting ? <span className="animate-pulse">Deleting...</span> : 'Yes, Delete'}
+            </button>
           </div>
-        </div>
+        </Modal>
       )}
 
-      {/* ── CUSTOM RENAME MODAL ── */}
+      {/* ── RENAME MODAL ── */}
       {renameModalState.isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 animate-in fade-in zoom-in-95 duration-200">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => !renameModalState.isSaving && setRenameModalState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false })} />
-          <div className="relative bg-[#0f0f0f] border border-white/10 rounded-3xl p-8 max-w-md w-full shadow-2xl z-10">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-rose-500/60 to-transparent rounded-t-3xl" />
-            <h2 className="text-2xl font-black text-white mb-2">Rename Lineage</h2>
-            <p className="text-gray-400 text-sm mb-6">Enter a new name for your family tree.</p>
-            
-            <input
-              autoFocus
-              type="text"
-              value={renameModalState.newName}
-              onChange={(e) => setRenameModalState(prev => ({ ...prev, newName: e.target.value }))}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') confirmUpdateFamily();
-                if (e.key === 'Escape') setRenameModalState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false });
-              }}
-              className="w-full bg-white/5 border border-white/10 hover:border-white/20 px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-rose-500/80 focus:bg-white/10 transition-all duration-300 rounded-xl mb-8"
-              placeholder="Lineage Name"
-            />
-            
-            <div className="flex gap-3">
-              <button 
-                onClick={() => setRenameModalState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false })}
-                disabled={renameModalState.isSaving}
-                className="flex-1 py-3 px-5 bg-white/5 border border-white/10 text-gray-300 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-white/10 transition-all disabled:opacity-50"
-              >
-                Cancel
-              </button>
-              <button 
-                onClick={confirmUpdateFamily}
-                disabled={renameModalState.isSaving || !renameModalState.newName.trim() || renameModalState.newName === renameModalState.currentName}
-                className="flex-1 py-3 px-5 bg-rose-500/10 border border-rose-500/30 text-rose-400 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-rose-500 hover:text-white transition-all disabled:opacity-50 flex justify-center items-center gap-2"
-              >
-                {renameModalState.isSaving ? <span className="animate-pulse">Saving...</span> : 'Save Name'}
-              </button>
-            </div>
+        <Modal
+          closeDisabled={renameModalState.isSaving}
+          onClose={() => setRenameModalState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false })}
+        >
+          <h2 className="text-2xl font-black text-white mb-2">Rename Lineage</h2>
+          <p className="text-gray-400 text-sm mb-6">Enter a new name for your family tree.</p>
+
+          <input
+            autoFocus
+            type="text"
+            value={renameModalState.newName}
+            onChange={(e) => setRenameModalState(prev => ({ ...prev, newName: e.target.value }))}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') confirmUpdateFamily();
+              if (e.key === 'Escape') setRenameModalState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false });
+            }}
+            className="w-full bg-white/5 border border-white/10 hover:border-white/20 px-4 py-3.5 text-white placeholder-gray-600 focus:outline-none focus:border-rose-500/80 focus:bg-white/10 transition-all duration-300 rounded-xl mb-8"
+            placeholder="Lineage Name"
+          />
+
+          <div className="flex gap-3">
+            <button
+              onClick={() => setRenameModalState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false })}
+              disabled={renameModalState.isSaving}
+              className="flex-1 py-3 px-5 bg-white/5 border border-white/10 text-gray-300 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-white/10 transition-all disabled:opacity-50"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={confirmUpdateFamily}
+              disabled={renameModalState.isSaving || !renameModalState.newName.trim() || renameModalState.newName === renameModalState.currentName}
+              className="flex-1 py-3 px-5 bg-rose-500/10 border border-rose-500/30 text-rose-400 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-rose-500 hover:text-white transition-all disabled:opacity-50 flex justify-center items-center gap-2"
+            >
+              {renameModalState.isSaving ? <span className="animate-pulse">Saving...</span> : 'Save Name'}
+            </button>
           </div>
-        </div>
+        </Modal>
       )}
 
     </>

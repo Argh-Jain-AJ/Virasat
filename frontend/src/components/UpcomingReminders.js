@@ -32,24 +32,24 @@ const UpcomingReminders = ({ familyId }) => {
   return (
     <div className="space-y-4">
       {reminders.map((event, idx) => {
-        let textStyle = "text-blue-600";
-        let bgStyle = "bg-blue-50 border-blue-200";
+        let textStyle = "text-blue-400";
+        let bgStyle = "bg-blue-500/10 border-blue-500/20";
         let icon = "🎂";
 
         if (event.event_type.includes("Death")) {
-          textStyle = "text-gray-600";
-          bgStyle = "bg-gray-50 border-gray-200";
+          textStyle = "text-gray-400";
+          bgStyle = "bg-white/5 border-white/10";
           icon = "🕯️";
         } else if (event.event_type.includes("Anniversary") || event.event_type.includes("Wedding")) {
-          textStyle = "text-pink-600";
-          bgStyle = "bg-pink-50 border-pink-200";
+          textStyle = "text-rose-400";
+          bgStyle = "bg-rose-500/10 border-rose-500/20";
           icon = "💍";
         }
 
         return (
-          <div key={`${event.id}-${idx}`} className={`p-4 rounded-lg border ${bgStyle} flex justify-between items-center transition hover:shadow-sm`}>
+          <div key={`${event.id}-${idx}`} className={`p-4 rounded-lg border ${bgStyle} flex justify-between items-center transition hover:shadow-[0_4px_15px_rgba(0,0,0,0.3)]`}>
             <div>
-              <p className="font-semibold text-gray-800">
+              <p className="font-semibold text-white">
                 {icon} {event.first_name} {event.last_name}'s {event.event_type}
               </p>
               <p className={`text-sm ${textStyle} font-medium mt-1`}>
@@ -60,7 +60,7 @@ const UpcomingReminders = ({ familyId }) => {
                 })}
               </p>
             </div>
-            <div className={`px-3 py-1 rounded-full text-xs font-bold ${event.days_away === 0 ? 'bg-red-500 text-white animate-pulse' : 'bg-white text-gray-700 border border-gray-200'}`}>
+            <div className={`px-3 py-1 rounded-full text-xs font-bold ${event.days_away === 0 ? 'bg-red-500 text-white animate-pulse' : 'bg-white/10 text-gray-300 border border-white/10'}`}>
               {event.days_away === 0 ? "TODAY!" : `In ${event.days_away} Days`}
             </div>
           </div>

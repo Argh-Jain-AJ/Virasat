@@ -86,14 +86,14 @@ const GlobalSearchBar = ({ placeholder = 'Search any family member…', classNam
           onKeyDown={handleKeyDown}
           onFocus={() => results.length > 0 && setOpen(true)}
           placeholder={placeholder}
-          className="pl-9 pr-4 py-2 rounded-xl bg-white text-gray-900 placeholder-gray-400 font-medium text-sm
-            focus:outline-none focus:ring-2 focus:ring-rose-500 w-64 border border-gray-200
-            transition-all duration-200 focus:w-80"
+          className="pl-9 pr-4 py-2 rounded-xl bg-white/5 text-white placeholder-gray-500 font-medium text-sm
+            focus:outline-none focus:ring-2 focus:ring-rose-500 w-64 border border-white/10
+            transition-all duration-200 focus:w-80 focus:bg-white/10"
         />
         {query && (
           <button
             onClick={() => { setQuery(''); setResults([]); setOpen(false); }}
-            className="absolute right-2.5 text-gray-400 hover:text-gray-600 text-xs font-bold"
+            className="absolute right-2.5 text-gray-500 hover:text-gray-300 text-xs font-bold"
           >✕</button>
         )}
       </div>

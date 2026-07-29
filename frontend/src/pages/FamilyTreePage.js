@@ -335,12 +335,34 @@ const FamilyTreePage = () => {
     } catch { setError('Failed to fetch family tree.'); }
   };
 
+  // Adds the newly-created person straight into local state instead of
+  // re-fetching the whole tree over the network for a single new node.
+  const addPersonNode = useCallback((person) => {
+    setTreeData(prev => ({
+      ...prev,
+      nodes: [...prev.nodes, { id: person.id, position: { x: 0, y: 0 }, data: { person } }],
+    }));
+  }, []);
+
+  // Same idea for relationships — append the new edge locally.
+  const addRelationshipEdge = useCallback((relationship) => {
+    setTreeData(prev => ({
+      ...prev,
+      edges: [...prev.edges, {
+        id: relationship.id,
+        source: relationship.person1_id,
+        target: relationship.person2_id,
+        data: { relationship_type: relationship.relationship_type },
+      }],
+    }));
+  }, []);
+
   const handleCreatePerson = async (formData) => {
     if (!selectedFamily) return;
     try {
-      await createPerson({ ...formData, family_id: selectedFamily });
+      const person = await createPerson({ ...formData, family_id: selectedFamily });
+      addPersonNode(person);
       pushActivity('added_person', `Added ${formData.first_name} ${formData.last_name || ''}`.trim());
-      fetchTree(selectedFamily);
     } catch { setError('Failed to create person.'); }
   };
 
@@ -348,20 +370,21 @@ const FamilyTreePage = () => {
   const handleAddPersonFromGraph = useCallback(async (formData) => {
     if (!selectedFamily) return null;
     try {
-      const res = await createPerson({ ...formData, family_id: selectedFamily });
+      const person = await createPerson({ ...formData, family_id: selectedFamily });
+      addPersonNode(person);
       pushActivity('added_person', `Added ${formData.first_name} from graph`);
-      return res;
+      return person;
     } catch { setError('Failed to create person.'); return null; }
-  }, [selectedFamily, pushActivity]);
+  }, [selectedFamily, pushActivity, addPersonNode]);
 
   const handleCreateRelationship = async (relData) => {
     if (!selectedFamily) return;
     try {
-      await createRelationship(relData);
+      const relationship = await createRelationship(relData);
       const p1 = treeData.nodes.find(n => n.data?.person?.id === relData.person1_id)?.data?.person;
       const p2 = treeData.nodes.find(n => n.data?.person?.id === relData.person2_id)?.data?.person;
       pushActivity('added_relationship', `Linked ${p1?.first_name || '?'} as ${relData.relationship_type} of ${p2?.first_name || '?'}`);
-      fetchTree(selectedFamily);
+      addRelationshipEdge(relationship);
     } catch { setError('Failed to link family members.'); }
   };
 
@@ -468,11 +491,7 @@ const FamilyTreePage = () => {
                 nodes={treeData.nodes}
                 edges={treeData.edges}
                 onNodeClick={handleNodeClick}
-                onAddPerson={async (data) => {
-                  const person = await handleAddPersonFromGraph(data);
-                  if (person) fetchTree(selectedFamily);
-                  return person;
-                }}
+                onAddPerson={handleAddPersonFromGraph}
                 onAddRelationship={async (relData) => {
                   await handleCreateRelationship(relData);
                 }}

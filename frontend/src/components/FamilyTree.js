@@ -17,6 +17,7 @@ import ReactFlow, {
 import { toPng } from 'html-to-image';
 import 'reactflow/dist/style.css';
 import PersonNode from './PersonNode';
+import Modal from './Modal';
 
 // ══════════════════════════════════════════════════════════════
 //  LAYOUT CONSTANTS
@@ -436,25 +437,21 @@ const LayoutUpdater = ({ nodesCount }) => {
 const QuickAddForm = ({ source, relType, onConfirm, onClose }) => {
   const [name, setName] = useState('');
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-[#0f0f0f] border border-white/15 rounded-3xl p-7 w-full max-w-sm shadow-2xl z-10">
-        <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-rose-500/60 to-transparent rounded-t-3xl" />
-        <h3 className="text-white font-black text-lg mb-4">
-          Add {relType} {relType === 'parent' ? 'of' : relType === 'child' ? 'to' : 'for'} <span className="text-rose-400">{source?.first_name}</span>
-        </h3>
-        <input autoFocus placeholder="First name…" value={name}
-          onChange={e => setName(e.target.value)}
-          onKeyDown={e => { if (e.key === 'Enter' && name.trim()) onConfirm(name.trim()); }}
-          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-rose-500 mb-4" />
-        <div className="flex gap-3">
-          <button onClick={() => name.trim() && onConfirm(name.trim())}
-            className="flex-1 py-2.5 bg-rose-500 text-white font-bold text-sm rounded-xl hover:bg-rose-600 transition-all">Add</button>
-          <button onClick={onClose}
-            className="py-2.5 px-4 bg-white/5 border border-white/10 text-gray-400 font-bold text-sm rounded-xl hover:bg-white/10">Cancel</button>
-        </div>
+    <Modal maxWidth="max-w-sm" onClose={onClose}>
+      <h3 className="text-white font-black text-lg mb-4">
+        Add {relType} {relType === 'parent' ? 'of' : relType === 'child' ? 'to' : 'for'} <span className="text-rose-400">{source?.first_name}</span>
+      </h3>
+      <input autoFocus placeholder="First name…" value={name}
+        onChange={e => setName(e.target.value)}
+        onKeyDown={e => { if (e.key === 'Enter' && name.trim()) onConfirm(name.trim()); }}
+        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-rose-500 mb-4" />
+      <div className="flex gap-3">
+        <button onClick={() => name.trim() && onConfirm(name.trim())}
+          className="flex-1 py-2.5 bg-rose-500 text-white font-bold text-sm rounded-xl hover:bg-rose-600 transition-all">Add</button>
+        <button onClick={onClose}
+          className="py-2.5 px-4 bg-white/5 border border-white/10 text-gray-400 font-bold text-sm rounded-xl hover:bg-white/10">Cancel</button>
       </div>
-    </div>
+    </Modal>
   );
 };
 
