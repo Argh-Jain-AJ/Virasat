@@ -34,12 +34,14 @@ function buildAdjacency(nodes, edges) {
   const ids = new Set(nodes.map(n => n.id));
   const parentOf = {};   // parentOf[id] = set of id's CHILDREN
   const childOf  = {};   // childOf[id]  = set of id's PARENTS
-  const sameGen  = {};   // For spouse / sibling
+  const sameGen  = {};   // For spouse / sibling (generation assignment only)
+  const spouseOf = {};   // Spouse-only — used to keep couples visually adjacent
 
   nodes.forEach(n => {
     parentOf[n.id] = new Set();
     childOf[n.id]  = new Set();
     sameGen[n.id]  = new Set();
+    spouseOf[n.id] = new Set();
   });
 
   edges.forEach(e => {
@@ -55,10 +57,14 @@ function buildAdjacency(nodes, edges) {
     } else if (type === 'spouse' || type === 'sibling') {
       sameGen[src].add(tgt);
       sameGen[tgt].add(src);
+      if (type === 'spouse') {
+        spouseOf[src].add(tgt);
+        spouseOf[tgt].add(src);
+      }
     }
   });
 
-  return { parentOf, childOf, sameGen };
+  return { parentOf, childOf, sameGen, spouseOf };
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -142,6 +148,31 @@ function initialXPositions(levels) {
 }
 
 // ══════════════════════════════════════════════════════════════
+//  STEP 4b — Pull spouse pairs adjacent within a row
+//  The parent-alignment sort alone has no notion of "couple" — a
+//  sibling with no shared parent-average can end up wedged between
+//  two spouses purely by coincidence. This walks the row left-to-
+//  right and, the first time it meets a node with an as-yet-unplaced
+//  spouse also in this row, moves that spouse to sit right next to it.
+// ══════════════════════════════════════════════════════════════
+function groupSpousesAdjacent(order, spouseOf) {
+  const inRow = new Set(order);
+  const placed = new Set();
+  const result = [];
+  order.forEach(id => {
+    if (placed.has(id)) return;
+    result.push(id);
+    placed.add(id);
+    const partner = [...spouseOf[id]].find(sid => inRow.has(sid) && !placed.has(sid));
+    if (partner) {
+      result.push(partner);
+      placed.add(partner);
+    }
+  });
+  return result;
+}
+
+// ══════════════════════════════════════════════════════════════
 //  STEP 5 — Collision resolution within a row
 //  Pushes overlapping nodes apart, then re-centres the row
 // ══════════════════════════════════════════════════════════════
@@ -216,7 +247,7 @@ function iterativeLayout(levels, xPos, genMap, parentOf, childOf) {
 function computeLayout(nodes, edges) {
   if (!nodes.length) return { positions: {}, genMap: {} };
 
-  const { parentOf, childOf, sameGen } = buildAdjacency(nodes, edges);
+  const { parentOf, childOf, sameGen, spouseOf } = buildAdjacency(nodes, edges);
   const genMap  = assignGenerations(nodes, childOf, sameGen, parentOf);
   const levels  = groupByGeneration(nodes, genMap);
   const xPos    = initialXPositions(levels);
@@ -234,9 +265,20 @@ function computeLayout(nodes, edges) {
       const avgB = pB.length ? pB.reduce((s, x) => s + x, 0) / pB.length : 0;
       return avgA - avgB;
     });
+    // Keep spouse pairs visually adjacent — parent-alignment alone doesn't
+    // know about couples, so a sibling can otherwise land between them.
+    levels[g] = groupSpousesAdjacent(levels[g], spouseOf);
     // Re-pack cleanly left-to-right using the untangled family order
     const half = ((levels[g].length - 1) * H_SPACING) / 2;
     levels[g].forEach((id, i) => { xPos[id] = i * H_SPACING - half; });
+  }
+
+  // Spouses can also appear in generation 0 (the tree's root couple) — the
+  // loop above only covers g >= 1, so apply the same adjacency fix there.
+  if (levels[0]) {
+    levels[0] = groupSpousesAdjacent(levels[0], spouseOf);
+    const half = ((levels[0].length - 1) * H_SPACING) / 2;
+    levels[0].forEach((id, i) => { xPos[id] = i * H_SPACING - half; });
   }
 
   iterativeLayout(levels, xPos, genMap, parentOf, childOf);
