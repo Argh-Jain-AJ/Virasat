@@ -50,8 +50,6 @@ const InsightCard = ({ icon, label, value, tooltip, highlight }) => (
 );
 
 const FamilyInsightsPanel = ({ nodes, edges }) => {
-  const [showAutoFix, setShowAutoFix] = useState(false);
-
   const insights = useMemo(() => {
     if (!nodes.length) return null;
 
@@ -134,20 +132,9 @@ const FamilyInsightsPanel = ({ nodes, edges }) => {
       {/* 2. Actionable Growth Opportunities */}
       {totalIssues > 0 && (
         <div className="mt-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl p-5 shadow-[0_4px_24px_rgba(245,158,11,0.05)] transition-all">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <span className="text-amber-500 text-lg">💡</span>
-              <span className="text-amber-400 text-xs font-bold uppercase tracking-widest">Growth Opportunities</span>
-            </div>
-            
-            {/* Fix 5: Auto Fix WOW Feature */}
-            <button 
-              onClick={() => setShowAutoFix(!showAutoFix)}
-              className="relative group px-4 py-2 rounded-xl border border-amber-500/50 bg-gradient-to-r from-amber-600/20 to-amber-500/10 text-amber-400 text-[10px] font-black uppercase tracking-[0.15em] hover:from-amber-500 hover:to-amber-400 hover:text-black hover:scale-105 hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] active:scale-95 transition-all duration-500 overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-amber-400/20 blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-1000 animate-pulse" />
-              <span className="relative z-10 flex items-center gap-1.5">{showAutoFix ? '✕ Close Auto-Fix' : '✨ Fix All Issues'}</span>
-            </button>
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-amber-500 text-lg">💡</span>
+            <span className="text-amber-400 text-xs font-bold uppercase tracking-widest">Growth Opportunities</span>
           </div>
 
           <div className="space-y-3">
@@ -158,9 +145,6 @@ const FamilyInsightsPanel = ({ nodes, edges }) => {
                   <span className="text-gray-200 block group-hover:text-white transition-colors">Missing Birthdates</span>
                   <span className="text-white font-black text-sm"><AnimatedCounter value={insights.missingDob} /> members</span>
                 </div>
-                <button className="px-4 py-2 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-400 hover:bg-amber-500 hover:text-black hover:shadow-[0_0_15px_rgba(245,158,11,0.4)] active:scale-95 transition-all duration-300 text-[10px] font-black uppercase tracking-widest">
-                  Fix Now
-                </button>
               </div>
             )}
             
@@ -170,9 +154,6 @@ const FamilyInsightsPanel = ({ nodes, edges }) => {
                   <span className="text-gray-400 block group-hover:text-gray-300 transition-colors">Missing Biographies</span>
                   <span className="text-white font-bold"><AnimatedCounter value={insights.missingBio} /> members</span>
                 </div>
-                <button className="px-3 py-1.5 rounded-lg border border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500 hover:text-white hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] active:scale-95 transition-all duration-300 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5">
-                  <span>✨</span> Generate
-                </button>
               </div>
             )}
             
@@ -182,29 +163,9 @@ const FamilyInsightsPanel = ({ nodes, edges }) => {
                   <span className="text-gray-400 block group-hover:text-gray-300 transition-colors">Incomplete Parent Links</span>
                   <span className="text-white font-bold"><AnimatedCounter value={insights.missingParents} /> members</span>
                 </div>
-                <button className="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-gray-300 hover:text-white hover:border-white/20 hover:bg-white/10 active:scale-95 transition-all duration-300 text-[10px] font-bold uppercase tracking-wider">
-                  Resolve
-                </button>
               </div>
             )}
           </div>
-          
-          {/* AUTO FIX EXPANDABLE PANEL */}
-          {showAutoFix && (
-            <div className="mt-4 pt-4 border-t border-amber-500/20 animate-in slide-in-from-top-4 fade-in duration-300">
-              <h4 className="text-amber-400 text-xs font-bold mb-3 uppercase tracking-wider">Smart Resolution Center</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <button className="p-3 bg-black/40 border border-amber-500/30 hover:bg-amber-500/10 rounded-xl text-left transition-all hover:-translate-y-0.5 group">
-                  <div className="text-amber-400 text-sm font-bold mb-1 group-hover:text-amber-300">🪄 Magic Bio Generator</div>
-                  <div className="text-xs text-gray-500 leading-relaxed">Auto-generates bios for {insights.missingBio} profiles using their existing data.</div>
-                </button>
-                <button className="p-3 bg-black/40 border border-amber-500/30 hover:bg-amber-500/10 rounded-xl text-left transition-all hover:-translate-y-0.5 group">
-                  <div className="text-amber-400 text-sm font-bold mb-1 group-hover:text-amber-300">📡 GEDCOM Sync</div>
-                  <div className="text-xs text-gray-500 leading-relaxed">Scan your uploaded files to patch {insights.missingDob} missing dates seamlessly.</div>
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       )}
 
