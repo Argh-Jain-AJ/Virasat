@@ -192,6 +192,99 @@ describe('Family Tree Backend Integration Tests', () => {
     });
   });
 
+  describe('Memories and Legacy Messages', () => {
+    let memoryId = '';
+    let strangerToken = '';
+    const strangerEmail = `stranger_${Date.now()}@example.com`;
+
+    it('15. should register an unrelated stranger user', async () => {
+      await request(app)
+        .post('/api/auth/register')
+        .send({ name: 'Stranger', email: strangerEmail, password: 'password123' });
+
+      const res = await request(app)
+        .post('/api/auth/login')
+        .send({ email: strangerEmail, password: 'password123' });
+
+      strangerToken = res.body.token;
+      expect(strangerToken).toBeTruthy();
+    });
+
+    it('16. the owner can create a memory for the family', async () => {
+      const res = await request(app)
+        .post('/api/memories')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ family_id: familyId, person_id: personId, title: 'First memory' });
+
+      expect(res.statusCode).toEqual(201);
+      expect(res.body).toHaveProperty('id');
+      memoryId = res.body.id;
+    });
+
+    it('17. the owner can fetch memories by family and by person', async () => {
+      const byFamily = await request(app)
+        .get(`/api/memories/family/${familyId}`)
+        .set('Authorization', `Bearer ${token}`);
+      expect(byFamily.statusCode).toEqual(200);
+      expect(byFamily.body.some(m => m.id === memoryId)).toBe(true);
+
+      const byPerson = await request(app)
+        .get(`/api/memories/person/${personId}`)
+        .set('Authorization', `Bearer ${token}`);
+      expect(byPerson.statusCode).toEqual(200);
+      expect(byPerson.body.some(m => m.id === memoryId)).toBe(true);
+    });
+
+    it('18. a stranger cannot see or create memories for a family they have no access to', async () => {
+      const list = await request(app)
+        .get(`/api/memories/family/${familyId}`)
+        .set('Authorization', `Bearer ${strangerToken}`);
+      expect(list.statusCode).toEqual(200);
+      expect(list.body.some(m => m.id === memoryId)).toBe(false);
+
+      const create = await request(app)
+        .post('/api/memories')
+        .set('Authorization', `Bearer ${strangerToken}`)
+        .send({ family_id: familyId, person_id: personId, title: 'Should not be created' });
+      expect(create.statusCode).toEqual(404);
+    });
+
+    it('19. the owner can delete the memory', async () => {
+      const res = await request(app)
+        .delete(`/api/memories/${memoryId}`)
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.statusCode).toEqual(200);
+    });
+
+    it('20. legacy message routes reject unauthenticated requests', async () => {
+      const res = await request(app).get(`/api/legacy/${personId}`);
+      expect(res.statusCode).toEqual(401);
+    });
+
+    it('21. the owner can create and fetch a legacy message', async () => {
+      const create = await request(app)
+        .post(`/api/legacy/${personId}`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({ title: 'A Tribute', message: 'We love you', emotion_tag: 'love' });
+      expect(create.statusCode).toEqual(201);
+      expect(create.body).toHaveProperty('id');
+
+      const list = await request(app)
+        .get(`/api/legacy/${personId}`)
+        .set('Authorization', `Bearer ${token}`);
+      expect(list.statusCode).toEqual(200);
+      expect(list.body.some(m => m.id === create.body.id)).toBe(true);
+    });
+
+    it('22. a stranger cannot create legacy messages for a person outside their access', async () => {
+      const res = await request(app)
+        .post(`/api/legacy/${personId}`)
+        .set('Authorization', `Bearer ${strangerToken}`)
+        .send({ title: 'Intruder', message: 'Should not be allowed' });
+      expect(res.statusCode).toEqual(404);
+    });
+  });
+
   afterAll(async () => {
     if (familyId && token) {
       await request(app).delete(`/api/families/${familyId}`).set('Authorization', `Bearer ${token}`);

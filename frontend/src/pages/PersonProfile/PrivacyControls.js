@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 
-// FEATURE 10: PRIVACY & SHARING CONTROLS
 const PrivacyControls = ({ personId, personName }) => {
-  const [isPublic, setIsPublic] = useState(true);
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -21,17 +19,6 @@ const PrivacyControls = ({ personId, personName }) => {
 
   return (
     <div className="flex items-center gap-2 flex-wrap">
-      {/* Privacy toggle */}
-      <button
-        onClick={() => setIsPublic(p => !p)}
-        className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold uppercase tracking-wider transition-all ${
-          isPublic
-            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20'
-            : 'bg-gray-500/10 border-gray-500/30 text-gray-400 hover:bg-gray-500/20'
-        }`}
-      >
-        {isPublic ? '🌐 Public' : '🔒 Private'}
-      </button>
       {/* Copy link */}
       <button
         onClick={handleCopy}
