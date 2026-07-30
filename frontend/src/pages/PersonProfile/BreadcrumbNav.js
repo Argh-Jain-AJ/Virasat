@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const BreadcrumbNav = ({ personName }) => {
+const BreadcrumbNav = ({ personName, isDemo }) => {
   const navigate = useNavigate();
   const crumbs = [
     { label: '🏠 Home', action: () => navigate('/dashboard') },
-    { label: 'Family Tree', action: () => navigate('/family-tree') },
+    { label: 'Family Tree', action: () => navigate(isDemo ? '/family-tree?demo=true' : '/family-tree') },
     { label: personName || 'Profile' },
   ];
   return (

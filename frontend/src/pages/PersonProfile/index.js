@@ -25,12 +25,53 @@ import FamilySection from './FamilySection';
 import MemoryForm from './MemoryForm';
 import BiographySection from './BiographySection';
 
+// Demo-mode profile data for the unauthenticated "Preview a Family Legacy"
+// flow — mirrors the demo nodes rendered by FamilyTreePage for demo=true.
+const DEMO_PERSON_DATA = {
+  n1: {
+    person: { id: 'n1', first_name: 'Ramesh', last_name: 'Sharma', gender: 'Male', birth_place: 'Jaipur', bio: 'A dedicated civil engineer who spent over three decades building bridges and highways, and even more time building memories with his family.' },
+    memories: [{ id: 'm1', title: 'Building Our First Home', description: 'Ramesh and Sunita spent one whole summer building their first family home together, room by room.', event_date: '1978-06-15', tags: ['Family'] }],
+    relationships: [
+      { id: 'r1', person1_id: 'n1', person2_id: 'n2', relationship_type: 'spouse' },
+      { id: 'r2', person1_id: 'n1', person2_id: 'n3', relationship_type: 'parent' }
+    ]
+  },
+  n2: {
+    person: { id: 'n2', first_name: 'Sunita', last_name: 'Sharma', gender: 'Female', bio: 'A devoted schoolteacher who spent forty years shaping young minds, and an even longer time shaping this family.' },
+    memories: [],
+    relationships: [
+      { id: 'r1', person1_id: 'n1', person2_id: 'n2', relationship_type: 'spouse' },
+      { id: 'r3', person1_id: 'n2', person2_id: 'n3', relationship_type: 'parent' },
+      { id: 'r4', person1_id: 'n4', person2_id: 'n2', relationship_type: 'sibling' }
+    ]
+  },
+  n3: {
+    person: { id: 'n3', first_name: 'Rohan', last_name: 'Sharma', gender: 'Male', bio: 'The curious middle child who grew up to become a family doctor, always eager to learn something new.' },
+    memories: [],
+    relationships: [
+      { id: 'r2', person1_id: 'n1', person2_id: 'n3', relationship_type: 'parent' },
+      { id: 'r3', person1_id: 'n2', person2_id: 'n3', relationship_type: 'parent' }
+    ]
+  },
+  n4: {
+    person: { id: 'n4', first_name: 'Meena', last_name: 'Kapoor', gender: 'Female', bio: 'The free spirit of the family, known for her love of travel and her infectious laugh at every reunion.' },
+    memories: [],
+    relationships: [
+      { id: 'r4', person1_id: 'n4', person2_id: 'n2', relationship_type: 'sibling' }
+    ]
+  }
+};
+
 // ─────────────────────────────────────────────────────
 // MAIN PAGE
 // ─────────────────────────────────────────────────────
 const PersonProfile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const isDemo = Boolean(DEMO_PERSON_DATA[id]);
+  // Demo person ids stay navigable for logged-out visitors only if the
+  // `demo=true` param survives — ProtectedRoute checks for it.
+  const demoPath = useCallback((path) => (isDemo ? `${path}?demo=true` : path), [isDemo]);
 
   const [person, setPerson] = useState(null);
   const [memories, setMemories] = useState([]);
@@ -52,43 +93,8 @@ const PersonProfile = () => {
     try {
       setLoading(true);
 
-      const MOCK_DEMO_DATA = {
-        n1: {
-          person: { id: 'n1', first_name: 'Ramesh', last_name: 'Sharma', gender: 'Male', birth_place: 'Jaipur', bio: 'A dedicated civil engineer who spent over three decades building bridges and highways, and even more time building memories with his family.' },
-          memories: [{ id: 'm1', title: 'Building Our First Home', description: 'Ramesh and Sunita spent one whole summer building their first family home together, room by room.', event_date: '1978-06-15', tags: ['Family'] }],
-          relationships: [
-            { id: 'r1', person1_id: 'n1', person2_id: 'n2', relationship_type: 'spouse' },
-            { id: 'r2', person1_id: 'n1', person2_id: 'n3', relationship_type: 'parent' }
-          ]
-        },
-        n2: {
-          person: { id: 'n2', first_name: 'Sunita', last_name: 'Sharma', gender: 'Female', bio: 'A devoted schoolteacher who spent forty years shaping young minds, and an even longer time shaping this family.' },
-          memories: [],
-          relationships: [
-            { id: 'r1', person1_id: 'n1', person2_id: 'n2', relationship_type: 'spouse' },
-            { id: 'r3', person1_id: 'n2', person2_id: 'n3', relationship_type: 'parent' },
-            { id: 'r4', person1_id: 'n4', person2_id: 'n2', relationship_type: 'sibling' }
-          ]
-        },
-        n3: {
-          person: { id: 'n3', first_name: 'Rohan', last_name: 'Sharma', gender: 'Male', bio: 'The curious middle child who grew up to become a family doctor, always eager to learn something new.' },
-          memories: [],
-          relationships: [
-            { id: 'r2', person1_id: 'n1', person2_id: 'n3', relationship_type: 'parent' },
-            { id: 'r3', person1_id: 'n2', person2_id: 'n3', relationship_type: 'parent' }
-          ]
-        },
-        n4: {
-          person: { id: 'n4', first_name: 'Meena', last_name: 'Kapoor', gender: 'Female', bio: 'The free spirit of the family, known for her love of travel and her infectious laugh at every reunion.' },
-          memories: [],
-          relationships: [
-            { id: 'r4', person1_id: 'n4', person2_id: 'n2', relationship_type: 'sibling' }
-          ]
-        }
-      };
-
-      if (MOCK_DEMO_DATA[id]) {
-        const data = MOCK_DEMO_DATA[id];
+      if (DEMO_PERSON_DATA[id]) {
+        const data = DEMO_PERSON_DATA[id];
         setPerson(data.person);
         setEditForm(data.person);
         setMemories(data.memories);
@@ -98,7 +104,7 @@ const PersonProfile = () => {
         const otherIds = [...new Set(data.relationships.map(r => r.person1_id === id ? r.person2_id : r.person1_id))];
         const pm = {};
         otherIds.forEach(oid => {
-           if (MOCK_DEMO_DATA[oid]) pm[oid] = MOCK_DEMO_DATA[oid].person;
+           if (DEMO_PERSON_DATA[oid]) pm[oid] = DEMO_PERSON_DATA[oid].person;
         });
         setRelPersons(pm);
         setLoading(false);
@@ -134,8 +140,17 @@ const PersonProfile = () => {
 
   useEffect(() => { fetchProfileData(); }, [fetchProfileData]);
 
+  // Demo persons aren't real DB rows, so any mutation would just fail
+  // against the API with a confusing 401 — short-circuit with a clear notice.
+  const blockIfDemo = () => {
+    if (!isDemo) return false;
+    setError('This is a preview lineage — sign up to build and edit your own.');
+    setTimeout(() => setError(''), 3000);
+    return true;
+  };
+
   const handleAddMemory = async (formData) => {
-    if (!person) return;
+    if (!person || blockIfDemo()) return;
     setSavingMemory(true);
     try {
       const res = await api.post('/memories', { ...formData, person_id: id, family_id: person.family_id });
@@ -149,6 +164,7 @@ const PersonProfile = () => {
   };
 
   const handleInlineSave = async (field, value) => {
+    if (blockIfDemo()) return;
     try {
       const updated = { ...person, [field]: value };
       await updatePerson(id, { [field]: value });
@@ -157,6 +173,7 @@ const PersonProfile = () => {
   };
 
   const handleSaveEditForm = async () => {
+    if (blockIfDemo()) { setEditing(false); return; }
     try {
       await updatePerson(id, editForm);
       setPerson({ ...person, ...editForm });
@@ -165,6 +182,7 @@ const PersonProfile = () => {
   };
 
   const handleDeletePerson = () => {
+    if (blockIfDemo()) return;
     setConfirmState({
       open: true,
       message: 'Permanently remove this person from the lineage?',
@@ -177,6 +195,7 @@ const PersonProfile = () => {
   };
 
   const handleDeleteRelationship = (relId) => {
+    if (blockIfDemo()) return;
     setConfirmState({
       open: true,
       message: 'Remove this relationship?',
@@ -189,6 +208,7 @@ const PersonProfile = () => {
   };
 
   const handleEditRelationship = (relId, current) => {
+    if (blockIfDemo()) return;
     setEditRelState({ open: true, relId, value: current });
   };
 
@@ -233,7 +253,7 @@ const PersonProfile = () => {
 
         {/* ── TOP BAR ── */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-          <BreadcrumbNav personName={fullName} />
+          <BreadcrumbNav personName={fullName} isDemo={isDemo} />
 
           <div className="flex flex-wrap items-center gap-2">
             <PrivacyControls personId={id} personName={fullName} />
@@ -257,17 +277,17 @@ const PersonProfile = () => {
         {(parentIds.length > 0 || childIds.length > 0) && (
           <div className="flex flex-wrap gap-2">
             {parentIds.slice(0, 2).map(pid => (
-              <button key={pid} onClick={() => navigate(`/person/${pid}`)}
+              <button key={pid} onClick={() => navigate(demoPath(`/person/${pid}`))}
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:border-white/20 transition-all">
                 ↑ {relPersons[pid]?.first_name || 'Parent'}
               </button>
             ))}
-            <button onClick={() => navigate('/family-tree')}
+            <button onClick={() => navigate(demoPath('/family-tree'))}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-500 hover:text-white transition-all">
               🌳 Full Tree
             </button>
             {childIds.slice(0, 2).map(cid => (
-              <button key={cid} onClick={() => navigate(`/person/${cid}`)}
+              <button key={cid} onClick={() => navigate(demoPath(`/person/${cid}`))}
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl text-xs font-bold text-gray-400 hover:text-white hover:border-white/20 transition-all">
                 ↓ {relPersons[cid]?.first_name || 'Child'}
               </button>
@@ -378,7 +398,7 @@ const PersonProfile = () => {
                 person={person}
                 relationships={relationships}
                 relPersons={relPersons}
-                onNodeClick={pid => navigate(`/person/${pid}`)}
+                onNodeClick={pid => navigate(demoPath(`/person/${pid}`))}
               />
             </section>
 
@@ -392,7 +412,7 @@ const PersonProfile = () => {
                 currentId={id}
                 relPersons={relPersons}
                 personName={person.first_name}
-                onNavigate={pid => navigate(`/person/${pid}`)}
+                onNavigate={pid => navigate(demoPath(`/person/${pid}`))}
                 onEdit={handleEditRelationship}
                 onDelete={handleDeleteRelationship}
               />

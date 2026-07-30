@@ -292,6 +292,7 @@ const FamilyTreePage = () => {
   const [selectedFamily, setSelectedFamily] = useState('');
   const [treeData, setTreeData] = useState({ nodes: [], edges: [] });
   const [error, setError] = useState('');
+  const [isDemo, setIsDemo] = useState(false);
 
 
   const [activities, setActivities] = useState([]);
@@ -303,12 +304,13 @@ const FamilyTreePage = () => {
   }, []);
 
   useEffect(() => {
-    const isDemo = new URLSearchParams(window.location.search).get('demo') === 'true';
-    const familyId = localStorage.getItem('selectedFamily') || (isDemo ? 'demo-family-123' : null);
+    const demo = new URLSearchParams(window.location.search).get('demo') === 'true';
+    const familyId = localStorage.getItem('selectedFamily') || (demo ? 'demo-family-123' : null);
     if (!familyId) { navigate('/dashboard'); return; }
     setSelectedFamily(familyId);
-    
-    if (isDemo) {
+    setIsDemo(demo);
+
+    if (demo) {
       setTreeData({
         nodes: [
           { id: 'n1', position: { x: 0, y: 0 }, data: { person: { id: 'n1', first_name: 'Ramesh', last_name: 'Sharma', gender: 'Male', birth_place: 'Jaipur' } } },
@@ -389,8 +391,8 @@ const FamilyTreePage = () => {
   };
 
   const handleNodeClick = useCallback((personId) => {
-    navigate(`/person/${personId}`);
-  }, [navigate]);
+    navigate(isDemo ? `/person/${personId}?demo=true` : `/person/${personId}`);
+  }, [navigate, isDemo]);
 
 
   return (
@@ -406,7 +408,7 @@ const FamilyTreePage = () => {
           <div>
             <div className="flex items-center gap-4">
               <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500 drop-shadow-md">VIRASAT WORKSPACE</h1>
-              {new URLSearchParams(window.location.search).get('demo') === 'true' && (
+              {isDemo && (
                 <span className="px-3 py-1 bg-amber-500/10 border border-amber-500/40 text-amber-500 text-[10px] font-black uppercase tracking-widest rounded-lg shadow-[0_0_15px_rgba(245,158,11,0.2)]">Demo Lineage</span>
               )}
             </div>
