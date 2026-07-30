@@ -38,10 +38,14 @@ api.interceptors.response.use(
     }
 
     if (error.response?.status === 401) {
+      const hadToken = Boolean(localStorage.getItem('token'));
       localStorage.removeItem('token');
       localStorage.removeItem('selectedFamily');
-      // Redirect to login only if not already there
-      if (window.location.pathname !== '/login') {
+      // Only force a hard redirect for an expired/invalidated session. A
+      // guest who never had a token (e.g. browsing the unauthenticated demo
+      // preview) can legitimately hit a protected endpoint — that 401 should
+      // stay a local error, not nuke the page they're previewing.
+      if (hadToken && window.location.pathname !== '/login') {
         window.location.href = '/login';
       }
     }

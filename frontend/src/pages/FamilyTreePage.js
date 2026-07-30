@@ -359,8 +359,17 @@ const FamilyTreePage = () => {
     }));
   }, []);
 
+  // demo-family-123 isn't a real DB row, so any write against it would just
+  // fail unauthenticated — short-circuit with a clear notice instead.
+  const blockIfDemo = useCallback(() => {
+    if (!isDemo) return false;
+    setError('This is a preview lineage — sign up to build your own.');
+    setTimeout(() => setError(''), 3000);
+    return true;
+  }, [isDemo]);
+
   const handleCreatePerson = async (formData) => {
-    if (!selectedFamily) return;
+    if (!selectedFamily || blockIfDemo()) return;
     try {
       const person = await createPerson({ ...formData, family_id: selectedFamily });
       addPersonNode(person);
@@ -370,17 +379,17 @@ const FamilyTreePage = () => {
 
   // Used by QuickAddForm inside graph — must return the new person object
   const handleAddPersonFromGraph = useCallback(async (formData) => {
-    if (!selectedFamily) return null;
+    if (!selectedFamily || blockIfDemo()) return null;
     try {
       const person = await createPerson({ ...formData, family_id: selectedFamily });
       addPersonNode(person);
       pushActivity('added_person', `Added ${formData.first_name} from graph`);
       return person;
     } catch { setError('Failed to create person.'); return null; }
-  }, [selectedFamily, pushActivity, addPersonNode]);
+  }, [selectedFamily, pushActivity, addPersonNode, blockIfDemo]);
 
   const handleCreateRelationship = async (relData) => {
-    if (!selectedFamily) return;
+    if (!selectedFamily || blockIfDemo()) return;
     try {
       const relationship = await createRelationship(relData);
       const p1 = treeData.nodes.find(n => n.data?.person?.id === relData.person1_id)?.data?.person;
@@ -449,11 +458,11 @@ const FamilyTreePage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 fill-mode-both">
           <Card className="p-6">
             <CardHeader icon="🤝" title="Collaborate" sub="Manage team access" />
-            <CollaborationPanel familyId={selectedFamily} onActivity={(msg) => pushActivity('default', msg)} />
+            <CollaborationPanel familyId={isDemo ? null : selectedFamily} onActivity={(msg) => pushActivity('default', msg)} />
           </Card>
           <Card className="p-6">
             <GedcomImport
-              familyId={selectedFamily}
+              familyId={isDemo ? null : selectedFamily}
               onImportSuccess={(data) => {
                 setTreeData(data);
                 pushActivity('imported_gedcom', 'Imported a GEDCOM file');
@@ -512,7 +521,7 @@ const FamilyTreePage = () => {
 
             <Card className="p-6">
               <CardHeader icon="📅" title="Upcoming Events" sub="Ancestral reminders" />
-              <UpcomingReminders familyId={selectedFamily} />
+              <UpcomingReminders familyId={isDemo ? null : selectedFamily} />
             </Card>
           </div>
         </div>
