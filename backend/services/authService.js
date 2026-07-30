@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const userModel = require('../models/userModel');
+const passwordResetModel = require('../models/passwordResetModel');
+const { sendPasswordResetEmail } = require('../utils/mailer');
 
 /**
  * Registers a new user
@@ -71,7 +73,43 @@ const loginUser = async (email, password) => {
   return { token, user: userResponse };
 };
 
+/**
+ * Requests a password reset — emails a reset link if the address is
+ * registered. Deliberately silent (no error, no return value) if the email
+ * isn't registered, so the caller can respond identically either way and
+ * avoid leaking which emails have accounts.
+ * @param {string} email
+ */
+const requestPasswordReset = async (email) => {
+  const user = await userModel.getUserByEmail(email);
+  if (!user) return;
+
+  const rawToken = await passwordResetModel.createResetToken(user.id);
+  const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+  const resetUrl = `${frontendUrl}/reset-password?token=${rawToken}`;
+  await sendPasswordResetEmail(user.email, resetUrl);
+};
+
+/**
+ * Resets a user's password given a valid reset token.
+ * @param {string} rawToken
+ * @param {string} newPassword
+ */
+const resetPassword = async (rawToken, newPassword) => {
+  const tokenRow = await passwordResetModel.getValidToken(rawToken);
+  if (!tokenRow) {
+    throw new Error('Invalid or expired reset link');
+  }
+
+  const saltRounds = 10;
+  const passwordHash = await bcrypt.hash(newPassword, saltRounds);
+  await userModel.updatePasswordHash(tokenRow.user_id, passwordHash);
+  await passwordResetModel.markTokenUsed(tokenRow.id);
+};
+
 module.exports = {
   registerUser,
-  loginUser
+  loginUser,
+  requestPasswordReset,
+  resetPassword,
 };

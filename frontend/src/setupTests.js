@@ -22,3 +22,11 @@ HTMLCanvasElement.prototype.getContext = () => ({
   stroke: () => {},
   fill: () => {},
 });
+
+// jsdom doesn't implement ResizeObserver (CardLineageCanvas uses it to
+// resize its canvas backing store only when displayed size actually changes).
+global.ResizeObserver = global.ResizeObserver || class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};

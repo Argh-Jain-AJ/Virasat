@@ -48,8 +48,25 @@ const getUserById = async (id) => {
   return rows[0] || null;
 };
 
+/**
+ * Updates a user's password hash
+ * @param {string} id - The user's ID
+ * @param {string} password_hash - The new hashed password
+ * @returns {Object|null} The updated user (id, email) or null if not found
+ */
+const updatePasswordHash = async (id, password_hash) => {
+  const query = `
+    UPDATE users SET password_hash = $1
+    WHERE id = $2
+    RETURNING id, email;
+  `;
+  const { rows } = await pool.query(query, [password_hash, id]);
+  return rows[0] || null;
+};
+
 module.exports = {
   createUser,
   getUserByEmail,
   getUserById,
+  updatePasswordHash,
 };

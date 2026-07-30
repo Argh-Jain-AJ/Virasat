@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useToast } from '../../context/ToastContext';
 
 export const Avatar = ({ photoUrl, name, size = 'md', glow = false, onClick }) => {
   const sizes = {
@@ -29,6 +30,7 @@ export const UploadableAvatar = ({ photoUrl, name, size = 'lg', glow = false, pe
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview]     = useState(null);
   const fileRef = useRef();
+  const { addToast } = useToast();
 
   const handleFile = async (e) => {
     const file = e.target.files?.[0];
@@ -48,10 +50,13 @@ export const UploadableAvatar = ({ photoUrl, name, size = 'lg', glow = false, pe
         body: fd,
       });
       const data = await res.json();
+      // The upload route itself returns { error }, but a request that never
+      // reaches it (auth failure, rate limit) returns { message } instead —
+      // check both so a real reason surfaces rather than a generic fallback.
       if (data.photo_url) onUploaded?.(data.photo_url);
-      else throw new Error(data.error || 'Upload failed');
+      else throw new Error(data.error || data.message || 'Upload failed');
     } catch (err) {
-      console.error('Upload error:', err);
+      addToast(err.message || 'Failed to upload photo.', 'error');
       setPreview(null); // revert on error
     } finally {
       setUploading(false);

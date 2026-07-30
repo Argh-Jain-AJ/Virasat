@@ -8,6 +8,7 @@
 const request = require('supertest');
 const app = require('../server');
 const pool = require('../config/db');
+const mailer = require('../utils/mailer');
 
 describe('Family Tree Backend Integration Tests', () => {
   let token = '';
@@ -282,6 +283,85 @@ describe('Family Tree Backend Integration Tests', () => {
         .set('Authorization', `Bearer ${strangerToken}`)
         .send({ title: 'Intruder', message: 'Should not be allowed' });
       expect(res.statusCode).toEqual(404);
+    });
+  });
+
+  describe('Password Reset', () => {
+    const resetEmail = `reset_${Date.now()}@example.com`;
+    const originalPassword = 'password123';
+    const newPassword = 'newPassword456';
+    let resetToken = '';
+
+    it('23. should register a dedicated user for the reset flow', async () => {
+      const res = await request(app)
+        .post('/api/auth/register')
+        .send({ name: 'Reset Test', email: resetEmail, password: originalPassword });
+      expect(res.statusCode).toEqual(201);
+    });
+
+    it('24. requesting a reset for an unregistered email returns the same generic message (no enumeration)', async () => {
+      const res = await request(app)
+        .post('/api/auth/forgot-password')
+        .send({ email: `nobody_${Date.now()}@example.com` });
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.message).toMatch(/If that email is registered/);
+    });
+
+    it('25. requesting a reset for a registered email sends (in test mode, records) a token', async () => {
+      const res = await request(app)
+        .post('/api/auth/forgot-password')
+        .send({ email: resetEmail });
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.message).toMatch(/If that email is registered/);
+
+      const lastEmail = mailer._testGetLastEmail();
+      expect(lastEmail.to).toEqual(resetEmail);
+      const url = new URL(lastEmail.resetUrl);
+      resetToken = url.searchParams.get('token');
+      expect(resetToken).toBeTruthy();
+    });
+
+    it('26. resetting with a bogus token is rejected', async () => {
+      const res = await request(app)
+        .post('/api/auth/reset-password')
+        .send({ token: 'not-a-real-token', password: newPassword });
+
+      expect(res.statusCode).toEqual(400);
+    });
+
+    it('27. resetting with the real token succeeds', async () => {
+      const res = await request(app)
+        .post('/api/auth/reset-password')
+        .send({ token: resetToken, password: newPassword });
+
+      expect(res.statusCode).toEqual(200);
+    });
+
+    it('28. the old password no longer works', async () => {
+      const res = await request(app)
+        .post('/api/auth/login')
+        .send({ email: resetEmail, password: originalPassword });
+
+      expect(res.statusCode).toEqual(401);
+    });
+
+    it('29. the new password works', async () => {
+      const res = await request(app)
+        .post('/api/auth/login')
+        .send({ email: resetEmail, password: newPassword });
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toHaveProperty('token');
+    });
+
+    it('30. the same reset token cannot be reused', async () => {
+      const res = await request(app)
+        .post('/api/auth/reset-password')
+        .send({ token: resetToken, password: 'yetAnotherPassword789' });
+
+      expect(res.statusCode).toEqual(400);
     });
   });
 

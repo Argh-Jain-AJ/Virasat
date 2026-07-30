@@ -10,9 +10,10 @@ const BiographySection = ({ person, relationships, memories, relPersons, onBioUp
 
   const handleGenerate = async () => {
     setGenerating(true);
+    let bio;
     try {
       const res = await api.post('/ai/generate-biography', { person_id: person.id });
-      onBioUpdate(res.data.biography || res.data.bio || '');
+      bio = res.data.biography || res.data.bio || '';
     } catch {
       // Build a local heuristic bio if the request fails
       const rels = relationships.slice(0, 3).map(r => {
@@ -21,14 +22,18 @@ const BiographySection = ({ person, relationships, memories, relPersons, onBioUp
         return op ? `${r.relationship_type} of ${op.first_name}` : null;
       }).filter(Boolean).join(', ');
 
-      const bio = [
+      bio = [
         `${person.first_name} ${person.last_name || ''} was born${person.birth_date ? ` on ${new Date(person.birth_date).toLocaleDateString('en-IN', { year:'numeric', month:'long', day:'numeric' })}` : ''}${person.birth_place ? ` in ${person.birth_place}` : ''}.`,
         rels ? `Known relationships include: ${rels}.` : '',
         memories.length > 0 ? `${person.first_name}'s life story includes ${memories.length} recorded ${memories.length === 1 ? 'memory' : 'memories'}.` : '',
         person.occupation ? `${person.first_name} worked as ${person.occupation}.` : '',
-      ].filter(Boolean).join(' ');
+      ].filter(Boolean).join(' ') || 'No biography available yet.';
+    }
 
-      onBioUpdate(bio || 'No biography available yet.');
+    try {
+      await onBioUpdate(bio);
+    } catch {
+      // onBioUpdate already surfaces a page-level "Save failed." error.
     } finally {
       setGenerating(false);
     }

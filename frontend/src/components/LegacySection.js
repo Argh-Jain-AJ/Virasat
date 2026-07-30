@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import api from '../api/api';
+import { useToast } from '../context/ToastContext';
 
 const EMOTIONS = [
   { emoji: '😊', label: 'Joy' },
@@ -44,11 +45,12 @@ const LegacySection = ({ personId, messages, onMessageAdded }) => {
   const [isComposing, setIsComposing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ title: '', message: '', emotion_tag: '❤️' });
+  const { addToast } = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.title.trim() || !form.message.trim()) return;
-    
+
     setLoading(true);
     try {
       const res = await api.post(`/legacy/${personId}`, form);
@@ -56,7 +58,7 @@ const LegacySection = ({ personId, messages, onMessageAdded }) => {
       setForm({ title: '', message: '', emotion_tag: '❤️' });
       setIsComposing(false);
     } catch (err) {
-      console.error('Failed to save legacy message', err);
+      addToast(err.response?.data?.message || err.response?.data?.error || 'Failed to save your legacy message.', 'error');
     } finally {
       setLoading(false);
     }

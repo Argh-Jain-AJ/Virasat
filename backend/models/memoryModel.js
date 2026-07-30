@@ -15,22 +15,27 @@ const createMemory = async (memoryData, user_id) => {
     description,
     media_url,
     media_type,
-    event_date
+    event_date,
+    tags,
+    emotion,
+    people_involved
   } = memoryData;
 
   const query = `
     INSERT INTO memories (
       family_id, person_id, title, description,
-      media_url, media_type, event_date
+      media_url, media_type, event_date, tags, emotion, people_involved
     )
-    SELECT $1, $2, $3, $4, $5, $6, $7
-    WHERE $1 IN ${writableFamilyIdsSubquery(8)}
+    SELECT $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
+    WHERE $1 IN ${writableFamilyIdsSubquery(11)}
     RETURNING *;
   `;
 
   const values = [
     family_id, person_id, title, description,
-    media_url, media_type, event_date, user_id
+    media_url, media_type, event_date,
+    tags || [], emotion || null, people_involved || null,
+    user_id
   ];
 
   const { rows } = await pool.query(query, values);

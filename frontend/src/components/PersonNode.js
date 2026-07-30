@@ -23,6 +23,7 @@ const PersonNode = memo(({ data }) => {
     isSelected = false,
     isFaded = false,
     isHighlighted = false,  // path-highlighted
+    showPhotos = true,
     onSelect,
     onAddRelative,
   } = data;
@@ -83,8 +84,8 @@ const PersonNode = memo(({ data }) => {
       <Handle type="source" position={Position.Bottom} className="!w-2.5 !h-2.5 !border-2 !border-white/30 !bg-black" />
 
       {/* Avatar */}
-      <div className={`w-14 h-14 rounded-2xl mb-3 flex items-center justify-center text-xl font-black text-white border-2 border-white/20 shadow-[0_4px_14px_rgba(0,0,0,0.6)] overflow-hidden ${!photo_url ? avatarCls : 'bg-black/50'}`}>
-        {photo_url ? (
+      <div className={`w-14 h-14 rounded-2xl mb-3 flex items-center justify-center text-xl font-black text-white border-2 border-white/20 shadow-[0_4px_14px_rgba(0,0,0,0.6)] overflow-hidden ${!(photo_url && showPhotos) ? avatarCls : 'bg-black/50'}`}>
+        {photo_url && showPhotos ? (
           <img src={photo_url} alt={`${first_name} avatar`} className="w-full h-full object-cover" loading="lazy" decoding="async" />
         ) : (
           first_name?.[0]?.toUpperCase() || '?'

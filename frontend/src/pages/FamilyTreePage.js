@@ -484,7 +484,7 @@ const FamilyTreePage = () => {
         </div>
 
         {/* MEMBER + RELATIONSHIP */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 fill-mode-both">
+        <div id="add-member-section" className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 fill-mode-both">
           <Card className="p-8" accent>
             <CardHeader icon="👤" title="Add Member" sub="Spawn a new node" />
             {isViewer && <ViewerLockNotice />}
@@ -504,7 +504,15 @@ const FamilyTreePage = () => {
         {/* SMART SUGGESTIONS */}
         <Card className="p-6 mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-700 fill-mode-both">
           <CardHeader icon="🧠" title="Smart Suggestions" sub="Automated tree insights" />
-          <SmartSuggestions nodes={treeData.nodes} edges={treeData.edges} />
+          <SmartSuggestions
+            nodes={treeData.nodes}
+            edges={treeData.edges}
+            onAction={(actionType) => {
+              if (actionType === 'add_member') {
+                document.getElementById('add-member-section')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }}
+          />
         </Card>
 
         {/* LINEAGE MAP + SIDE PANELS */}

@@ -7,7 +7,7 @@ const relationshipService = require('../services/relationshipService');
  */
 const generateBiography = async (req, res, next) => {
   try {
-    const { person_id } = req.body;
+    const { person_id, save } = req.body;
     if (!person_id) {
       return res.status(400).json({ error: true, message: 'person_id is required' });
     }
@@ -29,8 +29,11 @@ const generateBiography = async (req, res, next) => {
 
     const generatedBio = `${person.first_name} ${person.last_name || ''} was ${birthStr}. Working as a ${person.occupation || 'dedicated family member'}, they ${relSummary}. Their legacy continues to live on within the documented nodes of this family tree.`;
 
-    // Optionally save the generated bio back to the person's profile
-    await personService.updatePerson(person_id, { bio: generatedBio }, req.user.id);
+    // This endpoint previews a generated biography — it only overwrites the
+    // person's saved bio when the caller explicitly opts in via `save`.
+    if (save) {
+      await personService.updatePerson(person_id, { bio: generatedBio }, req.user.id);
+    }
 
     res.status(200).json({ biography: generatedBio });
   } catch (error) {

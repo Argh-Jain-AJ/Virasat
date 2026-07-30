@@ -14,11 +14,26 @@ const CardLineageCanvas = ({ active }) => {
   const canvasRef = useRef(null);
   const animRef   = useRef(null);
   const nodesRef  = useRef([]);
+  // Read via ref inside the rAF loop so hovering doesn't tear down and
+  // restart the whole loop (and its canvas/context setup) on every toggle.
+  const activeRef = useRef(active);
+  useEffect(() => { activeRef.current = active; }, [active]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
+
+    // Resizing the canvas backing store is expensive (implicitly clears
+    // and reallocates it) — do it only when the element's actual displayed
+    // size changes, never on every animation frame.
+    const resize = () => {
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resize();
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(canvas);
 
     // Fixed seed nodes so they don't re-randomise every render
     if (nodesRef.current.length === 0) {
@@ -34,11 +49,9 @@ const CardLineageCanvas = ({ active }) => {
     }
 
     const draw = () => {
-      canvas.width  = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const alpha = active ? 1 : 0.3;
+      const alpha = activeRef.current ? 1 : 0.3;
 
       nodesRef.current.forEach(n => {
         n.glow += n.glowDir;
@@ -47,7 +60,7 @@ const CardLineageCanvas = ({ active }) => {
         ctx.beginPath();
         ctx.arc(n.x * (canvas.width / 320), n.y * (canvas.height / 200), n.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(225, 29, 72, ${n.glow * 0.8 * alpha})`;
-        ctx.shadowBlur = active ? 10 : 4;
+        ctx.shadowBlur = activeRef.current ? 10 : 4;
         ctx.shadowColor = "rgba(225,29,72,0.6)";
         ctx.fill();
         ctx.shadowBlur = 0;
@@ -76,8 +89,11 @@ const CardLineageCanvas = ({ active }) => {
     };
 
     draw();
-    return () => cancelAnimationFrame(animRef.current);
-  }, [active]);
+    return () => {
+      cancelAnimationFrame(animRef.current);
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   return (
     <canvas
@@ -418,24 +434,15 @@ const Dashboard = () => {
                     ))}
                   </div>
 
-                  {/* Suggested actions */}
+                  {/* Continue lineage prompt */}
                   <div className="mt-10 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
-                    <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Suggested Actions</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      {[
-                        { icon: "👤", label: "Add your first ancestor", accent: "rose" },
-                        { icon: "📸", label: "Upload a family memory",  accent: "blue" },
-                        { icon: "🌳", label: "Expand your lineage",     accent: "emerald" },
-                      ].map(({ icon, label, accent }) => (
-                        <div
-                          key={label}
-                          onClick={() => handleFamilySelect(lastOpenedId)}
-                          className={`p-4 bg-black/40 border border-white/5 rounded-xl hover:bg-white/5 hover:border-${accent}-500/30 transition-all duration-300 cursor-pointer flex flex-col gap-2 group shadow-lg backdrop-blur-md`}
-                        >
-                          <span className="text-xl group-hover:scale-110 transition-transform origin-left">{icon}</span>
-                          <p className="text-xs font-medium text-gray-300 group-hover:text-white transition-colors">{label}</p>
-                        </div>
-                      ))}
+                    <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Keep Going</h4>
+                    <div
+                      onClick={() => handleFamilySelect(lastOpenedId)}
+                      className="p-4 bg-black/40 border border-white/5 rounded-xl hover:bg-white/5 hover:border-rose-500/30 transition-all duration-300 cursor-pointer flex items-center gap-3 group shadow-lg backdrop-blur-md"
+                    >
+                      <span className="text-xl group-hover:scale-110 transition-transform origin-left">🌳</span>
+                      <p className="text-xs font-medium text-gray-300 group-hover:text-white transition-colors">Continue building your lineage — add people, connect relationships, and record memories</p>
                     </div>
                   </div>
                 </div>

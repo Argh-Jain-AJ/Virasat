@@ -164,12 +164,15 @@ const PersonProfile = () => {
   };
 
   const handleInlineSave = async (field, value) => {
-    if (blockIfDemo()) return;
+    if (blockIfDemo()) throw new Error('Blocked in demo mode');
     try {
       const updated = { ...person, [field]: value };
       await updatePerson(id, { [field]: value });
       setPerson(updated);
-    } catch { setError('Save failed.'); }
+    } catch {
+      setError('Save failed.');
+      throw new Error('Save failed.'); // let the caller (e.g. InlineEditField) know not to treat this as a success
+    }
   };
 
   const handleSaveEditForm = async () => {
@@ -304,7 +307,7 @@ const PersonProfile = () => {
             name={person.first_name}
             size="lg"
             glow
-            editable
+            editable={!isDemo}
             personId={person.id}
             onUploaded={(url) => setPerson(prev => ({ ...prev, photo_url: url }))}
           />
@@ -462,6 +465,7 @@ const PersonProfile = () => {
           relationships={relationships}
           relPersons={relPersons}
           onClose={() => setShowStory(false)}
+          onSave={v => handleInlineSave('bio', v)}
         />
       )}
 

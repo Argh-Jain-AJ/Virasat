@@ -514,6 +514,15 @@ const FamilyTreeInner = ({ nodes: incomingNodes = [], edges: incomingEdges = [],
   const [quickAdd, setQuickAdd]             = useState(null);
   const wrapperRef = useRef(null);
   const genMapRef  = useRef({});
+  // Positions a user has manually dragged, keyed by node id — the formatting
+  // effect below re-runs on every hover (to update fade/highlight styling),
+  // so it must not blindly re-derive position from the static layout or it
+  // would snap a just-dragged node back the instant the mouse moves.
+  const draggedPositionsRef = useRef({});
+
+  const handleNodeDragStop = useCallback((_, node) => {
+    draggedPositionsRef.current[node.id] = node.position;
+  }, []);
 
   // Connection helpers operate on incomingEdges to avoid update loops
   const getConnected = useCallback((nodeId) => {
@@ -569,7 +578,7 @@ const FamilyTreeInner = ({ nodes: incomingNodes = [], edges: incomingEdges = [],
       return {
         ...node,
         type: 'personNode',
-        position: positions[node.id] || { x: 0, y: 0 },
+        position: draggedPositionsRef.current[node.id] || positions[node.id] || { x: 0, y: 0 },
         data: {
           ...node.data,
           generation:    genMap[node.id] ?? 0,
@@ -712,6 +721,7 @@ const FamilyTreeInner = ({ nodes: incomingNodes = [], edges: incomingEdges = [],
         onEdgesChange={onEdgesChange}
         onNodeMouseEnter={(_, node) => setHoveredId(node.data?.person?.id || node.id)}
         onNodeMouseLeave={() => setHoveredId(null)}
+        onNodeDragStop={handleNodeDragStop}
         fitView
         fitViewOptions={{ padding: 0.18, maxZoom: 1 }}
         nodesDraggable

@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
+import { useToast } from '../../context/ToastContext';
 
 const PrivacyControls = ({ personId, personName }) => {
   const [copied, setCopied] = useState(false);
+  const { addToast } = useToast();
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      addToast('Failed to copy link — your browser may have blocked clipboard access.', 'error');
+    }
   };
 
   const handleExport = () => {

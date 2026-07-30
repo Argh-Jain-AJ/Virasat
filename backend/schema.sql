@@ -50,6 +50,9 @@ CREATE TABLE memories (
     media_url VARCHAR(512),
     media_type VARCHAR(50),
     event_date DATE,
+    tags VARCHAR(50)[] DEFAULT '{}',
+    emotion VARCHAR(10),
+    people_involved VARCHAR(255),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -77,3 +80,18 @@ CREATE TABLE IF NOT EXISTS family_collaborators (
 
 CREATE INDEX IF NOT EXISTS idx_family_collaborators_family_id ON family_collaborators(family_id);
 CREATE INDEX IF NOT EXISTS idx_family_collaborators_user_id ON family_collaborators(user_id);
+
+-- Password reset tokens. Only a SHA-256 hash of the token is stored — the
+-- raw token exists only transiently (emailed to the user, never persisted)
+-- so a DB read alone can never be used to reset an account.
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    token_hash VARCHAR(64) NOT NULL,
+    expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    used_at TIMESTAMP WITH TIME ZONE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_password_reset_tokens_user_id ON password_reset_tokens(user_id);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_password_reset_tokens_hash ON password_reset_tokens(token_hash);
