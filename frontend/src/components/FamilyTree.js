@@ -764,4 +764,7 @@ const FamilyTree = (props) => (
   </ReactFlowProvider>
 );
 
+// Exported for direct unit testing of the layout algorithm without needing
+// to render ReactFlow at all — see src/tests/familyTreeLayout.test.js
+export { computeLayout };
 export default FamilyTree;

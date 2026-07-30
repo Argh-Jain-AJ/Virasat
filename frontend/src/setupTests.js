@@ -30,3 +30,17 @@ global.ResizeObserver = global.ResizeObserver || class ResizeObserver {
   unobserve() {}
   disconnect() {}
 };
+
+// jsdom doesn't implement IntersectionObserver (MemoryTimeline uses it for
+// scroll-in animation on each memory card).
+global.IntersectionObserver = global.IntersectionObserver || class IntersectionObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
+
+// jsdom doesn't implement scrollIntoView (used by ActivityFeed, various
+// "jump to section" buttons across the app).
+if (!Element.prototype.scrollIntoView) {
+  Element.prototype.scrollIntoView = () => {};
+}
