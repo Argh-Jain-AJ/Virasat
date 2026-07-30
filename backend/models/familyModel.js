@@ -18,9 +18,9 @@ const createFamily = async (family_name, created_by) => {
 };
 
 /**
- * Retrieves all families created by a specific user
+ * Retrieves all families a user owns or has been added to as a collaborator
  * @param {string} user_id - The ID of the user
- * @returns {Array} List of families
+ * @returns {Array} List of families, each with a my_role field ('owner'|'editor'|'viewer')
  */
 const getFamiliesByUser = async (user_id) => {
   const query = `
@@ -28,13 +28,15 @@ const getFamiliesByUser = async (user_id) => {
       f.id, f.family_name, f.created_by, f.created_at,
       COUNT(DISTINCT p.id)::int AS member_count,
       COUNT(DISTINCT r.id)::int AS relationship_count,
-      COUNT(DISTINCT m.id)::int AS memory_count
+      COUNT(DISTINCT m.id)::int AS memory_count,
+      CASE WHEN f.created_by = $1 THEN 'owner' ELSE fc.role END AS my_role
     FROM families f
+    LEFT JOIN family_collaborators fc ON fc.family_id = f.id AND fc.user_id = $1
     LEFT JOIN persons p ON f.id = p.family_id
     LEFT JOIN relationships r ON r.person1_id = p.id
     LEFT JOIN memories m ON f.id = m.family_id
-    WHERE f.created_by = $1
-    GROUP BY f.id
+    WHERE f.created_by = $1 OR fc.user_id = $1
+    GROUP BY f.id, fc.role
     ORDER BY f.created_at DESC;
   `;
   const { rows } = await pool.query(query, [user_id]);
@@ -42,9 +44,10 @@ const getFamiliesByUser = async (user_id) => {
 };
 
 /**
- * Retrieves a family by its ID
+ * Retrieves a family by its ID, if the user owns it or has collaborator access
  * @param {string} family_id - The ID of the family
- * @returns {Object|null} The family object or null if not found
+ * @param {string} user_id - The ID of the requesting user
+ * @returns {Object|null} The family object (with my_role) or null if not found/not accessible
  */
 const getFamilyById = async (family_id, user_id) => {
   const query = `
@@ -52,13 +55,15 @@ const getFamilyById = async (family_id, user_id) => {
       f.id, f.family_name, f.created_by, f.created_at,
       COUNT(DISTINCT p.id)::int AS member_count,
       COUNT(DISTINCT r.id)::int AS relationship_count,
-      COUNT(DISTINCT m.id)::int AS memory_count
+      COUNT(DISTINCT m.id)::int AS memory_count,
+      CASE WHEN f.created_by = $2 THEN 'owner' ELSE fc.role END AS my_role
     FROM families f
+    LEFT JOIN family_collaborators fc ON fc.family_id = f.id AND fc.user_id = $2
     LEFT JOIN persons p ON f.id = p.family_id
     LEFT JOIN relationships r ON r.person1_id = p.id
     LEFT JOIN memories m ON f.id = m.family_id
-    WHERE f.id = $1 AND f.created_by = $2
-    GROUP BY f.id;
+    WHERE f.id = $1 AND (f.created_by = $2 OR fc.user_id = $2)
+    GROUP BY f.id, fc.role;
   `;
   const { rows } = await pool.query(query, [family_id, user_id]);
   return rows[0] || null;

@@ -1,18 +1,21 @@
-const pool = require('../config/db');
+const legacyModel = require('../models/legacyModel');
 
 exports.createLegacyMessage = async (req, res) => {
   try {
     const { person_id } = req.params;
     const { title, message, emotion_tag } = req.body;
-    
-    // Create new legacy message
-    const result = await pool.query(
-      `INSERT INTO legacy_messages (person_id, title, message, emotion_tag) 
-       VALUES ($1, $2, $3, $4) RETURNING *`,
-      [person_id, title, message, emotion_tag]
+
+    const created = await legacyModel.createLegacyMessage(
+      person_id,
+      { title, message, emotion_tag },
+      req.user.id
     );
-    
-    res.status(201).json(result.rows[0]);
+
+    if (!created) {
+      return res.status(404).json({ error: 'Person not found' });
+    }
+
+    res.status(201).json(created);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error creating legacy message' });
@@ -22,11 +25,8 @@ exports.createLegacyMessage = async (req, res) => {
 exports.getLegacyMessages = async (req, res) => {
   try {
     const { person_id } = req.params;
-    const result = await pool.query(
-      `SELECT * FROM legacy_messages WHERE person_id = $1 ORDER BY created_at DESC`,
-      [person_id]
-    );
-    res.json(result.rows);
+    const messages = await legacyModel.getLegacyMessages(person_id, req.user.id);
+    res.json(messages);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error fetching legacy messages' });

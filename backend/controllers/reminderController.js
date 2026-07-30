@@ -1,4 +1,5 @@
 const pool = require('../config/db');
+const { getFamilyRole } = require('../models/collaboratorModel');
 
 /**
  * Fetch upcoming events (birthdays, death anniversaries, memories) for a specific family.
@@ -7,6 +8,11 @@ const pool = require('../config/db');
 const getUpcomingReminders = async (req, res) => {
   try {
     const { family_id } = req.params;
+
+    const my_role = await getFamilyRole(family_id, req.user.id);
+    if (!my_role) {
+      return res.status(404).json({ message: 'Family not found' });
+    }
 
     // We query Postgres to find events where the month and day fall within the next 30 days
     // A simpler approximation: sort by relative day of year. 

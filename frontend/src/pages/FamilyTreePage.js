@@ -35,6 +35,12 @@ const CardHeader = ({ icon, title, sub }) => (
   </div>
 );
 
+const ViewerLockNotice = () => (
+  <p className="mb-4 text-xs font-medium text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-2">
+    👁️ You have view-only access to this lineage.
+  </p>
+);
+
 // ─────────────────────────────────────────────
 // WORKSPACE SUMMARY
 // ─────────────────────────────────────────────
@@ -293,6 +299,8 @@ const FamilyTreePage = () => {
   const [treeData, setTreeData] = useState({ nodes: [], edges: [] });
   const [error, setError] = useState('');
   const [isDemo, setIsDemo] = useState(false);
+  const [myRole, setMyRole] = useState('owner');
+  const isViewer = myRole === 'viewer';
 
 
   const [activities, setActivities] = useState([]);
@@ -334,6 +342,7 @@ const FamilyTreePage = () => {
     try {
       const data = await getFamilyTree(familyId);
       setTreeData({ nodes: data.nodes || [], edges: data.edges || [] });
+      if (data.my_role) setMyRole(data.my_role);
     } catch { setError('Failed to fetch family tree.'); }
   };
 
@@ -458,16 +467,19 @@ const FamilyTreePage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 fill-mode-both">
           <Card className="p-6">
             <CardHeader icon="🤝" title="Collaborate" sub="Manage team access" />
-            <CollaborationPanel familyId={isDemo ? null : selectedFamily} onActivity={(msg) => pushActivity('default', msg)} />
+            <CollaborationPanel familyId={isDemo ? null : selectedFamily} isOwner={myRole === 'owner'} onActivity={(msg) => pushActivity('default', msg)} />
           </Card>
           <Card className="p-6">
-            <GedcomImport
-              familyId={isDemo ? null : selectedFamily}
-              onImportSuccess={(data) => {
-                setTreeData(data);
-                pushActivity('imported_gedcom', 'Imported a GEDCOM file');
-              }}
-            />
+            {isViewer && <ViewerLockNotice />}
+            <div className={isViewer ? 'opacity-40 pointer-events-none select-none' : ''}>
+              <GedcomImport
+                familyId={isDemo ? null : selectedFamily}
+                onImportSuccess={(data) => {
+                  setTreeData(data);
+                  pushActivity('imported_gedcom', 'Imported a GEDCOM file');
+                }}
+              />
+            </div>
           </Card>
         </div>
 
@@ -475,11 +487,17 @@ const FamilyTreePage = () => {
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 fill-mode-both">
           <Card className="p-8" accent>
             <CardHeader icon="👤" title="Add Member" sub="Spawn a new node" />
-            <SmartMemberForm onSubmit={handleCreatePerson} existingNodes={treeData.nodes} />
+            {isViewer && <ViewerLockNotice />}
+            <div className={isViewer ? 'opacity-40 pointer-events-none select-none' : ''}>
+              <SmartMemberForm onSubmit={handleCreatePerson} existingNodes={treeData.nodes} />
+            </div>
           </Card>
           <Card className="p-8" accent>
             <CardHeader icon="⚡" title="Build Relationship" sub="Forge a family link" />
-            <RelationshipBuilder nodes={treeData.nodes} onSubmit={handleCreateRelationship} />
+            {isViewer && <ViewerLockNotice />}
+            <div className={isViewer ? 'opacity-40 pointer-events-none select-none' : ''}>
+              <RelationshipBuilder nodes={treeData.nodes} onSubmit={handleCreateRelationship} />
+            </div>
           </Card>
         </div>
 

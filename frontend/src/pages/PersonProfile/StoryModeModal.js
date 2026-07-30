@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import api from '../../api/api';
 import Modal from '../../components/Modal';
 
@@ -6,7 +6,7 @@ const StoryModeModal = ({ person, memories, relationships, relPersons, onClose }
   const [story, setStory] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const buildStory = async () => {
+  const buildStory = useCallback(async () => {
     setLoading(true);
     try {
       const res = await api.post('/ai/generate-biography', { person_id: person.id });
@@ -19,9 +19,9 @@ const StoryModeModal = ({ person, memories, relationships, relPersons, onClose }
       const memDesc = memories.length > 0 ? ` Their story holds ${memories.length} recorded chapter${memories.length > 1 ? 's' : ''} of life.` : '';
       setStory(`${name} was born${born}${origin}. ${relDesc ? `Connected to ${relDesc}, they are a cherished member of the family.` : 'They are a cherished member of the family.'}${memDesc} ${person.occupation ? `${name} dedicated their life to ${person.occupation}.` : ''}`);
     } finally { setLoading(false); }
-  };
+  }, [person, relPersons, memories]);
 
-  useEffect(() => { buildStory(); }, []);
+  useEffect(() => { buildStory(); }, [buildStory]);
 
   return (
     <Modal maxWidth="max-w-xl" onClose={onClose}>

@@ -132,9 +132,12 @@ app.use(errorHandler);
 // Port configuration
 const PORT = process.env.PORT || 5001;
 
-// Start server defaults to local, exported for serverless
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Start server defaults to local, exported for serverless — guarded so
+// requiring this module in tests (via supertest) doesn't also bind a port.
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
 
 module.exports = app;

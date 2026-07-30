@@ -93,6 +93,7 @@ const CardLineageCanvas = ({ active }) => {
 // ─────────────────────────────────────────────
 const LineageCard = ({ fam, isLastOpened, onSelect, onUpdate, onDelete, formatDate, transitioning }) => {
   const [hovered, setHovered] = useState(false);
+  const isOwner = fam.my_role ? fam.my_role === 'owner' : true;
 
   return (
     <div
@@ -132,11 +133,18 @@ const LineageCard = ({ fam, isLastOpened, onSelect, onUpdate, onDelete, formatDa
       {/* Card content */}
       <div className="z-[5] flex justify-between items-start w-full gap-2 relative">
         <div className="flex-1">
-          {isLastOpened && (
-            <span className="inline-block px-2 py-0.5 bg-rose-500/10 border border-rose-500/30 rounded-md text-[10px] font-black tracking-widest text-rose-400 uppercase mb-3">
-              Last Opened
-            </span>
-          )}
+          <div className="flex flex-wrap gap-2 mb-3">
+            {isLastOpened && (
+              <span className="inline-block px-2 py-0.5 bg-rose-500/10 border border-rose-500/30 rounded-md text-[10px] font-black tracking-widest text-rose-400 uppercase">
+                Last Opened
+              </span>
+            )}
+            {!isOwner && (
+              <span className="inline-block px-2 py-0.5 bg-blue-500/10 border border-blue-500/30 rounded-md text-[10px] font-black tracking-widest text-blue-400 uppercase">
+                Shared · {fam.my_role}
+              </span>
+            )}
+          </div>
           <h4 className={`text-2xl font-bold mb-1 tracking-tight truncate pr-2 transition-colors duration-300 ${hovered ? "text-white" : "text-gray-100"}`}>
             {fam.family_name}
           </h4>
@@ -146,10 +154,12 @@ const LineageCard = ({ fam, isLastOpened, onSelect, onUpdate, onDelete, formatDa
           </p>
         </div>
 
-        <div className={`flex gap-2 transition-opacity duration-300 bg-black/60 p-1.5 rounded-lg border border-white/5 backdrop-blur-md shadow-lg shrink-0 ${hovered ? "opacity-100" : "opacity-0"}`}>
-          <button onClick={(e) => onUpdate(e, fam.id, fam.family_name)} className="text-gray-400 hover:text-white transition-colors p-1" title="Rename">✏️</button>
-          <button onClick={(e) => onDelete(e, fam.id)} className="text-gray-400 hover:text-rose-500 transition-colors p-1" title="Delete">🗑️</button>
-        </div>
+        {isOwner && (
+          <div className={`flex gap-2 transition-opacity duration-300 bg-black/60 p-1.5 rounded-lg border border-white/5 backdrop-blur-md shadow-lg shrink-0 ${hovered ? "opacity-100" : "opacity-0"}`}>
+            <button onClick={(e) => onUpdate(e, fam.id, fam.family_name)} className="text-gray-400 hover:text-white transition-colors p-1" title="Rename">✏️</button>
+            <button onClick={(e) => onDelete(e, fam.id)} className="text-gray-400 hover:text-rose-500 transition-colors p-1" title="Delete">🗑️</button>
+          </div>
+        )}
       </div>
 
       <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest z-[5] mb-auto mt-4 mix-blend-screen relative">
@@ -185,15 +195,7 @@ const Dashboard = () => {
   const [deleteModalState, setDeleteModalState] = useState({ isOpen: false, familyId: null, isDeleting: false });
   const [renameModalState, setRenameModalState] = useState({ isOpen: false, familyId: null, currentName: '', newName: '', isSaving: false });
 
-  useEffect(() => {
-    fetchFamilies();
-    const handleMouseMove = (e) =>
-      setMousePos({ x: (e.clientX / window.innerWidth) * 100, y: (e.clientY / window.innerHeight) * 100 });
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  const fetchFamilies = async () => {
+  const fetchFamilies = useCallback(async () => {
     try {
       const response = await getFamilies();
       const familyList = response?.data || response || [];
@@ -202,7 +204,15 @@ const Dashboard = () => {
     } catch (err) {
       addToast("Failed to fetch lineages.", "error");
     }
-  };
+  }, [addToast]);
+
+  useEffect(() => {
+    fetchFamilies();
+    const handleMouseMove = (e) =>
+      setMousePos({ x: (e.clientX / window.innerWidth) * 100, y: (e.clientY / window.innerHeight) * 100 });
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [fetchFamilies]);
 
   // Smooth zoom-fade transition before navigating
   const handleFamilySelect = useCallback((familyId) => {

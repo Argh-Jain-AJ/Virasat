@@ -1,5 +1,8 @@
 import api from '../api/api';
 
+// Unwraps the { success, data } envelope used by newer controllers.
+const unwrap = (response) => (response.data.success !== undefined ? response.data.data : response.data);
+
 /**
  * Creates a new family
  * @param {Object} data - { family_name }
@@ -74,5 +77,27 @@ export const updateRelationship = async (relationshipId, data) => {
 
 export const deleteRelationship = async (relationshipId) => {
   const response = await api.delete(`/relationships/${relationshipId}`);
+  return response.data;
+};
+
+// --- Collaborators ---
+
+export const getCollaborators = async (familyId) => {
+  const response = await api.get(`/families/${familyId}/collaborators`);
+  return unwrap(response);
+};
+
+export const inviteCollaborator = async (familyId, { email, role }) => {
+  const response = await api.post(`/families/${familyId}/collaborators`, { email, role });
+  return unwrap(response);
+};
+
+export const updateCollaboratorRole = async (familyId, userId, role) => {
+  const response = await api.put(`/families/${familyId}/collaborators/${userId}`, { role });
+  return unwrap(response);
+};
+
+export const removeCollaborator = async (familyId, userId) => {
+  const response = await api.delete(`/families/${familyId}/collaborators/${userId}`);
   return response.data;
 };

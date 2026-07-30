@@ -9,6 +9,7 @@ const path = require('path');
 const fs = require('fs');
 const pool = require('../config/db');
 const rateLimit = require('express-rate-limit');
+const { writableFamilyIdsSubquery } = require('../models/collaboratorModel');
 
 // Dedicated rate limiter for file uploads (10 per 15 min)
 const uploadLimiter = rateLimit({
@@ -54,7 +55,7 @@ router.post(
       const { rows } = await pool.query(
         `UPDATE persons SET photo_url = $1
          WHERE id = $2
-           AND family_id IN (SELECT id FROM families WHERE created_by = $3)
+           AND family_id IN ${writableFamilyIdsSubquery(3)}
          RETURNING *`,
         [photoUrl, req.params.person_id, req.user.id]
       );

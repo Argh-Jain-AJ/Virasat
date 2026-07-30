@@ -1,11 +1,13 @@
 const pool = require('../config/db');
+const { readableFamilyIdsSubquery, writableFamilyIdsSubquery } = require('./collaboratorModel');
 
 /**
- * Creates a new memory 
+ * Creates a new memory in a family the user owns or has editor access to
  * @param {Object} memoryData - The memory data
- * @returns {Object} The created memory object
+ * @param {string} user_id - The ID of the requesting user
+ * @returns {Object|null} The created memory, or null if the family isn't writable by user_id
  */
-const createMemory = async (memoryData) => {
+const createMemory = async (memoryData, user_id) => {
   const {
     family_id,
     person_id,
@@ -18,64 +20,68 @@ const createMemory = async (memoryData) => {
 
   const query = `
     INSERT INTO memories (
-      family_id, person_id, title, description, 
+      family_id, person_id, title, description,
       media_url, media_type, event_date
     )
-    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    SELECT $1, $2, $3, $4, $5, $6, $7
+    WHERE $1 IN ${writableFamilyIdsSubquery(8)}
     RETURNING *;
   `;
-  
+
   const values = [
     family_id, person_id, title, description,
-    media_url, media_type, event_date
+    media_url, media_type, event_date, user_id
   ];
-  
+
   const { rows } = await pool.query(query, values);
-  return rows[0];
+  return rows[0] || null;
 };
 
 /**
- * Retrieves all memories for a specific family
+ * Retrieves all memories for a family the user can read (owner or collaborator)
  * @param {string} family_id - The ID of the family
+ * @param {string} user_id - The ID of the requesting user
  * @returns {Array} List of memories
  */
-const getMemoriesByFamily = async (family_id) => {
+const getMemoriesByFamily = async (family_id, user_id) => {
   const query = `
     SELECT * FROM memories
-    WHERE family_id = $1
+    WHERE family_id = $1 AND family_id IN ${readableFamilyIdsSubquery(2)}
     ORDER BY event_date DESC NULLS LAST, created_at DESC;
   `;
-  const { rows } = await pool.query(query, [family_id]);
+  const { rows } = await pool.query(query, [family_id, user_id]);
   return rows;
 };
 
 /**
- * Retrieves all memories linked to a specific person
+ * Retrieves all memories linked to a specific person, scoped to families the user can read
  * @param {string} person_id - The ID of the person
+ * @param {string} user_id - The ID of the requesting user
  * @returns {Array} List of memories
  */
-const getMemoriesByPerson = async (person_id) => {
+const getMemoriesByPerson = async (person_id, user_id) => {
   const query = `
     SELECT * FROM memories
-    WHERE person_id = $1
+    WHERE person_id = $1 AND family_id IN ${readableFamilyIdsSubquery(2)}
     ORDER BY event_date DESC NULLS LAST, created_at DESC;
   `;
-  const { rows } = await pool.query(query, [person_id]);
+  const { rows } = await pool.query(query, [person_id, user_id]);
   return rows;
 };
 
 /**
- * Deletes a memory
+ * Deletes a memory, scoped to families the user owns or edits
  * @param {string} memory_id - The ID of the memory to delete
- * @returns {boolean} True if deleted, false if not found
+ * @param {string} user_id - The ID of the requesting user
+ * @returns {boolean} True if deleted, false if not found/not accessible
  */
-const deleteMemory = async (memory_id) => {
+const deleteMemory = async (memory_id, user_id) => {
   const query = `
     DELETE FROM memories
-    WHERE id = $1
+    WHERE id = $1 AND family_id IN ${writableFamilyIdsSubquery(2)}
     RETURNING id;
   `;
-  const { rows } = await pool.query(query, [memory_id]);
+  const { rows } = await pool.query(query, [memory_id, user_id]);
   return rows.length > 0;
 };
 

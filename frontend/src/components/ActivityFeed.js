@@ -31,7 +31,7 @@ const ActivityItem = ({ item, index }) => {
       el.style.opacity = '1';
       el.style.transform = 'translateX(0)';
     });
-  }, []);
+  }, [index]);
 
   const icon = ACTION_ICONS[item.type] || ACTION_ICONS.default;
 

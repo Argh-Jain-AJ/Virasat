@@ -2,6 +2,7 @@ const fs = require('fs');
 const { parseGedcom } = require('../utils/gedcomParser');
 const { buildFamilyTreeData } = require('../utils/treeBuilder');
 const pool = require('../config/db');
+const { writableFamilyIdsSubquery } = require('../models/collaboratorModel');
 
 // We use direct pool queries here to handle bulk inserts, checking duplicates, and mappings efficiently.
 
@@ -22,11 +23,11 @@ const importGedcom = async (req, res, next) => {
        return res.status(400).json({ error: true, message: 'Family ID is required to import members.' });
     }
 
-    const ownsFamily = await pool.query(
-      'SELECT id FROM families WHERE id = $1 AND created_by = $2',
+    const canWriteFamily = await pool.query(
+      `SELECT id FROM families WHERE id = $1 AND id IN ${writableFamilyIdsSubquery(2)}`,
       [family_id, req.user.id]
     );
-    if (ownsFamily.rows.length === 0) {
+    if (canWriteFamily.rows.length === 0) {
       return res.status(404).json({ error: true, message: 'Family not found.' });
     }
 

@@ -7,7 +7,12 @@ const memoryService = require('../services/memoryService');
 const createMemory = async (req, res) => {
   try {
     const memoryData = req.body;
-    const newMemory = await memoryService.createMemory(memoryData);
+    const newMemory = await memoryService.createMemory(memoryData, req.user.id);
+
+    if (!newMemory) {
+      return res.status(404).json({ message: 'Family not found' });
+    }
+
     res.status(201).json(newMemory);
   } catch (error) {
     console.error('Error creating memory:', error);
@@ -25,7 +30,7 @@ const createMemory = async (req, res) => {
 const getMemoriesByFamily = async (req, res) => {
   try {
     const { family_id } = req.params;
-    const memories = await memoryService.getMemoriesByFamily(family_id);
+    const memories = await memoryService.getMemoriesByFamily(family_id, req.user.id);
     res.status(200).json(memories);
   } catch (error) {
     console.error('Error getting memories by family:', error);
@@ -40,7 +45,7 @@ const getMemoriesByFamily = async (req, res) => {
 const getMemoriesByPerson = async (req, res) => {
   try {
     const { person_id } = req.params;
-    const memories = await memoryService.getMemoriesByPerson(person_id);
+    const memories = await memoryService.getMemoriesByPerson(person_id, req.user.id);
     res.status(200).json(memories);
   } catch (error) {
     console.error('Error getting memories by person:', error);
@@ -55,12 +60,12 @@ const getMemoriesByPerson = async (req, res) => {
 const deleteMemory = async (req, res) => {
   try {
     const { memory_id } = req.params;
-    const success = await memoryService.deleteMemory(memory_id);
-    
+    const success = await memoryService.deleteMemory(memory_id, req.user.id);
+
     if (!success) {
       return res.status(404).json({ message: 'Memory not found' });
     }
-    
+
     res.status(200).json({ message: 'Memory deleted successfully' });
   } catch (error) {
     console.error('Error deleting memory:', error);
