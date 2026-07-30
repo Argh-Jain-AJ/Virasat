@@ -4,6 +4,7 @@ import { getFamilies, createFamily, deleteFamily, updateFamily } from "../servic
 import bgImage from "../assets/hero-bg.png";
 import CanvasNetwork from "../components/CanvasNetwork";
 import Modal from "../components/Modal";
+import GettingStartedChecklist from "../components/GettingStartedChecklist";
 import { useToast } from "../context/ToastContext";
 
 // ─────────────────────────────────────────────
@@ -280,6 +281,10 @@ const Dashboard = () => {
     return new Date(dateString).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
   };
 
+  const scrollToCreateForm = () => {
+    document.getElementById("establish-origin")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("selectedFamily");
@@ -362,6 +367,13 @@ const Dashboard = () => {
               </button>
             </div>
           </header>
+
+          {/* ── GETTING STARTED ── */}
+          <GettingStartedChecklist
+            families={families}
+            onCreateLineage={scrollToCreateForm}
+            onGoToTree={() => handleFamilySelect(lastOpenedId)}
+          />
 
           {/* ── GRID ── */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">

@@ -24,9 +24,15 @@ const createFamily = async (family_name, created_by) => {
  */
 const getFamiliesByUser = async (user_id) => {
   const query = `
-    SELECT f.id, f.family_name, f.created_by, f.created_at, COUNT(p.id)::int AS member_count
+    SELECT
+      f.id, f.family_name, f.created_by, f.created_at,
+      COUNT(DISTINCT p.id)::int AS member_count,
+      COUNT(DISTINCT r.id)::int AS relationship_count,
+      COUNT(DISTINCT m.id)::int AS memory_count
     FROM families f
     LEFT JOIN persons p ON f.id = p.family_id
+    LEFT JOIN relationships r ON r.person1_id = p.id
+    LEFT JOIN memories m ON f.id = m.family_id
     WHERE f.created_by = $1
     GROUP BY f.id
     ORDER BY f.created_at DESC;
@@ -42,9 +48,15 @@ const getFamiliesByUser = async (user_id) => {
  */
 const getFamilyById = async (family_id, user_id) => {
   const query = `
-    SELECT f.id, f.family_name, f.created_by, f.created_at, COUNT(p.id)::int AS member_count
+    SELECT
+      f.id, f.family_name, f.created_by, f.created_at,
+      COUNT(DISTINCT p.id)::int AS member_count,
+      COUNT(DISTINCT r.id)::int AS relationship_count,
+      COUNT(DISTINCT m.id)::int AS memory_count
     FROM families f
     LEFT JOIN persons p ON f.id = p.family_id
+    LEFT JOIN relationships r ON r.person1_id = p.id
+    LEFT JOIN memories m ON f.id = m.family_id
     WHERE f.id = $1 AND f.created_by = $2
     GROUP BY f.id;
   `;
