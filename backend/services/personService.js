@@ -7,8 +7,8 @@ const personModel = require('../models/personModel');
  * @returns {Object|null} Created person, or null if family isn't owned by user_id
  */
 const addPerson = async (personData, user_id) => {
-  if (!personData.family_id || !personData.first_name || !personData.last_name) {
-    throw new Error('Family ID, first name, and last name are required');
+  if (!personData.family_id || !personData.first_name) {
+    throw new Error('Family ID and first name are required');
   }
   return await personModel.createPerson(personData, user_id);
 };
