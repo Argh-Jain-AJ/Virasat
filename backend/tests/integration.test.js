@@ -369,6 +369,19 @@ describe('Family Tree Backend Integration Tests', () => {
     if (familyId && token) {
       await request(app).delete(`/api/families/${familyId}`).set('Authorization', `Bearer ${token}`);
     }
+    // The family delete above only removes the owning user's data (families
+    // cascade to persons/relationships/memories) — it never removed the
+    // *users* this suite registers (testEmail/collabEmail/strangerEmail/
+    // resetEmail/nobody_*), so every run against a real (non-disposable) DB
+    // left orphaned accounts behind indefinitely. Sweep all of this suite's
+    // known email patterns here regardless of which describe block created them.
+    await pool.query(
+      `DELETE FROM users WHERE email LIKE 'test_%@example.com'
+         OR email LIKE 'collab_%@example.com'
+         OR email LIKE 'stranger_%@example.com'
+         OR email LIKE 'reset_%@example.com'
+         OR email LIKE 'nobody_%@example.com';`
+    );
     // Close all pooled connections explicitly so Jest can exit cleanly
     // instead of waiting on pg's idle-connection timeout.
     await pool.end();

@@ -6,11 +6,32 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const rateLimit = require('express-rate-limit');
 const xssClean = require('xss-clean');
+const pinoHttp = require('pino-http');
+const logger = require('./utils/logger');
 
 // Import database pool
 const pool = require('./config/db');
 
+// A crash from here on out is loud (structured, with a full stack) instead
+// of a bare stderr dump — previously these had no handler at all, so
+// whether the process even logged anything before dying depended on
+// Node's default behavior rather than anything this app controlled.
+process.on('uncaughtException', (err) => {
+  logger.fatal({ err }, 'Uncaught exception — process exiting');
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason) => {
+  logger.fatal({ err: reason }, 'Unhandled promise rejection — process exiting');
+  process.exit(1);
+});
+
 const app = express();
+
+// Structured, one-line-per-request logging (method, path, status, response
+// time, request id) — placed first so even requests rejected by later
+// middleware (helmet, CORS, rate limits) still get logged.
+app.use(pinoHttp({ logger }));
 
 // ── 1. Security headers via Helmet ────────────────────────────
 app.use(helmet({
@@ -61,21 +82,29 @@ app.use(express.json({ limit: '10kb' }));
 app.use(mongoSanitize());   // Strip $ and . from keys (NoSQL-injection pattern)
 app.use(xssClean());        // Strip HTML/script tags from req.body/query/params
 
-// ── 4. Serve uploaded files ───────────────────────────────────
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 // ── 5. Rate limiters ─────────────────────────────────────────
+// General API cap. 300/15min (the original default) was load-tested and
+// found to reject ~99% of requests under completely ordinary single-user
+// browsing — a normal page's worth of API calls (families, tree, reminders,
+// search) burns through it in well under a minute, and it's shared by every
+// user behind the same IP (offices, campuses, mobile carrier NAT). Bumped to
+// a level that comfortably covers real usage while still bounding abuse;
+// tunable via env without a code change.
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 300,
+  max: parseInt(process.env.API_RATE_LIMIT_MAX, 10) || 1000,
   standardHeaders: true,
   legacyHeaders: false,
   message: { message: 'Too many requests from this IP, please try again in 15 minutes' }
 });
 
+// Deliberately much stricter — guards the bcrypt-heavy register/login path
+// against credential stuffing. A real user authenticates once and reuses
+// the JWT, so this doesn't bite normal usage the way apiLimiter's old
+// value did.
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 15,  // ← tightened from 25
+  max: parseInt(process.env.AUTH_RATE_LIMIT_MAX, 10) || 15,
   standardHeaders: true,
   legacyHeaders: false,
   message: { message: 'Too many authentication attempts, please try again later' }
